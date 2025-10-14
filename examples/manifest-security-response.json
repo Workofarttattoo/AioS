@@ -1,0 +1,54 @@
+{
+  "meta_agents": {
+    "security": {
+      "description": "Focused security hardening and Sovereign toolkit readiness.",
+      "actions": [
+        {"key": "access_control", "description": "Activate RBAC policies.", "critical": true},
+        {"key": "encryption", "description": "Start cryptographic services.", "critical": true},
+        {"key": "firewall", "description": "Enable network firewall.", "critical": true},
+        {"key": "threat_detection", "description": "Launch anomaly detection.", "critical": false},
+        {"key": "audit_review", "description": "Stream security audit logs.", "critical": false},
+        {"key": "integrity_survey", "description": "Capture forensic integrity snapshot.", "critical": false},
+        {"key": "sovereign_suite", "description": "Assess Sovereign toolkit readiness.", "critical": false}
+      ]
+    },
+    "scalability": {
+      "description": "Virtualization readiness and telemetry fan-out.",
+      "actions": [
+        {"key": "monitor_load", "description": "Observe resource utilization.", "critical": false},
+        {"key": "virtualization_inspect", "description": "Assess virtualization readiness.", "critical": false},
+        {"key": "virtualization_domains", "description": "List available virtualization domains.", "critical": false}
+      ]
+    },
+    "orchestration": {
+      "description": "Aggregate telemetry and produce supervisor reports.",
+      "actions": [
+        {"key": "policy_engine", "description": "Apply runtime policies.", "critical": true},
+        {"key": "telemetry", "description": "Emit telemetry to observers.", "critical": false},
+        {"key": "health_monitor", "description": "Consolidate health signals.", "critical": false},
+        {"key": "supervisor_report", "description": "Synthesize init-style supervisor report.", "critical": false}
+      ]
+    }
+  },
+  "boot_sequence": [
+    "security.access_control",
+    "security.encryption",
+    "security.firewall",
+    "security.threat_detection",
+    "security.integrity_survey",
+    "security.sovereign_suite",
+    "scalability.monitor_load",
+    "scalability.virtualization_inspect",
+    "orchestration.supervisor_report",
+    "orchestration.telemetry"
+  ],
+  "shutdown_sequence": [
+    "orchestration.supervisor_report",
+    "orchestration.telemetry",
+    "scalability.virtualization_domains",
+    "scalability.monitor_load",
+    "security.sovereign_suite",
+    "security.firewall",
+    "security.access_control"
+  ]
+}

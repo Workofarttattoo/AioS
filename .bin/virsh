@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+# Mock virsh binary for virtualization inspections.
+
+COMMAND=$1
+shift
+
+case "$COMMAND" in
+  list)
+    if [[ "$1" == "--all" ]]; then
+      cat <<'EOF'
+ Id   Name                 State
+------------------------------------
+  -    mock-domain         shut off
+EOF
+      exit 0
+    fi
+    ;;
+  dominfo)
+    DOMAIN=$1
+    cat <<EOF
+Id:             -
+Name:           ${DOMAIN}
+UUID:           00000000-0000-0000-0000-000000000000
+State:          shut off
+CPU(s):         4
+Max memory:     8192 KiB
+Used memory:    0 KiB
+Persistent:     yes
+Autostart:      disable
+Managed save:   no
+EOF
+    exit 0
+    ;;
+  start|shutdown)
+    DOMAIN=$1
+    echo "[mock-virsh] $COMMAND request for ${DOMAIN}"
+    exit 0
+    ;;
+esac
+
+echo "[mock-virsh] unsupported invocation: $COMMAND $*" >&2
+exit 0

@@ -1,0 +1,19 @@
+[
+  {
+    "name": "hosts-tail",
+    "mode": "process",
+    "command": ["/usr/bin/tail", "-n", "5", "/etc/hosts"],
+    "restart": "never",
+    "nice": 5
+  },
+  {
+    "name": "reports",
+    "mode": "docker",
+    "image": "alpine:3.19",
+    "args": ["sh", "-c", "echo report && sleep 1"],
+    "docker_cpus": "0.5",
+    "docker_memory": "256m",
+    "restart": "on-failure",
+    "max_restarts": 1
+  }
+]

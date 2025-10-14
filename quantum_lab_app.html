@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Lab - Circuit Builder</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: #000;
+            color: #00ff88;
+            overflow-x: hidden;
+        }
+
+        .container {
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            padding: 30px 0;
+            border-bottom: 2px solid #a855f7;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 36px;
+            color: #a855f7;
+            text-shadow: 0 0 20px #a855f7;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #00d4ff;
+            font-size: 14px;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 250px 1fr 300px;
+            gap: 20px;
+        }
+
+        .panel {
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #a855f7;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .panel-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #a855f7;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(168, 85, 247, 0.3);
+        }
+
+        /* Gate Palette */
+        .gate-palette {
+            display: grid;
+            gap: 10px;
+        }
+
+        .gate-btn {
+            padding: 12px;
+            background: rgba(168, 85, 247, 0.2);
+            border: 1px solid #a855f7;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            color: #00ff88;
+        }
+
+        .gate-btn:hover {
+            background: rgba(168, 85, 247, 0.4);
+            transform: translateX(5px);
+        }
+
+        .gate-btn.selected {
+            background: rgba(168, 85, 247, 0.6);
+            border-color: #00ff88;
+        }
+
+        /* Circuit Canvas */
+        .circuit-canvas {
+            background: #000;
+            border: 2px solid #a855f7;
+            border-radius: 10px;
+            padding: 30px;
+            min-height: 500px;
+            position: relative;
+        }
+
+        .qubit-line {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .qubit-label {
+            width: 80px;
+            color: #a855f7;
+            font-weight: bold;
+        }
+
+        .qubit-wire {
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(90deg, #a855f7 0%, #00d4ff 100%);
+            position: relative;
+            margin: 0 20px;
+        }
+
+        .gate-on-wire {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: rgba(168, 85, 247, 0.8);
+            border: 2px solid #00ff88;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: bold;
+            color: #00ff88;
+            cursor: pointer;
+            transform: translateY(-50%) translateX(-50%);
+            transition: all 0.2s;
+        }
+
+        .gate-on-wire:hover {
+            transform: translateY(-50%) translateX(-50%) scale(1.1);
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.8);
+        }
+
+        .control-dot {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: #00ff88;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #00ff88;
+        }
+
+        .control-line {
+            position: absolute;
+            width: 2px;
+            background: #00ff88;
+            box-shadow: 0 0 10px #00ff88;
+        }
+
+        /* Controls Panel */
+        .control-group {
+            margin-bottom: 20px;
+        }
+
+        .control-label {
+            font-size: 12px;
+            color: #00d4ff;
+            margin-bottom: 8px;
+        }
+
+        .control-value {
+            font-size: 14px;
+            color: #00ff88;
+            margin-bottom: 5px;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 10px;
+            background: rgba(0, 255, 136, 0.2);
+            border: 1px solid #00ff88;
+            border-radius: 5px;
+            color: #00ff88;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            transition: all 0.2s;
+        }
+
+        .btn:hover {
+            background: rgba(0, 255, 136, 0.4);
+        }
+
+        .btn-danger {
+            background: rgba(255, 0, 0, 0.2);
+            border-color: #ff0000;
+            color: #ff0000;
+        }
+
+        .btn-danger:hover {
+            background: rgba(255, 0, 0, 0.4);
+        }
+
+        /* State Vector Display */
+        .state-vector {
+            background: #001100;
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 5px;
+            padding: 15px;
+            margin-top: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .state-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            border-bottom: 1px solid rgba(0, 255, 136, 0.1);
+            font-size: 11px;
+        }
+
+        .state-basis {
+            color: #a855f7;
+        }
+
+        .state-amplitude {
+            color: #00ff88;
+        }
+
+        /* Measurement Results */
+        .measurement-results {
+            background: #001100;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 5px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .result-bar {
+            margin-bottom: 10px;
+        }
+
+        .result-label {
+            font-size: 11px;
+            color: #00d4ff;
+            margin-bottom: 3px;
+        }
+
+        .result-progress {
+            height: 20px;
+            background: rgba(0, 212, 255, 0.2);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .result-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #a855f7, #00d4ff);
+            transition: width 0.5s ease;
+        }
+
+        .toolbar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .toolbar-btn {
+            padding: 8px 15px;
+            background: rgba(168, 85, 247, 0.2);
+            border: 1px solid #a855f7;
+            border-radius: 5px;
+            color: #00ff88;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+        }
+
+        .toolbar-btn:hover {
+            background: rgba(168, 85, 247, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⚛️ QUANTUM LAB</h1>
+            <p>Quantum Circuit Builder & Simulator</p>
+        </div>
+
+        <div class="main-content">
+            <!-- Gate Palette -->
+            <div class="panel">
+                <div class="panel-title">QUANTUM GATES</div>
+                <div class="gate-palette">
+                    <div class="gate-btn" data-gate="H">
+                        <div>H</div>
+                        <div style="font-size: 10px; color: #00d4ff;">Hadamard</div>
+                    </div>
+                    <div class="gate-btn" data-gate="X">
+                        <div>X</div>
+                        <div style="font-size: 10px; color: #00d4ff;">Pauli-X (NOT)</div>
+                    </div>
+                    <div class="gate-btn" data-gate="Y">
+                        <div>Y</div>
+                        <div style="font-size: 10px; color: #00d4ff;">Pauli-Y</div>
+                    </div>
+                    <div class="gate-btn" data-gate="Z">
+                        <div>Z</div>
+                        <div style="font-size: 10px; color: #00d4ff;">Pauli-Z</div>
+                    </div>
+                    <div class="gate-btn" data-gate="S">
+                        <div>S</div>
+                        <div style="font-size: 10px; color: #00d4ff;">Phase</div>
+                    </div>
+                    <div class="gate-btn" data-gate="T">
+                        <div>T</div>
+                        <div style="font-size: 10px; color: #00d4ff;">π/8</div>
+                    </div>
+                    <div class="gate-btn" data-gate="RX">
+                        <div>RX</div>
+                        <div style="font-size: 10px; color: #00d4ff;">X-Rotation</div>
+                    </div>
+                    <div class="gate-btn" data-gate="RY">
+                        <div>RY</div>
+                        <div style="font-size: 10px; color: #00d4ff;">Y-Rotation</div>
+                    </div>
+                    <div class="gate-btn" data-gate="RZ">
+                        <div>RZ</div>
+                        <div style="font-size: 10px; color: #00d4ff;">Z-Rotation</div>
+                    </div>
+                    <div class="gate-btn" data-gate="CNOT">
+                        <div>CNOT</div>
+                        <div style="font-size: 10px; color: #00d4ff;">Controlled-NOT</div>
+                    </div>
+                    <div class="gate-btn" data-gate="SWAP">
+                        <div>SWAP</div>
+                        <div style="font-size: 10px; color: #00d4ff;">Swap Qubits</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Circuit Canvas -->
+            <div class="panel">
+                <div class="toolbar">
+                    <div class="toolbar-btn" onclick="addQubit()">+ Add Qubit</div>
+                    <div class="toolbar-btn" onclick="removeQubit()">- Remove Qubit</div>
+                    <div class="toolbar-btn" onclick="clearCircuit()">Clear Circuit</div>
+                </div>
+                <div class="panel-title">CIRCUIT DIAGRAM</div>
+                <div class="circuit-canvas" id="circuitCanvas"></div>
+            </div>
+
+            <!-- Controls & Results -->
+            <div>
+                <div class="panel">
+                    <div class="panel-title">CONTROLS</div>
+
+                    <div class="control-group">
+                        <div class="control-label">Gate Angle (for RX/RY/RZ)</div>
+                        <div class="control-value" id="angleValue">π/2</div>
+                        <input type="range" id="angleSlider" min="0" max="628" value="157"
+                               oninput="updateAngle(this.value)">
+                    </div>
+
+                    <div class="control-group">
+                        <div class="control-label">Shots (measurements)</div>
+                        <div class="control-value" id="shotsValue">1000</div>
+                        <input type="range" id="shotsSlider" min="100" max="10000" value="1000" step="100"
+                               oninput="updateShots(this.value)">
+                    </div>
+
+                    <button class="btn" onclick="runCircuit()">▶ Run Circuit</button>
+                    <button class="btn" onclick="measureCircuit()">📊 Measure</button>
+                    <button class="btn btn-danger" onclick="resetCircuit()">⟲ Reset</button>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-title">STATE VECTOR</div>
+                    <div class="state-vector" id="stateVector">
+                        <div style="text-align: center; color: #00d4ff;">Initialize circuit...</div>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-title">MEASUREMENT RESULTS</div>
+                    <div class="measurement-results" id="measurementResults">
+                        <div style="text-align: center; color: #00d4ff;">Run measurement...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================================
+        // QUANTUM CIRCUIT STATE
+        // ============================================================
+
+        let numQubits = 3;
+        let selectedGate = null;
+        let gateAngle = Math.PI / 2;
+        let numShots = 1000;
+        let circuit = [];
+        let stateVector = null;
+
+        // ============================================================
+        // INITIALIZATION
+        // ============================================================
+
+        function initCircuit() {
+            // Initialize state vector to |000...0⟩
+            const dim = Math.pow(2, numQubits);
+            stateVector = new Array(dim).fill(0).map((_, i) => ({
+                real: i === 0 ? 1 : 0,
+                imag: 0
+            }));
+            renderCircuit();
+            updateStateDisplay();
+        }
+
+        function renderCircuit() {
+            const canvas = document.getElementById('circuitCanvas');
+            canvas.innerHTML = '';
+
+            for (let q = 0; q < numQubits; q++) {
+                const line = document.createElement('div');
+                line.className = 'qubit-line';
+                line.innerHTML = `
+                    <div class="qubit-label">|q${q}⟩</div>
+                    <div class="qubit-wire" data-qubit="${q}"></div>
+                    <div class="qubit-label">→</div>
+                `;
+                canvas.appendChild(line);
+
+                // Make wire clickable to add gates
+                const wire = line.querySelector('.qubit-wire');
+                wire.addEventListener('click', (e) => {
+                    if (selectedGate) {
+                        addGateToCircuit(q, selectedGate, e);
+                    }
+                });
+            }
+
+            // Render existing gates
+            circuit.forEach((gate, idx) => {
+                renderGateOnWire(gate, idx);
+            });
+        }
+
+        function addGateToCircuit(qubit, gateType, event) {
+            const wire = event.target;
+            const rect = wire.getBoundingClientRect();
+            const clickX = event.clientX - rect.left;
+            const position = clickX / rect.width;
+
+            const gate = {
+                type: gateType,
+                qubit: qubit,
+                position: position,
+                angle: gateType.startsWith('R') ? gateAngle : null
+            };
+
+            circuit.push(gate);
+            circuit.sort((a, b) => a.position - b.position);
+            renderCircuit();
+        }
+
+        function renderGateOnWire(gate, idx) {
+            const wires = document.querySelectorAll('.qubit-wire');
+            const wire = wires[gate.qubit];
+            if (!wire) return;
+
+            const gateElem = document.createElement('div');
+            gateElem.className = 'gate-on-wire';
+            gateElem.textContent = gate.type;
+            gateElem.style.left = (gate.position * 100) + '%';
+            gateElem.title = `${gate.type} on q${gate.qubit}`;
+            gateElem.onclick = (e) => {
+                e.stopPropagation();
+                circuit.splice(idx, 1);
+                renderCircuit();
+            };
+
+            wire.appendChild(gateElem);
+        }
+
+        // ============================================================
+        // GATE SELECTION
+        // ============================================================
+
+        document.querySelectorAll('.gate-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.gate-btn').forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+                selectedGate = btn.dataset.gate;
+            });
+        });
+
+        // ============================================================
+        // QUANTUM SIMULATION (Simplified)
+        // ============================================================
+
+        function runCircuit() {
+            resetCircuit();
+
+            circuit.forEach(gate => {
+                applyGate(gate);
+            });
+
+            updateStateDisplay();
+        }
+
+        function applyGate(gate) {
+            const dim = Math.pow(2, numQubits);
+
+            switch(gate.type) {
+                case 'H':
+                    applyHadamard(gate.qubit);
+                    break;
+                case 'X':
+                    applyPauliX(gate.qubit);
+                    break;
+                case 'Y':
+                    applyPauliY(gate.qubit);
+                    break;
+                case 'Z':
+                    applyPauliZ(gate.qubit);
+                    break;
+                case 'RX':
+                    applyRotationX(gate.qubit, gate.angle);
+                    break;
+                case 'RY':
+                    applyRotationY(gate.qubit, gate.angle);
+                    break;
+                case 'RZ':
+                    applyRotationZ(gate.qubit, gate.angle);
+                    break;
+            }
+        }
+
+        function applyHadamard(qubit) {
+            const dim = Math.pow(2, numQubits);
+            const newState = new Array(dim).fill(0).map(() => ({real: 0, imag: 0}));
+            const factor = 1 / Math.sqrt(2);
+
+            for (let i = 0; i < dim; i++) {
+                const bit = (i >> qubit) & 1;
+                const flipped = i ^ (1 << qubit);
+
+                if (bit === 0) {
+                    newState[i].real += factor * stateVector[i].real;
+                    newState[i].imag += factor * stateVector[i].imag;
+                    newState[flipped].real += factor * stateVector[i].real;
+                    newState[flipped].imag += factor * stateVector[i].imag;
+                } else {
+                    newState[i].real += factor * stateVector[i].real;
+                    newState[i].imag += factor * stateVector[i].imag;
+                    newState[flipped].real -= factor * stateVector[i].real;
+                    newState[flipped].imag -= factor * stateVector[i].imag;
+                }
+            }
+
+            stateVector = newState;
+        }
+
+        function applyPauliX(qubit) {
+            const dim = Math.pow(2, numQubits);
+            const newState = new Array(dim).fill(0).map(() => ({real: 0, imag: 0}));
+
+            for (let i = 0; i < dim; i++) {
+                const flipped = i ^ (1 << qubit);
+                newState[flipped] = stateVector[i];
+            }
+
+            stateVector = newState;
+        }
+
+        function applyPauliY(qubit) {
+            const dim = Math.pow(2, numQubits);
+            const newState = new Array(dim).fill(0).map(() => ({real: 0, imag: 0}));
+
+            for (let i = 0; i < dim; i++) {
+                const bit = (i >> qubit) & 1;
+                const flipped = i ^ (1 << qubit);
+
+                if (bit === 0) {
+                    newState[flipped].real = -stateVector[i].imag;
+                    newState[flipped].imag = stateVector[i].real;
+                } else {
+                    newState[flipped].real = stateVector[i].imag;
+                    newState[flipped].imag = -stateVector[i].real;
+                }
+            }
+
+            stateVector = newState;
+        }
+
+        function applyPauliZ(qubit) {
+            const dim = Math.pow(2, numQubits);
+
+            for (let i = 0; i < dim; i++) {
+                const bit = (i >> qubit) & 1;
+                if (bit === 1) {
+                    stateVector[i].real *= -1;
+                    stateVector[i].imag *= -1;
+                }
+            }
+        }
+
+        function applyRotationX(qubit, angle) {
+            const dim = Math.pow(2, numQubits);
+            const newState = new Array(dim).fill(0).map(() => ({real: 0, imag: 0}));
+            const cos = Math.cos(angle / 2);
+            const sin = Math.sin(angle / 2);
+
+            for (let i = 0; i < dim; i++) {
+                const flipped = i ^ (1 << qubit);
+
+                newState[i].real += cos * stateVector[i].real;
+                newState[i].imag += cos * stateVector[i].imag;
+                newState[i].imag += -sin * stateVector[flipped].real;
+                newState[i].real += sin * stateVector[flipped].imag;
+
+                newState[flipped].real += cos * stateVector[flipped].real;
+                newState[flipped].imag += cos * stateVector[flipped].imag;
+                newState[flipped].imag += -sin * stateVector[i].real;
+                newState[flipped].real += sin * stateVector[i].imag;
+            }
+
+            stateVector = newState;
+        }
+
+        function applyRotationY(qubit, angle) {
+            const dim = Math.pow(2, numQubits);
+            const newState = new Array(dim).fill(0).map(() => ({real: 0, imag: 0}));
+            const cos = Math.cos(angle / 2);
+            const sin = Math.sin(angle / 2);
+
+            for (let i = 0; i < dim; i++) {
+                const flipped = i ^ (1 << qubit);
+
+                newState[i].real += cos * stateVector[i].real - sin * stateVector[flipped].real;
+                newState[i].imag += cos * stateVector[i].imag - sin * stateVector[flipped].imag;
+
+                newState[flipped].real += sin * stateVector[i].real + cos * stateVector[flipped].real;
+                newState[flipped].imag += sin * stateVector[i].imag + cos * stateVector[flipped].imag;
+            }
+
+            stateVector = newState;
+        }
+
+        function applyRotationZ(qubit, angle) {
+            const dim = Math.pow(2, numQubits);
+
+            for (let i = 0; i < dim; i++) {
+                const bit = (i >> qubit) & 1;
+                const phase = bit === 0 ? -angle/2 : angle/2;
+                const cos = Math.cos(phase);
+                const sin = Math.sin(phase);
+
+                const real = stateVector[i].real * cos - stateVector[i].imag * sin;
+                const imag = stateVector[i].real * sin + stateVector[i].imag * cos;
+                stateVector[i].real = real;
+                stateVector[i].imag = imag;
+            }
+        }
+
+        // ============================================================
+        // DISPLAY UPDATES
+        // ============================================================
+
+        function updateStateDisplay() {
+            const container = document.getElementById('stateVector');
+            container.innerHTML = '';
+
+            stateVector.forEach((amp, idx) => {
+                const prob = amp.real * amp.real + amp.imag * amp.imag;
+                if (prob > 0.001) {
+                    const basis = idx.toString(2).padStart(numQubits, '0');
+                    const ampStr = `${amp.real.toFixed(3)} + ${amp.imag.toFixed(3)}i`;
+                    const probStr = (prob * 100).toFixed(2) + '%';
+
+                    const item = document.createElement('div');
+                    item.className = 'state-item';
+                    item.innerHTML = `
+                        <span class="state-basis">|${basis}⟩</span>
+                        <span class="state-amplitude">${ampStr}</span>
+                        <span style="color: #a855f7;">${probStr}</span>
+                    `;
+                    container.appendChild(item);
+                }
+            });
+        }
+
+        function measureCircuit() {
+            runCircuit();
+
+            const dim = Math.pow(2, numQubits);
+            const counts = {};
+
+            // Simulate measurements
+            for (let shot = 0; shot < numShots; shot++) {
+                const rand = Math.random();
+                let cumProb = 0;
+
+                for (let i = 0; i < dim; i++) {
+                    const prob = stateVector[i].real * stateVector[i].real +
+                                 stateVector[i].imag * stateVector[i].imag;
+                    cumProb += prob;
+
+                    if (rand <= cumProb) {
+                        const basis = i.toString(2).padStart(numQubits, '0');
+                        counts[basis] = (counts[basis] || 0) + 1;
+                        break;
+                    }
+                }
+            }
+
+            displayMeasurementResults(counts);
+        }
+
+        function displayMeasurementResults(counts) {
+            const container = document.getElementById('measurementResults');
+            container.innerHTML = '';
+
+            const sortedResults = Object.entries(counts)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 10);
+
+            sortedResults.forEach(([basis, count]) => {
+                const percentage = (count / numShots * 100).toFixed(1);
+
+                const bar = document.createElement('div');
+                bar.className = 'result-bar';
+                bar.innerHTML = `
+                    <div class="result-label">|${basis}⟩: ${count} (${percentage}%)</div>
+                    <div class="result-progress">
+                        <div class="result-fill" style="width: ${percentage}%"></div>
+                    </div>
+                `;
+                container.appendChild(bar);
+            });
+        }
+
+        // ============================================================
+        // CONTROL FUNCTIONS
+        // ============================================================
+
+        function addQubit() {
+            if (numQubits < 5) {
+                numQubits++;
+                initCircuit();
+            }
+        }
+
+        function removeQubit() {
+            if (numQubits > 1) {
+                numQubits--;
+                circuit = circuit.filter(g => g.qubit < numQubits);
+                initCircuit();
+            }
+        }
+
+        function clearCircuit() {
+            circuit = [];
+            renderCircuit();
+            resetCircuit();
+        }
+
+        function resetCircuit() {
+            initCircuit();
+        }
+
+        function updateAngle(value) {
+            gateAngle = (value / 100) * Math.PI;
+            const piValue = (gateAngle / Math.PI).toFixed(2);
+            document.getElementById('angleValue').textContent = `${piValue}π`;
+        }
+
+        function updateShots(value) {
+            numShots = parseInt(value);
+            document.getElementById('shotsValue').textContent = numShots;
+        }
+
+        // ============================================================
+        // INITIALIZE
+        // ============================================================
+
+        initCircuit();
+    </script>
+</body>
+</html>

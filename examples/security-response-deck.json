@@ -1,0 +1,20 @@
+{
+  "meta_agents": {
+    "security": {
+      "description": "Security response deck focused on Sovereign toolkit diagnostics.",
+      "actions": [
+        {
+          "key": "sovereign_suite",
+          "description": "Run Sovereign toolkit diagnostics.",
+          "critical": false
+        }
+      ]
+    }
+  },
+  "boot_sequence": [
+    "security.sovereign_suite"
+  ],
+  "shutdown_sequence": [
+    "security.sovereign_suite"
+  ]
+}

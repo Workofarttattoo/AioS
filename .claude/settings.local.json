@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add:*)",
+      "Read(//Users/noone/**)",
+      "Bash(python3:*)",
+      "Bash(PYTHONPATH=/Users/noone:$PYTHONPATH python3:*)",
+      "WebSearch",
+      "Bash(open:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

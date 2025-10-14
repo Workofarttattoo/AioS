@@ -1,0 +1,5 @@
+PyGObject>=3.44
+PyGObject-stubs>=1.0.0
+PyWayland>=0.4.14
+pycairo>=1.20
+pydantic>=1.10

@@ -1,0 +1,71 @@
+# Core system
+linux-image-amd64
+systemd
+systemd-sysv
+live-boot
+live-config
+live-config-systemd
+ca-certificates
+sudo
+
+# Shell & tooling
+bash-completion
+less
+vim-nox
+rsync
+git
+curl
+wget
+iproute2
+iputils-ping
+netcat-openbsd
+
+# Networking & wireless
+network-manager
+wpasupplicant
+wireless-tools
+
+# Filesystems & storage
+cryptsetup
+lvm2
+e2fsprogs
+dosfstools
+parted
+
+# Python runtime
+python3
+python3-pip
+python3-venv
+python3-gi
+python3-yaml
+python3-requests
+python3-zmq
+python3-websocket
+
+# Wayland desktop
+sway
+seatd
+waybar
+foot
+xdg-desktop-portal-wlr
+pipewire
+pipewire-audio
+wireplumber
+xwayland
+mesa-utils
+
+# Virtualization & diagnostics
+qemu-system-x86
+virt-viewer
+virt-what
+
+# Compression & archiving
+zip
+unzip
+xz-utils
+tar
+bzip2
+
+# Audio / video support
+pulseaudio-utils
+alsa-utils

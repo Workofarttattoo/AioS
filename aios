@@ -1,0 +1,571 @@
+#!/usr/bin/env python3
+"""
+AI:OS CLI entrypoint.
+
+This command-line utility wires together the declarative manifest, the action
+library, and the runtime orchestrator.  It still operates in simulation mode,
+but the structure mirrors how a production control plane would supervise
+meta-agents and sub-agents when booting or shutting down the operating system.
+"""
+
+from __future__ import annotations
+
+import argparse
+import copy
+import json
+import logging
+import shutil
+import sys
+import threading
+from pathlib import Path
+from typing import Dict, List, Optional
+
+# Ensure the package root is importable when running as a script.
+ROOT = Path(__file__).resolve().parent
+PARENT = ROOT.parent
+if str(PARENT) not in sys.path:
+    sys.path.insert(0, str(PARENT))
+
+from aios import (  # type: ignore  # noqa: E402
+    AgentaRuntime,
+    DISPLAY_NAME,
+    DISPLAY_NAME_FULL,
+    load_manifest,
+)
+from aios.gui import SchemaPublisher  # type: ignore  # noqa: E402
+from aios.model import AgentActionError  # type: ignore  # noqa: E402
+from aios.prompt import PromptRouter  # type: ignore  # noqa: E402
+from aios.wizard import SetupWizard  # type: ignore  # noqa: E402
+from scripts.compositor import launch_wayland_session  # type: ignore  # noqa: E402
+
+
+LOG = logging.getLogger(DISPLAY_NAME)
+
+WOLF_LOGO = r"""
+                 /\            /\
+                /  \  /\______/  \
+          _____/ /\ \/  /\  /\ /\ \______
+         /  __     \/__/  \/  \/_/     __  \
+        /__/  \_____/  /\__/\/\___\___/  \__\
+        \  \  /  /  /\_/  /\__/  \  \  /  /
+         \__\/__/__/  /__/  \__/\__\__\/__/
+            /  /  /\__/  /\__/  \  \
+           /__/__/  /\__/  /\__/\__\
+            /\  /\__/  /\__/  /\  /\
+           /  \/  \__/  \__/  \/  \
+          /__/\/\__/\__/\/\__/\__/__\
+              (  @  )  (  @  )  (  @  )
+               \    /\__/\    /
+                \__/      \__/
+                /  /\  /\  \
+               /__/  \/  \__\
+                 /    ||    \
+                /|    ||    |\
+               /_|____||____|_\
+                 |    ||    |
+                 |  __||__  |
+                 |_/  ||  \_|
+                  /   ||   \
+                 /____||____\
+                    /||||\
+                   / |||| \
+                  /  ||||  \
+                 /___||||___\
+                     ||||
+                     ||||
+                     ||||
+                     ||||
+                     ||||
+"""
+
+def configure_logging(verbosity: int) -> None:
+    level = logging.WARNING
+    if verbosity == 1:
+        level = logging.INFO
+    elif verbosity >= 2:
+        level = logging.DEBUG
+    logging.basicConfig(format="[%(levelname)s] %(message)s", level=level)
+
+
+def parse_cli(argv: list[str]) -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description=f"{DISPLAY_NAME_FULL} control interface.")
+    parser.add_argument(
+        "command",
+        choices=["boot", "shutdown", "status", "list", "exec", "prompt", "sequence", "metadata", "virtualization", "virtualization-domains", "wizard"],
+        help="Command to execute.",
+    )
+    parser.add_argument("action", nargs="?", help="Meta-agent action path or prompt text.")
+    parser.add_argument(
+        "--manifest",
+        type=str,
+        help="Path to manifest JSON file (defaults to built-in manifest).",
+    )
+    parser.add_argument(
+        "--env",
+        action="append",
+        default=[],
+        metavar="KEY=VALUE",
+        help="Environment overrides exposed to sub-agents (repeatable).",
+    )
+    parser.add_argument(
+        "-v",
+        "--verbose",
+        action="count",
+        default=0,
+        help="Increase logging verbosity (repeat for more detail).",
+    )
+    parser.add_argument(
+        "--forensic",
+        action="store_true",
+        help="Force forensic (read-only) mode for the current execution.",
+    )
+    parser.add_argument(
+        "--mutable",
+        action="store_true",
+        help="Disable forensic safeguards for this run.",
+    )
+    parser.add_argument(
+        "--no-menu",
+        action="store_true",
+        help="Skip interactive boot menu prompts.",
+    )
+    parser.add_argument(
+        "--no-dashboard",
+        action="store_true",
+        help="Skip the interactive dashboard after commands that boot the system.",
+    )
+    parser.add_argument(
+        "--display",
+        nargs="?",
+        const="auto",
+        metavar="ENDPOINT",
+        help=(
+            "Launch the Wayland compositor dashboard after boot. "
+            "Provide tcp://host:port or unix:///path to override the IPC endpoint, "
+            "or use 'headless' for the curses fallback."
+        ),
+    )
+    return parser.parse_args(argv)
+
+
+def parse_env(overrides: list[str]) -> Dict[str, str]:
+    env: Dict[str, str] = {}
+    for item in overrides:
+        if "=" not in item:
+            raise ValueError(f"Invalid env override '{item}'. Use KEY=VALUE.")
+        key, value = item.split("=", maxsplit=1)
+        env[key] = value
+    return env
+
+
+def auto_detect_virtualization_providers(env: Dict[str, str]) -> None:
+    """Populate default provider list when virtualization binaries are present."""
+    if env.get("AGENTA_PROVIDER"):
+        return
+
+    detected: List[str] = []
+    qemu_binary = shutil.which(env.get("AGENTA_QEMU_BINARY", "qemu-system-x86_64"))
+    if qemu_binary:
+        detected.append("qemu")
+
+    if shutil.which("virsh"):
+        detected.append("libvirt")
+
+    if detected:
+        env["AGENTA_PROVIDER"] = ",".join(detected)
+
+
+def emit_logo() -> None:
+    for line in WOLF_LOGO.strip("\n").splitlines():
+        LOG.info(line)
+
+
+def display_dashboard(runtime, forensic_mode: bool) -> None:
+    import sys
+    if not sys.stdout.isatty():
+        summary = _build_dashboard_summary(runtime, forensic_mode)
+        for line in summary:
+            LOG.info(line)
+        return
+    try:
+        import curses
+    except Exception:
+        summary = _build_dashboard_summary(runtime, forensic_mode)
+        for line in summary:
+            LOG.info(line)
+        return
+
+    def draw(stdscr):
+        curses.curs_set(0)
+        stdscr.nodelay(False)
+        summary_lines = _build_dashboard_summary(runtime, forensic_mode)
+        stdscr.clear()
+        for idx, line in enumerate(summary_lines):
+            try:
+                stdscr.addstr(idx, 0, line)
+            except curses.error:
+                continue
+        stdscr.addstr(len(summary_lines) + 2, 0, "Press any key to exit dashboard.")
+        stdscr.refresh()
+        stdscr.getch()
+
+    try:
+        curses.wrapper(draw)
+    except Exception:
+        summary = _build_dashboard_summary(runtime, forensic_mode)
+        for line in summary:
+            LOG.info(line)
+
+
+def launch_display(runtime, forensic_mode: bool, display_option: Optional[str]) -> None:
+    option_text = (display_option or "auto").strip()
+    normalized = option_text.lower()
+    headless = normalized in {"headless", "curses"}
+    if not sys.stdout.isatty():
+        headless = True
+    endpoint_override = None if normalized in {"auto", "headless", "curses"} else option_text
+    action_lock = threading.Lock()
+
+    publisher = SchemaPublisher(endpoint_override)
+
+    def _publish_schema() -> None:
+        schema_payload = runtime.context.metadata.get("gui.dashboard_schema")
+        if not schema_payload:
+            return
+        payload = copy.deepcopy(schema_payload)
+        annotations = payload.setdefault("annotations", {})
+        annotations["forensic_mode"] = "on" if forensic_mode else "off"
+        publisher.publish(payload)
+
+    def _handle_command(message: Dict[str, object]) -> None:
+        if not isinstance(message, dict):
+            return
+        if message.get("type") != "action":
+            return
+        hook = str(message.get("hook") or "")
+        if not hook:
+            return
+        if not runtime.booted:
+            LOG.warning("[warn] Runtime offline; ignoring compositor action '%s'.", hook)
+            return
+        with action_lock:
+            try:
+                result = runtime.execute(hook)
+                LOG.info("[info] compositor action '%s' :: %s", hook, result.message)
+            except AgentActionError as exc:
+                LOG.error("[error] compositor action '%s' failed: %s", hook, exc)
+                return
+        _publish_schema()
+
+    publisher.on_command = _handle_command
+    publisher.start()
+    try:
+        LOG.info("[info] display bus listening on %s", publisher.uri)
+        if "gui.dashboard_schema" not in runtime.context.metadata and runtime.booted:
+            try:
+                result = runtime.execute("gui.gui_design")
+                LOG.info(result.message)
+            except AgentActionError as exc:
+                LOG.warning("[warn] Unable to refresh GUI schema before compositor start: %s", exc)
+        schema_available = "gui.dashboard_schema" in runtime.context.metadata
+        _publish_schema()
+        if not schema_available:
+            LOG.warning("[warn] No GUI schema available; compositor will display updates when published.")
+        compositor_code = launch_wayland_session(publisher.uri, headless=headless)
+        if compositor_code:
+            LOG.warning("[warn] Compositor exited with status %s", compositor_code)
+    finally:
+        publisher.stop()
+
+
+def _build_dashboard_summary(runtime, forensic_mode: bool) -> List[str]:
+    metadata = runtime.context.metadata
+    forecast = metadata.get("oracle_forecast", {})
+    risk = metadata.get("oracle_risk", {})
+    quantum = metadata.get("oracle_quantum", {})
+    supervisor = metadata.get("init_supervisor", {})
+    processes = metadata.get("kernel_process_snapshot", {}).get("summary", {})
+    memory = metadata.get("kernel_memory_snapshot", {})
+    integrity = metadata.get("security_integrity", {})
+    volumes = metadata.get("storage_volume_inventory", {})
+    app_sup = metadata.get("application_supervisor", {})
+    app_summary = app_sup.get("summary", {})
+    virtualization_status = supervisor.get("virtualization_status", [])
+    virtualization_ready = supervisor.get("virtualization_ready", 0)
+
+    lines = [
+        f"=== {DISPLAY_NAME} Dashboard ===",
+        f"Forensic mode: {'ENABLED' if forensic_mode else 'OFF'}",
+        f"Forecast probability: {format_percentage(forecast.get('probability'))}",
+        f"Residual risk: {format_percentage(risk.get('probability'))}",
+        f"Quantum entropy: {format_float(quantum.get('entropy'))}",
+        f"Process count: {processes.get('count')} anomalies: {len(processes.get('anomalies', []))}",
+        f"Memory pressure: {format_percentage(memory.get('pressure'))}",
+        f"Provider alerts: {len(supervisor.get('provider_alerts', []))}",
+        f"Integrity artifacts: {len(integrity.get('artifacts', []))}",
+        f"Volume alerts: {len(volumes.get('alerts', []))}",
+        f"Virtualization configured: {virtualization_ready}/{len(virtualization_status)}",
+        f"Apps completed: {app_summary.get('completed', 0)}/{app_summary.get('total_specs', 0)}",
+        f"Apps failed: {app_summary.get('failed', 0)} errors: {app_summary.get('errors', 0)} skipped: {app_summary.get('skipped', 0)}",
+    ]
+    guidance = supervisor.get("oracle_guidance") or metadata.get("oracle_guidance", {}).get("guidance", [])
+    if guidance:
+        lines.append("Guidance:")
+        for item in guidance[:5]:
+            lines.append(f"  - {item}")
+    return lines
+
+
+def format_percentage(value: Optional[float]) -> str:
+    if value is None:
+        return "n/a"
+    try:
+        return f"{float(value) * 100:.2f}%"
+    except (ValueError, TypeError):
+        return "n/a"
+
+
+def format_float(value: Optional[float]) -> str:
+    if value is None:
+        return "n/a"
+    try:
+        return f"{float(value):.2f}"
+    except (ValueError, TypeError):
+        return "n/a"
+
+
+def interactive_boot_menu(env: Dict[str, str]) -> Dict[str, str]:
+    if not sys.stdin.isatty():
+        return env
+
+    LOG.info("")
+    LOG.info(f"=== {DISPLAY_NAME} Boot Menu ===")
+    LOG.info("Press Enter to accept defaults shown in brackets.")
+
+    current_mode = env.get("AGENTA_FORENSIC_MODE", "0")
+    default_forensic = current_mode.lower() in {"1", "true", "yes", "on"}
+    prompt = "Forensic mode? [y/N]: " if not default_forensic else "Forensic mode? [Y/n]: "
+    prompt_mode = input(prompt).strip().lower()
+    if prompt_mode in {"y", "yes"}:
+        env["AGENTA_FORENSIC_MODE"] = "1"
+    elif prompt_mode in {"n", "no"}:
+        env["AGENTA_FORENSIC_MODE"] = "0"
+    else:
+        env["AGENTA_FORENSIC_MODE"] = "1" if default_forensic else "0"
+
+    wizard_prompt = input("Launch setup wizard for auto-detected profiles? [y/N]: ").strip().lower()
+    if wizard_prompt in {"y", "yes"}:
+        wizard = SetupWizard(env)
+        payload = wizard.run()
+        env.update({key: str(value) for key, value in payload.get("environment", {}).items()})
+        LOG.info("[info] Wizard selections applied; skipping manual prompts.")
+        return env
+
+    provider_default = env.get("AGENTA_PROVIDER", "")
+    available_providers = ["docker", "aws", "azure", "gcloud", "multipass", "cloud"]
+    if shutil.which(env.get("AGENTA_QEMU_BINARY", "qemu-system-x86_64")):
+        available_providers.append("qemu")
+    if shutil.which("virsh"):
+        available_providers.append("libvirt")
+    LOG.info("Available providers: %s", ", ".join(available_providers))
+    provider_choice = input(f"Select providers (comma separated) [{provider_default or 'none'}]: ").strip()
+    if provider_choice:
+        env["AGENTA_PROVIDER"] = provider_choice
+
+    if "aws" in env.get("AGENTA_PROVIDER", ""):
+        aws_region = input(f"AWS region [{env.get('AGENTA_AWS_REGION', 'us-east-1')}]: ").strip()
+        if aws_region:
+            env["AGENTA_AWS_REGION"] = aws_region
+        aws_profile = input(f"AWS profile [{env.get('AGENTA_AWS_PROFILE', '') or 'default'}]: ").strip()
+        if aws_profile:
+            env["AGENTA_AWS_PROFILE"] = aws_profile
+    if "azure" in env.get("AGENTA_PROVIDER", ""):
+        subscription = input(f"Azure subscription ID [{env.get('AGENTA_AZURE_SUBSCRIPTION', '') or 'current'}]: ").strip()
+        if subscription:
+            env["AGENTA_AZURE_SUBSCRIPTION"] = subscription
+    if "gcloud" in env.get("AGENTA_PROVIDER", ""):
+        project = input(f"GCP project [{env.get('AGENTA_GCP_PROJECT', '') or 'current'}]: ").strip()
+        if project:
+            env["AGENTA_GCP_PROJECT"] = project
+        zone = input(f"GCP zone [{env.get('AGENTA_GCP_ZONE', '') or 'auto'}]: ").strip()
+        if zone:
+            env["AGENTA_GCP_ZONE"] = zone
+
+    apps_default = env.get("AGENTA_APPS_CONFIG", "")
+    apps_prompt = input(f"Apps config path [{apps_default or 'none'}]: ").strip()
+    if apps_prompt:
+        env["AGENTA_APPS_CONFIG"] = apps_prompt
+
+    concurrency_default = env.get("AGENTA_SUPERVISOR_CONCURRENCY", "10")
+    concurrency_prompt = input(f"Supervisor concurrency [{concurrency_default}]: ").strip()
+    if concurrency_prompt:
+        env["AGENTA_SUPERVISOR_CONCURRENCY"] = concurrency_prompt
+
+    LOG.info("Boot menu selections applied.")
+    return env
+
+
+def main(argv: list[str] | None = None) -> int:
+    args = parse_cli(argv or sys.argv[1:])
+    configure_logging(args.verbose)
+
+    if args.forensic and args.mutable:
+        LOG.error("[error] --forensic and --mutable cannot be used together.")
+        return 2
+
+    env_overrides = parse_env(args.env)
+    auto_detect_virtualization_providers(env_overrides)
+    if args.command == "wizard":
+        wizard = SetupWizard(env_overrides)
+        payload = wizard.run()
+        output_path = Path("agenta-wizard-profile.json")
+        try:
+            output_path.write_text(json.dumps(payload, indent=2))
+            LOG.info("[info] Wizard profile saved to %s", output_path)
+        except Exception as exc:
+            LOG.warning("[warn] Failed to write wizard profile: %s", exc)
+
+        toolkit_env = payload.get("environment", {}).get("AGENTA_SECURITY_TOOLS", "")
+        if toolkit_env:
+            try:
+                manifest = load_manifest(args.manifest)
+            except Exception as exc:
+                LOG.warning("[warn] Unable to load manifest for Sovereign health checks: %s", exc)
+                return 0
+            runtime = AgentaRuntime(manifest)
+            try:
+                runtime.run_sequence(
+                    ["security.sovereign_suite"],
+                    auto_boot=True,
+                    stage="wizard",
+                    environment_overrides=payload.get("environment"),
+                )
+                suite_metadata = runtime.context.metadata.get("security.sovereign_suite", {})
+                if suite_metadata:
+                    LOG.info("[info] Sovereign suite '%s' summary:", suite_metadata.get("suite", "Sovereign Security Toolkit"))
+                    for report in suite_metadata.get("reports", []):
+                        tool = report.get("tool", "unknown")
+                        status = report.get("status", "unknown")
+                        summary = report.get("summary", "")
+                        LOG.info("  - %s :: %s :: %s", tool, status, summary)
+                    if suite_metadata.get("missing"):
+                        LOG.warning("[warn] Missing tools: %s", ", ".join(suite_metadata["missing"]))
+                    if suite_metadata.get("degraded"):
+                        LOG.warning("[warn] Degraded tools: %s", ", ".join(suite_metadata["degraded"]))
+            except AgentActionError as exc:
+                LOG.warning("[warn] Sovereign suite diagnostics failed: %s", exc)
+            finally:
+                if runtime.booted:
+                    runtime.shutdown()
+        return 0
+
+    try:
+        manifest = load_manifest(args.manifest)
+    except Exception as exc:
+        LOG.error("[error] Failed to load manifest: %s", exc)
+        return 2
+
+    runtime = AgentaRuntime(manifest)
+    runtime.context.environment.update(env_overrides)
+    if args.forensic:
+        runtime.context.environment["AGENTA_FORENSIC_MODE"] = "1"
+    elif args.mutable:
+        runtime.context.environment["AGENTA_FORENSIC_MODE"] = "0"
+
+    emit_logo()
+
+    boot_invoked = False
+
+    try:
+        if args.command == "boot":
+            boot_invoked = True
+            runtime.boot()
+        elif args.command == "shutdown":
+            boot_invoked = True
+            runtime.boot()
+            runtime.shutdown()
+        elif args.command == "status":
+            LOG.info(runtime.status())
+        elif args.command == "list":
+            for meta_name, actions in runtime.superuser.list_capabilities().items():
+                action_list = ", ".join(actions)
+                LOG.info("[info] %s meta-agent actions: %s", meta_name, action_list)
+        elif args.command == "exec":
+            if not args.action:
+                raise AgentActionError("exec command requires an action path (meta.action).")
+            runtime.boot()
+            boot_invoked = True
+            result = runtime.execute(args.action)
+            LOG.info(result.message)
+        elif args.command == "prompt":
+            if not args.action:
+                raise AgentActionError("prompt command requires textual input.")
+            router = PromptRouter(manifest)
+            matches = router.route(args.action)
+            if not matches:
+                LOG.warning("[warn] No actions matched prompt input.")
+                return 0
+            runtime.boot()
+            boot_invoked = True
+            for match in matches:
+                explanation = router.explain(match.action_path)
+                sources = ", ".join(f"{name}:{score:.2f}" for name, score in match.sources)
+                LOG.info("[info] prompt → %s (score %.2f via %s)", explanation, match.score, sources)
+                result = runtime.execute(match.action_path)
+                LOG.info(result.message)
+        elif args.command == "sequence":
+            if not args.action:
+                raise AgentActionError("sequence command requires comma-separated action paths.")
+            actions = [item.strip() for item in args.action.split(",") if item.strip()]
+            if not actions:
+                raise AgentActionError("sequence command requires at least one action path.")
+            runtime.boot()
+            boot_invoked = True
+            results = runtime.run_sequence(actions, stage="sequence", tolerate_failures=False)
+            for action_path, result in zip(actions, results):
+                LOG.info("[info] sequence → %s :: %s", action_path, result.message)
+        elif args.command == "metadata":
+            runtime.boot()
+            boot_invoked = True
+            summary = runtime.metadata_summary()
+            payload = json.dumps(summary, indent=2)
+            LOG.info("[info] metadata summary:\n%s", payload)
+        elif args.command == "virtualization":
+            runtime.boot()
+            boot_invoked = True
+            result = runtime.execute("scalability.virtualization_inspect")
+            LOG.info(result.message)
+            details = runtime.context.metadata.get("virtualization.inspect", {})
+            payload = json.dumps(details, indent=2)
+            LOG.info("[info] virtualization status:\n%s", payload)
+        elif args.command == "virtualization-domains":
+            runtime.boot()
+            boot_invoked = True
+            result = runtime.execute("scalability.virtualization_domains")
+            LOG.info(result.message)
+            payload = runtime.context.metadata.get("virtualization.domains", {})
+            domains = payload.get("domains", [])
+            if domains:
+                LOG.info("[info] available libvirt domains:")
+                for name in domains:
+                    LOG.info("  - %s", name)
+                LOG.info("[info] set with --env AGENTA_LIBVIRT_DOMAIN=<name> to target a domain.")
+            else:
+                LOG.warning("[warn] No libvirt domains detected. Ensure libvirt is running and domains are defined.")
+        else:
+            raise AgentActionError(f"Unsupported command '{args.command}'.")
+    except AgentActionError as exc:
+        LOG.error(str(exc))
+        return 1
+    finally:
+        if boot_invoked and not args.no_dashboard:
+            forensic_mode = runtime.context.environment.get("AGENTA_FORENSIC_MODE", "1").lower() in {"1", "true", "yes", "on"}
+            if args.display:
+                launch_display(runtime, forensic_mode, args.display)
+            else:
+                display_dashboard(runtime, forensic_mode)
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
