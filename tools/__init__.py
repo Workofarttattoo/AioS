@@ -25,6 +25,8 @@ TOOL_REGISTRY: Dict[str, str] = {
   "ObsidianHunt": "tools.obsidianhunt",
   "VectorFlux": "tools.vectorflux",
   "OSINTWorkflows": "tools.osint_workflows",
+  "SovereignSuite": "tools.sovereign_suite",
+  "Scr1b3": "tools.scribe",
 }
 
 
@@ -125,6 +127,8 @@ nemesishydra = resolve_tool_module("NemesisHydra")
 obsidianhunt = resolve_tool_module("ObsidianHunt")
 vectorflux = resolve_tool_module("VectorFlux")
 osint_workflows = resolve_tool_module("OSINTWorkflows")
+sovereign_suite = resolve_tool_module("SovereignSuite")
+scribe = resolve_tool_module("Scr1b3")
 
 
 aurorascan_gui = _optional_import("tools.aurorascan_gui")
@@ -151,6 +155,8 @@ __all__ = [
   "obsidianhunt",
   "vectorflux",
   "osint_workflows",
+  "sovereign_suite",
+  "scribe",
   "aurorascan_gui",
   "cipherspear_gui",
   "skybreaker_gui",
