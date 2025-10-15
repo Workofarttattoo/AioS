@@ -1410,6 +1410,35 @@ class GuiAgent(BaseAgent):
         payload = {"asset_samples": assets, "asset_count": count}
         return self.info("theme_management", "Theme manager synced.", payload)
 
+    def launch_browser(self, ctx) -> ActionResult:
+        """Auto-launch the Ai|oS GUI in default browser."""
+        import webbrowser
+
+        # Check if auto-launch is disabled
+        no_gui = ctx.environment.get("AGENTA_NO_AUTO_GUI", "").lower() in {"1", "true", "yes", "on"}
+        if no_gui:
+            return self.info("launch_browser", "Auto-launch disabled via AGENTA_NO_AUTO_GUI.", {})
+
+        # Locate the GUI launcher HTML
+        gui_path = Path(__file__).resolve().parents[1] / "web" / "aios_launcher.html"
+
+        if not gui_path.exists():
+            return self.warn("launch_browser", f"GUI launcher not found at {gui_path}", {"path": str(gui_path)})
+
+        try:
+            # Open in default browser
+            file_url = f"file://{gui_path}"
+            webbrowser.open(file_url)
+            payload = {
+                "url": file_url,
+                "path": str(gui_path),
+                "status": "opened"
+            }
+            ctx.publish_metadata("gui.browser_launched", payload)
+            return self.info("launch_browser", f"GUI launched in browser: {gui_path}", payload)
+        except Exception as exc:
+            return self.warn("launch_browser", f"Failed to open browser: {exc}", {"error": str(exc)})
+
 
 class ScalabilityAgent(BaseAgent):
     def __init__(self) -> None:
@@ -1476,10 +1505,12 @@ class ScalabilityAgent(BaseAgent):
         self._ensure_providers(ctx)
         intent = {"reason": "runtime_scale_up"}
         reports = []
+        has_errors = False
         for provider in self.providers:
             try:
                 reports.append(self._format_report(provider.scale_up(intent)))
             except Exception as exc:
+                has_errors = True
                 reports.append(
                     {
                         "provider": getattr(provider, "name", "unknown"),
@@ -1492,7 +1523,11 @@ class ScalabilityAgent(BaseAgent):
         payload = {"providers": reports, "virtualization": virtualization}
         if self.is_forensic(ctx):
             return self.warn("scale_up", "Forensic mode: scale-up recorded but not executed.", payload)
-        return self.warn("scale_up", "Scale-up request queued; awaiting approval.", payload)
+        if has_errors:
+            return self.warn("scale_up", "Scale-up completed with errors.", payload)
+        if not self.providers:
+            return self.info("scale_up", "No providers configured; scale-up advisory only.", payload)
+        return self.info("scale_up", "Scale-up capacity evaluated.", payload)
 
     def load_balancing(self, ctx) -> ActionResult:
         self._ensure_providers(ctx)

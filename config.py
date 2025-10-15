@@ -196,6 +196,7 @@ DEFAULT_MANIFEST = Manifest(
                 ActionConfig("event_handling", "Route input events."),
                 ActionConfig("gui_design", "Render adaptive UI theme."),
                 ActionConfig("theme_management", "Load theme assets."),
+                ActionConfig("launch_browser", "Auto-launch GUI in browser.", critical=False),
             ),
         ),
         "scalability": MetaAgentConfig(
@@ -277,6 +278,7 @@ DEFAULT_MANIFEST = Manifest(
         "gui.event_handling",
         "gui.gui_design",
         "gui.theme_management",
+        "gui.launch_browser",
         "scalability.monitor_load",
         "scalability.scale_up",
         "scalability.load_balancing",
