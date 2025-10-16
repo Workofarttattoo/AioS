@@ -29,6 +29,9 @@ TOOL_REGISTRY: Dict[str, str] = {
   "Scr1b3": "tools.scribe",
   "NmapPro": "tools.nmappro",
   "PayloadForge": "tools.payloadforge",
+  "DirReaper": "tools.dirreaper",
+  "VulnHunter": "tools.vulnhunter",
+  "ProxyPhantom": "tools.proxyphantom",
 }
 
 
@@ -133,6 +136,9 @@ sovereign_suite = resolve_tool_module("SovereignSuite")
 scribe = resolve_tool_module("Scr1b3")
 nmappro = resolve_tool_module("NmapPro")
 payloadforge = resolve_tool_module("PayloadForge")
+dirreaper = resolve_tool_module("DirReaper")
+vulnhunter = resolve_tool_module("VulnHunter")
+proxyphantom = resolve_tool_module("ProxyPhantom")
 
 
 aurorascan_gui = _optional_import("tools.aurorascan_gui")
@@ -163,6 +169,9 @@ __all__ = [
   "scribe",
   "nmappro",
   "payloadforge",
+  "dirreaper",
+  "vulnhunter",
+  "proxyphantom",
   "aurorascan_gui",
   "cipherspear_gui",
   "skybreaker_gui",

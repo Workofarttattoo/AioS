@@ -1627,3 +1627,346 @@ class OrchestrationAgent(BaseAgent):
             "metadata_keys": list(ctx.metadata.keys()),
         }
         return self.info("health_monitor", "Health monitor scanning subsystems.", health)
+
+
+class QuantumAgent(BaseAgent):
+    """
+    QuantumAgent - Integration with QuLab2.0 quantum framework.
+
+    Provides quantum computing capabilities including teleportation,
+    encoding, analysis, and a wizard for converting classical problems
+    to quantum format.
+    """
+
+    def __init__(self) -> None:
+        super().__init__("quantum")
+        self._qulab_available = self._check_qulab_availability()
+
+    def _check_qulab_availability(self) -> bool:
+        """Check if QuLab2.0 is available."""
+        qulab_path = Path.home() / "QuLab2.0"
+        return qulab_path.exists() and (qulab_path / "qulab").exists()
+
+    def health_check(self, ctx) -> ActionResult:
+        """Check QuLab2.0 availability and status."""
+        if not self._qulab_available:
+            qulab_path = Path.home() / "QuLab2.0"
+            payload = {
+                "available": False,
+                "path": str(qulab_path),
+                "status": "QuLab2.0 not found"
+            }
+            return self.warn("health_check", "QuLab2.0 framework not available.", payload)
+
+        try:
+            # Try importing QuLab to verify it's functional
+            qulab_path = Path.home() / "QuLab2.0"
+            sys.path.insert(0, str(qulab_path))
+
+            from qulab.quantum.teleportation import TeleportationProtocol
+
+            payload = {
+                "available": True,
+                "path": str(qulab_path),
+                "status": "operational",
+                "capabilities": [
+                    "quantum_teleportation",
+                    "quantum_encoding",
+                    "bayesian_governance",
+                    "monte_carlo_forecasting",
+                    "base_n_encoding"
+                ]
+            }
+            ctx.publish_metadata("quantum.health", payload)
+            return self.info("health_check", "QuLab2.0 quantum framework operational.", payload)
+
+        except ImportError as exc:
+            payload = {
+                "available": False,
+                "error": str(exc),
+                "hint": "Install QuLab2.0 dependencies: cd ~/QuLab2.0 && pip install -e ."
+            }
+            return self.warn("health_check", "QuLab2.0 imports failed.", payload)
+        except Exception as exc:
+            return self.error("health_check", f"QuLab2.0 health check failed: {exc}")
+
+    def teleportation(self, ctx) -> ActionResult:
+        """Run quantum teleportation experiment using QuLab2.0."""
+        if not self._qulab_available:
+            return self.warn("teleportation", "QuLab2.0 not available.")
+
+        try:
+            qulab_path = Path.home() / "QuLab2.0"
+            sys.path.insert(0, str(qulab_path))
+
+            from qulab.quantum.teleportation import TeleportationProtocol
+            import numpy as np
+
+            # Default quantum state: |ψ⟩ = 0.6|0⟩ + 0.8|1⟩
+            alpha = float(ctx.environment.get("AGENTA_QUANTUM_ALPHA", "0.6"))
+            beta = float(ctx.environment.get("AGENTA_QUANTUM_BETA", "0.8"))
+            shots = int(ctx.environment.get("AGENTA_QUANTUM_SHOTS", "1024"))
+
+            # Validate normalization
+            if not np.isclose(abs(alpha)**2 + abs(beta)**2, 1.0, atol=1e-10):
+                return self.error("teleportation", "Quantum state must be normalized (|α|² + |β|² = 1)")
+
+            protocol = TeleportationProtocol()
+            result = protocol.teleport(alpha, beta, shots)
+
+            payload = {
+                "state": f"|ψ⟩ = {alpha:.3f}|0⟩ + {beta:.3f}|1⟩",
+                "fidelity": round(result.fidelity, 6),
+                "success_probability": round(result.success_probability, 6),
+                "execution_time_sec": round(result.execution_time, 3),
+                "shots": shots,
+                "classical_bits": list(result.classical_bits)
+            }
+
+            ctx.publish_metadata("quantum.teleportation", payload)
+            return self.info("teleportation", f"Quantum teleportation completed: fidelity={payload['fidelity']}", payload)
+
+        except Exception as exc:
+            return self.error("teleportation", f"Teleportation experiment failed: {exc}")
+
+    def encoding(self, ctx) -> ActionResult:
+        """Run base-N encoding optimization using QuLab2.0."""
+        if not self._qulab_available:
+            return self.warn("encoding", "QuLab2.0 not available.")
+
+        try:
+            qulab_path = Path.home() / "QuLab2.0"
+            sys.path.insert(0, str(qulab_path))
+
+            from qulab.encoding.packing import PackingOptimizer
+
+            # Get data to encode from environment or use default
+            data = ctx.environment.get("AGENTA_QUANTUM_ENCODE_DATA", "HelloQuantumWorld")
+
+            optimizer = PackingOptimizer()
+            result = optimizer.optimize_packing(data)
+
+            payload = {
+                "input_data": data[:50] + "..." if len(data) > 50 else data,
+                "input_length": len(data),
+                "optimal_base": result.optimal_base,
+                "compression_ratio": round(result.compression_ratio, 3),
+                "packing_efficiency": round(result.packing_efficiency, 3),
+                "data_type": result.data_type,
+                "recommendations": result.recommendations
+            }
+
+            ctx.publish_metadata("quantum.encoding", payload)
+            return self.info("encoding", f"Optimal base-{result.optimal_base} encoding found", payload)
+
+        except Exception as exc:
+            return self.error("encoding", f"Encoding optimization failed: {exc}")
+
+    def forecast(self, ctx) -> ActionResult:
+        """Generate quantum-enhanced forecasts using Monte Carlo methods."""
+        if not self._qulab_available:
+            return self.warn("forecast", "QuLab2.0 not available.")
+
+        try:
+            qulab_path = Path.home() / "QuLab2.0"
+            sys.path.insert(0, str(qulab_path))
+
+            from qulab.governance.ledger import EvidenceLedger
+            from qulab.governance.forecasting import MonteCarloForecaster
+
+            # Initialize evidence ledger with priors
+            alpha_prior = float(ctx.environment.get("AGENTA_QUANTUM_ALPHA_PRIOR", "1.0"))
+            beta_prior = float(ctx.environment.get("AGENTA_QUANTUM_BETA_PRIOR", "1.0"))
+
+            ledger = EvidenceLedger(alpha_prior, beta_prior)
+
+            # Generate forecast
+            horizon = int(ctx.environment.get("AGENTA_QUANTUM_FORECAST_HORIZON", "30"))
+            samples = int(ctx.environment.get("AGENTA_QUANTUM_MC_SAMPLES", "10000"))
+
+            forecaster = MonteCarloForecaster(ledger)
+            forecast = forecaster.forecast_fidelity(horizon, samples)
+
+            payload = {
+                "horizon_days": horizon,
+                "mc_samples": samples,
+                "current_mean": round(ledger.get_mean(), 6),
+                "current_std": round(ledger.get_std(), 6),
+                "forecast_mean_final": round(forecast.mean_forecast[-1], 6),
+                "forecast_std_final": round(forecast.std_forecast[-1], 6)
+            }
+
+            ctx.publish_metadata("quantum.forecast", payload)
+            return self.info("forecast", f"Quantum forecast generated: {horizon} days, {samples} MC samples", payload)
+
+        except Exception as exc:
+            return self.error("forecast", f"Quantum forecasting failed: {exc}")
+
+    def wizard(self, ctx) -> ActionResult:
+        """
+        Quantum Conversion Wizard - Helps convert classical problems to quantum format.
+
+        Provides step-by-step guidance for:
+        1. Problem identification and decomposition
+        2. Quantum state encoding
+        3. Quantum algorithm selection
+        4. Circuit design
+        5. Measurement strategy
+        """
+        problem_type = ctx.environment.get("AGENTA_QUANTUM_PROBLEM_TYPE", "unknown")
+
+        wizard_guide = {
+            "step_1_identify": {
+                "title": "Problem Identification",
+                "question": "What type of problem are you solving?",
+                "options": {
+                    "optimization": "Finding the best solution from many possibilities",
+                    "search": "Finding a specific item in an unstructured database",
+                    "simulation": "Simulating quantum systems or molecular dynamics",
+                    "ml": "Machine learning with quantum advantage",
+                    "cryptography": "Quantum key distribution or cryptanalysis"
+                },
+                "selected": problem_type
+            },
+            "step_2_encode": {
+                "title": "Quantum State Encoding",
+                "guidance": "Map your classical data to quantum states",
+                "methods": {
+                    "amplitude": "Encode data in probability amplitudes (e.g., QRAM)",
+                    "basis": "Encode data in computational basis states",
+                    "phase": "Encode data in quantum phases",
+                    "angle": "Encode data in rotation angles (common for ML)"
+                },
+                "example": "For binary classification: |0⟩ = class A, |1⟩ = class B"
+            },
+            "step_3_algorithm": {
+                "title": "Quantum Algorithm Selection",
+                "recommendations": self._recommend_algorithm(problem_type),
+                "available_in_qulab": [
+                    "Quantum Teleportation (demonstrated)",
+                    "Quantum Tomography",
+                    "Variational Quantum Eigensolver (VQE)",
+                    "Quantum Encoding Optimization"
+                ]
+            },
+            "step_4_circuit": {
+                "title": "Circuit Design",
+                "steps": [
+                    "Initialize qubits to |0⟩ state",
+                    "Apply quantum gates to create superposition/entanglement",
+                    "Implement algorithm-specific operations",
+                    "Apply measurements to extract results"
+                ],
+                "qubit_estimate": self._estimate_qubits(problem_type)
+            },
+            "step_5_measurement": {
+                "title": "Measurement Strategy",
+                "options": {
+                    "computational_basis": "Standard Z-basis measurement",
+                    "tomography": "Full state reconstruction (QuLab supported)",
+                    "expectation": "Measure observable expectation values",
+                    "sampling": "Repeated shots to estimate probabilities"
+                },
+                "recommended_shots": "1024-8192 for good statistics"
+            },
+            "next_steps": {
+                "qulab_command": self._generate_qulab_command(problem_type),
+                "documentation": "~/QuLab2.0/README.md",
+                "examples": "~/QuLab2.0/qulab/notebooks/"
+            }
+        }
+
+        ctx.publish_metadata("quantum.wizard", wizard_guide)
+
+        return self.info(
+            "wizard",
+            f"Quantum conversion wizard initialized for problem type: {problem_type}",
+            wizard_guide
+        )
+
+    def _recommend_algorithm(self, problem_type: str) -> Dict[str, str]:
+        """Recommend quantum algorithm based on problem type."""
+        recommendations = {
+            "optimization": {
+                "primary": "QAOA (Quantum Approximate Optimization Algorithm)",
+                "alternative": "Variational Quantum Eigensolver (VQE)",
+                "description": "Uses variational circuits to find optimal solutions"
+            },
+            "search": {
+                "primary": "Grover's Algorithm",
+                "alternative": "Quantum Walk",
+                "description": "Quadratic speedup for unstructured search"
+            },
+            "simulation": {
+                "primary": "Quantum Phase Estimation",
+                "alternative": "Trotter Decomposition",
+                "description": "Simulate Hamiltonian evolution efficiently"
+            },
+            "ml": {
+                "primary": "Quantum Kernel Methods",
+                "alternative": "Variational Quantum Classifier",
+                "description": "Leverage quantum feature spaces for ML tasks"
+            },
+            "cryptography": {
+                "primary": "BB84 Protocol",
+                "alternative": "Quantum Teleportation (available in QuLab)",
+                "description": "Secure quantum key distribution"
+            },
+            "unknown": {
+                "primary": "Quantum Teleportation Demo",
+                "alternative": "Explore QuLab2.0 examples",
+                "description": "Start with basic experiments to understand quantum operations"
+            }
+        }
+
+        return recommendations.get(problem_type, recommendations["unknown"])
+
+    def _estimate_qubits(self, problem_type: str) -> Dict[str, object]:
+        """Estimate qubit requirements for problem type."""
+        estimates = {
+            "optimization": {
+                "min_qubits": 4,
+                "recommended": "N qubits for N variables",
+                "notes": "QAOA depth increases with problem complexity"
+            },
+            "search": {
+                "min_qubits": "log₂(N) where N = database size",
+                "recommended": "20 qubits for 1M items",
+                "notes": "Grover's requires superposition over search space"
+            },
+            "simulation": {
+                "min_qubits": "Depends on system size",
+                "recommended": "1 qubit per quantum particle",
+                "notes": "Molecular simulation: ~20-50 qubits for small molecules"
+            },
+            "ml": {
+                "min_qubits": "log₂(features)",
+                "recommended": "10-20 qubits for typical datasets",
+                "notes": "Quantum kernel methods scale logarithmically"
+            },
+            "cryptography": {
+                "min_qubits": 3,
+                "recommended": "3 qubits (Alice, Bob, EPR pair)",
+                "notes": "Teleportation requires 3 qubits minimum"
+            },
+            "unknown": {
+                "min_qubits": 3,
+                "recommended": "3-5 qubits for learning",
+                "notes": "Start small, scale up as needed"
+            }
+        }
+
+        return estimates.get(problem_type, estimates["unknown"])
+
+    def _generate_qulab_command(self, problem_type: str) -> str:
+        """Generate QuLab CLI command for problem type."""
+        commands = {
+            "cryptography": "cd ~/QuLab2.0 && qulab teleport run --alpha 0.6 --beta 0.8 --shots 1024",
+            "optimization": "cd ~/QuLab2.0 && qulab governance forecast --horizon 30 --samples 10000",
+            "ml": "cd ~/QuLab2.0 && qulab encode optimize --data 'your_data_here'",
+            "simulation": "cd ~/QuLab2.0 && qulab teleport bands --alpha 0.6 --beta 0.8 --trials 100",
+            "search": "cd ~/QuLab2.0 && qulab teleport run --shots 8192",
+            "unknown": "cd ~/QuLab2.0 && qulab teleport run --alpha 0.6 --beta 0.8"
+        }
+
+        return commands.get(problem_type, commands["unknown"])

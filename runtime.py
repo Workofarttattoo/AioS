@@ -22,6 +22,7 @@ from .agents import (
     KernelAgent,
     NetworkingAgent,
     OrchestrationAgent,
+    QuantumAgent,
     ScalabilityAgent,
     SecurityAgent,
     StorageAgent,
@@ -380,6 +381,7 @@ def build_default_action_library(manifest: Manifest) -> Dict[str, ActionCallable
         "gui": GuiAgent(),
         "scalability": ScalabilityAgent(),
         "orchestration": OrchestrationAgent(),
+        "quantum": QuantumAgent(),
     }
 
     for meta_name, config in manifest.meta_agents.items():

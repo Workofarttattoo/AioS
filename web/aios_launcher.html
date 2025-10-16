@@ -33,30 +33,40 @@
             position: fixed;
             bottom: 30px;
             left: 30px;
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #a855f7, #00d4ff);
+            width: 100px;
+            height: 100px;
+            background-image: url('wolf_icon_head.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             border-radius: 50%;
             border: 3px solid #00ff88;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 40px;
-            box-shadow: 0 0 30px rgba(168, 85, 247, 0.8), 0 0 60px rgba(0, 212, 255, 0.5);
+            box-shadow: 0 0 40px rgba(0, 255, 136, 0.8), 0 0 80px rgba(0, 255, 136, 0.5);
             transition: all 0.3s ease;
             z-index: 1000;
-            animation: pulse 2s ease-in-out infinite;
+            animation: wolfPulse 2s ease-in-out infinite;
+            filter: drop-shadow(0 0 20px rgba(0, 255, 136, 0.6));
         }
 
         .wolf-menu-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 50px rgba(168, 85, 247, 1), 0 0 100px rgba(0, 212, 255, 0.8);
+            transform: scale(1.15) rotate(5deg);
+            box-shadow: 0 0 60px rgba(0, 255, 136, 1), 0 0 120px rgba(0, 255, 136, 0.8);
+            filter: drop-shadow(0 0 30px rgba(0, 255, 136, 1));
         }
 
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 0 30px rgba(168, 85, 247, 0.8), 0 0 60px rgba(0, 212, 255, 0.5); }
-            50% { box-shadow: 0 0 50px rgba(168, 85, 247, 1), 0 0 100px rgba(0, 212, 255, 0.8); }
+        @keyframes wolfPulse {
+            0%, 100% {
+                box-shadow: 0 0 40px rgba(0, 255, 136, 0.8), 0 0 80px rgba(0, 255, 136, 0.5);
+                filter: drop-shadow(0 0 20px rgba(0, 255, 136, 0.6));
+            }
+            50% {
+                box-shadow: 0 0 60px rgba(0, 255, 136, 1), 0 0 120px rgba(0, 255, 136, 0.8);
+                filter: drop-shadow(0 0 30px rgba(0, 255, 136, 1));
+            }
         }
 
         /* Menu Panel */
@@ -250,6 +260,9 @@
     <div class="branding">
         <div class="logo">Ai|oS</div>
         <div class="tagline">Agentic Intelligence Operating System</div>
+        <div style="font-size: 12px; color: #d4af37; text-shadow: 0 0 15px #d4af37; margin-top: 15px;">
+            PATENT PENDING - Levels 5-7 Autonomous AGI Framework
+        </div>
     </div>
 
     <!-- System HUD -->
@@ -292,7 +305,7 @@
             <span class="terminal-prompt">aios$</span> 23 quantum algorithms loaded (HHL, Schrödinger, VQE, QAOA)
         </div>
         <div class="terminal-line">
-            <span class="terminal-prompt">aios$</span> Level 4 autonomous discovery enabled
+            <span class="terminal-prompt">aios$</span> Level 5-6 autonomous agents ready (Goal Synthesis + Self-Awareness)
         </div>
         <div class="terminal-line">
             <span class="terminal-prompt">aios$</span> Click wolf icon to access tools
@@ -300,7 +313,7 @@
     </div>
 
     <!-- Wolf Menu Button -->
-    <div class="wolf-menu-btn" id="wolfBtn">🐺</div>
+    <div class="wolf-menu-btn" id="wolfBtn"></div>
 
     <!-- Menu Panel -->
     <div class="menu-panel" id="menuPanel">
@@ -352,6 +365,54 @@
                 <div class="tool-icon">⚔️</div>
                 <div class="tool-name">VectorFlux</div>
                 <div class="tool-desc">Payload staging analysis</div>
+            </div>
+
+            <div class="tool-card" onclick="launchTool('dirreaper')">
+                <div class="tool-icon">💀</div>
+                <div class="tool-name">DirReaper</div>
+                <div class="tool-desc">Blazing directory enumeration</div>
+            </div>
+
+            <div class="tool-card" onclick="launchTool('vulnhunter')">
+                <div class="tool-icon">🩸</div>
+                <div class="tool-name">VulnHunter</div>
+                <div class="tool-desc">Enterprise vuln scanning</div>
+            </div>
+
+            <div class="tool-card" onclick="launchTool('proxyphantom')">
+                <div class="tool-icon">🦊</div>
+                <div class="tool-name">ProxyPhantom</div>
+                <div class="tool-desc">Web app security suite</div>
+            </div>
+
+            <div class="tool-card" onclick="launchTool('nmappro')">
+                <div class="tool-icon">🎯</div>
+                <div class="tool-name">NmapPro</div>
+                <div class="tool-desc">Enhanced port scanner</div>
+            </div>
+
+            <div class="tool-card" onclick="launchTool('payloadforge')">
+                <div class="tool-icon">🔨</div>
+                <div class="tool-name">PayloadForge</div>
+                <div class="tool-desc">Advanced payload generation</div>
+            </div>
+
+            <div class="tool-card" onclick="launchTool('scribe')">
+                <div class="tool-icon">📝</div>
+                <div class="tool-name">Scribe</div>
+                <div class="tool-desc">Security documentation</div>
+            </div>
+
+            <div class="tool-card" onclick="launchTool('osint_workflows')">
+                <div class="tool-icon">🕵️</div>
+                <div class="tool-name">OSINT</div>
+                <div class="tool-desc">Intelligence gathering</div>
+            </div>
+
+            <div class="tool-card" onclick="openDesktopMode()" style="background: linear-gradient(135deg, rgba(255, 0, 255, 0.2), rgba(0, 212, 255, 0.2)); border-color: #ff00ff;">
+                <div class="tool-icon">🖥️</div>
+                <div class="tool-name">Desktop Mode</div>
+                <div class="tool-desc">Full desktop environment</div>
             </div>
         </div>
     </div>
@@ -493,36 +554,71 @@
         });
 
         // ============================================================
-        // TOOL LAUNCHER
+        // TOOL LAUNCHER - LIVE INTEGRATION
         // ============================================================
 
-        function launchTool(tool) {
+        const LAUNCHER_SERVER = 'http://localhost:7777';
+
+        async function launchTool(tool) {
             addTerminalLine(`Launching ${tool}...`);
 
-            // Map tool names to Python module paths
-            const toolMap = {
-                'aurorascan': 'tools.aurorascan',
-                'cipherspear': 'tools.cipherspear',
-                'skybreaker': 'tools.skybreaker',
-                'mythickey': 'tools.mythickey',
-                'spectratrace': 'tools.spectratrace',
-                'nemesishydra': 'tools.nemesishydra',
-                'obsidianhunt': 'tools.obsidianhunt',
-                'vectorflux': 'tools.vectorflux'
-            };
+            try {
+                const response = await fetch(`${LAUNCHER_SERVER}/launch`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        tool: tool,
+                        mode: 'gui'
+                    })
+                });
 
-            const modulePath = toolMap[tool];
+                const result = await response.json();
 
-            // In a real implementation, this would use Electron's IPC or a local server
-            // For now, show the command that would be executed
-            const command = `python -m ${modulePath} --gui`;
-            addTerminalLine(`Command: ${command}`);
-            addTerminalLine(`Status: Tool interface ready (stub mode)`);
+                if (result.success) {
+                    addTerminalLine(`✓ ${tool} launched successfully (PID: ${result.pid})`);
+                    addTerminalLine(`Mode: ${result.mode}`);
+                } else {
+                    addTerminalLine(`✗ Failed to launch ${tool}: ${result.error}`);
+                    addTerminalLine(`Fallback: python -m tools.${tool} --gui`);
+                }
 
-            // If running in Electron, you could do:
-            // const { exec } = require('child_process');
-            // exec(command, (error, stdout, stderr) => { ... });
+            } catch (error) {
+                addTerminalLine(`✗ Tool Launcher Server offline`);
+                addTerminalLine(`Start server: python aios/web/tool_launcher.py`);
+                addTerminalLine(`Fallback: python -m tools.${tool} --gui`);
+            }
 
+            setTimeout(() => {
+                menuOpen = false;
+                menuPanel.classList.remove('active');
+            }, 500);
+        }
+
+        // Check server status on load
+        async function checkLauncherServer() {
+            try {
+                const response = await fetch(`${LAUNCHER_SERVER}/health`);
+                const data = await response.json();
+                if (data.status === 'ok') {
+                    addTerminalLine('Tool Launcher Server: ONLINE');
+                }
+            } catch (error) {
+                addTerminalLine('Tool Launcher Server: OFFLINE (start with: python aios/web/tool_launcher.py)');
+            }
+        }
+
+        checkLauncherServer();
+
+        // ============================================================
+        // DESKTOP MODE
+        // ============================================================
+
+        function openDesktopMode() {
+            addTerminalLine('Opening Sovereign Desktop environment...');
+            // Open desktop in new window
+            window.open('sovereign_desktop.html', 'AiOS_Desktop', 'width=1400,height=900');
             setTimeout(() => {
                 menuOpen = false;
                 menuPanel.classList.remove('active');

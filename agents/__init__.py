@@ -12,6 +12,7 @@ from .system import (
     GuiAgent,
     ScalabilityAgent,
     OrchestrationAgent,
+    QuantumAgent,
 )
 
 try:
@@ -31,6 +32,7 @@ __all__ = [
     "GuiAgent",
     "ScalabilityAgent",
     "OrchestrationAgent",
+    "QuantumAgent",
 ]
 
 if AI_OS_AGENT_AVAILABLE:
