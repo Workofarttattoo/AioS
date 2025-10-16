@@ -302,10 +302,31 @@ Each caller is a lightweight wrapper (~50 lines) that:
 
 ## 📜 License
 
-**Copyright (c) 2025 Joshua Hendricks Cole**
-**DBA: Corporation of Light**
-**All Rights Reserved.**
-**PATENT PENDING.**
+**Licensed under the Apache License, Version 2.0**
+
+Copyright (c) 2025 Joshua Hendricks Cole (DBA: Corporation of Light)
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this software except in compliance with the License.
+You may obtain a copy of the License at:
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+**PATENT PENDING** - This software includes inventions for which patent applications have been filed.
+
+**Key Terms:**
+- ✅ **Open Source**: Free to use, modify, and distribute
+- ✅ **Attribution Required**: Must credit Joshua Hendricks Cole / Corporation of Light
+- ✅ **Commercial Use**: Allowed with attribution
+- ✅ **Patent Grant**: Includes explicit patent licensing (Section 3)
+- ✅ **Modifications Welcome**: Contributions encouraged
+- ⚖️ **Defensive Termination**: Patent license terminates if you sue over patents
 
 ---
 
