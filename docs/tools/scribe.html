@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scribe - Documentation & Reporting</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <span class="logo">🛡️</span>
+                <span class="brand-text">Red Team Tools</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../index.html#tools">Tools</a></li>
+                <li><a href="../getting-started.html">Get Started</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="https://github.com/Workofarttattoo/AioS" target="_blank" class="github-btn">GitHub</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container" style="padding: 80px 20px; max-width: 900px;">
+        <h1 style="font-size: 3rem; margin-bottom: 1rem; color: var(--primary);">📝 Scribe (Scr1b3)</h1>
+        <p style="font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 3rem;">Professional security assessment documentation and reporting engine</p>
+
+        <div class="step">
+            <h2>Overview</h2>
+            <p>Scribe is a comprehensive documentation and reporting tool that aggregates findings from all Red Team Tools, generates executive summaries, and produces professional security assessment reports.</p>
+        </div>
+
+        <div class="step">
+            <h2>Features</h2>
+            <ul style="color: var(--text-secondary); margin-left: 2rem;">
+                <li>📝 Automated report generation</li>
+                <li>📊 Executive summaries with risk scoring</li>
+                <li>🎯 Finding aggregation from all tools</li>
+                <li>📈 Trend analysis and metrics</li>
+                <li>💼 Multiple report formats (PDF, HTML, Markdown, DOCX)</li>
+                <li>🎨 Customizable templates</li>
+                <li>🖥️ GUI report builder</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h2>Quick Start</h2>
+            <div class="code-block"><code># Generate report from scan results
+python -m red-team-tools.scribe --input results/ --output report.pdf
+
+# GUI mode
+python -m red-team-tools.scribe --gui
+
+# Health check
+python -m red-team-tools.scribe --health --json</code></div>
+        </div>
+
+        <div class="step">
+            <h2>Report Sections</h2>
+            <ul style="color: var(--text-secondary); margin-left: 2rem;">
+                <li>Executive Summary</li>
+                <li>Methodology</li>
+                <li>Detailed Findings (categorized by severity)</li>
+                <li>Risk Assessment Matrix</li>
+                <li>Remediation Recommendations</li>
+                <li>Technical Appendices</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h2>Integration</h2>
+            <p style="color: var(--text-secondary);">Scribe automatically ingests JSON output from all Red Team Tools and correlates findings to produce comprehensive reports.</p>
+        </div>
+
+        <p style="margin-top: 3rem;"><a href="../index.html#tools" style="color: var(--secondary);">← Back to all tools</a></p>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p style="text-align: center; color: var(--text-secondary);">Copyright © 2025 Joshua Hendricks Cole (DBA: Corporation of Light)</p>
+        </div>
+    </footer>
+</body>
+</html>

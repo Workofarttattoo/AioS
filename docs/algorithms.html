@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ML & Quantum Algorithms - Red Team Tools Suite</title>
+    <meta name="description" content="Deep dive into the machine learning and quantum computing algorithms powering the Red Team Tools Suite.">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <span class="logo">🛡️</span>
+                <span class="brand-text">Red Team Tools</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#tools">Tools</a></li>
+                <li><a href="getting-started.html">Get Started</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="https://github.com/Workofarttattoo/AioS" target="_blank" class="github-btn">GitHub</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container" style="padding: 80px 20px; max-width: 1000px;">
+        <div style="text-align: center; margin-bottom: 60px;">
+            <h1 style="font-size: 3rem; margin-bottom: 1rem; background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">ML & Quantum Algorithms</h1>
+            <p style="color: var(--text-secondary); font-size: 1.1rem;">State-of-the-art implementations powering intelligent security tools</p>
+        </div>
+
+        <!-- ML Algorithms Section -->
+        <section id="ml" style="margin-bottom: 80px;">
+            <h2 style="font-size: 2.5rem; color: var(--primary); margin-bottom: 2rem;">🤖 Machine Learning Algorithms</h2>
+
+            <div class="step">
+                <h3 style="color: var(--primary);">1. AdaptiveStateSpace (Mamba Architecture)</h3>
+                <p><strong>Complexity:</strong> O(n) vs O(n²) for traditional attention</p>
+                <p style="color: var(--text-secondary); line-height: 1.8;">
+                    The Mamba architecture represents a breakthrough in sequence modeling. Unlike transformers which scale quadratically with sequence length, Mamba achieves linear complexity through selective state spaces. This makes it ideal for analyzing long network packet sequences, log files, and behavioral patterns in security assessments.
+                </p>
+                <p><strong>Use Cases:</strong></p>
+                <ul style="color: var(--text-secondary); margin-left: 2rem;">
+                    <li>Real-time traffic pattern analysis</li>
+                    <li>Long-term behavioral anomaly detection</li>
+                    <li>Efficient processing of extended log sequences</li>
+                </ul>
+                <div class="code-block"><code>from red-team-tools.ml_algorithms import AdaptiveStateSpace
+
+# Initialize with state dimensions
+ssm = AdaptiveStateSpace(d_model=512, d_state=64)
+hidden_states = ssm.forward(input_sequence)
+# Process 10K+ tokens in linear time</code></div>
+            </div>
+
+            <div class="step">
+                <h3 style="color: var(--primary);">2. OptimalTransportFlowMatcher</h3>
+                <p><strong>Generation Speed:</strong> 10-20 steps vs 1000+ for diffusion models</p>
+                <p style="color: var(--text-secondary); line-height: 1.8;">
+                    Flow matching with optimal transport provides dramatically faster generative modeling. By learning direct velocity fields instead of iterative denoising, it achieves high-quality generation in a fraction of the steps. This is crucial for real-time payload generation and adaptive testing.
+                </p>
+                <p><strong>Use Cases:</strong></p>
+                <ul style="color: var(--text-secondary); margin-left: 2rem;">
+                    <li>Fast adaptive payload generation</li>
+                    <li>Real-time fuzzing pattern creation</li>
+                    <li>Synthetic test data generation</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <h3 style="color: var(--primary);">3. NeuralGuidedMCTS (Monte Carlo Tree Search)</h3>
+                <p><strong>Inspired by:</strong> AlphaGo / MuZero</p>
+                <p style="color: var(--text-secondary); line-height: 1.8;">
+                    Combines the planning power of Monte Carlo Tree Search with neural network guidance. This hybrid approach excels at strategic decision-making in complex state spaces—perfect for planning attack chains, optimizing scan strategies, and adaptive testing.
+                </p>
+                <p><strong>Use Cases:</strong></p>
+                <ul style="color: var(--text-secondary); margin-left: 2rem;">
+                    <li>Attack path planning and optimization</li>
+                    <li>Strategic scanning order determination</li>
+                    <li>Multi-stage penetration testing</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <h3 style="color: var(--primary);">4. AdaptiveParticleFilter (Sequential Monte Carlo)</h3>
+                <p><strong>Technique:</strong> Bayesian state estimation</p>
+                <p style="color: var(--text-secondary); line-height: 1.8;">
+                    Particle filters excel at tracking systems with uncertainty. By maintaining multiple hypotheses (particles) about the system state, they handle noisy observations and non-linear dynamics. Essential for real-time threat tracking and anomaly detection.
+                </p>
+                <p><strong>Use Cases:</strong></p>
+                <ul style="color: var(--text-secondary); margin-left: 2rem;">
+                    <li>Real-time intrusion detection</li>
+                    <li>Tracking evolving threat patterns</li>
+                    <li>Sensor fusion from multiple security tools</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <h3 style="color: var(--primary);">5. NoUTurnSampler (NUTS / HMC)</h3>
+                <p><strong>Used in:</strong> Stan, PyMC3</p>
+                <p style="color: var(--text-secondary); line-height: 1.8;">
+                    The No-U-Turn Sampler represents the gold standard for Bayesian posterior sampling. It automatically tunes trajectory length using Hamiltonian dynamics, providing efficient exploration of complex probability distributions without manual tuning.
+                </p>
+                <p><strong>Use Cases:</strong></p>
+                <ul style="color: var(--text-secondary); margin-left: 2rem;">
+                    <li>Risk assessment with uncertainty quantification</li>
+                    <li>Bayesian vulnerability scoring</li>
+                    <li>Probabilistic threat modeling</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <h3 style="color: var(--primary);">6. SparseGaussianProcess</h3>
+                <p><strong>Complexity:</strong> O(m²n) vs O(n³) for standard GP</p>
+                <p style="color: var(--text-secondary); line-height: 1.8;">
+                    Sparse GPs with inducing points make Gaussian processes scalable to millions of data points. This enables regression with calibrated uncertainty—critical for understanding confidence in security predictions.
+                </p>
+                <p><strong>Use Cases:</strong></p>
+                <ul style="color: var(--text-secondary); margin-left: 2rem;">
+                    <li>Vulnerability score prediction with uncertainty</li>
+                    <li>Resource usage forecasting</li>
+                    <li>Anomaly detection with confidence bounds</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <h3 style="color: var(--primary);">7. AutonomousLLMAgent (Level 4 Autonomy)</h3>
+                <p><strong>Framework:</strong> AWS 2025 Autonomy Standards</p>
+                <p style="color: var(--text-secondary); line-height: 1.8;">
+                    The autonomous LLM agent achieves Level 4 autonomy—fully self-directed goal setting and learning. It can autonomously research threat vectors, learn attack techniques, and synthesize security knowledge without human guidance.
+                </p>
+                <p><strong>Use Cases:</strong></p>
+                <ul style="color: var(--text-secondary); margin-left: 2rem;">
+                    <li>Autonomous threat intelligence gathering</li>
+                    <li>Self-directed security research</li>
+                    <li>Continuous learning from new vulnerabilities</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Quantum Algorithms Section -->
+        <section id="quantum" style="margin-bottom: 80px;">
+            <h2 style="font-size: 2.5rem; color: var(--primary); margin-bottom: 2rem;">⚛️ Quantum Computing Algorithms</h2>
+
+            <div class="info-box">
+                <p><strong>Simulation Capabilities:</strong></p>
+                <ul style="margin-left: 2rem; margin-top: 1rem;">
+                    <li>1-20 qubits: Exact statevector simulation (100% accurate)</li>
+                    <li>20-40 qubits: Tensor network approximation</li>
+                    <li>40-50 qubits: Matrix Product State (MPS) compression</li>
+                    <li>GPU acceleration: Automatic when CUDA available</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <h3 style="color: var(--primary);">1. QuantumStateEngine</h3>
+                <p><strong>Core Capability:</strong> 1-50 qubit universal quantum simulator</p>
+                <p style="color: var(--text-secondary); line-height: 1.8;">
+                    The quantum state engine provides a full-featured quantum circuit simulator with automatic backend selection. It seamlessly scales from exact simulation for small circuits to approximate methods for larger systems.
+                </p>
+                <div class="code-block"><code>from red-team-tools.quantum_ml_algorithms import QuantumStateEngine
+
+qc = QuantumStateEngine(num_qubits=10)
+for i in range(10):
+    qc.hadamard(i)  # Create superposition
+    if i < 9:
+        qc.cnot(i, i+1)  # Entangle
+
+# Measure expectation value
+energy = qc.expectation_value('Z0')</code></div>
+            </div>
+
+            <div class="step">
+                <h3 style="color: var(--primary);">2. QuantumVQE (Variational Quantum Eigensolver)</h3>
+                <p><strong>Application:</strong> Ground state finding, optimization</p>
+                <p style="color: var(--text-secondary); line-height: 1.8;">
+                    VQE is a hybrid quantum-classical algorithm that uses quantum circuits to evaluate energies and classical optimization to find minimal states. It's one of the most promising near-term quantum algorithms for chemistry and optimization.
+                </p>
+                <p><strong>Use Cases:</strong></p>
+                <ul style="color: var(--text-secondary); margin-left: 2rem;">
+                    <li>Cryptographic key strength analysis</li>
+                    <li>Optimization of scan strategies</li>
+                    <li>Pattern recognition in security data</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <h3 style="color: var(--primary);">3. HHLQuantumLinearSolver</h3>
+                <p><strong>Speedup:</strong> O(log(N)κ²) vs O(N³) classical</p>
+                <p style="color: var(--text-secondary); line-height: 1.8;">
+                    The Harrow-Hassidim-Lloyd algorithm provides exponential speedup for solving linear systems Ax = b when the condition number κ is low. This has profound implications for machine learning, optimization, and differential equations.
+                </p>
+                <div class="code-block"><code>from red-team-tools.quantum_hhl_algorithm import hhl_linear_system_solver
+
+# Solve Ax = b with quantum advantage
+A = np.array([[2.0, -0.5], [-0.5, 2.0]])
+b = np.array([1.0, 0.0])
+
+result = hhl_linear_system_solver(A, b)
+print(f"Quantum advantage: {result['quantum_advantage']:.1f}x")
+print(f"Success probability: {result['success_probability']:.2%}")</code></div>
+                <p><strong>Use Cases:</strong></p>
+                <ul style="color: var(--text-secondary); margin-left: 2rem;">
+                    <li>Fast network flow analysis</li>
+                    <li>Accelerated machine learning training</li>
+                    <li>Rapid differential equation solving</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <h3 style="color: var(--primary);">4. SchrodingerTimeEvolution</h3>
+                <p><strong>Method:</strong> Quantum dynamics via Schrödinger equation</p>
+                <p style="color: var(--text-secondary); line-height: 1.8;">
+                    Simulates quantum time evolution: iℏ d/dt |Ψ⟩ = Ĥ|Ψ⟩. This enables probabilistic forecasting by encoding system states as quantum amplitudes and evolving them forward in time.
+                </p>
+                <div class="code-block"><code>from red-team-tools.quantum_schrodinger_dynamics import quantum_dynamics_forecasting
+
+# Two-state system: secure/compromised
+H = np.array([[1.0, 0.3], [0.3, -1.0]])  # Hamiltonian
+psi0 = np.array([1.0, 0.0])  # Currently secure
+
+# Forecast 1 time unit ahead
+forecast = quantum_dynamics_forecasting(H, psi0, forecast_time=1.0)
+print(f"Secure: {forecast['probabilities'][0]:.1%}")
+print(f"Compromised: {forecast['probabilities'][1]:.1%}")</code></div>
+                <p><strong>Use Cases:</strong></p>
+                <ul style="color: var(--text-secondary); margin-left: 2rem;">
+                    <li>Probabilistic threat forecasting</li>
+                    <li>System state prediction</li>
+                    <li>Risk evolution modeling</li>
+                </ul>
+            </div>
+        </section>
+
+        <div class="cta-box" style="margin-top: 60px;">
+            <h3>Ready to Experiment?</h3>
+            <p>All algorithms are fully documented and ready to use. Check the getting started guide to begin exploring.</p>
+            <a href="getting-started.html" class="btn btn-primary">Get Started</a>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Red Team Tools</h4>
+                    <p>Open source defensive security suite built to inspire curiosity and empower the community.</p>
+                    <p class="copyright">Copyright © 2025 Joshua Hendricks Cole<br>DBA: Corporation of Light</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="getting-started.html">Getting Started</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="about.html">About the Creator</a></li>
+                        <li><a href="https://github.com/Workofarttattoo/AioS">GitHub Repository</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="https://github.com/Workofarttattoo/AioS/blob/main/LICENSE">Apache 2.0 License</a></li>
+                        <li>PATENT PENDING</li>
+                        <li><a href="index.html#ethics">Ethics & Responsible Use</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Built with ❤️ and curiosity. Funded out of pocket. Given away free.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
