@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - TheGAVL Red Team Tools</title>
     <meta name="robots" content="noindex, nofollow">
+    <!-- Supabase Auth -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Auth Configuration -->
+    <script src="js/auth-config.js"></script>
+    <script src="js/auth.js"></script>
     <style>
         * {
             margin: 0;
@@ -264,15 +269,24 @@
     </div>
 
     <script>
-        // Demo authentication system for live site
-        // In production, replace with proper backend authentication
+        // Production Authentication System
+        let authManager;
 
-        // Demo accounts for testing
-        const DEMO_ACCOUNTS = [
-            { email: 'demo@thegavl.com', password: 'demo123', name: 'Demo User' },
-            { email: 'admin@thegavl.com', password: 'admin123', name: 'Admin User' },
-            { email: 'test@thegavl.com', password: 'test123', name: 'Test User' }
-        ];
+        // Initialize auth manager when page loads
+        window.addEventListener('DOMContentLoaded', () => {
+            // Validate configuration first
+            if (!validateAuthConfig()) {
+                console.error('⚠️ Authentication not configured properly. See console for details.');
+                showAlert('Authentication system not configured. Please contact administrator.', 'error');
+                return;
+            }
+
+            // Initialize auth manager
+            authManager = new AuthManager();
+
+            // Check if already logged in
+            checkSession();
+        });
 
         const form = document.getElementById('loginForm');
         const alert = document.getElementById('alert');
@@ -280,142 +294,161 @@
         const forgotPasswordLink = document.getElementById('forgotPasswordLink');
 
         function showAlert(message, type) {
-            alert.textContent = message;
+            alert.innerHTML = message;
             alert.className = `alert ${type}`;
             alert.style.display = 'block';
-            setTimeout(() => {
-                alert.style.display = 'none';
-            }, 5000);
+
+            if (type === 'success') {
+                setTimeout(() => {
+                    alert.style.display = 'none';
+                }, 5000);
+            }
         }
 
+        // Check if user is already logged in
+        async function checkSession() {
+            if (!authManager) return;
+
+            const isAuthenticated = await authManager.isAuthenticated();
+            if (isAuthenticated) {
+                // User is already logged in, redirect to dashboard
+                window.location.href = AUTH_CONFIG.REDIRECT_URLS.afterLogin;
+            }
+        }
+
+        // Handle login form submission
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            const email = document.getElementById('email').value.toLowerCase();
+            if (!authManager) {
+                showAlert('Authentication system not initialized. Please refresh the page.', 'error');
+                return;
+            }
+
+            const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value;
+
+            // Basic validation
+            if (!email || !password) {
+                showAlert('Please enter both email and password.', 'error');
+                return;
+            }
+
+            // Check if account is locked
+            if (authManager.isAccountLocked(email)) {
+                showAlert('Account is temporarily locked due to too many failed attempts. Please try again later.', 'error');
+                return;
+            }
 
             // Disable submit button
             submitBtn.disabled = true;
-            submitBtn.textContent = 'Logging in...';
+            submitBtn.textContent = 'Authenticating...';
 
-            // Simulate network delay
-            await new Promise(resolve => setTimeout(resolve, 500));
+            try {
+                const result = await authManager.login(email, password);
 
-            // Check against demo accounts
-            const account = DEMO_ACCOUNTS.find(acc =>
-                acc.email.toLowerCase() === email && acc.password === password
-            );
+                if (result.success) {
+                    showAlert('Login successful! Redirecting to dashboard...', 'success');
 
-            if (account) {
-                // Success - Create session
-                const session = {
-                    user: {
-                        id: btoa(email), // Simple ID generation
-                        email: account.email,
-                        name: account.name,
-                        created_at: new Date().toISOString()
-                    },
-                    token: btoa(JSON.stringify({ email, timestamp: Date.now() })),
-                    expires_at: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString() // 24 hours
-                };
+                    // Redirect to dashboard
+                    setTimeout(() => {
+                        window.location.href = AUTH_CONFIG.REDIRECT_URLS.afterLogin;
+                    }, 1000);
+                }
 
-                // Store session in localStorage
-                localStorage.setItem('red-team-session', JSON.stringify(session));
+            } catch (error) {
+                let errorMessage = 'Login failed. Please check your credentials and try again.';
 
-                // Success message
-                showAlert('Login successful! Redirecting...', 'success');
-
-                // Log login event (for demo purposes)
-                const loginHistory = JSON.parse(localStorage.getItem('login-history') || '[]');
-                loginHistory.push({
-                    email: account.email,
-                    timestamp: new Date().toISOString(),
-                    success: true
-                });
-                localStorage.setItem('login-history', JSON.stringify(loginHistory));
-
-                // Redirect to dashboard after 1 second
-                setTimeout(() => {
-                    window.location.href = 'dashboard.html';
-                }, 1000);
-
-            } else {
-                // Failed login
-                const errorMessage = 'Invalid email or password. Demo accounts: demo@thegavl.com / demo123';
+                // Handle specific error cases
+                if (error.message.includes('Invalid login credentials')) {
+                    errorMessage = 'Invalid email or password. Please try again.';
+                } else if (error.message.includes('Email not confirmed')) {
+                    errorMessage = 'Please verify your email address before logging in. Check your inbox for a verification link.';
+                } else if (error.message.includes('Too many login attempts')) {
+                    errorMessage = 'Too many failed attempts. Please wait a few minutes before trying again.';
+                } else if (error.message.includes('not configured')) {
+                    errorMessage = 'Authentication system is not properly configured. Please contact support.';
+                } else if (error.message) {
+                    errorMessage = error.message;
+                }
 
                 showAlert(errorMessage, 'error');
                 submitBtn.disabled = false;
                 submitBtn.textContent = '🚀 Login';
-
-                // Log failed attempt
-                const loginHistory = JSON.parse(localStorage.getItem('login-history') || '[]');
-                loginHistory.push({
-                    email: email,
-                    timestamp: new Date().toISOString(),
-                    success: false
-                });
-                localStorage.setItem('login-history', JSON.stringify(loginHistory));
             }
         });
 
+        // Handle forgot password
         forgotPasswordLink.addEventListener('click', async (e) => {
             e.preventDefault();
 
-            const email = document.getElementById('email').value;
+            const email = document.getElementById('email').value.trim();
 
             if (!email) {
                 showAlert('Please enter your email address first.', 'error');
                 return;
             }
 
-            // Check if it's a demo account
-            const account = DEMO_ACCOUNTS.find(acc => acc.email.toLowerCase() === email.toLowerCase());
+            if (!authManager) {
+                showAlert('Authentication system not initialized. Please refresh the page.', 'error');
+                return;
+            }
 
-            if (account) {
-                showAlert(`Demo account password: ${account.password}`, 'success');
-            } else {
-                showAlert('For demo accounts, use: demo@thegavl.com / demo123', 'error');
+            if (!AUTH_CONFIG.FEATURES.allowPasswordReset) {
+                showAlert('Password reset is currently disabled. Please contact support.', 'error');
+                return;
+            }
+
+            try {
+                // Disable the link temporarily
+                forgotPasswordLink.style.pointerEvents = 'none';
+                forgotPasswordLink.textContent = 'Sending...';
+
+                const result = await authManager.resetPassword(email);
+
+                if (result.success) {
+                    showAlert('Password reset instructions have been sent to your email address. Please check your inbox.', 'success');
+                }
+
+            } catch (error) {
+                let errorMessage = 'Failed to send password reset email. Please try again.';
+
+                if (error.message.includes('Too many password reset attempts')) {
+                    errorMessage = 'Too many password reset attempts. Please wait before trying again.';
+                } else if (error.message) {
+                    errorMessage = error.message;
+                }
+
+                showAlert(errorMessage, 'error');
+
+            } finally {
+                // Re-enable the link
+                forgotPasswordLink.style.pointerEvents = 'auto';
+                forgotPasswordLink.textContent = 'Forgot password?';
             }
         });
 
-        // Check if user is already logged in
-        function checkSession() {
-            const sessionData = localStorage.getItem('red-team-session');
-            if (sessionData) {
-                try {
-                    const session = JSON.parse(sessionData);
-                    // Check if session is not expired
-                    if (new Date(session.expires_at) > new Date()) {
-                        // User is already logged in, redirect to dashboard
-                        window.location.href = 'dashboard.html';
-                    } else {
-                        // Session expired, clear it
-                        localStorage.removeItem('red-team-session');
-                    }
-                } catch (e) {
-                    // Invalid session data, clear it
-                    localStorage.removeItem('red-team-session');
-                }
-            }
-        }
-
-        // Check session on page load
-        checkSession();
-
-        // Add demo credentials hint
+        // Add configuration status indicator
         window.addEventListener('load', () => {
-            // Add a hint below the form
-            const hint = document.createElement('div');
-            hint.style.cssText = 'text-align: center; margin-top: 20px; color: #ffaa00; font-size: 0.9em;';
-            hint.innerHTML = `
-                <p>📝 Demo Credentials:</p>
-                <p style="margin-top: 5px; font-family: monospace;">
-                    demo@thegavl.com / demo123<br>
-                    admin@thegavl.com / admin123<br>
-                    test@thegavl.com / test123
-                </p>
-            `;
-            document.querySelector('.login-container').appendChild(hint);
+            // Only show config warning if not properly configured
+            if (!validateAuthConfig()) {
+                const configWarning = document.createElement('div');
+                configWarning.style.cssText = `
+                    background: rgba(255, 0, 0, 0.1);
+                    border: 1px solid #ff0000;
+                    border-radius: 5px;
+                    padding: 10px;
+                    margin-top: 20px;
+                    text-align: center;
+                    color: #ff6666;
+                    font-size: 0.9em;
+                `;
+                configWarning.innerHTML = `
+                    <p>⚠️ <strong>Configuration Required</strong></p>
+                    <p style="margin-top: 5px;">Please configure Supabase in js/auth-config.js</p>
+                `;
+                document.querySelector('.login-container').appendChild(configWarning);
+            }
         });
 
         // Orange Nebula Background Animation

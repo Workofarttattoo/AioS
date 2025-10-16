@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - TheGAVL Red Team Tools</title>
     <meta name="robots" content="noindex, nofollow">
+    <!-- Supabase Auth -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Auth Configuration -->
+    <script src="js/auth-config.js"></script>
+    <script src="js/auth.js"></script>
     <style>
         * {
             margin: 0;
@@ -632,73 +637,106 @@
     </div>
 
     <script>
-        // Demo authentication system using localStorage
+        // Production Authentication System
+        let authManager;
+        let currentUser = null;
+
+        // Initialize auth and check session when page loads
+        window.addEventListener('DOMContentLoaded', async () => {
+            // Validate configuration first
+            if (!validateAuthConfig()) {
+                console.error('⚠️ Authentication not configured properly. See console for details.');
+                alert('Authentication system not configured. Redirecting to login...');
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Initialize auth manager
+            authManager = new AuthManager();
+
+            // Check authentication
+            await checkAuth();
+        });
 
         // Check authentication on page load
-        function checkAuth() {
-            const sessionData = localStorage.getItem('red-team-session');
-
-            if (!sessionData) {
-                // Not logged in, redirect to login page
+        async function checkAuth() {
+            if (!authManager) {
                 window.location.href = 'login.html';
                 return;
             }
 
             try {
-                const session = JSON.parse(sessionData);
+                // Check if user is authenticated
+                const isAuthenticated = await authManager.isAuthenticated();
 
-                // Check if session is expired
-                if (new Date(session.expires_at) < new Date()) {
-                    // Session expired, clear and redirect
-                    localStorage.removeItem('red-team-session');
+                if (!isAuthenticated) {
+                    // Not logged in, redirect to login page
+                    window.location.href = 'login.html';
+                    return;
+                }
+
+                // Get current user
+                currentUser = await authManager.getCurrentUser();
+
+                if (!currentUser) {
                     window.location.href = 'login.html';
                     return;
                 }
 
                 // Display user info
-                const user = session.user;
                 const userInfo = document.getElementById('userInfo');
-                const userName = user.name || user.email.split('@')[0];
+                const userName = currentUser.user_metadata?.name ||
+                                currentUser.user_metadata?.full_name ||
+                                currentUser.email?.split('@')[0] ||
+                                'User';
                 userInfo.textContent = `👤 ${userName}`;
 
                 // Display member since date
-                const memberSince = new Date(user.created_at).getFullYear();
+                const memberSince = new Date(currentUser.created_at).getFullYear();
                 document.getElementById('memberSince').textContent = memberSince;
 
-                // Log dashboard access (for demo purposes)
-                const accessLog = JSON.parse(localStorage.getItem('dashboard-access') || '[]');
-                accessLog.push({
-                    user_id: user.id,
-                    email: user.email,
-                    accessed_at: new Date().toISOString()
-                });
-                // Keep only last 100 entries
-                if (accessLog.length > 100) {
-                    accessLog.shift();
-                }
-                localStorage.setItem('dashboard-access', JSON.stringify(accessLog));
+                // Log dashboard access
+                authManager.logAuditEvent('dashboard_access', currentUser);
 
-            } catch (e) {
-                // Invalid session data, redirect to login
-                localStorage.removeItem('red-team-session');
+            } catch (error) {
+                console.error('Authentication check failed:', error);
+                // Redirect to login on any auth error
                 window.location.href = 'login.html';
             }
         }
 
         // Logout function
-        function logout() {
-            // Clear session
-            localStorage.removeItem('red-team-session');
+        async function logout() {
+            if (!authManager) {
+                window.location.href = 'index.html';
+                return;
+            }
 
-            // Log logout event
-            const logoutHistory = JSON.parse(localStorage.getItem('logout-history') || '[]');
-            logoutHistory.push({
-                timestamp: new Date().toISOString()
-            });
-            localStorage.setItem('logout-history', JSON.stringify(logoutHistory));
+            try {
+                // Show loading state
+                const logoutBtn = document.querySelector('.btn-logout');
+                if (logoutBtn) {
+                    logoutBtn.disabled = true;
+                    logoutBtn.textContent = 'Logging out...';
+                }
 
-            // Redirect to home page
-            window.location.href = 'index.html';
+                // Perform logout
+                await authManager.logout();
+
+                // Redirect to home page
+                window.location.href = AUTH_CONFIG.REDIRECT_URLS.afterLogout;
+
+            } catch (error) {
+                console.error('Logout failed:', error);
+                alert('Logout failed. Please try again.');
+
+                // Reset button state
+                const logoutBtn = document.querySelector('.btn-logout');
+                if (logoutBtn) {
+                    logoutBtn.disabled = false;
+                    logoutBtn.textContent = '🚪 Logout';
+                }
+            }
         }
 
         // Launch tool function
