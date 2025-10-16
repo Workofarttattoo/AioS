@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - TheGAVL Red Team Tools</title>
     <meta name="robots" content="noindex, nofollow">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         * {
             margin: 0;
@@ -633,50 +632,73 @@
     </div>
 
     <script>
-        // TODO: Replace with your Supabase credentials
-        const SUPABASE_URL = 'https://your-project.supabase.co';
-        const SUPABASE_ANON_KEY = 'your-anon-key-here';
-
-        // Initialize Supabase
-        const { createClient } = supabase;
-        const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        // Demo authentication system using localStorage
 
         // Check authentication on page load
-        async function checkAuth() {
-            const { data: { session } } = await supabaseClient.auth.getSession();
+        function checkAuth() {
+            const sessionData = localStorage.getItem('red-team-session');
 
-            if (!session) {
+            if (!sessionData) {
                 // Not logged in, redirect to login page
                 window.location.href = 'login.html';
                 return;
             }
 
-            // Display user info
-            const user = session.user;
-            const userInfo = document.getElementById('userInfo');
-            const userName = user.user_metadata?.name || user.email.split('@')[0];
-            userInfo.textContent = `👤 ${userName}`;
+            try {
+                const session = JSON.parse(sessionData);
 
-            // Display member since date
-            const memberSince = new Date(user.created_at).getFullYear();
-            document.getElementById('memberSince').textContent = memberSince;
+                // Check if session is expired
+                if (new Date(session.expires_at) < new Date()) {
+                    // Session expired, clear and redirect
+                    localStorage.removeItem('red-team-session');
+                    window.location.href = 'login.html';
+                    return;
+                }
 
-            // Log dashboard access (optional)
-            await supabaseClient.from('dashboard_access').insert([{
-                user_id: user.id,
-                accessed_at: new Date().toISOString()
-            }]).catch(err => console.log('Access logging failed:', err));
+                // Display user info
+                const user = session.user;
+                const userInfo = document.getElementById('userInfo');
+                const userName = user.name || user.email.split('@')[0];
+                userInfo.textContent = `👤 ${userName}`;
+
+                // Display member since date
+                const memberSince = new Date(user.created_at).getFullYear();
+                document.getElementById('memberSince').textContent = memberSince;
+
+                // Log dashboard access (for demo purposes)
+                const accessLog = JSON.parse(localStorage.getItem('dashboard-access') || '[]');
+                accessLog.push({
+                    user_id: user.id,
+                    email: user.email,
+                    accessed_at: new Date().toISOString()
+                });
+                // Keep only last 100 entries
+                if (accessLog.length > 100) {
+                    accessLog.shift();
+                }
+                localStorage.setItem('dashboard-access', JSON.stringify(accessLog));
+
+            } catch (e) {
+                // Invalid session data, redirect to login
+                localStorage.removeItem('red-team-session');
+                window.location.href = 'login.html';
+            }
         }
 
         // Logout function
-        async function logout() {
-            const { error } = await supabaseClient.auth.signOut();
-            if (error) {
-                console.error('Logout error:', error);
-                alert('Logout failed. Please try again.');
-            } else {
-                window.location.href = 'index.html';
-            }
+        function logout() {
+            // Clear session
+            localStorage.removeItem('red-team-session');
+
+            // Log logout event
+            const logoutHistory = JSON.parse(localStorage.getItem('logout-history') || '[]');
+            logoutHistory.push({
+                timestamp: new Date().toISOString()
+            });
+            localStorage.setItem('logout-history', JSON.stringify(logoutHistory));
+
+            // Redirect to home page
+            window.location.href = 'index.html';
         }
 
         // Launch tool function
