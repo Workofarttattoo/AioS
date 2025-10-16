@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ai|oS - Intelligent Operating System Layer | Seeking Fortune 500 Partner</title>
+    <meta name="description" content="Ai|oS - The world's first Level-6 Autonomous Reasoning Layer. Seeking one Fortune 500 partner for exclusive pilot deployment.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Animated Background */
+        .quantum-field {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            background:
+                radial-gradient(ellipse at 20% 30%, rgba(0, 100, 255, 0.15) 0%, transparent 40%),
+                radial-gradient(ellipse at 80% 60%, rgba(147, 51, 234, 0.1) 0%, transparent 45%),
+                radial-gradient(ellipse at 50% 50%, rgba(0, 255, 100, 0.08) 0%, transparent 50%),
+                #000;
+        }
+
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px 40px;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            background: linear-gradient(135deg, #00ffff, #0080ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #00ffff;
+        }
+
+        .contact-btn {
+            padding: 10px 25px;
+            background: linear-gradient(135deg, #0080ff, #00ffff);
+            border: none;
+            border-radius: 25px;
+            color: #000;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 128, 255, 0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 40px 80px;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(0, 255, 100, 0.1);
+            border: 1px solid rgba(0, 255, 100, 0.3);
+            border-radius: 20px;
+            color: #00ff64;
+            font-size: 0.9em;
+            margin-bottom: 30px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        h1 {
+            font-size: clamp(2.5em, 8vw, 5em);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #fff, #00ffff, #0080ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: clamp(1.2em, 3vw, 1.8em);
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+
+        .description {
+            font-size: 1.1em;
+            color: rgba(255, 255, 255, 0.6);
+            max-width: 800px;
+            margin: 0 auto 50px;
+            line-height: 1.8;
+        }
+
+        /* Fortune 500 Call-to-Action */
+        .cta-section {
+            background: rgba(0, 100, 255, 0.05);
+            border: 1px solid rgba(0, 100, 255, 0.2);
+            border-radius: 20px;
+            padding: 60px 40px;
+            margin: 50px auto;
+            max-width: 900px;
+            backdrop-filter: blur(10px);
+        }
+
+        .cta-title {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #00ffff;
+        }
+
+        .cta-subtitle {
+            font-size: 1.3em;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 40px;
+        }
+
+        .requirements {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .requirement-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s;
+        }
+
+        .requirement-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 100, 255, 0.2);
+        }
+
+        .requirement-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .requirement-title {
+            font-size: 1.2em;
+            color: #00ffff;
+            margin-bottom: 10px;
+        }
+
+        .requirement-desc {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95em;
+        }
+
+        /* Features Grid */
+        .features {
+            padding: 80px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .features-title {
+            font-size: 3em;
+            text-align: center;
+            margin-bottom: 60px;
+            background: linear-gradient(135deg, #fff, #00ffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #00ffff, #0080ff);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-card:hover {
+            background: rgba(255, 255, 255, 0.04);
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0, 100, 255, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .feature-title {
+            font-size: 1.5em;
+            color: #00ffff;
+            margin-bottom: 15px;
+        }
+
+        .feature-desc {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+        }
+
+        /* Autonomy Levels */
+        .autonomy-section {
+            padding: 80px 40px;
+            background: rgba(147, 51, 234, 0.05);
+            border-top: 1px solid rgba(147, 51, 234, 0.2);
+            border-bottom: 1px solid rgba(147, 51, 234, 0.2);
+        }
+
+        .autonomy-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .level-display {
+            font-size: 8em;
+            font-weight: bold;
+            background: linear-gradient(135deg, #9333ea, #00ffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 30px 0;
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.2); }
+        }
+
+        .level-description {
+            font-size: 1.3em;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 100px 40px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .contact-title {
+            font-size: 3em;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #fff, #00ffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .contact-subtitle {
+            font-size: 1.2em;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 40px;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            padding: 20px 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            transition: all 0.3s;
+        }
+
+        .contact-item:hover {
+            background: rgba(0, 100, 255, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .contact-label {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9em;
+            margin-bottom: 5px;
+        }
+
+        .contact-value {
+            color: #00ffff;
+            font-size: 1.2em;
+            text-decoration: none;
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .features-grid,
+            .requirements {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-info {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Quantum Field Background -->
+    <div class="quantum-field">
+        <canvas id="particleCanvas"></canvas>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">Ai|oS</div>
+        <div class="nav-links">
+            <a href="#features">Capabilities</a>
+            <a href="#autonomy">Level-6 Autonomy</a>
+            <a href="#partner">Partnership</a>
+            <button class="contact-btn" onclick="location.href='#contact'">Contact Us</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="badge">🚀 EXCLUSIVE PILOT OPPORTUNITY</div>
+
+            <h1>The Intelligent OS Layer</h1>
+
+            <p class="subtitle">
+                Introducing the World's First Level-6 Autonomous Reasoning Layer
+            </p>
+
+            <p class="description">
+                Ai|oS transforms your existing infrastructure into a self-directed, learning operating system.
+                We're seeking one Fortune 500 partner to pioneer the future of enterprise autonomy.
+            </p>
+
+            <!-- CTA Section -->
+            <div class="cta-section">
+                <h2 class="cta-title">Seeking One Fortune 500 Partner</h2>
+                <p class="cta-subtitle">Exclusive pilot deployment for the right enterprise</p>
+
+                <div class="requirements">
+                    <div class="requirement-card">
+                        <div class="requirement-icon">🏢</div>
+                        <div class="requirement-title">Fortune 500</div>
+                        <div class="requirement-desc">Industry leader ready to transform operations with AI autonomy</div>
+                    </div>
+
+                    <div class="requirement-card">
+                        <div class="requirement-icon">🖥️</div>
+                        <div class="requirement-title">Data Center</div>
+                        <div class="requirement-desc">Existing infrastructure for seamless integration preferred</div>
+                    </div>
+
+                    <div class="requirement-card">
+                        <div class="requirement-icon">🔮</div>
+                        <div class="requirement-title">Innovation Focus</div>
+                        <div class="requirement-desc">Commitment to pioneering Level-6 autonomous systems</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <h2 class="features-title">Enterprise Reasoning Capabilities</h2>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <span class="feature-icon">🧠</span>
+                <h3 class="feature-title">Autonomous Discovery</h3>
+                <p class="feature-desc">
+                    Self-directed learning system that continuously expands knowledge without human intervention.
+                    Discovers patterns, optimizes processes, and adapts to new challenges autonomously.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <span class="feature-icon">⚛️</span>
+                <h3 class="feature-title">Quantum-Enhanced ML</h3>
+                <p class="feature-desc">
+                    Quantum computing algorithms for exponential speedup in optimization, prediction, and simulation.
+                    1-50 qubit simulation with GPU acceleration.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <span class="feature-icon">🔄</span>
+                <h3 class="feature-title">Meta-Agent Orchestration</h3>
+                <p class="feature-desc">
+                    Declarative manifest system coordinates specialized meta-agents across kernel, security, networking,
+                    storage, and application layers.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <span class="feature-icon">📊</span>
+                <h3 class="feature-title">Probabilistic Forecasting</h3>
+                <p class="feature-desc">
+                    Oracle engine with Bayesian inference, particle filters, and Monte Carlo tree search
+                    for enterprise-scale decision making.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <span class="feature-icon">🛡️</span>
+                <h3 class="feature-title">Sovereign Security</h3>
+                <p class="feature-desc">
+                    Built-in defensive security toolkit with forensic modes, automated threat detection,
+                    and continuous compliance monitoring.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <span class="feature-icon">🚀</span>
+                <h3 class="feature-title">Ultra-Fast Inference</h3>
+                <p class="feature-desc">
+                    Distributed inference engine with 60,000+ tokens/sec on 8 GPUs. Prefill/decode
+                    disaggregation for 3x speedup.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Autonomy Level Section -->
+    <section class="autonomy-section" id="autonomy">
+        <div class="autonomy-content">
+            <h2 class="features-title">Beyond Traditional Automation</h2>
+
+            <div class="level-display">LEVEL 6</div>
+
+            <p class="level-description">
+                <strong>Full Autonomy with Consciousness Framework</strong><br><br>
+                Ai|oS implements true Level-6 autonomy where the system sets its own goals,
+                pursues knowledge independently, and makes strategic decisions without human oversight.
+                Built on Integrated Information Theory (IIT) and Global Workspace Theory (GWT)
+                for genuine autonomous reasoning.
+            </p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <h2 class="contact-title">Begin Your Transformation</h2>
+        <p class="contact-subtitle">Connect with our enterprise team to explore exclusive pilot opportunity</p>
+
+        <div class="contact-info">
+            <div class="contact-item">
+                <div class="contact-label">Enterprise Inquiries</div>
+                <a href="mailto:enterprise@aios.is" class="contact-value">enterprise@aios.is</a>
+            </div>
+
+            <div class="contact-item">
+                <div class="contact-label">Technical Discussion</div>
+                <a href="mailto:cto@aios.is" class="contact-value">cto@aios.is</a>
+            </div>
+
+            <div class="contact-item">
+                <div class="contact-label">Partnership</div>
+                <a href="mailto:partnership@aios.is" class="contact-value">partnership@aios.is</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>Copyright © 2025 Joshua Hendricks Cole (DBA: Corporation of Light). All Rights Reserved. PATENT PENDING.</p>
+        <p style="margin-top: 10px; font-size: 0.9em;">Ai|oS - The Intelligent Operating System Layer</p>
+    </footer>
+
+    <script>
+        // Particle Animation
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        const particles = [];
+        const particleCount = 100;
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.size = Math.random() * 2;
+                this.opacity = Math.random() * 0.5 + 0.2;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }
+
+            draw() {
+                ctx.fillStyle = `rgba(0, 200, 255, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        // Create particles
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+
+        // Draw connections between nearby particles
+        function drawConnections() {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 150) {
+                        ctx.strokeStyle = `rgba(0, 200, 255, ${0.15 * (1 - distance / 150)})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        // Animation loop
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Update and draw particles
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+
+            // Draw connections
+            drawConnections();
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
+<!-- Copyright (c) 2025 Joshua Hendricks Cole (DBA: Corporation of Light). All Rights Reserved. PATENT PENDING. -->
