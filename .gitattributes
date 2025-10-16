@@ -28,6 +28,10 @@ tools/obsidianhunt_gui.py filter=git-crypt diff=git-crypt
 tools/vectorflux.py filter=git-crypt diff=git-crypt
 tools/osint_workflows.py filter=git-crypt diff=git-crypt
 
+# Red Team Tools Suite - Entire directory encrypted (proprietary)
+red-team-tools/*.py filter=git-crypt diff=git-crypt
+red-team-tools/README.md filter=git-crypt diff=git-crypt
+
 # Advanced ML algorithms (proprietary implementations)
 ml_algorithms.py filter=git-crypt diff=git-crypt
 quantum_ml_algorithms.py filter=git-crypt diff=git-crypt
