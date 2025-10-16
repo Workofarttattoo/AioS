@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Red Team Tools Suite</title>
+    <meta name="description" content="Frequently asked questions about the Red Team Tools Suite, Ai:oS, and the vision behind this project.">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .faq-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+
+        .faq-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .faq-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .faq-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s;
+        }
+
+        .faq-item:hover {
+            border-color: var(--primary);
+            box-shadow: 0 5px 20px rgba(0, 255, 136, 0.1);
+        }
+
+        .faq-question {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .faq-answer {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .faq-answer strong {
+            color: var(--text-primary);
+        }
+
+        .faq-answer a {
+            color: var(--secondary);
+            text-decoration: none;
+            border-bottom: 1px solid var(--secondary);
+        }
+
+        .faq-answer a:hover {
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .personal-story {
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.05), rgba(0, 136, 255, 0.05));
+            border: 2px solid var(--primary);
+            border-radius: 12px;
+            padding: 3rem;
+            margin: 4rem 0;
+        }
+
+        .personal-story h2 {
+            color: var(--primary);
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+
+        .personal-story p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .personal-story em {
+            color: var(--secondary);
+            font-style: italic;
+        }
+
+        .highlight-box {
+            background: var(--dark-bg);
+            border-left: 4px solid var(--primary);
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <span class="logo">🛡️</span>
+                <span class="brand-text">Red Team Tools</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#tools">Tools</a></li>
+                <li><a href="getting-started.html">Get Started</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="https://github.com/Workofarttattoo/AioS" target="_blank" class="github-btn">GitHub</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="faq-container">
+        <div class="faq-header">
+            <h1>Frequently Asked Questions</h1>
+            <p style="color: var(--text-secondary); font-size: 1.1rem;">Everything you need to know about the Red Team Tools Suite</p>
+        </div>
+
+        <div class="personal-story">
+            <h2>💭 Why I Built This</h2>
+            <p>
+                I'm just one guy. Not a corporation, not a VC-backed startup, not a team of dozens. Just me, Joshua Hendricks Cole, working late nights in my home office, fueled by coffee and curiosity.
+            </p>
+            <p>
+                I paid for this <em>entirely out of pocket</em>. The hosting, the domain, the countless hours debugging cryptic errors at 2 AM. No investors. No sponsors. No ulterior motives.
+            </p>
+            <p>
+                <strong>Why?</strong>
+            </p>
+            <p>
+                Because I believe that knowledge should be <strong>accessible</strong>. I believe that security tools shouldn't be locked behind paywalls or NDAs. I believe that the next generation of hackers, security researchers, and innovators are out there right now—maybe you're one of them—waiting for that spark of inspiration.
+            </p>
+            <p>
+                These tools represent <em>years</em> of research, experimentation, and learning. I reverse-engineered concepts from ParrotOS. I studied quantum computing papers until my brain hurt. I implemented ML algorithms that I barely understood at first, then rebuilt them when I finally did.
+            </p>
+            <p>
+                And now I'm giving it all away. Free. Open source. Apache 2.0.
+            </p>
+            <p>
+                Not because I'm wealthy (I'm not). Not because I don't value my work (I do). But because I remember what it was like to be <em>hungry for knowledge</em> and hitting paywall after paywall.
+            </p>
+            <div class="highlight-box">
+                <p style="margin: 0; color: var(--primary); font-weight: 600;">
+                    "If this suite inspires even one person to dive deeper into security, to build something amazing, to ask 'what if?'—then every sleepless night was worth it."
+                </p>
+            </div>
+            <p>
+                So go ahead. Clone it. Fork it. Break it. Learn from it. Build on it. Make it better than I ever could.
+            </p>
+            <p>
+                That's why this exists. To inspire <strong>curiosity</strong> in you.
+            </p>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">Q: What is the Red Team Tools Suite?</div>
+            <div class="faq-answer">
+                The Red Team Tools Suite is a comprehensive collection of <strong>11 defensive security tools</strong>, <strong>7 advanced ML algorithms</strong>, and <strong>4 quantum computing implementations</strong>. It's designed for security researchers, penetration testers, and anyone curious about how modern security systems work. Every tool is open source, fully documented, and integrated with Ai:oS (an agentic operating system).
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">Q: Is this really free?</div>
+            <div class="faq-answer">
+                <strong>Yes, completely free.</strong> Licensed under Apache 2.0, which means you can use it, modify it, and even use it commercially—as long as you provide attribution. No hidden fees, no premium tiers, no "enterprise edition." What you see is what you get, forever.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">Q: Why is some of the code encrypted with git-crypt?</div>
+            <div class="faq-answer">
+                Great question! While the suite is open source, some of the <strong>proprietary algorithms and implementations</strong> are encrypted to protect intellectual property that's part of a <strong>PATENT PENDING</strong> filing. However, the <strong>interfaces, documentation, and usage patterns</strong> are all public. Authorized contributors and researchers can request access to the full source for educational purposes.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">Q: What is Ai:oS?</div>
+            <div class="faq-answer">
+                <strong>Ai:oS</strong> (pronounced "A-I-O-S") is an <em>Agentic Operating System</em>—a control-plane OS that coordinates meta-agents through declarative manifests. Think of it as an orchestration layer where security tools, ML algorithms, and system agents work together autonomously. The Red Team Tools Suite is designed to integrate seamlessly with Ai:oS, but you can also use the tools standalone. <a href="https://github.com/Workofarttattoo/AioS">Check it out on GitHub</a>.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">Q: Can I use these tools for penetration testing?</div>
+            <div class="faq-answer">
+                <strong>Yes, but only with proper authorization.</strong> These tools are designed for <em>defensive security</em> and <em>authorized assessments</em>. You MUST have explicit permission before testing any system you don't own. Unauthorized use is illegal and unethical. See our <a href="index.html#ethics">Ethics & Responsible Use</a> section for details.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">Q: What makes these tools different from Metasploit, Burp Suite, or other security tools?</div>
+            <div class="faq-answer">
+                Great comparison! Here's what makes this suite unique:
+                <ul style="margin-top: 1rem;">
+                    <li><strong>Agentic Integration:</strong> Tools are designed to work with meta-agents in Ai:oS for autonomous security workflows</li>
+                    <li><strong>ML-Enhanced:</strong> Many tools leverage ML algorithms (particle filters, MCTS, Bayesian inference) for smarter analysis</li>
+                    <li><strong>Quantum-Ready:</strong> Includes quantum computing implementations for future-proof cryptanalysis</li>
+                    <li><strong>Fully Open Source:</strong> Unlike commercial tools, you can inspect, modify, and learn from every line</li>
+                    <li><strong>Educational Focus:</strong> Extensive documentation designed to teach, not just provide commands</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">Q: I'm a beginner. Can I use these tools?</div>
+            <div class="faq-answer">
+                <strong>Absolutely!</strong> While some tools are advanced, we've included:
+                <ul style="margin-top: 1rem;">
+                    <li><strong>--demo</strong> modes for safe, simulated testing</li>
+                    <li><strong>Comprehensive documentation</strong> for each tool</li>
+                    <li><strong>Example usage patterns</strong> to get you started</li>
+                    <li><strong>Health checks</strong> (--health) to verify setup</li>
+                </ul>
+                Start with the <a href="getting-started.html">Getting Started Guide</a> and don't be afraid to experiment in a safe environment (virtual machines, isolated networks).
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">Q: How can I contribute?</div>
+            <div class="faq-answer">
+                Contributions are <strong>enthusiastically welcomed</strong>! Here's how you can help:
+                <ul style="margin-top: 1rem;">
+                    <li>🐛 <strong>Report bugs</strong> via GitHub Issues</li>
+                    <li>✨ <strong>Submit features</strong> via Pull Requests</li>
+                    <li>📚 <strong>Improve documentation</strong>—add examples, fix typos, clarify concepts</li>
+                    <li>🧪 <strong>Write tests</strong> to improve reliability</li>
+                    <li>💬 <strong>Share feedback</strong>—what works, what doesn't, what's confusing</li>
+                    <li>⭐ <strong>Star the repo</strong> to help others discover it</li>
+                </ul>
+                Check the <a href="https://github.com/Workofarttattoo/AioS">GitHub repository</a> for contribution guidelines.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">Q: What are the system requirements?</div>
+            <div class="faq-answer">
+                <strong>Minimum:</strong>
+                <ul style="margin-top: 1rem;">
+                    <li>Python 3.10+</li>
+                    <li>4GB RAM (8GB recommended)</li>
+                    <li>Linux, macOS, or Windows (WSL recommended)</li>
+                    <li>NumPy, SciPy (for ML algorithms)</li>
+                </ul>
+                <strong>Optional (for advanced features):</strong>
+                <ul style="margin-top: 1rem;">
+                    <li>PyTorch (for quantum algorithms and some ML features)</li>
+                    <li>GPU (for accelerated credential analysis in MythicKey)</li>
+                    <li>Docker (for Ai:oS integration)</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">Q: Is there commercial support available?</div>
+            <div class="faq-answer">
+                Currently, this is a <strong>community-driven project</strong> with no official commercial support. However, the <a href="about.html">creator</a> is available for consulting, training, and custom integrations on a case-by-case basis. For enterprise needs, reach out via the GitHub repository or through the contact information on the About page.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">Q: What's the PATENT PENDING status?</div>
+            <div class="faq-answer">
+                Certain <strong>novel algorithms and implementations</strong> in this suite are subject to pending patent applications. The Apache 2.0 license includes an <strong>explicit patent grant</strong> (Section 3), which means:
+                <ul style="margin-top: 1rem;">
+                    <li>✅ You can use the patented technology freely</li>
+                    <li>✅ You can modify and distribute it</li>
+                    <li>✅ You can use it commercially</li>
+                    <li>⚖️ If you sue over the patents, your license terminates (defensive protection)</li>
+                </ul>
+                This protects both users and the creator while keeping the software open source.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">Q: Will these tools always be free?</div>
+            <div class="faq-answer">
+                <strong>Yes.</strong> The Apache 2.0 license ensures that even if development stops, the code remains free and open forever. Anyone can fork it, maintain it, and build on it. This is a commitment to the community, not a bait-and-switch.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">Q: How do I stay updated?</div>
+            <div class="faq-answer">
+                <ul style="margin-top: 1rem;">
+                    <li>⭐ <strong>Star the GitHub repo</strong> to get notifications</li>
+                    <li>👀 <strong>Watch releases</strong> on GitHub</li>
+                    <li>📖 <strong>Check the CHANGELOG</strong> for updates</li>
+                    <li>💬 <strong>Join discussions</strong> in GitHub Issues</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="personal-story" style="margin-top: 4rem;">
+            <h2>🚀 What's Next?</h2>
+            <p>
+                This is just the beginning. I have plans for more tools, more algorithms, deeper Ai:oS integration, and even quantum-enhanced security features. But I can't do it alone.
+            </p>
+            <p>
+                <strong>This is now YOUR project too.</strong>
+            </p>
+            <p>
+                Fork it. Experiment. Build something wild. Share your discoveries. Let's push the boundaries of what's possible in security research together.
+            </p>
+            <p>
+                Ready to dive in? <a href="getting-started.html" style="color: var(--primary); font-weight: 600;">Get started here</a>.
+            </p>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Red Team Tools</h4>
+                    <p>Open source defensive security suite built to inspire curiosity and empower the community.</p>
+                    <p class="copyright">Copyright © 2025 Joshua Hendricks Cole<br>DBA: Corporation of Light</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="getting-started.html">Getting Started</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="about.html">About the Creator</a></li>
+                        <li><a href="https://github.com/Workofarttattoo/AioS">GitHub Repository</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="https://github.com/Workofarttattoo/AioS/blob/main/LICENSE">Apache 2.0 License</a></li>
+                        <li>PATENT PENDING</li>
+                        <li><a href="index.html#ethics">Ethics & Responsible Use</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Built with ❤️ and curiosity. Funded out of pocket. Given away free.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
