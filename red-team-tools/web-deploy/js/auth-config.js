@@ -18,8 +18,8 @@
 
 const AUTH_CONFIG = {
     // Supabase Configuration
-    SUPABASE_URL: process.env.SUPABASE_URL || 'https://your-project.supabase.co',
-    SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY || 'your-anon-key-here',
+    SUPABASE_URL: process.env.SUPABASE_URL || 'https://trokobwiphidmrmhwkni.supabase.co',
+    SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRyb2tvYndpcGhpZG1ybWh3a25pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA2NTk4MTQsImV4cCI6MjA3NjIzNTgxNH0.D1iTVxtL481Tk6Jr7qSInjOOCZhWmuHT8g-cE_ZT-dM',
 
     // Application Settings
     APP_NAME: 'TheGAVL Red Team Tools',
@@ -32,13 +32,13 @@ const AUTH_CONFIG = {
     // Security Settings
     PASSWORD_MIN_LENGTH: 8,
     REQUIRE_EMAIL_VERIFICATION: true,
-    ENABLE_MFA: false, // Set to true for production
+    ENABLE_MFA: true, // Set to true for production
     MAX_LOGIN_ATTEMPTS: 5,
     LOCKOUT_DURATION: 15 * 60 * 1000, // 15 minutes
 
     // OAuth Providers (configure in Supabase dashboard)
     OAUTH_PROVIDERS: {
-        google: false,
+        google: true,
         github: false,
         gitlab: false,
         bitbucket: false
