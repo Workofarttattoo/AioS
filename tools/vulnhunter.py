@@ -1027,6 +1027,24 @@ GUI_HTML = """<!DOCTYPE html>
             border: 1px solid var(--primary);
         }
 
+        .quick-target-btn {
+            padding: 6px 12px;
+            background: var(--bg-light);
+            border: 1px solid var(--accent);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+        }
+
+        .quick-target-btn:hover {
+            background: var(--accent);
+            color: var(--text-primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 102, 102, 0.4);
+        }
+
         /* Progress Bar */
         .progress-container {
             background: var(--bg-dark);
@@ -1442,7 +1460,16 @@ GUI_HTML = """<!DOCTYPE html>
 
                 <div class="form-group">
                     <label for="scan-target">Target (IP/CIDR/Hostname)</label>
-                    <input type="text" id="scan-target" placeholder="192.168.1.0/24 or example.com">
+                    <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                        <input type="text" id="scan-target" placeholder="192.168.1.0/24, 10.0.0.1, or example.com" style="flex: 1;">
+                        <button class="btn btn-secondary" onclick="autoDetectIP()" style="padding: 8px 15px;">🔍 Auto-Detect</button>
+                    </div>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <button class="quick-target-btn" onclick="setTarget('127.0.0.1')">Localhost</button>
+                        <button class="quick-target-btn" onclick="setTarget('192.168.1.0/24')">Home Network</button>
+                        <button class="quick-target-btn" onclick="setTarget('10.0.0.0/24')">Corporate LAN</button>
+                        <button class="quick-target-btn" onclick="setTarget('172.16.0.0/16')">Private Network</button>
+                    </div>
                 </div>
 
                 <div class="form-group">
@@ -1657,6 +1684,44 @@ GUI_HTML = """<!DOCTYPE html>
                 document.getElementById(tabName).classList.add('active');
             });
         });
+
+        // Set target IP/hostname
+        function setTarget(target) {
+            document.getElementById('scan-target').value = target;
+            document.getElementById('scan-target').focus();
+        }
+
+        // Auto-detect local IP
+        async function autoDetectIP() {
+            try {
+                // Use WebRTC to detect local IP
+                const pc = new RTCPeerConnection({iceServers: []});
+                pc.createDataChannel('');
+                pc.createOffer().then(offer => pc.setLocalDescription(offer));
+
+                pc.onicecandidate = (ice) => {
+                    if (!ice || !ice.candidate || !ice.candidate.candidate) return;
+                    const ipRegex = /([0-9]{1,3}\.){3}[0-9]{1,3}/;
+                    const match = ipRegex.exec(ice.candidate.candidate);
+                    if (match) {
+                        const localIP = match[0];
+                        // Convert to /24 network
+                        const parts = localIP.split('.');
+                        parts[3] = '0/24';
+                        const network = parts.join('.');
+                        setTarget(network);
+                        pc.onicecandidate = () => {};
+                        pc.close();
+                    }
+                };
+            } catch (error) {
+                // Fallback to common local networks
+                const fallback = ['192.168.1.0/24', '192.168.0.0/24', '10.0.0.0/24'];
+                const selected = fallback[Math.floor(Math.random() * fallback.length)];
+                setTarget(selected);
+                alert('Auto-detect unavailable. Using common network: ' + selected);
+            }
+        }
 
         // Start scan
         function startScan() {
