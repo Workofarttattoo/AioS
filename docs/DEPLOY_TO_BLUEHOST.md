@@ -217,6 +217,5 @@ Once deployed, your site will have:
 
 ---
 
-🤖 Generated with [Claude Code](https://claude.com/claude-code)
 
 Copyright (c) 2025 Joshua Hendricks Cole (DBA: Corporation of Light). All Rights Reserved. PATENT PENDING.
