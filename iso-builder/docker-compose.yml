@@ -1,0 +1,18 @@
+version: "3.9"
+
+# Ai|oS Bootable ISO Builder - Docker Compose
+# Builds the ISO in a Docker container and exports it to host
+
+services:
+  iso-builder:
+    build:
+      context: ..
+      dockerfile: iso-builder/Dockerfile.iso
+    image: aios-iso-builder:latest
+    container_name: aios-iso-builder
+    volumes:
+      - ./output:/output
+    command: >
+      sh -c "cp /build/aios-live.iso /output/aios-live.iso &&
+             echo '[info] ISO exported to ./output/aios-live.iso' &&
+             echo '[info] Size: ' && du -h /output/aios-live.iso"

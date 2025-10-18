@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook Ad Images - Ready to Post</title>
+    <style>
+        /* Copyright (c) 2025 Joshua Hendricks Cole (DBA: Corporation of Light). All Rights Reserved. PATENT PENDING. */
+
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&family=Space+Grotesk:wght@300;400;700&family=Inter:wght@400;600;800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #1a1a1a;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+
+        .instructions {
+            background: #2a2a2a;
+            color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .ads-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        /* Facebook Ad Containers */
+        .ad-wrapper {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .ad-label {
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        /* Standard Facebook Feed Ad - 1200x630 */
+        .facebook-feed-ad {
+            width: 500px;
+            height: 262px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        /* Square Ad - 1080x1080 */
+        .facebook-square-ad {
+            width: 500px;
+            height: 500px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        /* Story Ad - 1080x1920 (shown smaller) */
+        .facebook-story-ad {
+            width: 281px;
+            height: 500px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            background: linear-gradient(180deg, #00d2ff 0%, #3a7bd5 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            cursor: pointer;
+        }
+
+        /* Ad Content Styles */
+        .ad-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 20px;
+            color: white;
+        }
+
+        .ad-logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 3rem;
+            background: linear-gradient(90deg, #fff, #00ffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+            text-shadow: 0 0 40px rgba(0, 255, 255, 0.5);
+        }
+
+        .ad-headline {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: #fff;
+            margin-bottom: 15px;
+            line-height: 1.2;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .ad-subheadline {
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .ad-features {
+            list-style: none;
+            margin: 20px 0;
+            text-align: left;
+            display: inline-block;
+        }
+
+        .ad-features li {
+            color: #fff;
+            margin: 8px 0;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .ad-features li::before {
+            content: "✓";
+            color: #00ff88;
+            font-weight: bold;
+            margin-right: 8px;
+            font-size: 1.2rem;
+        }
+
+        .ad-cta {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #00ff88, #00cc70);
+            color: #000;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            border-radius: 50px;
+            margin-top: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 20px rgba(0, 255, 136, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .ad-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 255, 136, 0.6);
+        }
+
+        .ad-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* Pattern Overlays */
+        .pattern-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0.1;
+            background-image:
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 35px,
+                    rgba(255,255,255,.1) 35px,
+                    rgba(255,255,255,.1) 70px
+                );
+        }
+
+        /* Animated Background */
+        .animated-bg {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: radial-gradient(circle, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: bgMove 20s linear infinite;
+        }
+
+        @keyframes bgMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* Specific Ad Designs */
+        .ad-1 {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .ad-2 {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .ad-3 {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .ad-4 {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        .ad-5 {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+
+        .ad-6 {
+            background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
+        }
+
+        .ad-7 {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        }
+
+        .ad-8 {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+        }
+
+        .ad-dark {
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+        }
+
+        .ad-tech {
+            background: linear-gradient(135deg, #000428 0%, #004e92 100%);
+        }
+
+        /* Carousel Ad Style */
+        .carousel-container {
+            width: 500px;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .carousel-slide {
+            width: 500px;
+            height: 500px;
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Download Button */
+        .download-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 12px;
+            cursor: pointer;
+            z-index: 10;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .download-btn:hover {
+            background: rgba(0, 0, 0, 0.9);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .ads-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .facebook-feed-ad,
+            .facebook-square-ad {
+                width: 100%;
+                max-width: 500px;
+            }
+        }
+
+        /* Special Effects */
+        .glow-text {
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .stats-row {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 20px 0;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #00ff88;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Facebook Ad Images - Ready to Post 🚀</h1>
+
+        <div class="instructions">
+            <h3>📸 How to Use These Ads:</h3>
+            <p>1. Click "Save Image" on any ad to download it</p>
+            <p>2. Or take a screenshot of the ad you want</p>
+            <p>3. Upload directly to Facebook Ads Manager</p>
+            <p>4. All ads are optimized for Facebook's recommended dimensions</p>
+        </div>
+
+        <div class="ads-grid">
+            <!-- Feed Ad 1: Hero Launch -->
+            <div class="ad-wrapper">
+                <div class="ad-label">Facebook Feed Ad (1200x630) - Hero Launch</div>
+                <div class="facebook-feed-ad ad-tech" id="ad1">
+                    <div class="animated-bg"></div>
+                    <div class="ad-content">
+                        <div class="ad-badge">LIMITED TIME</div>
+                        <div class="ad-logo">Ai|oS</div>
+                        <div class="ad-headline">The Legal OS is HERE</div>
+                        <div class="ad-subheadline">First Autonomous Intelligence Operating System for Law</div>
+                        <a href="#" class="ad-cta pulse">GET EARLY ACCESS</a>
+                    </div>
+                    <div class="pattern-overlay"></div>
+                    <button class="download-btn" onclick="downloadAd('ad1')">Save Image</button>
+                </div>
+            </div>
+
+            <!-- Square Ad 1: Features -->
+            <div class="ad-wrapper">
+                <div class="ad-label">Instagram/Facebook Square (1080x1080) - Features</div>
+                <div class="facebook-square-ad ad-1" id="ad2">
+                    <div class="animated-bg"></div>
+                    <div class="ad-content">
+                        <div class="ad-logo" style="font-size: 4rem;">Ai|oS</div>
+                        <div class="ad-headline">Transform Your Legal Practice</div>
+                        <ul class="ad-features">
+                            <li>70% Faster Research</li>
+                            <li>Quantum Computing Power</li>
+                            <li>24/7 AI Agents</li>
+                            <li>Military-Grade Security</li>
+                            <li>GDPR Compliant</li>
+                        </ul>
+                        <a href="#" class="ad-cta">START FREE TRIAL</a>
+                    </div>
+                    <button class="download-btn" onclick="downloadAd('ad2')">Save Image</button>
+                </div>
+            </div>
+
+            <!-- Feed Ad 2: Government Focus -->
+            <div class="ad-wrapper">
+                <div class="ad-label">Facebook Feed Ad - Government Agencies</div>
+                <div class="facebook-feed-ad ad-dark" id="ad3">
+                    <div class="ad-content">
+                        <div class="ad-badge">GOVERNMENT READY</div>
+                        <div style="font-size: 1.5rem; margin-bottom: 10px;">⚖️ GAVL COURT + Ai|oS</div>
+                        <div class="ad-headline" style="font-size: 1.5rem;">Trusted by DOJ & UK Ministry</div>
+                        <div class="ad-subheadline">Secure. Compliant. Revolutionary.</div>
+                        <a href="#" class="ad-cta">SCHEDULE DEMO</a>
+                    </div>
+                    <div class="pattern-overlay"></div>
+                    <button class="download-btn" onclick="downloadAd('ad3')">Save Image</button>
+                </div>
+            </div>
+
+            <!-- Square Ad 2: Stats -->
+            <div class="ad-wrapper">
+                <div class="ad-label">Instagram/Facebook Square - Statistics</div>
+                <div class="facebook-square-ad ad-3" id="ad4">
+                    <div class="ad-content">
+                        <div class="ad-logo">Ai|oS</div>
+                        <div class="ad-headline" style="font-size: 1.5rem;">The Numbers Speak</div>
+                        <div class="stats-row">
+                            <div class="stat">
+                                <div class="stat-number">70%</div>
+                                <div class="stat-label">Faster</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-number">24/7</div>
+                                <div class="stat-label">AI Agents</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-number">100%</div>
+                                <div class="stat-label">Secure</div>
+                            </div>
+                        </div>
+                        <div class="ad-subheadline" style="margin-top: 20px;">Join the Legal Revolution</div>
+                        <a href="#" class="ad-cta">LEARN MORE</a>
+                    </div>
+                    <button class="download-btn" onclick="downloadAd('ad4')">Save Image</button>
+                </div>
+            </div>
+
+            <!-- Story Ad -->
+            <div class="ad-wrapper">
+                <div class="ad-label">Facebook/Instagram Story (1080x1920)</div>
+                <div class="facebook-story-ad" id="ad5">
+                    <div class="animated-bg"></div>
+                    <div class="ad-content">
+                        <div class="ad-logo" style="font-size: 3.5rem; margin-bottom: 30px;">Ai|oS</div>
+                        <div class="ad-headline" style="font-size: 2rem;">LEGAL AI</div>
+                        <div class="ad-headline" style="font-size: 2rem;">IS HERE</div>
+                        <div style="margin: 30px 0;">
+                            <div style="font-size: 1.2rem; margin: 10px 0;">✨ Quantum Power</div>
+                            <div style="font-size: 1.2rem; margin: 10px 0;">🔒 Military Security</div>
+                            <div style="font-size: 1.2rem; margin: 10px 0;">🚀 70% Faster</div>
+                            <div style="font-size: 1.2rem; margin: 10px 0;">🌍 Global Ready</div>
+                        </div>
+                        <a href="#" class="ad-cta pulse">SWIPE UP</a>
+                    </div>
+                    <button class="download-btn" onclick="downloadAd('ad5')">Save Image</button>
+                </div>
+            </div>
+
+            <!-- Feed Ad 3: Urgency -->
+            <div class="ad-wrapper">
+                <div class="ad-label">Facebook Feed Ad - Limited Offer</div>
+                <div class="facebook-feed-ad ad-4" id="ad6">
+                    <div class="ad-content">
+                        <div class="ad-badge">FIRST 100 ONLY</div>
+                        <div class="ad-headline">90-Day Free Pilot Program</div>
+                        <div class="ad-subheadline">Be Among the First to Transform Your Practice</div>
+                        <div style="margin: 15px 0; font-size: 1.2rem;">⏰ Offer Ends in 30 Days</div>
+                        <a href="#" class="ad-cta pulse">CLAIM YOUR SPOT</a>
+                    </div>
+                    <button class="download-btn" onclick="downloadAd('ad6')">Save Image</button>
+                </div>
+            </div>
+
+            <!-- Square Ad 3: Security Focus -->
+            <div class="ad-wrapper">
+                <div class="ad-label">Instagram/Facebook Square - Security</div>
+                <div class="facebook-square-ad ad-dark" id="ad7">
+                    <div class="ad-content">
+                        <div style="font-size: 4rem; margin-bottom: 20px;">🔐</div>
+                        <div class="ad-headline">Your Data. Fortified.</div>
+                        <ul class="ad-features">
+                            <li>AES-256 Encryption</li>
+                            <li>SOC 2 Compliant</li>
+                            <li>Zero-Knowledge Architecture</li>
+                            <li>GDPR & CCPA Ready</li>
+                            <li>On-Premise Option</li>
+                        </ul>
+                        <div class="ad-logo" style="font-size: 2rem; margin: 20px 0;">Ai|oS</div>
+                        <a href="#" class="ad-cta">SECURITY WHITEPAPER</a>
+                    </div>
+                    <button class="download-btn" onclick="downloadAd('ad7')">Save Image</button>
+                </div>
+            </div>
+
+            <!-- Feed Ad 4: Testimonial Style -->
+            <div class="ad-wrapper">
+                <div class="ad-label">Facebook Feed Ad - Social Proof</div>
+                <div class="facebook-feed-ad ad-5" id="ad8">
+                    <div class="ad-content">
+                        <div style="font-size: 1.8rem; margin-bottom: 10px;">⭐⭐⭐⭐⭐</div>
+                        <div class="ad-headline" style="font-size: 1.3rem; font-style: italic;">
+                            "Ai|oS reduced our research time by 70% in the first month"
+                        </div>
+                        <div class="ad-subheadline">- Fortune 500 Legal Department</div>
+                        <a href="#" class="ad-cta">SEE CASE STUDY</a>
+                    </div>
+                    <button class="download-btn" onclick="downloadAd('ad8')">Save Image</button>
+                </div>
+            </div>
+
+            <!-- Square Ad 4: Conference -->
+            <div class="ad-wrapper">
+                <div class="ad-label">Instagram/Facebook Square - Event</div>
+                <div class="facebook-square-ad ad-6" id="ad9">
+                    <div class="ad-content">
+                        <div class="ad-badge">ILTACON 2025</div>
+                        <div class="ad-logo">Ai|oS</div>
+                        <div class="ad-headline">Meet Us at Booth #127</div>
+                        <div style="margin: 30px 0;">
+                            <div style="font-size: 1.1rem; margin: 15px 0;">📅 Feb 15-18, 2025</div>
+                            <div style="font-size: 1.1rem; margin: 15px 0;">📍 Las Vegas</div>
+                            <div style="font-size: 1.1rem; margin: 15px 0;">🎁 Live Demos</div>
+                            <div style="font-size: 1.1rem; margin: 15px 0;">🏆 Win Free License</div>
+                        </div>
+                        <a href="#" class="ad-cta">BOOK MEETING</a>
+                    </div>
+                    <button class="download-btn" onclick="downloadAd('ad9')">Save Image</button>
+                </div>
+            </div>
+
+            <!-- Feed Ad 5: Comparison -->
+            <div class="ad-wrapper">
+                <div class="ad-label">Facebook Feed Ad - Competitive</div>
+                <div class="facebook-feed-ad ad-tech" id="ad10">
+                    <div class="ad-content">
+                        <div class="ad-headline" style="font-size: 1.4rem;">
+                            Old Way: Hours of Manual Research<br>
+                            <span style="color: #00ff88;">New Way: AI Does It in Minutes</span>
+                        </div>
+                        <div class="ad-logo" style="font-size: 2rem; margin: 15px 0;">Ai|oS</div>
+                        <a href="#" class="ad-cta">UPGRADE NOW</a>
+                    </div>
+                    <div class="pattern-overlay"></div>
+                    <button class="download-btn" onclick="downloadAd('ad10')">Save Image</button>
+                </div>
+            </div>
+
+            <!-- Square Ad 5: Red Team Tools -->
+            <div class="ad-wrapper">
+                <div class="ad-label">Instagram/Facebook Square - Security Tools</div>
+                <div class="facebook-square-ad ad-dark" id="ad11">
+                    <div class="ad-content">
+                        <div style="color: #ff4444; font-size: 1.2rem; margin-bottom: 10px;">RED TEAM TOOLS</div>
+                        <div class="ad-headline">Security Assessment Suite</div>
+                        <div style="margin: 20px 0;">
+                            <div style="font-size: 0.9rem; margin: 8px 0;">🔍 AuroraScan</div>
+                            <div style="font-size: 0.9rem; margin: 8px 0;">🗡️ CipherSpear</div>
+                            <div style="font-size: 0.9rem; margin: 8px 0;">📁 DirReaper</div>
+                            <div style="font-size: 0.9rem; margin: 8px 0;">🛡️ VulnHunter</div>
+                            <div style="font-size: 0.9rem; margin: 8px 0;">👻 ProxyPhantom</div>
+                        </div>
+                        <div class="ad-subheadline">Integrated with Ai|oS Platform</div>
+                        <a href="#" class="ad-cta" style="background: linear-gradient(135deg, #ff4444, #cc0000);">
+                            ACCESS TOOLS
+                        </a>
+                    </div>
+                    <button class="download-btn" onclick="downloadAd('ad11')">Save Image</button>
+                </div>
+            </div>
+
+            <!-- Feed Ad 6: Question Hook -->
+            <div class="ad-wrapper">
+                <div class="ad-label">Facebook Feed Ad - Question Hook</div>
+                <div class="facebook-feed-ad ad-3" id="ad12">
+                    <div class="ad-content">
+                        <div class="ad-headline" style="font-size: 1.6rem;">
+                            Still Billing by the Hour?
+                        </div>
+                        <div class="ad-subheadline" style="font-size: 1.1rem; margin: 15px 0;">
+                            Your Competitors Are Using AI to 10x Their Capacity
+                        </div>
+                        <div class="ad-logo" style="font-size: 2.5rem;">Ai|oS</div>
+                        <a href="#" class="ad-cta pulse">DON'T GET LEFT BEHIND</a>
+                    </div>
+                    <button class="download-btn" onclick="downloadAd('ad12')">Save Image</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Instructions Footer -->
+        <div class="instructions" style="margin-top: 40px;">
+            <h3>💡 Pro Tips for Facebook Ads:</h3>
+            <p style="margin: 10px 0;">• Use Feed Ads (1200x630) for News Feed placements</p>
+            <p style="margin: 10px 0;">• Square Ads (1080x1080) work best for Instagram and Facebook feeds</p>
+            <p style="margin: 10px 0;">• Story Ads (1080x1920) for Instagram/Facebook Stories</p>
+            <p style="margin: 10px 0;">• Test different color schemes to see what resonates</p>
+            <p style="margin: 10px 0;">• Always include a clear CTA button</p>
+            <p style="margin: 10px 0;">• Keep text concise - Facebook prefers less than 20% text</p>
+
+            <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #444;">
+                <p style="color: #888; font-size: 12px;">
+                    Copyright (c) 2025 Joshua Hendricks Cole (DBA: Corporation of Light). All Rights Reserved. PATENT PENDING.<br>
+                    Ai|oS • GAVL Court • Red Team Tools
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to download ads as images (requires html2canvas library in production)
+        function downloadAd(adId) {
+            // In production, you'd use html2canvas to convert to image
+            // For now, this alerts the user to take a screenshot
+            alert('To save this ad:\n1. Take a screenshot (Cmd+Shift+4 on Mac, Windows+Shift+S on PC)\n2. Select the ad area\n3. Save to your computer\n\nOr right-click and "Save Image As" if using a screenshot tool');
+
+            // Highlight the ad briefly
+            const ad = document.getElementById(adId);
+            ad.style.border = '3px solid #00ff88';
+            setTimeout(() => {
+                ad.style.border = 'none';
+            }, 2000);
+        }
+
+        // Add hover effects
+        document.querySelectorAll('.facebook-feed-ad, .facebook-square-ad, .facebook-story-ad').forEach(ad => {
+            ad.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.02)';
+                this.style.transition = 'transform 0.3s ease';
+            });
+
+            ad.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+
+        // Animate CTAs
+        document.querySelectorAll('.ad-cta').forEach(cta => {
+            cta.addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('This CTA will link to: aios.is\n\nCopy this URL to use in your Facebook Ads Manager');
+            });
+        });
+    </script>
+</body>
+</html>

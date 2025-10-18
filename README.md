@@ -1,8 +1,6 @@
-# Ai|oS™ Runtime
+# AI:OS Runtime Prototype
 
-**Copyright (c) 2025 Joshua Hendricks Cole (DBA: Corporation of Light™). All Rights Reserved. PATENT PENDING.**
-
-This package hosts the agentic control-plane prototype for **Ai|oS™** (Agentic Intelligence Operating System), a declarative operating system that coordinates subsystem meta-agents through JSON manifests.  The runtime now performs real host inspections (process snapshots, load averages, disk free space, firewall status, Docker/Multipass inventory, BitLocker/FileVault state, etc.) on both macOS and Windows so orchestration signals are rooted in the machine state rather than placeholder strings.  The structure is ready for layering virtualization, container orchestration, or hardware drivers on top.
+This package hosts the agentic control-plane prototype for **AI:OS**, a concept operating system that coordinates subsystem meta-agents and sub-agents through a declarative manifest.  The runtime now performs real host inspections (process snapshots, load averages, disk free space, firewall status, Docker/Multipass inventory, BitLocker/FileVault state, etc.) on both macOS and Windows so orchestration signals are rooted in the machine state rather than placeholder strings.  The structure is ready for layering virtualization, container orchestration, or hardware drivers on top.
 
 ## Layout
 

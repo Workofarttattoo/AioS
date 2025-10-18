@@ -6,27 +6,21 @@ Comprehensive suite of defensive security tools, advanced ML algorithms, quantum
 
 ---
 
-## 🛡️ Security Tools (Rivals $19K/year Commercial Suites - FREE!)
+## 🛡️ Security Tools (ParrotOS-Inspired)
 
-### Complete Security Suite (13 Tools™)
+### Core Security Suite (11 Tools)
 
-**All with Arcade-Style Celebrations! 🎮**
-
-1. **NmapPro™** - Network reconnaissance & topology visualization
-2. **AuroraScan™** - Lightweight async network mapper
-3. **VulnHunter™** - Vulnerability scanner (OpenVAS/Nessus equivalent - $3,990/year value)
-4. **ProxyPhantom™** - HTTP proxy & web security (Burp Suite Pro equivalent - $449/year value)
-5. **CipherSpear™** - SQL injection analysis (SQLMap equivalent)
-6. **DirReaper™** - Directory enumeration (Gobuster equivalent)
-7. **SpectraTrace™** - Packet analysis (Wireshark equivalent)
-8. **SkyBreaker™** - Wireless auditing (Aircrack-ng equivalent)
-9. **MythicKey™** - Password cracking (John/Hashcat equivalent)
-10. **NemesisHydra™** - Authentication testing (Hydra equivalent)
-11. **PayloadForge™** - Exploitation framework (Metasploit Pro equivalent - $15,000/year value)
-12. **VectorFlux™** - Payload staging (Veil/Empire equivalent)
-13. **ObsidianHunt™** - Host hardening audit (Lynis equivalent)
-
-**BONUS:** OSINTWorkflows, Scribe (Scr1b3) documentation tool
+1. **AuroraScan** - Network reconnaissance and scanning
+2. **CipherSpear** - Database injection analysis
+3. **MythicKey** - Credential security analysis
+4. **NemesisHydra** - Authentication testing
+5. **ObsidianHunt** - Host hardening audit
+6. **NmapPro** - Advanced network mapping
+7. **PayloadForge** - Payload generation framework
+8. **DirReaper** - Directory enumeration
+9. **ProxyPhantom** - Proxy manipulation
+10. **OSINTWorkflows** - Open source intelligence
+11. **Scribe (Scr1b3)** - Documentation & reporting
 
 ### Quick Usage
 
@@ -55,34 +49,6 @@ All tools support:
 - `--json` - JSON output
 - `--gui` - GUI interface (where available)
 - `--demo` - Safe demo mode
-
----
-
-## 🎮 Arcade Celebration System
-
-**Every tool has unique, 1-second quick-burst celebrations!**
-
-### Features:
-- **50 particles** explode from center (shotgun-blast style)
-- **Unique theme** per tool (doll heads for DirReaper, phantom foxes for ProxyPhantom, etc.)
-- **Verbose logging** with real-time activity feed
-- **Initials entry** for critical achievements (arcade high-score style)
-- **Tool-specific colors** (13 unique cyberpunk palettes)
-
-### Celebration Triggers:
-
-| Level | When | Effect |
-|-------|------|--------|
-| 🔥 **CRITICAL** | Shell obtained, Root access, Critical CVE | Full burst + modal + initials |
-| ⚡ **HIGH** | Exploit success, High CVE, Important find | Full burst + modal |
-| ✨ **MEDIUM** | Medium CVE, Interesting discovery | Quick burst only |
-| ℹ️ **INFO** | Scan progress, Minor events | Verbose log only |
-
-**Example Celebrations:**
-- **DirReaper**: Doll heads with mascara, dead roses, tombstones 💀
-- **ProxyPhantom**: Phantom foxes, spirit flames, paw prints 🦊
-- **VulnHunter**: Blood drops, broken shields, crosshairs 🎯
-- **PayloadForge**: Lightning bolts, glitch blocks, binary rain ⚡
 
 ---
 

@@ -196,7 +196,6 @@ DEFAULT_MANIFEST = Manifest(
                 ActionConfig("event_handling", "Route input events."),
                 ActionConfig("gui_design", "Render adaptive UI theme."),
                 ActionConfig("theme_management", "Load theme assets."),
-                ActionConfig("launch_browser", "Auto-launch GUI in browser.", critical=False),
             ),
         ),
         "scalability": MetaAgentConfig(
@@ -243,17 +242,6 @@ DEFAULT_MANIFEST = Manifest(
                 ActionConfig("supervisor_report", "Synthesize init-style supervisor report.", critical=False),
             ),
         ),
-        "quantum": MetaAgentConfig(
-            name="quantum",
-            description="QuLab2.0 quantum computing framework integration.",
-            actions=_actions(
-                ActionConfig("health_check", "Verify QuLab2.0 availability.", critical=False),
-                ActionConfig("teleportation", "Run quantum teleportation experiment.", critical=False),
-                ActionConfig("encoding", "Optimize base-N encoding.", critical=False),
-                ActionConfig("forecast", "Generate Monte Carlo quantum forecasts.", critical=False),
-                ActionConfig("wizard", "Launch quantum conversion wizard.", critical=False),
-            ),
-        ),
     },
     boot_sequence=[
         "ai_os.initialize",  # Initialize AI OS first
@@ -289,7 +277,6 @@ DEFAULT_MANIFEST = Manifest(
         "gui.event_handling",
         "gui.gui_design",
         "gui.theme_management",
-        "gui.launch_browser",
         "scalability.monitor_load",
         "scalability.scale_up",
         "scalability.load_balancing",
@@ -301,8 +288,6 @@ DEFAULT_MANIFEST = Manifest(
         "ai_os.quantum_backends",  # Check quantum hardware availability
         "ai_os.quantum_forecast",  # AI-powered issue prediction
         "ai_os.self_update_status",  # Verify auto-update system
-        "quantum.health_check",  # Check QuLab2.0 availability
-        "quantum.wizard",  # Initialize quantum conversion wizard
         "orchestration.supervisor_report",
         "orchestration.policy_engine",
         "orchestration.telemetry",

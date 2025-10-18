@@ -37,8 +37,21 @@ ml_algorithms.py filter=git-crypt diff=git-crypt
 quantum_ml_algorithms.py filter=git-crypt diff=git-crypt
 autonomous_discovery.py filter=git-crypt diff=git-crypt
 
+# Quantum-Enhanced Algorithms (PATENT PENDING - highly proprietary)
+quantum_enhanced_runtime.py filter=git-crypt diff=git-crypt
+quantum_enhanced_ml_algorithms.py filter=git-crypt diff=git-crypt
+quantum_hhl_algorithm.py filter=git-crypt diff=git-crypt
+quantum_schrodinger_dynamics.py filter=git-crypt diff=git-crypt
+quantum_advanced_synthesis.py filter=git-crypt diff=git-crypt
+quantum_connectors.py filter=git-crypt diff=git-crypt
+quantum_extended.py filter=git-crypt diff=git-crypt
+quantum_teleportation_agent.py filter=git-crypt diff=git-crypt
+quantum_vqe_forecaster.py filter=git-crypt diff=git-crypt
+quantum/**.py filter=git-crypt diff=git-crypt
+
 # Oracle and forecasting engine
 oracle.py filter=git-crypt diff=git-crypt
+oracle_vqe_integration.py filter=git-crypt diff=git-crypt
 
 # Configuration files with sensitive data
 examples/apps-sample.json filter=git-crypt diff=git-crypt

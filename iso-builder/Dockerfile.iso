@@ -1,0 +1,211 @@
+# Ai|oS Bootable ISO Builder
+# Creates a bootable Linux ISO with Ai|oS pre-installed
+
+FROM debian:bookworm-slim AS builder
+
+# Install ISO building tools
+RUN apt-get update && apt-get install -y \
+    debootstrap \
+    squashfs-tools \
+    xorriso \
+    isolinux \
+    syslinux-efi \
+    grub-pc-bin \
+    grub-efi-amd64-bin \
+    mtools \
+    dosfstools \
+    python3 \
+    python3-pip \
+    python3-venv \
+    git \
+    curl \
+    wget \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set up build directory
+WORKDIR /build
+
+# Create base filesystem
+RUN mkdir -p iso/{live,boot/grub,EFI/BOOT}
+
+# Bootstrap minimal Debian system
+RUN debootstrap --variant=minbase bookworm /build/chroot http://deb.debian.org/debian/
+
+# Configure chroot environment
+RUN echo "aios-live" > /build/chroot/etc/hostname
+RUN echo "127.0.0.1 localhost aios-live" >> /build/chroot/etc/hosts
+
+# Install Python and dependencies in chroot
+RUN chroot /build/chroot /bin/bash -c "\
+    apt-get update && \
+    apt-get install -y \
+        python3 \
+        python3-pip \
+        python3-venv \
+        python3-tk \
+        firefox-esr \
+        xorg \
+        xinit \
+        openbox \
+        sudo \
+        systemd \
+        network-manager \
+        && rm -rf /var/lib/apt/lists/*"
+
+# Copy Ai|oS to chroot
+COPY aios /build/chroot/opt/aios
+COPY QuLab2.0 /build/chroot/opt/QuLab2.0
+COPY TheGAVLSuite /build/chroot/opt/TheGAVLSuite
+COPY requirements.txt /build/chroot/opt/
+
+# Install Python dependencies in chroot
+RUN chroot /build/chroot /bin/bash -c "\
+    cd /opt && \
+    pip3 install --break-system-packages -r requirements.txt && \
+    pip3 install --break-system-packages qiskit scipy matplotlib pydantic && \
+    pip3 install --break-system-packages torch --index-url https://download.pytorch.org/whl/cpu"
+
+# Create auto-start scripts
+RUN cat > /build/chroot/usr/local/bin/aios-autostart.sh << 'EOF'
+#!/bin/bash
+# Ai|oS Auto-Start Script
+
+export PYTHONPATH=/opt/aios:/opt/QuLab2.0:/opt/TheGAVLSuite
+export DISPLAY=:0
+
+# Wait for X server
+sleep 3
+
+# Start Ai|oS
+cd /opt/aios
+python3 -m aios.aios -v boot &
+
+# Give it time to initialize
+sleep 5
+
+# Launch GUI in Firefox
+firefox --kiosk /opt/aios/web/aios_launcher.html &
+
+# Keep script running
+wait
+EOF
+
+RUN chmod +x /build/chroot/usr/local/bin/aios-autostart.sh
+
+# Create systemd service for auto-start
+RUN cat > /build/chroot/etc/systemd/system/aios.service << 'EOF'
+[Unit]
+Description=Ai|oS Auto-Start Service
+After=graphical.target
+
+[Service]
+Type=simple
+User=aios
+Environment="DISPLAY=:0"
+Environment="PYTHONPATH=/opt/aios:/opt/QuLab2.0:/opt/TheGAVLSuite"
+ExecStart=/usr/local/bin/aios-autostart.sh
+Restart=on-failure
+
+[Install]
+WantedBy=graphical.target
+EOF
+
+# Create Openbox autostart
+RUN mkdir -p /build/chroot/etc/xdg/openbox
+RUN cat > /build/chroot/etc/xdg/openbox/autostart << 'EOF'
+#!/bin/bash
+/usr/local/bin/aios-autostart.sh &
+EOF
+RUN chmod +x /build/chroot/etc/xdg/openbox/autostart
+
+# Create aios user
+RUN chroot /build/chroot /bin/bash -c "\
+    useradd -m -s /bin/bash -G sudo aios && \
+    echo 'aios:aios' | chpasswd && \
+    echo 'aios ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers"
+
+# Enable auto-login
+RUN mkdir -p /build/chroot/etc/systemd/system/getty@tty1.service.d
+RUN cat > /build/chroot/etc/systemd/system/getty@tty1.service.d/autologin.conf << 'EOF'
+[Service]
+ExecStart=
+ExecStart=-/sbin/agetty --autologin aios --noclear %I $TERM
+EOF
+
+# Configure X to start automatically
+RUN echo 'startx' >> /build/chroot/home/aios/.bashrc
+
+# Create .xinitrc to launch Openbox
+RUN cat > /build/chroot/home/aios/.xinitrc << 'EOF'
+#!/bin/bash
+exec openbox-session
+EOF
+RUN chroot /build/chroot chown aios:aios /home/aios/.xinitrc
+RUN chroot /build/chroot chmod +x /home/aios/.xinitrc
+
+# Enable systemd service
+RUN chroot /build/chroot systemctl enable aios.service
+
+# Create squashfs filesystem
+RUN mksquashfs /build/chroot /build/iso/live/filesystem.squashfs -comp xz
+
+# Create GRUB configuration
+RUN cat > /build/iso/boot/grub/grub.cfg << 'EOF'
+set default=0
+set timeout=5
+
+menuentry "Ai|oS - AI Operating System" {
+    linux /live/vmlinuz boot=live quiet splash
+    initrd /live/initrd.img
+}
+
+menuentry "Ai|oS - Safe Mode" {
+    linux /live/vmlinuz boot=live quiet splash single
+    initrd /live/initrd.img
+}
+EOF
+
+# Copy kernel and initrd
+RUN cp /build/chroot/boot/vmlinuz-* /build/iso/live/vmlinuz || true
+RUN cp /build/chroot/boot/initrd.img-* /build/iso/live/initrd.img || true
+
+# Create ISOLINUX configuration for BIOS boot
+RUN cp /usr/lib/ISOLINUX/isolinux.bin /build/iso/boot/
+RUN cp /usr/lib/syslinux/modules/bios/*.c32 /build/iso/boot/
+
+RUN cat > /build/iso/boot/isolinux.cfg << 'EOF'
+DEFAULT aios
+TIMEOUT 50
+PROMPT 1
+
+LABEL aios
+  MENU LABEL Ai|oS - AI Operating System
+  LINUX /live/vmlinuz
+  APPEND initrd=/live/initrd.img boot=live quiet splash
+
+LABEL safe
+  MENU LABEL Ai|oS - Safe Mode
+  LINUX /live/vmlinuz
+  APPEND initrd=/live/initrd.img boot=live quiet splash single
+EOF
+
+# Build the ISO
+RUN xorriso -as mkisofs \
+    -iso-level 3 \
+    -full-iso9660-filenames \
+    -volid "AIOS_LIVE" \
+    -eltorito-boot boot/isolinux.bin \
+    -eltorito-catalog boot/boot.cat \
+    -no-emul-boot \
+    -boot-load-size 4 \
+    -boot-info-table \
+    -isohybrid-mbr /usr/lib/ISOLINUX/isohdpfx.bin \
+    -eltorito-alt-boot \
+    -e EFI/BOOT/bootx64.efi \
+    -no-emul-boot \
+    -isohybrid-gpt-basdat \
+    -output /build/aios-live.iso \
+    /build/iso
+
+FROM scratch AS export
+COPY --from=builder /build/aios-live.iso /aios-live.iso
