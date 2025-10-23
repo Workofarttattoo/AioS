@@ -222,8 +222,19 @@
             .btn { padding: 15px 30px; font-size: 1.1em; }
         }
     </style>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-PTHBBMZF');</script>
+    <!-- End Google Tag Manager -->
 </head>
 <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PTHBBMZF"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
     <!-- Warning Banner -->
     <div class="warning-banner">
         ⚠️ AUTHORIZED USE ONLY - Unauthorized access or misuse of these tools is illegal and punishable by law (CFAA 18 U.S.C. § 1030)
@@ -415,7 +426,57 @@
         <p style="margin-top: 20px; font-size: 0.8em; opacity: 0.5;">
             Law Enforcement Inquiries: <a href="mailto:lawenforcement@thegavl.com">lawenforcement@thegavl.com</a> (24/7)
         </p>
+        <p style="margin-top: 15px; font-size: 0.85em; color: #ff6666;">
+            👥 Visitors: <span id="visitor-count" style="color: #ff9999; font-weight: bold;">Loading...</span>
+        </p>
     </footer>
+
+    <!-- Supabase Client Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Visitor Counter Script -->
+    <script>
+        async function initializeVisitorCounter() {
+            try {
+                const SUPABASE_URL = 'https://ttvgdswfhiqlazqpfkny.supabase.co';
+                const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR0dmdkc3dmaGlxbGF6cXBma255Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTI0NDg3NjUsImV4cCI6MjAwODAyNDc2NX0.Tg0Vx-LqHWvzOM-5sNvuF2Z5zPZ5c5c5c5c5c5c5c5c';
+
+                const { createClient } = window.supabase;
+                const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+                const pageId = 'redteam-tools';
+
+                await supabase
+                    .from('page_visitors')
+                    .insert([{
+                        page: pageId,
+                        visited_at: new Date().toISOString(),
+                        user_agent: navigator.userAgent,
+                        referrer: document.referrer || 'direct'
+                    }])
+                    .select();
+
+                const { data: counts } = await supabase
+                    .from('page_visitors')
+                    .select('id', { count: 'exact', head: true })
+                    .eq('page', pageId);
+
+                if (counts) {
+                    const visitorCount = counts.length || 0;
+                    const counterEl = document.getElementById('visitor-count');
+                    if (counterEl) {
+                        counterEl.textContent = visitorCount.toLocaleString();
+                    }
+                }
+            } catch (error) {
+                document.getElementById('visitor-count').textContent = '∞';
+            }
+        }
+
+        window.addEventListener('load', () => {
+            setTimeout(initializeVisitorCounter, 500);
+        });
+    </script>
 </body>
 </html>
 
