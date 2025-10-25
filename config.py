@@ -232,6 +232,15 @@ DEFAULT_MANIFEST = Manifest(
                 ActionConfig("quantum_backends", "List available quantum backends.", critical=False),
             ),
         ),
+        "openagi": MetaAgentConfig(
+            name="openagi",
+            description="OpenAGI ReAct workflow orchestration and learning.",
+            actions=_actions(
+                ActionConfig("initialize_memory", "Initialize workflow memory integration.", critical=False),
+                ActionConfig("persist_memory", "Persist learned workflows and concepts.", critical=False),
+                ActionConfig("memory_analytics", "Report learning progress and insights.", critical=False),
+            ),
+        ),
         "orchestration": MetaAgentConfig(
             name="orchestration",
             description="Provides policy enforcement and telemetry fan-out.",
@@ -245,6 +254,7 @@ DEFAULT_MANIFEST = Manifest(
     },
     boot_sequence=[
         "ai_os.initialize",  # Initialize AI OS first
+        "openagi.initialize_memory",  # Initialize OpenAGI memory integration
         "kernel.process_management",
         "kernel.memory_management",
         "kernel.device_drivers",
@@ -294,6 +304,8 @@ DEFAULT_MANIFEST = Manifest(
         "orchestration.health_monitor",
     ],
     shutdown_sequence=[
+        "openagi.memory_analytics",  # Report final analytics
+        "openagi.persist_memory",  # Persist learned knowledge before shutdown
         "orchestration.supervisor_report",
         "orchestration.telemetry",
         "orchestration.health_monitor",

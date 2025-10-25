@@ -261,15 +261,14 @@
         </div>
     </div>
 
+    <!-- Load Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Load auth configuration -->
+    <script src="js/auth-config.js"></script>
+    <!-- Load auth manager -->
+    <script src="js/auth.js"></script>
+
     <script>
-        // TODO: Replace with your Supabase credentials
-        const SUPABASE_URL = 'https://your-project.supabase.co';
-        const SUPABASE_ANON_KEY = 'your-anon-key-here';
-
-        // Initialize Supabase
-        const { createClient } = supabase;
-        const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
         const form = document.getElementById('registerForm');
         const alert = document.getElementById('alert');
         const submitBtn = document.getElementById('submitBtn');
@@ -278,9 +277,11 @@
             alert.textContent = message;
             alert.className = `alert ${type}`;
             alert.style.display = 'block';
-            setTimeout(() => {
-                alert.style.display = 'none';
-            }, 5000);
+            if (type === 'success') {
+                setTimeout(() => {
+                    alert.style.display = 'none';
+                }, 3000);
+            }
         }
 
         form.addEventListener('submit', async (e) => {
@@ -297,6 +298,19 @@
             // Validate passwords match
             if (password !== confirmPassword) {
                 showAlert('Passwords do not match', 'error');
+                return;
+            }
+
+            // Validate password strength
+            const passwordValidation = authManager.validatePassword(password);
+            if (!passwordValidation.isValid) {
+                showAlert(passwordValidation.message, 'error');
+                return;
+            }
+
+            // Validate email format
+            if (!authManager.validateEmail(email)) {
+                showAlert('Please enter a valid email address', 'error');
                 return;
             }
 
@@ -317,48 +331,28 @@
             submitBtn.textContent = 'Creating Account...';
 
             try {
-                // Sign up with Supabase
-                const { data, error } = await supabaseClient.auth.signUp({
-                    email: email,
-                    password: password,
-                    options: {
-                        data: {
-                            name: name,
-                            company: company,
-                            profession: profession,
-                            age_verified: age18,
-                            terms_accepted: termsAccept,
-                            aup_accepted: aupAccept,
-                            authorized_use_acknowledged: authorizedUse,
-                            legal_acknowledged: legalAcknowledge,
-                            registration_date: new Date().toISOString(),
-                            ip_address: await fetch('https://api.ipify.org?format=json')
-                                .then(r => r.json())
-                                .then(d => d.ip)
-                                .catch(() => 'unknown')
-                        }
-                    }
+                // Register using AuthManager
+                const result = await authManager.register(email, password, {
+                    name: name,
+                    company: company,
+                    profession: profession,
+                    age_verified: age18,
+                    terms_accepted: termsAccept,
+                    aup_accepted: aupAccept,
+                    authorized_use_acknowledged: authorizedUse,
+                    legal_acknowledged: legalAcknowledge
                 });
 
-                if (error) {
-                    throw error;
+                if (!result.success) {
+                    throw new Error(result.message || 'Registration failed');
                 }
 
                 // Success
                 showAlert('Account created successfully! Please check your email to verify your account.', 'success');
 
-                // Log registration to analytics (optional)
-                await supabaseClient.from('user_registrations').insert([{
-                    email: email,
-                    name: name,
-                    company: company,
-                    profession: profession,
-                    registered_at: new Date().toISOString()
-                }]).catch(err => console.log('Analytics logging failed:', err));
-
-                // Redirect to login after 3 seconds
+                // Redirect to verify email page after 3 seconds
                 setTimeout(() => {
-                    window.location.href = 'login.html';
+                    window.location.href = 'verify-email.html';
                 }, 3000);
 
             } catch (error) {

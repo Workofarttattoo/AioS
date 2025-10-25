@@ -876,37 +876,51 @@
             nextStep();
         }
 
-        function submitLead(event) {
+        async function submitLead(event) {
             event.preventDefault();
 
-            const leadData = {
-                name: document.getElementById('fullName').value,
-                email: document.getElementById('email').value,
-                company: document.getElementById('company').value,
-                useCase: document.getElementById('useCase').value,
-                tier: document.getElementById('tierSelect').value,
-                agentLevel: selectedAgentLevel,
-                timestamp: new Date().toISOString(),
-                source: 'onboarding_flow'
-            };
+            const name = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const company = document.getElementById('company').value;
+            const useCase = document.getElementById('useCase').value;
+            const tier = document.getElementById('tierSelect').value;
 
-            // Save to localStorage (in production, send to backend)
-            localStorage.setItem('aios_lead', JSON.stringify(leadData));
+            // Simple password from name + random suffix
+            const tempPassword = (name.toLowerCase().replace(/\s+/g, '') + Math.random().toString(36).slice(2, 10));
 
-            // Start trial
-            localStorage.setItem('aios_trial_start', new Date().getTime().toString());
-            localStorage.setItem('aios_trial_status', 'active');
-            localStorage.setItem('aios_selected_tier', leadData.tier);
+            try {
+                // Register user with trial metadata
+                const result = await authManager.register(email, tempPassword, {
+                    name: name,
+                    company: company,
+                    use_case: useCase,
+                    selected_tier: tier,
+                    agent_level: selectedAgentLevel,
+                    source: 'onboarding_flow'
+                });
 
-            // Hide form, show success
-            document.getElementById('leadForm').style.display = 'none';
-            document.getElementById('successMessage').classList.add('active');
+                if (!result.success) {
+                    throw new Error(result.message || 'Registration failed');
+                }
 
-            // Track conversion (in production, send to analytics)
-            console.log('Lead captured:', leadData);
+                // Hide form, show success
+                document.getElementById('leadForm').style.display = 'none';
+                document.getElementById('successMessage').classList.add('active');
 
-            // Send to backend API (placeholder)
-            // fetch('/api/leads', { method: 'POST', body: JSON.stringify(leadData) });
+                // Log conversion to analytics
+                console.log('Lead captured and registered:', {
+                    name, email, company, useCase, tier, agentLevel: selectedAgentLevel
+                });
+
+                // Redirect to verify email page after 5 seconds
+                setTimeout(() => {
+                    window.location.href = 'verify-email.html';
+                }, 5000);
+
+            } catch (error) {
+                console.error('Registration error:', error);
+                alert('Registration failed: ' + (error.message || 'Please try again'));
+            }
         }
 
         // Allow clicking step indicators
@@ -926,6 +940,10 @@
 
     <!-- Supabase Client Library -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Load auth configuration -->
+    <script src="auth-config.js"></script>
+    <!-- Load auth manager -->
+    <script src="auth.js"></script>
 
     <!-- Visitor Tracking (If Supabase backend exists) -->
     <script>

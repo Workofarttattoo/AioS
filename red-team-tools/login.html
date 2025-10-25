@@ -217,15 +217,14 @@
         </div>
     </div>
 
+    <!-- Load Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Load auth configuration -->
+    <script src="js/auth-config.js"></script>
+    <!-- Load auth manager -->
+    <script src="js/auth.js"></script>
+
     <script>
-        // TODO: Replace with your Supabase credentials
-        const SUPABASE_URL = 'https://your-project.supabase.co';
-        const SUPABASE_ANON_KEY = 'your-anon-key-here';
-
-        // Initialize Supabase
-        const { createClient } = supabase;
-        const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
         const form = document.getElementById('loginForm');
         const alert = document.getElementById('alert');
         const submitBtn = document.getElementById('submitBtn');
@@ -235,9 +234,11 @@
             alert.textContent = message;
             alert.className = `alert ${type}`;
             alert.style.display = 'block';
-            setTimeout(() => {
-                alert.style.display = 'none';
-            }, 5000);
+            if (type === 'success') {
+                setTimeout(() => {
+                    alert.style.display = 'none';
+                }, 3000);
+            }
         }
 
         form.addEventListener('submit', async (e) => {
@@ -251,30 +252,15 @@
             submitBtn.textContent = 'Logging in...';
 
             try {
-                // Sign in with Supabase
-                const { data, error } = await supabaseClient.auth.signInWithPassword({
-                    email: email,
-                    password: password
-                });
+                // Login using AuthManager
+                const result = await authManager.login(email, password);
 
-                if (error) {
-                    throw error;
+                if (!result.success) {
+                    throw new Error(result.message || 'Login failed');
                 }
 
                 // Success
                 showAlert('Login successful! Redirecting...', 'success');
-
-                // Log login event (optional)
-                const user = data.user;
-                await supabaseClient.from('user_logins').insert([{
-                    user_id: user.id,
-                    email: user.email,
-                    logged_in_at: new Date().toISOString(),
-                    ip_address: await fetch('https://api.ipify.org?format=json')
-                        .then(r => r.json())
-                        .then(d => d.ip)
-                        .catch(() => 'unknown')
-                }]).catch(err => console.log('Login logging failed:', err));
 
                 // Redirect to dashboard after 1 second
                 setTimeout(() => {
@@ -283,15 +269,7 @@
 
             } catch (error) {
                 console.error('Login error:', error);
-
-                let errorMessage = 'Login failed. Please try again.';
-                if (error.message.includes('Invalid login credentials')) {
-                    errorMessage = 'Invalid email or password. Please check your credentials.';
-                } else if (error.message.includes('Email not confirmed')) {
-                    errorMessage = 'Please verify your email address before logging in. Check your inbox.';
-                }
-
-                showAlert(errorMessage, 'error');
+                showAlert(error.message || 'Login failed. Please try again.', 'error');
                 submitBtn.disabled = false;
                 submitBtn.textContent = '🚀 Login';
             }
@@ -308,12 +286,10 @@
             }
 
             try {
-                const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
-                    redirectTo: window.location.origin + '/reset-password.html'
-                });
+                const result = await authManager.resetPassword(email);
 
-                if (error) {
-                    throw error;
+                if (!result.success) {
+                    throw new Error(result.message || 'Password reset failed');
                 }
 
                 showAlert('Password reset email sent! Check your inbox.', 'success');
@@ -325,7 +301,7 @@
 
         // Check if user is already logged in
         async function checkSession() {
-            const { data: { session } } = await supabaseClient.auth.getSession();
+            const session = await authManager.checkSession();
             if (session) {
                 // User is already logged in, redirect to dashboard
                 window.location.href = 'dashboard.html';

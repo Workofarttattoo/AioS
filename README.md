@@ -1,5 +1,9 @@
 # AI:OS Runtime Prototype
 
+<div align="center">
+<a href="https://www.producthunt.com/products/ai-os?embed=true&utm_source=badge-featured&utm_medium=badge&utm_source=badge-ai&#0045;os" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1029998&theme=light&t=1761320709018" alt="Ai&#0124;oS - An&#0032;agentic&#0032;AI&#0032;operating&#0032;system&#0032;with&#0032;autonomous&#0032;discovery | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
+</div>
+
 This package hosts the agentic control-plane prototype for **AI:OS**, a concept operating system that coordinates subsystem meta-agents and sub-agents through a declarative manifest.  The runtime now performs real host inspections (process snapshots, load averages, disk free space, firewall status, Docker/Multipass inventory, BitLocker/FileVault state, etc.) on both macOS and Windows so orchestration signals are rooted in the machine state rather than placeholder strings.  The structure is ready for layering virtualization, container orchestration, or hardware drivers on top.
 
 ## Layout
