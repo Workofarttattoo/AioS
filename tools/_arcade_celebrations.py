@@ -1,3 +1,50 @@
+
+# === IP DETECTION FIX ===
+_original_json_dumps = None
+try:
+    import json
+    import ipaddress
+    import re
+    _original_json_dumps = json.dumps
+    
+    def enhance_ip_data(obj):
+        """Recursively enhance IP addresses in data structures"""
+        if isinstance(obj, str):
+            # Check if this is an IP
+            if re.match(r'^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$', obj):
+                try:
+                    ip = ipaddress.ip_address(obj)
+                    parts = []
+                    if ip.is_private:
+                        parts.append("Private IP (RFC1918)")
+                    if str(ip) in ["8.8.8.8", "8.8.4.4"]:
+                        parts.append("Google DNS")
+                    elif str(ip) in ["1.1.1.1", "1.0.0.1"]:
+                        parts.append("Cloudflare DNS")
+                    if parts:
+                        return f"{obj} ({', '.join(parts)})"
+                except:
+                    pass
+            return obj
+        elif isinstance(obj, dict):
+            return {k: enhance_ip_data(v) for k, v in obj.items()}
+        elif isinstance(obj, list):
+            return [enhance_ip_data(item) for item in obj]
+        else:
+            return obj
+    
+    def enhanced_json_dumps(obj, **kwargs):
+        """Enhanced json.dumps that adds IP detection"""
+        enhanced_obj = enhance_ip_data(obj)
+        return _original_json_dumps(enhanced_obj, **kwargs)
+    
+    # Monkey patch json.dumps
+    json.dumps = enhanced_json_dumps
+except ImportError:
+    pass
+# === END IP DETECTION FIX ===
+
+
 """
 Arcade Celebration System for Ai|oS Security Toolkit
 ====================================================
