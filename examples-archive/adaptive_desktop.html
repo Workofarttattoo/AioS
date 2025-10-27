@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI:OS - Adaptive Living Desktop</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: #000000;
+            color: #00ff88;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        /* Main canvas for adaptive visualization */
+        #adaptiveCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        /* App selector (simulates different apps) */
+        .app-selector {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.9);
+            border: 2px solid #ff00ff;
+            border-radius: 10px;
+            padding: 15px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .app-btn {
+            padding: 10px 20px;
+            background: rgba(255, 0, 255, 0.2);
+            border: 1px solid #ff00ff;
+            color: #00ff88;
+            cursor: pointer;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            transition: all 0.3s;
+        }
+
+        .app-btn:hover {
+            background: rgba(255, 0, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .app-btn.active {
+            background: #ff00ff;
+            color: #000;
+        }
+
+        /* Network packet display */
+        .packet {
+            position: fixed;
+            padding: 5px 10px;
+            background: rgba(0, 255, 136, 0.8);
+            border: 1px solid #00ff88;
+            border-radius: 3px;
+            font-size: 10px;
+            color: #000;
+            z-index: 50;
+            pointer-events: none;
+            white-space: nowrap;
+            animation: packetFlow 3s linear forwards;
+        }
+
+        @keyframes packetFlow {
+            0% {
+                opacity: 0;
+                transform: translateY(0);
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100vh);
+            }
+        }
+
+        /* Galaxy labels */
+        .galaxy-label {
+            position: fixed;
+            color: #00d4ff;
+            font-size: 12px;
+            text-shadow: 0 0 10px #00d4ff;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        /* Stats HUD */
+        .stats-hud {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.9);
+            border: 2px solid #ff00ff;
+            border-radius: 10px;
+            padding: 20px;
+            min-width: 320px;
+            z-index: 10;
+            font-family: 'Courier New', monospace;
+            box-shadow: 0 0 30px rgba(255, 0, 255, 0.5);
+        }
+
+        .hud-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #ff00ff;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 12px;
+        }
+
+        .stat-label {
+            color: #00d4ff;
+        }
+
+        .stat-value {
+            color: #00ff88;
+            font-weight: bold;
+        }
+
+        /* Mode indicator */
+        .mode-indicator {
+            position: fixed;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff00ff;
+            text-shadow: 0 0 20px #ff00ff;
+            z-index: 10;
+            letter-spacing: 3px;
+        }
+
+        /* Living logo (for idle mode) */
+        .living-logo {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 5;
+            width: 400px;
+            height: 400px;
+            filter: drop-shadow(0 0 40px rgba(255, 0, 255, 0.6));
+            animation: logoBreath 4s ease-in-out infinite;
+            opacity: 0;
+            transition: opacity 1s;
+        }
+
+        .living-logo.visible {
+            opacity: 1;
+        }
+
+        .living-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        @keyframes logoBreath {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.05);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- App Selector -->
+    <div class="app-selector">
+        <button class="app-btn active" data-mode="idle">Idle</button>
+        <button class="app-btn" data-mode="network">Network Analyzer</button>
+        <button class="app-btn" data-mode="quantum">Quantum Lab</button>
+        <button class="app-btn" data-mode="code">Code Editor</button>
+        <button class="app-btn" data-mode="system">System Monitor</button>
+    </div>
+
+    <!-- Mode Indicator -->
+    <div class="mode-indicator" id="modeIndicator">IDLE MODE</div>
+
+    <!-- Adaptive Canvas -->
+    <canvas id="adaptiveCanvas"></canvas>
+
+    <!-- Living Logo (Idle mode) -->
+    <div class="living-logo visible" id="livingLogo">
+        <img src="file:///Users/noone/Downloads/wolf%20logo%20work%20of%20art%20tattoo.png" alt="AI:OS">
+    </div>
+
+    <!-- Stats HUD -->
+    <div class="stats-hud">
+        <div class="hud-title" id="hudTitle">WORK OF ART</div>
+        <div class="stat-row">
+            <span class="stat-label">Mode:</span>
+            <span class="stat-value" id="modeValue">IDLE</span>
+        </div>
+        <div class="stat-row">
+            <span class="stat-label">Networks Detected:</span>
+            <span class="stat-value" id="networksValue">0</span>
+        </div>
+        <div class="stat-row">
+            <span class="stat-label">Packets/sec:</span>
+            <span class="stat-value" id="packetsValue">0</span>
+        </div>
+        <div class="stat-row">
+            <span class="stat-label">Qubits Active:</span>
+            <span class="stat-value" id="qubitsValue">0</span>
+        </div>
+        <div class="stat-row">
+            <span class="stat-label">CPU Load:</span>
+            <span class="stat-value" id="cpuValue">0%</span>
+        </div>
+    </div>
+
+    <script>
+        // ============================================================
+        // ADAPTIVE DESKTOP SYSTEM
+        // ============================================================
+
+        const canvas = document.getElementById('adaptiveCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let currentMode = 'idle';
+        let galaxies = [];
+        let particles = [];
+        let codeLines = [];
+        let waveOffset = 0;
+
+        // ============================================================
+        // GALAXY SYSTEM (Networks as Galaxies)
+        // ============================================================
+
+        class Galaxy {
+            constructor(x, y, name, size = 1) {
+                this.x = x;
+                this.y = y;
+                this.name = name;
+                this.size = size;
+                this.stars = [];
+                this.angle = 0;
+                this.speed = 0.005 + Math.random() * 0.01;
+                this.arms = 3 + Math.floor(Math.random() * 3);
+                this.color = this.randomColor();
+
+                // Generate stars in spiral arms
+                for (let i = 0; i < 200 * size; i++) {
+                    const arm = Math.floor(Math.random() * this.arms);
+                    const armAngle = (arm * Math.PI * 2) / this.arms;
+                    const distance = Math.random() * 100 * size;
+                    const angleOffset = distance * 0.05;
+                    const angle = armAngle + angleOffset + (Math.random() - 0.5) * 0.3;
+
+                    this.stars.push({
+                        distance: distance,
+                        angle: angle,
+                        size: Math.random() * 2 + 0.5,
+                        brightness: Math.random()
+                    });
+                }
+
+                // Create label
+                this.createLabel();
+            }
+
+            randomColor() {
+                const colors = [
+                    { r: 0, g: 255, b: 136 },    // Green
+                    { r: 0, g: 212, b: 255 },    // Cyan
+                    { r: 255, g: 0, b: 255 },    // Magenta
+                    { r: 168, g: 85, b: 247 }    // Purple
+                ];
+                return colors[Math.floor(Math.random() * colors.length)];
+            }
+
+            createLabel() {
+                const label = document.createElement('div');
+                label.className = 'galaxy-label';
+                label.textContent = this.name;
+                label.style.left = this.x + 'px';
+                label.style.top = (this.y - 120 * this.size) + 'px';
+                label.id = `galaxy-${this.name}`;
+                document.body.appendChild(label);
+            }
+
+            update() {
+                this.angle += this.speed;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.angle);
+
+                // Draw stars
+                this.stars.forEach(star => {
+                    const x = Math.cos(star.angle) * star.distance;
+                    const y = Math.sin(star.angle) * star.distance;
+
+                    const brightness = 0.3 + star.brightness * 0.7;
+                    ctx.beginPath();
+                    ctx.arc(x, y, star.size, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${brightness})`;
+                    ctx.fill();
+
+                    // Glow effect for bright stars
+                    if (star.brightness > 0.7) {
+                        ctx.shadowBlur = 10;
+                        ctx.shadowColor = `rgb(${this.color.r}, ${this.color.g}, ${this.color.b})`;
+                        ctx.fill();
+                        ctx.shadowBlur = 0;
+                    }
+                });
+
+                // Draw core
+                const gradient = ctx.createRadialGradient(0, 0, 0, 0, 0, 20 * this.size);
+                gradient.addColorStop(0, `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, 1)`);
+                gradient.addColorStop(0.5, `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, 0.5)`);
+                gradient.addColorStop(1, `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, 0)`);
+
+                ctx.beginPath();
+                ctx.arc(0, 0, 20 * this.size, 0, Math.PI * 2);
+                ctx.fillStyle = gradient;
+                ctx.fill();
+
+                ctx.restore();
+            }
+
+            remove() {
+                const label = document.getElementById(`galaxy-${this.name}`);
+                if (label) label.remove();
+            }
+        }
+
+        // ============================================================
+        // PARTICLE SYSTEM
+        // ============================================================
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 2;
+                this.vy = (Math.random() - 0.5) * 2;
+                this.size = Math.random() * 3 + 1;
+                this.color = this.randomColor();
+            }
+
+            randomColor() {
+                const colors = ['#00ff88', '#00d4ff', '#ff00ff', '#a855f7'];
+                return colors[Math.floor(Math.random() * colors.length)];
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+
+                this.x = Math.max(0, Math.min(canvas.width, this.x));
+                this.y = Math.max(0, Math.min(canvas.height, this.y));
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.shadowBlur = 15;
+                ctx.shadowColor = this.color;
+                ctx.fill();
+                ctx.shadowBlur = 0;
+            }
+        }
+
+        // ============================================================
+        // NETWORK PACKET SYSTEM
+        // ============================================================
+
+        function spawnPacket(source, dest) {
+            const packet = document.createElement('div');
+            packet.className = 'packet';
+
+            const protocols = ['TCP', 'UDP', 'HTTP', 'DNS', 'TLS', 'ICMP'];
+            const protocol = protocols[Math.floor(Math.random() * protocols.length)];
+            const size = Math.floor(Math.random() * 1500) + 64;
+
+            packet.textContent = `${protocol} ${source} → ${dest} (${size} bytes)`;
+            packet.style.left = Math.random() * (window.innerWidth - 200) + 'px';
+            packet.style.top = window.innerHeight + 'px';
+
+            document.body.appendChild(packet);
+
+            setTimeout(() => {
+                packet.remove();
+            }, 3000);
+        }
+
+        // ============================================================
+        // MODE SWITCHING
+        // ============================================================
+
+        function switchMode(mode) {
+            currentMode = mode;
+            const logo = document.getElementById('livingLogo');
+            const indicator = document.getElementById('modeIndicator');
+
+            // Clear existing visualizations
+            galaxies.forEach(g => g.remove());
+            galaxies = [];
+            particles = [];
+
+            // Update UI
+            document.getElementById('modeValue').textContent = mode.toUpperCase();
+
+            switch(mode) {
+                case 'idle':
+                    logo.classList.add('visible');
+                    indicator.textContent = 'IDLE MODE';
+                    initIdleMode();
+                    break;
+
+                case 'network':
+                    logo.classList.remove('visible');
+                    indicator.textContent = 'NETWORK ANALYZER';
+                    initNetworkMode();
+                    break;
+
+                case 'quantum':
+                    logo.classList.remove('visible');
+                    indicator.textContent = 'QUANTUM LAB';
+                    initQuantumMode();
+                    break;
+
+                case 'code':
+                    logo.classList.remove('visible');
+                    indicator.textContent = 'CODE EDITOR';
+                    initCodeMode();
+                    break;
+
+                case 'system':
+                    logo.classList.remove('visible');
+                    indicator.textContent = 'SYSTEM MONITOR';
+                    initSystemMode();
+                    break;
+            }
+        }
+
+        function initIdleMode() {
+            // Minimal particles
+            for (let i = 0; i < 50; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function initNetworkMode() {
+            // Create galaxies for detected networks
+            const networkNames = [
+                'Home-WiFi-5G',
+                'Office-Network',
+                'QuantumLink-Secure',
+                'Vegas-Hotspot',
+                'WorkOfArt-HQ'
+            ];
+
+            const positions = [
+                { x: canvas.width * 0.2, y: canvas.height * 0.3 },
+                { x: canvas.width * 0.8, y: canvas.height * 0.3 },
+                { x: canvas.width * 0.5, y: canvas.height * 0.6 },
+                { x: canvas.width * 0.3, y: canvas.height * 0.7 },
+                { x: canvas.width * 0.7, y: canvas.height * 0.7 }
+            ];
+
+            networkNames.forEach((name, i) => {
+                if (positions[i]) {
+                    galaxies.push(new Galaxy(
+                        positions[i].x,
+                        positions[i].y,
+                        name,
+                        0.8 + Math.random() * 0.4
+                    ));
+                }
+            });
+
+            document.getElementById('networksValue').textContent = galaxies.length;
+
+            // Spawn packets periodically
+            setInterval(() => {
+                if (currentMode === 'network') {
+                    const src = networkNames[Math.floor(Math.random() * networkNames.length)];
+                    const dst = networkNames[Math.floor(Math.random() * networkNames.length)];
+                    if (src !== dst) {
+                        spawnPacket(src, dst);
+                        document.getElementById('packetsValue').textContent =
+                            Math.floor(Math.random() * 500) + 100;
+                    }
+                }
+            }, 500);
+        }
+
+        function initQuantumMode() {
+            // Dense particle field
+            for (let i = 0; i < 200; i++) {
+                particles.push(new Particle());
+            }
+            document.getElementById('qubitsValue').textContent = 45;
+        }
+
+        function initCodeMode() {
+            // Moderate particles with code emphasis
+            for (let i = 0; i < 80; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function initSystemMode() {
+            // Wave-based visualization
+            for (let i = 0; i < 60; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        // ============================================================
+        // RENDER LOOP
+        // ============================================================
+
+        function animate() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Mode-specific rendering
+            if (currentMode === 'network') {
+                galaxies.forEach(galaxy => {
+                    galaxy.update();
+                    galaxy.draw();
+                });
+            } else if (currentMode === 'system' || currentMode === 'idle') {
+                // Draw waves
+                ctx.beginPath();
+                for (let x = 0; x < canvas.width; x += 10) {
+                    const y = canvas.height / 2 + Math.sin((x + waveOffset) * 0.01) * 100;
+                    if (x === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                }
+                ctx.strokeStyle = 'rgba(255, 0, 255, 0.2)';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+                waveOffset += 2;
+            }
+
+            // Draw particles for all modes
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+
+            // Draw connections for quantum/code modes
+            if (currentMode === 'quantum' || currentMode === 'code') {
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+
+                        if (distance < 150) {
+                            const opacity = 1 - (distance / 150);
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.strokeStyle = `rgba(255, 0, 255, ${opacity * 0.3})`;
+                            ctx.lineWidth = 1;
+                            ctx.stroke();
+                        }
+                    }
+                }
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        // ============================================================
+        // EVENT LISTENERS
+        // ============================================================
+
+        document.querySelectorAll('.app-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.app-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                switchMode(btn.dataset.mode);
+            });
+        });
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // ============================================================
+        // STATS UPDATE
+        // ============================================================
+
+        setInterval(() => {
+            document.getElementById('cpuValue').textContent =
+                (Math.random() * 40 + 20).toFixed(1) + '%';
+        }, 2000);
+
+        // ============================================================
+        // INITIALIZE
+        // ============================================================
+
+        initIdleMode();
+        animate();
+    </script>
+</body>
+</html>

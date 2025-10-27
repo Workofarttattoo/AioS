@@ -1,0 +1,658 @@
+"""
+Copyright (c) 2025 Joshua Hendricks Cole (DBA: Corporation of Light).
+All Rights Reserved. PATENT PENDING.
+
+Unit tests for aios/diagnostics.py - Unified System Diagnostics Module
+
+Tests cover:
+- Version parsing and serialization
+- DiagnosticsManager initialization and state
+- System status snapshot generation
+- Manifest validation
+- Provider/algorithm/tool enumeration
+- JSON serialization
+- Error recovery suggestions
+"""
+
+import unittest
+import json
+import tempfile
+import sys
+import importlib.util
+from pathlib import Path
+from unittest.mock import Mock, patch, MagicMock
+from dataclasses import asdict
+
+# Load diagnostics module directly to avoid aios/__init__.py import issues
+_spec = importlib.util.spec_from_file_location(
+    "diagnostics", "/Users/noone/aios/diagnostics.py"
+)
+_diagnostics = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(_diagnostics)
+
+# Import classes from the loaded module
+VersionInfo = _diagnostics.VersionInfo
+DependencyInfo = _diagnostics.DependencyInfo
+SubsystemInfo = _diagnostics.SubsystemInfo
+AlgorithmInfo = _diagnostics.AlgorithmInfo
+ProviderInfo = _diagnostics.ProviderInfo
+SecurityToolInfo = _diagnostics.SecurityToolInfo
+SystemStatus = _diagnostics.SystemStatus
+DiagnosticsManager = _diagnostics.DiagnosticsManager
+HealthStatus = _diagnostics.HealthStatus
+SubsystemType = _diagnostics.SubsystemType
+get_diagnostics = _diagnostics.get_diagnostics
+
+
+class TestVersionInfo(unittest.TestCase):
+    """Test version parsing and formatting"""
+
+    def test_version_string_basic(self):
+        """Test basic semantic version formatting"""
+        v = VersionInfo(1, 2, 3)
+        self.assertEqual(str(v), "1.2.3")
+
+    def test_version_string_with_prerelease(self):
+        """Test version with prerelease identifier"""
+        v = VersionInfo(1, 0, 0, prerelease="beta.1")
+        self.assertEqual(str(v), "1.0.0-beta.1")
+
+    def test_version_string_with_build(self):
+        """Test version with build metadata"""
+        v = VersionInfo(1, 0, 0, build="20250101")
+        self.assertEqual(str(v), "1.0.0+20250101")
+
+    def test_version_string_full(self):
+        """Test version with prerelease and build"""
+        v = VersionInfo(2, 5, 1, prerelease="alpha", build="rev42")
+        self.assertEqual(str(v), "2.5.1-alpha+rev42")
+
+
+class TestDependencyInfo(unittest.TestCase):
+    """Test dependency information"""
+
+    def test_dependency_to_dict(self):
+        """Test dependency serialization"""
+        dep = DependencyInfo(
+            name="torch",
+            required=True,
+            installed=True,
+            version="2.0.0",
+            install_command="pip install torch"
+        )
+        d = dep.to_dict()
+        self.assertEqual(d["name"], "torch")
+        self.assertTrue(d["required"])
+        self.assertEqual(d["version"], "2.0.0")
+
+    def test_dependency_optional_fields(self):
+        """Test optional dependency fields"""
+        dep = DependencyInfo(name="pytorch", required=False, installed=False)
+        d = dep.to_dict()
+        self.assertIsNone(d["install_command"])
+        self.assertIsNone(d["alternative"])
+
+
+class TestSubsystemInfo(unittest.TestCase):
+    """Test subsystem information"""
+
+    def test_subsystem_to_dict(self):
+        """Test subsystem serialization"""
+        subsys = SubsystemInfo(
+            name="SecurityAgent",
+            subsystem_type=SubsystemType.META_AGENT,
+            status=HealthStatus.OPERATIONAL,
+            version=VersionInfo(1, 0, 0),
+            description="Security agent for firewall and encryption"
+        )
+        d = subsys.to_dict()
+        self.assertEqual(d["name"], "SecurityAgent")
+        self.assertEqual(d["subsystem_type"], "meta_agent")
+        self.assertEqual(d["status"], "operational")
+        self.assertEqual(d["version"], "1.0.0")
+
+    def test_subsystem_with_dependencies(self):
+        """Test subsystem with dependencies"""
+        dep = DependencyInfo("firewalld", required=True, installed=True)
+        subsys = SubsystemInfo(
+            name="SecurityAgent",
+            subsystem_type=SubsystemType.META_AGENT,
+            status=HealthStatus.OPERATIONAL,
+            version=VersionInfo(1, 0, 0),
+            description="Security agent",
+            dependencies=[dep]
+        )
+        d = subsys.to_dict()
+        self.assertEqual(len(d["dependencies"]), 1)
+
+
+class TestAlgorithmInfo(unittest.TestCase):
+    """Test algorithm information"""
+
+    def test_algorithm_to_dict(self):
+        """Test algorithm serialization"""
+        algo = AlgorithmInfo(
+            name="AdaptiveStateSpace",
+            category="classical",
+            description="Mamba architecture",
+            version=VersionInfo(1, 0, 0),
+            available=True,
+            gpu_capable=False
+        )
+        d = algo.to_dict()
+        self.assertEqual(d["name"], "AdaptiveStateSpace")
+        self.assertEqual(d["category"], "classical")
+        self.assertTrue(d["available"])
+
+    def test_quantum_algorithm(self):
+        """Test quantum algorithm"""
+        algo = AlgorithmInfo(
+            name="QuantumVQE",
+            category="quantum",
+            description="Variational Quantum Eigensolver",
+            version=VersionInfo(1, 0, 0),
+            available=True,
+            gpu_capable=True
+        )
+        d = algo.to_dict()
+        self.assertEqual(d["category"], "quantum")
+        self.assertTrue(d["gpu_capable"])
+
+
+class TestProviderInfo(unittest.TestCase):
+    """Test provider information"""
+
+    def test_provider_to_dict(self):
+        """Test provider serialization"""
+        provider = ProviderInfo(
+            name="Docker",
+            provider_type="container",
+            available=True,
+            version=VersionInfo(24, 0, 0),
+            configured=True,
+            cli_binary="docker"
+        )
+        d = provider.to_dict()
+        self.assertEqual(d["name"], "Docker")
+        self.assertEqual(d["provider_type"], "container")
+        self.assertTrue(d["available"])
+
+    def test_provider_unavailable(self):
+        """Test unavailable provider"""
+        provider = ProviderInfo(
+            name="AWS",
+            provider_type="cloud",
+            available=False,
+            cli_binary="aws"
+        )
+        d = provider.to_dict()
+        self.assertFalse(d["available"])
+        self.assertFalse(d["configured"])
+
+
+class TestSecurityToolInfo(unittest.TestCase):
+    """Test security tool information"""
+
+    def test_tool_to_dict(self):
+        """Test tool serialization"""
+        tool = SecurityToolInfo(
+            name="AuroraScan",
+            description="Network reconnaissance",
+            category="reconnaissance",
+            location="tools/",
+            has_cli=True,
+            has_gui=True,
+            available=True
+        )
+        d = tool.to_dict()
+        self.assertEqual(d["name"], "AuroraScan")
+        self.assertEqual(d["category"], "reconnaissance")
+        self.assertTrue(d["has_gui"])
+
+    def test_tool_with_example(self):
+        """Test tool with example command"""
+        tool = SecurityToolInfo(
+            name="CipherSpear",
+            description="Database injection testing",
+            category="exploitation",
+            location="tools/",
+            example_command="python -m tools.cipherspear --demo"
+        )
+        d = tool.to_dict()
+        self.assertIn("--demo", d["example_command"])
+
+
+class TestSystemStatus(unittest.TestCase):
+    """Test system status snapshot"""
+
+    def test_system_status_creation(self):
+        """Test creating system status"""
+        status = SystemStatus(
+            timestamp=1234567890.0,
+            python_version="3.11.0",
+            platform_name="Darwin",
+            platform_version="23.0.0",
+            working_directory="/Users/noone",
+            aios_version=VersionInfo(1, 0, 0)
+        )
+        self.assertEqual(status.python_version, "3.11.0")
+        self.assertEqual(status.platform_name, "Darwin")
+        self.assertEqual(status.overall_health, HealthStatus.OPERATIONAL)
+
+    def test_system_status_to_json(self):
+        """Test JSON serialization"""
+        status = SystemStatus(
+            timestamp=1234567890.0,
+            python_version="3.11.0",
+            platform_name="Darwin",
+            platform_version="23.0.0",
+            working_directory="/Users/noone",
+            aios_version=VersionInfo(1, 0, 0),
+            meta_agents=[
+                SubsystemInfo(
+                    name="SecurityAgent",
+                    subsystem_type=SubsystemType.META_AGENT,
+                    status=HealthStatus.OPERATIONAL,
+                    version=VersionInfo(1, 0, 0),
+                    description="Security agent"
+                )
+            ]
+        )
+        json_str = status.to_json()
+        data = json.loads(json_str)
+
+        self.assertEqual(data["python_version"], "3.11.0")
+        self.assertEqual(len(data["meta_agents"]), 1)
+
+    def test_system_status_to_dict(self):
+        """Test dictionary conversion"""
+        status = SystemStatus(
+            timestamp=1234567890.0,
+            python_version="3.11.0",
+            platform_name="Darwin",
+            platform_version="23.0.0",
+            working_directory="/Users/noone",
+            aios_version=VersionInfo(1, 0, 0)
+        )
+        d = status.to_dict()
+        self.assertIsInstance(d, dict)
+        self.assertEqual(d["python_version"], "3.11.0")
+
+    def test_tools_by_category(self):
+        """Test tool categorization"""
+        status = SystemStatus(
+            timestamp=1234567890.0,
+            python_version="3.11.0",
+            platform_name="Darwin",
+            platform_version="23.0.0",
+            working_directory="/Users/noone",
+            aios_version=VersionInfo(1, 0, 0),
+            security_tools=[
+                SecurityToolInfo("AuroraScan", "desc", "reconnaissance", "tools/"),
+                SecurityToolInfo("CipherSpear", "desc", "exploitation", "tools/"),
+                SecurityToolInfo("DirReaper", "desc", "reconnaissance", "tools/"),
+            ]
+        )
+        json_str = status.to_json()
+        data = json.loads(json_str)
+        categories = data["security_tools"]["by_category"]
+
+        self.assertEqual(categories["reconnaissance"], 2)
+        self.assertEqual(categories["exploitation"], 1)
+
+
+class TestDiagnosticsManager(unittest.TestCase):
+    """Test DiagnosticsManager"""
+
+    def setUp(self):
+        """Create fresh manager for each test"""
+        self.manager = DiagnosticsManager()
+
+    def test_manager_initialization(self):
+        """Test manager initializes correctly"""
+        self.assertIsNotNone(self.manager.aios_version)
+        self.assertFalse(self.manager._initialized)
+
+    def test_manager_initialize(self):
+        """Test manager initialization process"""
+        self.manager.initialize()
+        self.assertTrue(self.manager._initialized)
+        self.assertGreater(len(self.manager._subsystems), 0)
+        self.assertGreater(len(self.manager._algorithms), 0)
+        self.assertGreater(len(self.manager._providers), 0)
+        self.assertGreater(len(self.manager._tools), 0)
+
+    def test_manager_idempotent_initialize(self):
+        """Test initialize is idempotent"""
+        self.manager.initialize()
+        count_1 = len(self.manager._subsystems)
+
+        self.manager.initialize()
+        count_2 = len(self.manager._subsystems)
+
+        self.assertEqual(count_1, count_2)
+
+    def test_get_system_status(self):
+        """Test getting complete system status"""
+        status = self.manager.get_system_status()
+
+        self.assertIsInstance(status, SystemStatus)
+        self.assertGreater(len(status.meta_agents), 0)
+        self.assertGreater(len(status.algorithms), 0)
+        self.assertGreater(len(status.providers), 0)
+        self.assertGreater(len(status.security_tools), 0)
+
+    def test_system_status_has_recommendations(self):
+        """Test system status includes recommendations"""
+        status = self.manager.get_system_status()
+        self.assertIsInstance(status.recommendations, list)
+
+    def test_system_status_health_calculation(self):
+        """Test overall health is calculated"""
+        status = self.manager.get_system_status()
+        self.assertIn(status.overall_health, [
+            HealthStatus.OPERATIONAL,
+            HealthStatus.DEGRADED,
+            HealthStatus.UNAVAILABLE
+        ])
+
+    def test_get_available_providers(self):
+        """Test filtering available providers"""
+        providers = self.manager.get_available_providers()
+        # All returned providers should be marked available
+        for provider in providers:
+            self.assertTrue(provider.available)
+
+    def test_get_available_algorithms(self):
+        """Test filtering available algorithms"""
+        algos = self.manager.get_available_algorithms()
+        for algo in algos:
+            self.assertTrue(algo.available)
+
+    def test_get_algorithms_by_category(self):
+        """Test algorithm filtering by category"""
+        classical = self.manager.get_available_algorithms(category="classical")
+        quantum = self.manager.get_available_algorithms(category="quantum")
+
+        # Check category filtering
+        for algo in classical:
+            self.assertEqual(algo.category, "classical")
+        for algo in quantum:
+            self.assertEqual(algo.category, "quantum")
+
+    def test_get_available_tools(self):
+        """Test filtering available tools"""
+        tools = self.manager.get_available_tools()
+        for tool in tools:
+            self.assertTrue(tool.available)
+
+    def test_get_tools_by_category(self):
+        """Test tool filtering by category"""
+        recon_tools = self.manager.get_available_tools(category="reconnaissance")
+        for tool in recon_tools:
+            self.assertEqual(tool.category, "reconnaissance")
+
+    def test_suggest_fixes_import_error(self):
+        """Test suggestions for import errors"""
+        suggestions = self.manager.suggest_fixes("No module named 'qiskit'")
+        self.assertTrue(any("qiskit" in s.lower() for s in suggestions))
+
+    def test_suggest_fixes_torch_error(self):
+        """Test suggestions for PyTorch errors"""
+        suggestions = self.manager.suggest_fixes("ImportError: No module named 'torch'")
+        self.assertTrue(any("torch" in s.lower() for s in suggestions))
+
+    def test_suggest_fixes_permission_error(self):
+        """Test suggestions for permission errors"""
+        suggestions = self.manager.suggest_fixes("PermissionError: Permission denied")
+        self.assertTrue(any("elevated" in s.lower() or "sudo" in s.lower() for s in suggestions))
+
+    def test_suggest_fixes_generic(self):
+        """Test generic suggestions for unknown errors"""
+        suggestions = self.manager.suggest_fixes("SomeRandomError")
+        self.assertGreater(len(suggestions), 0)
+
+    def test_meta_agents_loaded(self):
+        """Test all meta agents are loaded"""
+        self.manager.initialize()
+        expected_agents = {
+            "KernelAgent",
+            "SecurityAgent",
+            "NetworkingAgent",
+            "StorageAgent",
+            "ApplicationAgent",
+            "ScalabilityAgent",
+            "OrchestrationAgent",
+            "UserAgent",
+            "GuiAgent"
+        }
+        loaded_agents = set(self.manager._subsystems.keys())
+        self.assertEqual(expected_agents, loaded_agents)
+
+    def test_algorithms_loaded(self):
+        """Test algorithms are loaded"""
+        self.manager.initialize()
+        # Should have both classical and quantum
+        classical = [a for a in self.manager._algorithms.values() if a.category == "classical"]
+        quantum = [a for a in self.manager._algorithms.values() if a.category == "quantum"]
+
+        self.assertGreater(len(classical), 0)
+        self.assertGreater(len(quantum), 0)
+
+    def test_providers_loaded(self):
+        """Test providers are loaded"""
+        self.manager.initialize()
+        expected_providers = {"Docker", "AWS", "Azure", "GCP", "QEMU", "libvirt"}
+        loaded_providers = set(self.manager._providers.keys())
+        self.assertEqual(expected_providers, loaded_providers)
+
+    def test_security_tools_loaded(self):
+        """Test security tools are loaded"""
+        self.manager.initialize()
+        self.assertGreater(len(self.manager._tools), 0)
+
+        # Check some expected tools
+        tool_names = set(self.manager._tools.keys())
+        self.assertIn("AuroraScan", tool_names)
+        self.assertIn("CipherSpear", tool_names)
+
+
+class TestManifestValidation(unittest.TestCase):
+    """Test manifest validation"""
+
+    def setUp(self):
+        """Create manager for validation tests"""
+        self.manager = DiagnosticsManager()
+        self.temp_dir = tempfile.TemporaryDirectory()
+        self.temp_path = Path(self.temp_dir.name)
+
+    def tearDown(self):
+        """Cleanup temp files"""
+        self.temp_dir.cleanup()
+
+    def test_validate_missing_manifest(self):
+        """Test validation of missing manifest file"""
+        result = self.manager.validate_manifest("/nonexistent/path/manifest.json")
+        self.assertFalse(result["valid"])
+        self.assertGreater(len(result["errors"]), 0)
+        self.assertIn("not found", result["errors"][0].lower())
+
+    def test_validate_invalid_json(self):
+        """Test validation of invalid JSON"""
+        manifest_file = self.temp_path / "bad.json"
+        manifest_file.write_text("{ invalid json }")
+
+        result = self.manager.validate_manifest(str(manifest_file))
+        self.assertFalse(result["valid"])
+        self.assertGreater(len(result["errors"]), 0)
+
+    def test_validate_manifest_minimal(self):
+        """Test validation of minimal valid manifest"""
+        manifest = {
+            "name": "test-manifest",
+            "version": "1.0.0"
+        }
+        manifest_file = self.temp_path / "manifest.json"
+        manifest_file.write_text(json.dumps(manifest))
+
+        result = self.manager.validate_manifest(str(manifest_file))
+        self.assertTrue(result["valid"])
+
+    def test_validate_manifest_missing_required_field(self):
+        """Test validation catches missing required fields"""
+        manifest = {"version": "1.0.0"}  # Missing 'name'
+        manifest_file = self.temp_path / "manifest.json"
+        manifest_file.write_text(json.dumps(manifest))
+
+        result = self.manager.validate_manifest(str(manifest_file))
+        self.assertFalse(result["valid"])
+        self.assertTrue(any("name" in e.lower() for e in result["errors"]))
+
+    def test_validate_manifest_with_agents(self):
+        """Test validation of manifest with agents"""
+        manifest = {
+            "name": "test",
+            "version": "1.0.0",
+            "meta_agents": {
+                "SecurityAgent": {},
+                "UnknownAgent": {}
+            }
+        }
+        manifest_file = self.temp_path / "manifest.json"
+        manifest_file.write_text(json.dumps(manifest))
+
+        result = self.manager.validate_manifest(str(manifest_file))
+        self.assertTrue(result["valid"])
+        self.assertTrue(any("Unknown" in w for w in result["warnings"]))
+
+    def test_validate_manifest_with_boot_sequence(self):
+        """Test validation of boot sequence"""
+        manifest = {
+            "name": "test",
+            "version": "1.0.0",
+            "boot_sequence": [
+                "security.firewall",
+                "unknown.action"
+            ]
+        }
+        manifest_file = self.temp_path / "manifest.json"
+        manifest_file.write_text(json.dumps(manifest))
+
+        result = self.manager.validate_manifest(str(manifest_file))
+        self.assertFalse(result["valid"])
+        self.assertTrue(any("unknown" in e.lower() for e in result["errors"]))
+
+
+class TestGlobalInstance(unittest.TestCase):
+    """Test global diagnostics instance"""
+
+    def test_get_diagnostics_singleton(self):
+        """Test get_diagnostics returns singleton"""
+        # Reset global state for test
+        _diagnostics._diagnostics_instance = None
+
+        diag1 = get_diagnostics()
+        diag2 = get_diagnostics()
+
+        self.assertIs(diag1, diag2)
+
+    def test_get_diagnostics_is_manager(self):
+        """Test get_diagnostics returns DiagnosticsManager"""
+        _diagnostics._diagnostics_instance = None
+
+        diag = get_diagnostics()
+        self.assertIsInstance(diag, DiagnosticsManager)
+
+
+class TestHealthStatusCalculation(unittest.TestCase):
+    """Test health status calculation"""
+
+    def test_all_operational_is_operational(self):
+        """Test all operational subsystems = operational"""
+        manager = DiagnosticsManager()
+
+        # Create all operational subsystems
+        for i in range(3):
+            manager._subsystems[f"agent_{i}"] = SubsystemInfo(
+                name=f"agent_{i}",
+                subsystem_type=SubsystemType.META_AGENT,
+                status=HealthStatus.OPERATIONAL,
+                version=VersionInfo(1, 0, 0),
+                description="test"
+            )
+
+        health = manager._compute_overall_health()
+        self.assertEqual(health, HealthStatus.OPERATIONAL)
+
+    def test_partial_operational_is_degraded(self):
+        """Test partial operational subsystems = degraded"""
+        manager = DiagnosticsManager()
+
+        # Create mix of operational and degraded
+        for i in range(3):
+            status = HealthStatus.OPERATIONAL if i < 2 else HealthStatus.DEGRADED
+            manager._subsystems[f"agent_{i}"] = SubsystemInfo(
+                name=f"agent_{i}",
+                subsystem_type=SubsystemType.META_AGENT,
+                status=status,
+                version=VersionInfo(1, 0, 0),
+                description="test"
+            )
+
+        health = manager._compute_overall_health()
+        self.assertEqual(health, HealthStatus.DEGRADED)
+
+    def test_no_subsystems_is_unavailable(self):
+        """Test no subsystems = unavailable"""
+        manager = DiagnosticsManager()
+        health = manager._compute_overall_health()
+        self.assertEqual(health, HealthStatus.UNAVAILABLE)
+
+
+class TestProviderCapabilities(unittest.TestCase):
+    """Test provider capability detection"""
+
+    def test_docker_capabilities(self):
+        """Test Docker provider capabilities"""
+        manager = DiagnosticsManager()
+        manager.initialize()
+
+        docker = manager._providers.get("Docker")
+        self.assertIsNotNone(docker)
+        self.assertIn("container_execution", docker.capabilities)
+
+    def test_aws_capabilities(self):
+        """Test AWS provider capabilities"""
+        manager = DiagnosticsManager()
+        manager.initialize()
+
+        aws = manager._providers.get("AWS")
+        self.assertIsNotNone(aws)
+        self.assertIn("compute", aws.capabilities)
+        self.assertIn("storage", aws.capabilities)
+
+
+class TestToolGuiDetection(unittest.TestCase):
+    """Test GUI tool detection"""
+
+    def test_gui_tools_identified(self):
+        """Test tools with GUI are identified"""
+        manager = DiagnosticsManager()
+        manager.initialize()
+
+        aurorascan = manager._tools.get("AuroraScan")
+        self.assertIsNotNone(aurorascan)
+        self.assertTrue(aurorascan.has_gui)
+
+    def test_tool_example_commands(self):
+        """Test tools have example commands"""
+        manager = DiagnosticsManager()
+        manager.initialize()
+
+        # Some tools should have examples
+        with_examples = [t for t in manager._tools.values() if t.example_command]
+        self.assertGreater(len(with_examples), 0)
+
+
+if __name__ == "__main__":
+    unittest.main()

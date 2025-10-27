@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AIOS App Tester - Comprehensive Suite</title>
+    <style>
+        body {
+            font-family: monospace;
+            background: #000;
+            color: #0f0;
+            padding: 20px;
+        }
+        .test {
+            border: 1px solid #0f0;
+            margin: 10px 0;
+            padding: 10px;
+        }
+        .pass { color: #0f0; }
+        .fail { color: #f00; }
+        .warn { color: #ff0; }
+        button {
+            background: #0f0;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-family: monospace;
+            font-weight: bold;
+        }
+        iframe {
+            width: 1px;
+            height: 1px;
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔬 AIOS Comprehensive App Testing Suite</h1>
+    <button onclick="runAllTests()">▶️ RUN ALL TESTS</button>
+    <button onclick="testAuth()">🔐 TEST AUTH FLOW</button>
+    <button onclick="testTools()">🛠️ TEST TOOLS</button>
+    <button onclick="exportReport()">📄 EXPORT REPORT</button>
+
+    <div id="results"></div>
+
+    <script>
+        const results = [];
+        const apps = [
+            // Auth Apps
+            { name: 'Login', url: 'login.html', type: 'auth', requiresBackend: true },
+            { name: 'Register', url: 'register.html', type: 'auth', requiresBackend: true },
+            { name: 'Dashboard', url: 'dashboard.html', type: 'auth', requiresBackend: true },
+            { name: 'Test Auth', url: 'test-auth.html', type: 'auth', requiresBackend: true },
+            { name: 'Onboarding', url: 'onboarding.html', type: 'auth', requiresBackend: true },
+
+            // Standalone Tools
+            { name: 'BelchStudio', url: 'belchstudio.html', type: 'tool', requiresBackend: false },
+            { name: 'BelchStudio React', url: 'belchstudio-react.html', type: 'tool', requiresBackend: false },
+            { name: 'Directory Fuzzer', url: 'directory-fuzzer.html', type: 'tool', requiresBackend: false },
+            { name: 'Hash Cracker', url: 'hash-cracker.html', type: 'tool', requiresBackend: false },
+            { name: 'HashSolver', url: 'hashsolver.html', type: 'tool', requiresBackend: false },
+            { name: 'Reverse Shell', url: 'reverse-shell.html', type: 'tool', requiresBackend: false },
+            { name: 'Shodan Search', url: 'shodan-search.html', type: 'tool', requiresBackend: false },
+            { name: 'SQLMap', url: 'sqlmap.html', type: 'tool', requiresBackend: false },
+            { name: 'SQL GPS', url: 'sqlgps.html', type: 'tool', requiresBackend: false },
+            { name: 'Tech Stack Analyzer', url: 'tech-stack-analyzer.html', type: 'tool', requiresBackend: false },
+            { name: 'Console Monitor', url: 'console-monitor.html', type: 'tool', requiresBackend: false },
+            { name: 'NMap Street', url: 'nmap-street.html', type: 'tool', requiresBackend: false },
+
+            // Visualizers
+            { name: 'Quantum Visualizer', url: 'quantum-visualizer.html', type: 'visualizer', requiresBackend: false },
+            { name: 'QuLab', url: 'qulab.html', type: 'visualizer', requiresBackend: false },
+            { name: 'Algorithms', url: 'algorithms.html', type: 'visualizer', requiresBackend: false },
+
+            // Info Pages
+            { name: 'Index', url: 'index.html', type: 'page', requiresBackend: false },
+            { name: 'About', url: 'about.html', type: 'page', requiresBackend: false },
+            { name: 'FAQ', url: 'faq.html', type: 'page', requiresBackend: false },
+            { name: 'Getting Started', url: 'getting-started.html', type: 'page', requiresBackend: false },
+            { name: 'Pricing', url: 'pricing.html', type: 'page', requiresBackend: false },
+            { name: 'Terms of Service', url: 'terms-of-service.html', type: 'page', requiresBackend: false },
+            { name: 'Privacy Policy', url: 'privacy-policy.html', type: 'page', requiresBackend: false },
+            { name: 'Acceptable Use', url: 'acceptable-use-policy.html', type: 'page', requiresBackend: false },
+            { name: 'Responsible Disclosure', url: 'responsible-disclosure.html', type: 'page', requiresBackend: false },
+            { name: 'SIP Phone Services', url: 'sip-phone-services.html', type: 'page', requiresBackend: false },
+            { name: 'ECH0 Journal', url: 'ech0-journal.html', type: 'page', requiresBackend: false },
+        ];
+
+        async function testApp(app) {
+            log(`Testing ${app.name}...`, 'info');
+
+            try {
+                const response = await fetch(app.url);
+                const html = await response.text();
+
+                // Check for basic structure
+                const hasHtml = html.includes('<html') || html.includes('<!DOCTYPE');
+                const hasBody = html.includes('<body');
+                const hasScript = html.includes('<script');
+                const hasSupabase = html.includes('supabase') || html.includes('SUPABASE');
+                const hasErrors = html.includes('Error') && html.includes('404');
+
+                const test = {
+                    app: app.name,
+                    url: app.url,
+                    type: app.type,
+                    requiresBackend: app.requiresBackend,
+                    status: response.ok ? 'PASS' : 'FAIL',
+                    httpCode: response.status,
+                    hasValidHtml: hasHtml && hasBody,
+                    hasJavaScript: hasScript,
+                    usesSupabase: hasSupabase,
+                    fileSize: html.length,
+                    timestamp: new Date().toISOString()
+                };
+
+                results.push(test);
+
+                if (response.ok && test.hasValidHtml) {
+                    log(`✅ ${app.name}: PASS (${test.fileSize} bytes)`, 'pass');
+                } else {
+                    log(`❌ ${app.name}: FAIL (HTTP ${test.httpCode})`, 'fail');
+                }
+
+                return test;
+            } catch (error) {
+                log(`❌ ${app.name}: ERROR - ${error.message}`, 'fail');
+                return {
+                    app: app.name,
+                    status: 'ERROR',
+                    error: error.message
+                };
+            }
+        }
+
+        async function runAllTests() {
+            results.length = 0;
+            document.getElementById('results').innerHTML = '<h2>Running tests...</h2>';
+
+            for (const app of apps) {
+                await testApp(app);
+                await new Promise(resolve => setTimeout(resolve, 100));
+            }
+
+            displaySummary();
+        }
+
+        async function testAuth() {
+            log('Testing authentication flow...', 'info');
+            const authApps = apps.filter(a => a.type === 'auth');
+
+            for (const app of authApps) {
+                await testApp(app);
+            }
+
+            displaySummary();
+        }
+
+        async function testTools() {
+            log('Testing tools...', 'info');
+            const toolApps = apps.filter(a => a.type === 'tool');
+
+            for (const app of toolApps) {
+                await testApp(app);
+            }
+
+            displaySummary();
+        }
+
+        function displaySummary() {
+            const passed = results.filter(r => r.status === 'PASS').length;
+            const failed = results.filter(r => r.status === 'FAIL' || r.status === 'ERROR').length;
+            const total = results.length;
+
+            log(`\n📊 SUMMARY: ${passed}/${total} tests passed (${failed} failed)`, passed === total ? 'pass' : 'warn');
+
+            // Group by type
+            const byType = {};
+            results.forEach(r => {
+                if (!byType[r.type]) byType[r.type] = [];
+                byType[r.type].push(r);
+            });
+
+            for (const [type, tests] of Object.entries(byType)) {
+                const typePassed = tests.filter(t => t.status === 'PASS').length;
+                log(`\n${type.toUpperCase()}: ${typePassed}/${tests.length} passed`, 'info');
+                tests.forEach(t => {
+                    log(`  ${t.status === 'PASS' ? '✅' : '❌'} ${t.app}`, t.status === 'PASS' ? 'pass' : 'fail');
+                });
+            }
+        }
+
+        function exportReport() {
+            const report = {
+                timestamp: new Date().toISOString(),
+                summary: {
+                    total: results.length,
+                    passed: results.filter(r => r.status === 'PASS').length,
+                    failed: results.filter(r => r.status !== 'PASS').length
+                },
+                results: results
+            };
+
+            const blob = new Blob([JSON.stringify(report, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `aios-test-report-${Date.now()}.json`;
+            a.click();
+
+            log('✅ Report exported!', 'pass');
+        }
+
+        function log(message, type = 'info') {
+            const div = document.createElement('div');
+            div.className = `test ${type}`;
+            div.textContent = message;
+            document.getElementById('results').appendChild(div);
+            console.log(message);
+        }
+
+        // Auto-run on load
+        window.addEventListener('load', () => {
+            log('🚀 AIOS App Testing Suite Ready', 'pass');
+            log(`📦 ${apps.length} apps registered for testing`, 'info');
+            log('Click "RUN ALL TESTS" to begin', 'warn');
+        });
+    </script>
+</body>
+</html>

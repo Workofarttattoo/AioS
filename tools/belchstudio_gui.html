@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BelchStudio - HTTP Security Testing Platform</title>
+    <!-- Copyright (c) 2025 Joshua Hendricks Cole (DBA: Corporation of Light). All Rights Reserved. PATENT PENDING. -->
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            color: #e0e0e0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #ff6b35;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(255, 107, 53, 0.5);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #888;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        /* Tab Navigation */
+        .tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px;
+            border-radius: 10px;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            flex: 1;
+            min-width: 120px;
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 107, 53, 0.3);
+            border-radius: 8px;
+            color: #ff6b35;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .tab:hover {
+            background: rgba(255, 107, 53, 0.1);
+            border-color: #ff6b35;
+        }
+
+        .tab.active {
+            background: linear-gradient(135deg, #ff6b35, #e63946);
+            border-color: #ff6b35;
+            color: #fff;
+            box-shadow: 0 5px 20px rgba(255, 107, 53, 0.4);
+        }
+
+        /* Panel Container */
+        .panel {
+            display: none;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            min-height: 600px;
+        }
+
+        .panel.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .panel h2 {
+            color: #ff6b35;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        /* Control Panel */
+        .control-panel {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #ff6b35;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid rgba(255, 107, 53, 0.3);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 14px;
+            font-family: 'Courier New', monospace;
+            transition: all 0.3s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #ff6b35;
+            box-shadow: 0 0 20px rgba(255, 107, 53, 0.3);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #ff6b35, #e63946);
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.4);
+        }
+
+        button:disabled {
+            background: #555;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        button.secondary {
+            background: rgba(255, 107, 53, 0.2);
+            border: 2px solid #ff6b35;
+        }
+
+        /* Request/Response Display */
+        .request-response-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .request-box, .response-box {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 10px;
+            padding: 15px;
+            border: 2px solid rgba(255, 107, 53, 0.2);
+        }
+
+        .request-box h3, .response-box h3 {
+            color: #ff6b35;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .http-content {
+            background: #000;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            overflow-x: auto;
+            min-height: 300px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        /* Scan Results */
+        .scan-results {
+            margin-top: 20px;
+        }
+
+        .vulnerability-card {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ff6b35;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: all 0.3s;
+        }
+
+        .vulnerability-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 20px rgba(255, 107, 53, 0.2);
+        }
+
+        .vuln-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .vuln-title {
+            font-size: 1.2em;
+            color: #ff6b35;
+            font-weight: 700;
+        }
+
+        .severity-badge {
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .severity-critical { background: #d32f2f; color: #fff; }
+        .severity-high { background: #f57c00; color: #fff; }
+        .severity-medium { background: #fbc02d; color: #000; }
+        .severity-low { background: #388e3c; color: #fff; }
+        .severity-info { background: #1976d2; color: #fff; }
+
+        .vuln-description {
+            margin-top: 10px;
+            color: #aaa;
+            line-height: 1.6;
+        }
+
+        .quantum-score {
+            margin-top: 10px;
+            padding: 10px;
+            background: rgba(168, 85, 247, 0.1);
+            border-radius: 5px;
+            border-left: 3px solid #a855f7;
+        }
+
+        .quantum-score strong {
+            color: #a855f7;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            border: 2px solid rgba(255, 107, 53, 0.2);
+        }
+
+        .stat-value {
+            font-size: 2.5em;
+            color: #ff6b35;
+            font-weight: 700;
+        }
+
+        .stat-label {
+            color: #888;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        /* History List */
+        .history-list {
+            margin-top: 20px;
+        }
+
+        .history-item {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border-left: 3px solid #ff6b35;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .history-item:hover {
+            background: rgba(255, 107, 53, 0.1);
+            transform: translateX(5px);
+        }
+
+        .history-method {
+            display: inline-block;
+            padding: 3px 10px;
+            background: #ff6b35;
+            color: #fff;
+            border-radius: 3px;
+            font-weight: 700;
+            font-size: 12px;
+            margin-right: 10px;
+        }
+
+        .history-url {
+            color: #aaa;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+        }
+
+        .history-status {
+            float: right;
+            padding: 3px 10px;
+            border-radius: 3px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-2xx { background: #388e3c; color: #fff; }
+        .status-3xx { background: #1976d2; color: #fff; }
+        .status-4xx { background: #f57c00; color: #fff; }
+        .status-5xx { background: #d32f2f; color: #fff; }
+
+        /* Payload Position Markers */
+        .position-marker {
+            background: #fbc02d;
+            color: #000;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-weight: 700;
+        }
+
+        /* Progress Indicator */
+        .progress-container {
+            margin: 20px 0;
+            display: none;
+        }
+
+        .progress-container.active {
+            display: block;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff6b35, #e63946);
+            width: 0%;
+            transition: width 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .status-message {
+            color: #ff6b35;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .request-response-container {
+                grid-template-columns: 1fr;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .tab {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔥 BelchStudio 🔥</h1>
+        <p class="subtitle">HTTP Security Testing Platform with Quantum Anomaly Detection</p>
+
+        <!-- Tab Navigation -->
+        <div class="tabs">
+            <div class="tab active" data-tab="proxy" onclick="switchTab('proxy')">🌐 Proxy</div>
+            <div class="tab" data-tab="interceptor" onclick="switchTab('interceptor')">🛑 Interceptor</div>
+            <div class="tab" data-tab="repeater" onclick="switchTab('repeater')">🔁 Repeater</div>
+            <div class="tab" data-tab="intruder" onclick="switchTab('intruder')">⚔️ Intruder</div>
+            <div class="tab" data-tab="scanner" onclick="switchTab('scanner')">🔍 Scanner</div>
+            <div class="tab" data-tab="decoder" onclick="switchTab('decoder')">🔐 Decoder</div>
+            <div class="tab" data-tab="comparer" onclick="switchTab('comparer')">📊 Comparer</div>
+        </div>
+
+        <!-- PROXY Panel -->
+        <div id="proxy-panel" class="panel active">
+            <h2>HTTP/HTTPS Proxy</h2>
+
+            <div class="control-panel">
+                <div class="input-group">
+                    <label>Proxy Address</label>
+                    <input type="text" id="proxyHost" value="127.0.0.1" placeholder="Host">
+                </div>
+                <div class="input-group">
+                    <label>Proxy Port</label>
+                    <input type="number" id="proxyPort" value="8080" placeholder="Port">
+                </div>
+                <div class="button-group">
+                    <button onclick="startProxy()">🚀 Start Proxy</button>
+                    <button onclick="stopProxy()" class="secondary">⏹️ Stop Proxy</button>
+                    <button onclick="clearHistory()" class="secondary">🗑️ Clear History</button>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value" id="requestCount">0</div>
+                    <div class="stat-label">Requests</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="interceptedCount">0</div>
+                    <div class="stat-label">Intercepted</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="scanCount">0</div>
+                    <div class="stat-label">Scanned</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="vulnCount">0</div>
+                    <div class="stat-label">Vulnerabilities</div>
+                </div>
+            </div>
+
+            <h3 style="color: #ff6b35; margin: 20px 0;">Request History</h3>
+            <div class="history-list" id="historyList">
+                <p style="color: #666; text-align: center; padding: 40px;">
+                    No requests yet. Start the proxy and configure your browser to use 127.0.0.1:8080
+                </p>
+            </div>
+        </div>
+
+        <!-- INTERCEPTOR Panel -->
+        <div id="interceptor-panel" class="panel">
+            <h2>Request Interceptor</h2>
+
+            <div class="control-panel">
+                <div class="button-group">
+                    <button onclick="enableInterceptor()">▶️ Intercept On</button>
+                    <button onclick="disableInterceptor()" class="secondary">⏸️ Intercept Off</button>
+                    <button onclick="forwardRequest()">➡️ Forward</button>
+                    <button onclick="dropRequest()" class="secondary">❌ Drop</button>
+                </div>
+            </div>
+
+            <div class="request-response-container">
+                <div class="request-box">
+                    <h3>📤 Intercepted Request</h3>
+                    <textarea id="interceptedRequest" class="http-content" placeholder="Waiting for intercepted request..."></textarea>
+                    <div class="button-group">
+                        <button onclick="modifyAndForward()">✏️ Modify & Forward</button>
+                    </div>
+                </div>
+                <div class="response-box">
+                    <h3>📥 Response Preview</h3>
+                    <div id="responsePreview" class="http-content">No response yet...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- REPEATER Panel -->
+        <div id="repeater-panel" class="panel">
+            <h2>Request Repeater</h2>
+
+            <div class="request-response-container">
+                <div class="request-box">
+                    <h3>📤 Request</h3>
+                    <textarea id="repeaterRequest" class="http-content" placeholder="Paste HTTP request here...
+Example:
+GET /api/users HTTP/1.1
+Host: example.com
+User-Agent: BurpSuite Clone
+Accept: */*
+
+"></textarea>
+                    <div class="button-group">
+                        <button onclick="sendRepeaterRequest()">🚀 Send</button>
+                        <button onclick="loadFromHistory()" class="secondary">📋 Load from History</button>
+                    </div>
+                </div>
+                <div class="response-box">
+                    <h3>📥 Response</h3>
+                    <div id="repeaterResponse" class="http-content">Response will appear here...</div>
+                    <div class="button-group">
+                        <button onclick="compareResponses()" class="secondary">📊 Compare</button>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="color: #ff6b35; margin: 20px 0 10px 0;">Request History</h3>
+            <div class="history-list" id="repeaterHistory">
+                <p style="color: #666; text-align: center; padding: 20px;">No repeater history yet</p>
+            </div>
+        </div>
+
+        <!-- INTRUDER Panel -->
+        <div id="intruder-panel" class="panel">
+            <h2>Intruder - Automated Attack</h2>
+
+            <div class="control-panel">
+                <div class="input-group">
+                    <label>Target Request (use §markers§ for payload positions)</label>
+                    <textarea id="intruderRequest" rows="10" placeholder="Example:
+GET /search?q=§PAYLOAD§ HTTP/1.1
+Host: example.com
+User-Agent: §USER_AGENT§
+Accept: */*
+
+"></textarea>
+                </div>
+
+                <div class="input-group">
+                    <label>Payloads (one per line)</label>
+                    <textarea id="intruderPayloads" rows="5" placeholder="' OR 1=1--
+admin' --
+<script>alert(1)</script>
+../../../etc/passwd
+${7*7}"></textarea>
+                </div>
+
+                <div class="input-group">
+                    <label>Attack Type</label>
+                    <select id="attackType">
+                        <option value="sniper">Sniper (single position, each payload)</option>
+                        <option value="battering">Battering Ram (all positions, same payload)</option>
+                        <option value="pitchfork">Pitchfork (parallel iteration)</option>
+                        <option value="cluster">Cluster Bomb (all combinations)</option>
+                    </select>
+                </div>
+
+                <div class="button-group">
+                    <button onclick="startIntruderAttack()">⚔️ Start Attack</button>
+                    <button onclick="stopIntruderAttack()" class="secondary">⏹️ Stop</button>
+                </div>
+            </div>
+
+            <div class="progress-container" id="intruderProgress">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="intruderProgressFill">0%</div>
+                </div>
+                <div class="status-message" id="intruderStatus">Ready to attack...</div>
+            </div>
+
+            <h3 style="color: #ff6b35; margin: 20px 0 10px 0;">Attack Results</h3>
+            <div id="intruderResults" class="scan-results">
+                <p style="color: #666; text-align: center; padding: 20px;">Attack results will appear here</p>
+            </div>
+        </div>
+
+        <!-- SCANNER Panel -->
+        <div id="scanner-panel" class="panel">
+            <h2>Vulnerability Scanner</h2>
+
+            <div class="control-panel">
+                <div class="input-group">
+                    <label>Target URL</label>
+                    <input type="text" id="scanUrl" placeholder="https://example.com/api/endpoint">
+                </div>
+
+                <div class="input-group">
+                    <label>Scan Type</label>
+                    <select id="scanType">
+                        <option value="passive">Passive Scan (safe, no mutations)</option>
+                        <option value="active">Active Scan (sends payloads)</option>
+                        <option value="quantum">Quantum-Enhanced Scan (Bayesian anomaly detection)</option>
+                    </select>
+                </div>
+
+                <div class="button-group">
+                    <button onclick="startScan()">🔍 Start Scan</button>
+                    <button onclick="stopScan()" class="secondary">⏹️ Stop</button>
+                    <button onclick="exportScanResults()">💾 Export Results</button>
+                </div>
+            </div>
+
+            <div class="progress-container" id="scanProgress">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="scanProgressFill">0%</div>
+                </div>
+                <div class="status-message" id="scanStatus">Ready to scan...</div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value" id="scanChecksRun">0</div>
+                    <div class="stat-label">Checks Run</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="scanVulnsFound">0</div>
+                    <div class="stat-label">Vulnerabilities</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="scanCritical">0</div>
+                    <div class="stat-label">Critical</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="scanHigh">0</div>
+                    <div class="stat-label">High</div>
+                </div>
+            </div>
+
+            <h3 style="color: #ff6b35; margin: 20px 0 10px 0;">Discovered Vulnerabilities</h3>
+            <div id="scanResults" class="scan-results">
+                <p style="color: #666; text-align: center; padding: 40px;">
+                    No scan results yet. Enter a URL and click "Start Scan"
+                </p>
+            </div>
+        </div>
+
+        <!-- DECODER Panel -->
+        <div id="decoder-panel" class="panel">
+            <h2>Decoder / Encoder</h2>
+
+            <div class="request-response-container">
+                <div class="request-box">
+                    <h3>📝 Input</h3>
+                    <textarea id="decoderInput" class="http-content" placeholder="Enter text to encode/decode..."></textarea>
+                    <div class="button-group">
+                        <button onclick="encodeUrl()">URL Encode</button>
+                        <button onclick="decodeUrl()">URL Decode</button>
+                        <button onclick="encodeBase64()">Base64 Encode</button>
+                        <button onclick="decodeBase64()">Base64 Decode</button>
+                    </div>
+                    <div class="button-group">
+                        <button onclick="encodeHtml()">HTML Encode</button>
+                        <button onclick="decodeHtml()">HTML Decode</button>
+                        <button onclick="encodeHex()">Hex Encode</button>
+                        <button onclick="decodeHex()">Hex Decode</button>
+                    </div>
+                    <div class="button-group">
+                        <button onclick="hashMD5()">MD5 Hash</button>
+                        <button onclick="hashSHA1()">SHA1 Hash</button>
+                        <button onclick="hashSHA256()">SHA256 Hash</button>
+                    </div>
+                </div>
+                <div class="response-box">
+                    <h3>📤 Output</h3>
+                    <div id="decoderOutput" class="http-content">Output will appear here...</div>
+                    <div class="button-group">
+                        <button onclick="copyToClipboard('decoderOutput')" class="secondary">📋 Copy</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- COMPARER Panel -->
+        <div id="comparer-panel" class="panel">
+            <h2>Response Comparer</h2>
+
+            <div class="request-response-container">
+                <div class="request-box">
+                    <h3>📄 Response A</h3>
+                    <textarea id="compareA" class="http-content" placeholder="Paste first response..."></textarea>
+                </div>
+                <div class="response-box">
+                    <h3>📄 Response B</h3>
+                    <textarea id="compareB" class="http-content" placeholder="Paste second response..."></textarea>
+                </div>
+            </div>
+
+            <div class="button-group" style="justify-content: center; margin: 20px 0;">
+                <button onclick="compareDiff()">📊 Compare (Diff)</button>
+                <button onclick="compareBytes()">🔢 Compare (Bytes)</button>
+                <button onclick="compareSimilarity()">📈 Similarity Score</button>
+            </div>
+
+            <h3 style="color: #ff6b35; margin: 20px 0 10px 0;">Comparison Results</h3>
+            <div id="compareResults" class="http-content" style="background: rgba(0,0,0,0.4); min-height: 200px;">
+                Comparison results will appear here...
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global state
+        let proxyRunning = false;
+        let interceptEnabled = false;
+        let requestHistory = [];
+        let repeaterHistory = [];
+        let scanResults = [];
+
+        // Tab Switching
+        function switchTab(tabName) {
+            // Hide all panels
+            document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+
+            // Show selected panel
+            document.getElementById(`${tabName}-panel`).classList.add('active');
+            document.querySelector(`.tab[data-tab="${tabName}"]`).classList.add('active');
+        }
+
+        // PROXY Functions
+        function startProxy() {
+            const host = document.getElementById('proxyHost').value;
+            const port = document.getElementById('proxyPort').value;
+
+            console.log(`[PROXY] Starting proxy on ${host}:${port}`);
+            proxyRunning = true;
+
+            alert(`Proxy would start on ${host}:${port}\n\nIn production, this connects to Python backend.`);
+
+            // Simulate some requests coming in
+            setTimeout(() => addMockRequest('GET', 'https://example.com/'), 2000);
+            setTimeout(() => addMockRequest('POST', 'https://api.example.com/users'), 3000);
+        }
+
+        function stopProxy() {
+            console.log('[PROXY] Stopping proxy');
+            proxyRunning = false;
+            alert('Proxy stopped');
+        }
+
+        function clearHistory() {
+            requestHistory = [];
+            document.getElementById('historyList').innerHTML = '<p style="color: #666; text-align: center; padding: 40px;">History cleared</p>';
+            updateStats();
+        }
+
+        function addMockRequest(method, url) {
+            const request = {
+                method: method,
+                url: url,
+                status: Math.random() > 0.8 ? 500 : (Math.random() > 0.5 ? 200 : 404),
+                timestamp: new Date().toLocaleTimeString()
+            };
+
+            requestHistory.push(request);
+            renderHistory();
+            updateStats();
+        }
+
+        function renderHistory() {
+            const container = document.getElementById('historyList');
+            if (requestHistory.length === 0) {
+                container.innerHTML = '<p style="color: #666; text-align: center; padding: 40px;">No requests yet</p>';
+                return;
+            }
+
+            container.innerHTML = requestHistory.map((req, idx) => {
+                const statusClass = Math.floor(req.status / 100) === 2 ? 'status-2xx' :
+                                   Math.floor(req.status / 100) === 3 ? 'status-3xx' :
+                                   Math.floor(req.status / 100) === 4 ? 'status-4xx' : 'status-5xx';
+
+                return `
+                    <div class="history-item" onclick="loadRequestToRepeater(${idx})">
+                        <span class="history-method">${req.method}</span>
+                        <span class="history-url">${req.url}</span>
+                        <span class="history-status ${statusClass}">${req.status}</span>
+                        <div style="font-size: 11px; color: #666; margin-top: 5px;">${req.timestamp}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function updateStats() {
+            document.getElementById('requestCount').textContent = requestHistory.length;
+            document.getElementById('interceptedCount').textContent = Math.floor(requestHistory.length * 0.3);
+            document.getElementById('scanCount').textContent = scanResults.length;
+            document.getElementById('vulnCount').textContent = scanResults.filter(v => v.severity !== 'info').length;
+        }
+
+        function loadRequestToRepeater(idx) {
+            const req = requestHistory[idx];
+            document.getElementById('repeaterRequest').value = `${req.method} ${new URL(req.url).pathname} HTTP/1.1\nHost: ${new URL(req.url).host}\nUser-Agent: BurpSuite Clone\nAccept: */*\n\n`;
+            switchTab('repeater');
+        }
+
+        // INTERCEPTOR Functions
+        function enableInterceptor() {
+            interceptEnabled = true;
+            alert('Interception enabled. Requests will be paused for manual review.');
+        }
+
+        function disableInterceptor() {
+            interceptEnabled = false;
+            alert('Interception disabled');
+        }
+
+        function forwardRequest() {
+            alert('Request forwarded to server');
+        }
+
+        function dropRequest() {
+            alert('Request dropped (not sent to server)');
+        }
+
+        function modifyAndForward() {
+            const modified = document.getElementById('interceptedRequest').value;
+            alert('Modified request forwarded:\n\n' + modified.substring(0, 200) + '...');
+        }
+
+        // REPEATER Functions
+        function sendRepeaterRequest() {
+            const request = document.getElementById('repeaterRequest').value;
+
+            if (!request.trim()) {
+                alert('Please enter a request');
+                return;
+            }
+
+            console.log('[REPEATER] Sending request:', request);
+
+            // Mock response
+            const mockResponse = `HTTP/1.1 200 OK
+Date: ${new Date().toUTCString()}
+Content-Type: application/json
+Content-Length: 123
+
+{
+  "status": "success",
+  "message": "This is a mock response from BurpSuite Clone",
+  "timestamp": "${new Date().toISOString()}"
+}`;
+
+            document.getElementById('repeaterResponse').textContent = mockResponse;
+
+            // Add to history
+            repeaterHistory.push({
+                request: request,
+                response: mockResponse,
+                timestamp: new Date().toLocaleTimeString()
+            });
+
+            renderRepeaterHistory();
+        }
+
+        function loadFromHistory() {
+            if (requestHistory.length === 0) {
+                alert('No history to load from');
+                return;
+            }
+            loadRequestToRepeater(0);
+        }
+
+        function renderRepeaterHistory() {
+            const container = document.getElementById('repeaterHistory');
+            if (repeaterHistory.length === 0) {
+                container.innerHTML = '<p style="color: #666; text-align: center; padding: 20px;">No repeater history yet</p>';
+                return;
+            }
+
+            container.innerHTML = repeaterHistory.map((item, idx) => `
+                <div class="history-item" onclick="loadRepeaterHistoryItem(${idx})">
+                    <strong style="color: #ff6b35;">Request #${idx + 1}</strong>
+                    <div style="font-size: 11px; color: #666; margin-top: 5px;">${item.timestamp}</div>
+                </div>
+            `).join('');
+        }
+
+        function loadRepeaterHistoryItem(idx) {
+            const item = repeaterHistory[idx];
+            document.getElementById('repeaterRequest').value = item.request;
+            document.getElementById('repeaterResponse').textContent = item.response;
+        }
+
+        // INTRUDER Functions
+        let intruderRunning = false;
+
+        function startIntruderAttack() {
+            const request = document.getElementById('intruderRequest').value;
+            const payloads = document.getElementById('intruderPayloads').value.split('\n').filter(p => p.trim());
+
+            if (!request.includes('§')) {
+                alert('No payload positions marked! Use §markers§ to indicate where to inject payloads.');
+                return;
+            }
+
+            if (payloads.length === 0) {
+                alert('No payloads entered');
+                return;
+            }
+
+            console.log(`[INTRUDER] Starting attack with ${payloads.length} payloads`);
+            intruderRunning = true;
+
+            document.getElementById('intruderProgress').classList.add('active');
+            simulateIntruderAttack(payloads);
+        }
+
+        async function simulateIntruderAttack(payloads) {
+            const resultsContainer = document.getElementById('intruderResults');
+            resultsContainer.innerHTML = '';
+
+            for (let i = 0; i < payloads.length && intruderRunning; i++) {
+                const progress = ((i + 1) / payloads.length * 100).toFixed(0);
+                document.getElementById('intruderProgressFill').style.width = progress + '%';
+                document.getElementById('intruderProgressFill').textContent = progress + '%';
+                document.getElementById('intruderStatus').textContent = `Testing payload ${i + 1}/${payloads.length}: ${payloads[i]}`;
+
+                // Mock result
+                const mockStatus = Math.random() > 0.7 ? 500 : (Math.random() > 0.5 ? 200 : 404);
+                const mockLength = Math.floor(Math.random() * 10000) + 100;
+
+                resultsContainer.innerHTML += `
+                    <div class="history-item">
+                        <span class="history-method">Payload ${i + 1}</span>
+                        <span class="history-url">${payloads[i]}</span>
+                        <span class="history-status status-${Math.floor(mockStatus/100)}xx">${mockStatus} (${mockLength} bytes)</span>
+                    </div>
+                `;
+
+                await sleep(300);
+            }
+
+            document.getElementById('intruderStatus').textContent = 'Attack complete!';
+            intruderRunning = false;
+        }
+
+        function stopIntruderAttack() {
+            intruderRunning = false;
+            document.getElementById('intruderStatus').textContent = 'Attack stopped by user';
+        }
+
+        // SCANNER Functions
+        let scanRunning = false;
+
+        function startScan() {
+            const url = document.getElementById('scanUrl').value;
+            const scanType = document.getElementById('scanType').value;
+
+            if (!url.trim()) {
+                alert('Please enter a target URL');
+                return;
+            }
+
+            console.log(`[SCANNER] Starting ${scanType} scan of ${url}`);
+            scanRunning = true;
+
+            document.getElementById('scanProgress').classList.add('active');
+            simulateScan(url, scanType);
+        }
+
+        async function simulateScan(url, scanType) {
+            const checks = [
+                'SQL Injection', 'Cross-Site Scripting (XSS)', 'CSRF Token', 'Insecure Headers',
+                'SSL/TLS Configuration', 'Directory Traversal', 'Command Injection', 'SSRF',
+                'Open Redirect', 'Information Disclosure'
+            ];
+
+            const resultsContainer = document.getElementById('scanResults');
+            resultsContainer.innerHTML = '';
+
+            scanResults = [];
+
+            for (let i = 0; i < checks.length && scanRunning; i++) {
+                const progress = ((i + 1) / checks.length * 100).toFixed(0);
+                document.getElementById('scanProgressFill').style.width = progress + '%';
+                document.getElementById('scanProgressFill').textContent = progress + '%';
+                document.getElementById('scanStatus').textContent = `Running check: ${checks[i]}...`;
+
+                // Randomly find vulnerabilities
+                if (Math.random() > 0.7) {
+                    const severities = ['critical', 'high', 'medium', 'low', 'info'];
+                    const severity = severities[Math.floor(Math.random() * severities.length)];
+
+                    const vuln = {
+                        check: checks[i],
+                        severity: severity,
+                        description: `Potential ${checks[i]} vulnerability detected in ${url}`,
+                        quantum_score: scanType === 'quantum' ? (Math.random() * 0.5 + 0.5).toFixed(3) : null
+                    };
+
+                    scanResults.push(vuln);
+
+                    resultsContainer.innerHTML += `
+                        <div class="vulnerability-card">
+                            <div class="vuln-header">
+                                <div class="vuln-title">${vuln.check}</div>
+                                <div class="severity-badge severity-${vuln.severity}">${vuln.severity.toUpperCase()}</div>
+                            </div>
+                            <div class="vuln-description">${vuln.description}</div>
+                            ${vuln.quantum_score ? `
+                                <div class="quantum-score">
+                                    <strong>🔮 Quantum Anomaly Score:</strong> ${vuln.quantum_score}
+                                    <div style="font-size: 12px; color: #aaa; margin-top: 5px;">
+                                        Bayesian inference confidence: ${(vuln.quantum_score * 100).toFixed(1)}%
+                                    </div>
+                                </div>
+                            ` : ''}
+                        </div>
+                    `;
+                }
+
+                await sleep(500);
+            }
+
+            document.getElementById('scanStatus').textContent = `Scan complete! Found ${scanResults.length} potential issues.`;
+            updateScanStats();
+            scanRunning = false;
+        }
+
+        function stopScan() {
+            scanRunning = false;
+            document.getElementById('scanStatus').textContent = 'Scan stopped by user';
+        }
+
+        function exportScanResults() {
+            if (scanResults.length === 0) {
+                alert('No scan results to export');
+                return;
+            }
+
+            const json = JSON.stringify(scanResults, null, 2);
+            const blob = new Blob([json], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `burpsuite_scan_${Date.now()}.json`;
+            a.click();
+        }
+
+        function updateScanStats() {
+            document.getElementById('scanChecksRun').textContent = 10;
+            document.getElementById('scanVulnsFound').textContent = scanResults.length;
+            document.getElementById('scanCritical').textContent = scanResults.filter(v => v.severity === 'critical').length;
+            document.getElementById('scanHigh').textContent = scanResults.filter(v => v.severity === 'high').length;
+            updateStats();
+        }
+
+        // DECODER Functions
+        function encodeUrl() {
+            const input = document.getElementById('decoderInput').value;
+            document.getElementById('decoderOutput').textContent = encodeURIComponent(input);
+        }
+
+        function decodeUrl() {
+            const input = document.getElementById('decoderInput').value;
+            try {
+                document.getElementById('decoderOutput').textContent = decodeURIComponent(input);
+            } catch (e) {
+                document.getElementById('decoderOutput').textContent = 'ERROR: Invalid URL encoding';
+            }
+        }
+
+        function encodeBase64() {
+            const input = document.getElementById('decoderInput').value;
+            document.getElementById('decoderOutput').textContent = btoa(input);
+        }
+
+        function decodeBase64() {
+            const input = document.getElementById('decoderInput').value;
+            try {
+                document.getElementById('decoderOutput').textContent = atob(input);
+            } catch (e) {
+                document.getElementById('decoderOutput').textContent = 'ERROR: Invalid Base64 encoding';
+            }
+        }
+
+        function encodeHtml() {
+            const input = document.getElementById('decoderInput').value;
+            const div = document.createElement('div');
+            div.textContent = input;
+            document.getElementById('decoderOutput').textContent = div.innerHTML;
+        }
+
+        function decodeHtml() {
+            const input = document.getElementById('decoderInput').value;
+            const div = document.createElement('div');
+            div.innerHTML = input;
+            document.getElementById('decoderOutput').textContent = div.textContent;
+        }
+
+        function encodeHex() {
+            const input = document.getElementById('decoderInput').value;
+            let hex = '';
+            for (let i = 0; i < input.length; i++) {
+                hex += input.charCodeAt(i).toString(16).padStart(2, '0');
+            }
+            document.getElementById('decoderOutput').textContent = hex;
+        }
+
+        function decodeHex() {
+            const input = document.getElementById('decoderInput').value.replace(/\s/g, '');
+            try {
+                let str = '';
+                for (let i = 0; i < input.length; i += 2) {
+                    str += String.fromCharCode(parseInt(input.substr(i, 2), 16));
+                }
+                document.getElementById('decoderOutput').textContent = str;
+            } catch (e) {
+                document.getElementById('decoderOutput').textContent = 'ERROR: Invalid hex encoding';
+            }
+        }
+
+        async function hashMD5() {
+            alert('MD5 hash requires crypto library (not implemented in demo)');
+        }
+
+        async function hashSHA1() {
+            alert('SHA1 hash requires crypto library (not implemented in demo)');
+        }
+
+        async function hashSHA256() {
+            const input = document.getElementById('decoderInput').value;
+            const msgBuffer = new TextEncoder().encode(input);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+            document.getElementById('decoderOutput').textContent = hashHex;
+        }
+
+        function copyToClipboard(elementId) {
+            const text = document.getElementById(elementId).textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Copied to clipboard!');
+            });
+        }
+
+        // COMPARER Functions
+        function compareDiff() {
+            const a = document.getElementById('compareA').value.split('\n');
+            const b = document.getElementById('compareB').value.split('\n');
+
+            let diffHtml = '';
+            const maxLen = Math.max(a.length, b.length);
+
+            for (let i = 0; i < maxLen; i++) {
+                const lineA = a[i] || '';
+                const lineB = b[i] || '';
+
+                if (lineA === lineB) {
+                    diffHtml += `<div style="color: #888;">${i + 1}: ${escapeHtml(lineA)}</div>`;
+                } else {
+                    diffHtml += `<div style="color: #ff6b35; background: rgba(255,107,53,0.1); padding: 2px 5px;">`;
+                    diffHtml += `${i + 1}: - ${escapeHtml(lineA)}<br>`;
+                    diffHtml += `${i + 1}: + ${escapeHtml(lineB)}`;
+                    diffHtml += `</div>`;
+                }
+            }
+
+            document.getElementById('compareResults').innerHTML = diffHtml || 'No differences found';
+        }
+
+        function compareBytes() {
+            const a = document.getElementById('compareA').value;
+            const b = document.getElementById('compareB').value;
+
+            let diff = 0;
+            const maxLen = Math.max(a.length, b.length);
+
+            for (let i = 0; i < maxLen; i++) {
+                if (a[i] !== b[i]) diff++;
+            }
+
+            document.getElementById('compareResults').innerHTML = `
+                <div style="padding: 20px;">
+                    <div>Response A: ${a.length} bytes</div>
+                    <div>Response B: ${b.length} bytes</div>
+                    <div style="color: #ff6b35; margin-top: 10px;">Differences: ${diff} bytes</div>
+                </div>
+            `;
+        }
+
+        function compareSimilarity() {
+            const a = document.getElementById('compareA').value;
+            const b = document.getElementById('compareB').value;
+
+            // Simple similarity score (Jaccard index on words)
+            const wordsA = new Set(a.toLowerCase().split(/\s+/));
+            const wordsB = new Set(b.toLowerCase().split(/\s+/));
+
+            const intersection = new Set([...wordsA].filter(x => wordsB.has(x)));
+            const union = new Set([...wordsA, ...wordsB]);
+
+            const similarity = (intersection.size / union.size * 100).toFixed(2);
+
+            document.getElementById('compareResults').innerHTML = `
+                <div style="padding: 20px; text-align: center;">
+                    <div style="font-size: 3em; color: #ff6b35; margin: 20px 0;">${similarity}%</div>
+                    <div style="font-size: 1.2em;">Similarity Score</div>
+                    <div style="color: #888; margin-top: 10px;">Based on word overlap (Jaccard index)</div>
+                </div>
+            `;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Utility
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        // Initialize
+        console.log('[BurpSuite Clone] GUI loaded successfully');
+        console.log('[INFO] This is a demonstration GUI. Connect to Python backend for real functionality.');
+    </script>
+</body>
+</html>
