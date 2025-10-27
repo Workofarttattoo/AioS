@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Ai:oS - Get in Touch</title>
+    <meta name="description" content="Contact the Ai:oS team. Questions about our agentic OS, security tools, or quantum ML? We're here to help.">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #0a0a0a;
+            --surface: #1a1a1a;
+            --border: #2a2a2a;
+            --text: #e0e0e0;
+            --text-dim: #a0a0a0;
+            --accent: #00ff88;
+            --accent-dim: #00cc6a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .back-link {
+            color: var(--text-dim);
+            text-decoration: none;
+            margin-bottom: 30px;
+            display: inline-block;
+        }
+
+        .back-link:hover {
+            color: var(--accent);
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--accent), #00ddff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: var(--text-dim);
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .form-container {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 14px 18px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 16px;
+            font-family: inherit;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--accent);
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn:hover {
+            background: var(--accent-dim);
+            transform: translateY(-2px);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .info-box {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(0, 204, 255, 0.05);
+            border: 1px solid rgba(0, 204, 255, 0.2);
+            border-radius: 12px;
+        }
+
+        .info-box h3 {
+            color: #00ccff;
+            margin-bottom: 10px;
+        }
+
+        .info-box p {
+            color: var(--text-dim);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 36px;
+            }
+
+            .form-container {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">← Back to Ai:oS</a>
+
+        <h1>Contact Ai:oS</h1>
+        <p class="subtitle">
+            Questions about our agentic OS, security tools, or quantum ML? We're here to help.
+        </p>
+
+        <div class="form-container">
+            <form id="contactForm" action="https://formspree.io/f/manlqqep" method="POST">
+                <div class="form-group">
+                    <label for="name">Name *</label>
+                    <input type="text" id="name" name="name" required placeholder="Your name">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" required placeholder="you@company.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="company">Company/Organization (optional)</label>
+                    <input type="text" id="company" name="company" placeholder="Your organization">
+                </div>
+
+                <div class="form-group">
+                    <label for="topic">What's this about? *</label>
+                    <select id="topic" name="topic" required>
+                        <option value="">Select a topic...</option>
+                        <option value="general">General Inquiry</option>
+                        <option value="aios">Ai:oS / Agentic OS</option>
+                        <option value="security">Security Tools / Red Team</option>
+                        <option value="quantum">Quantum ML / Algorithms</option>
+                        <option value="consulting">Consulting / Professional Services</option>
+                        <option value="enterprise">Enterprise Deployment</option>
+                        <option value="partnership">Partnership Opportunity</option>
+                        <option value="support">Technical Support</option>
+                        <option value="licensing">Licensing / Commercial Use</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Message *</label>
+                    <textarea id="message" name="message" required placeholder="Tell us about your use case, questions, or how we can help..."></textarea>
+                </div>
+
+                <input type="hidden" name="_subject" value="New Ai:oS Contact Form Submission">
+                <input type="hidden" name="_next" value="https://aios.is/contact-success.html">
+
+                <button type="submit" class="btn" id="submitBtn">
+                    Send Message
+                </button>
+            </form>
+
+            <div class="info-box">
+                <h3>📧 Direct Contact</h3>
+                <p><strong>Email:</strong> inventor@aios.is</p>
+                <p><strong>Security Issues:</strong> Please report security vulnerabilities responsibly to inventor@aios.is with subject "SECURITY"</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('contactForm');
+        const submitBtn = document.getElementById('submitBtn');
+
+        form.addEventListener('submit', function(e) {
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+        });
+    </script>
+</body>
+</html>
