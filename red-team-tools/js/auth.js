@@ -1,325 +1,401 @@
 /**
- * Supabase Authentication Manager
+ * Authentication Module
  * Copyright (c) 2025 Joshua Hendricks Cole (DBA: Corporation of Light). All Rights Reserved. PATENT PENDING.
  */
 
 class AuthManager {
     constructor() {
-        if (!AUTH_CONFIG) {
-            throw new Error('AUTH_CONFIG not found. Please load auth-config.js first.');
-        }
-
-        const { createClient } = supabase;
-        this.supabase = createClient(AUTH_CONFIG.SUPABASE_URL, AUTH_CONFIG.SUPABASE_ANON_KEY);
-        this.config = AUTH_CONFIG;
+        this.supabase = supabaseClient;
+        this.session = null;
+        this.loginAttempts = {};
+        this.initializeAuth();
     }
 
-    /**
-     * Register a new user
-     */
-    async register(email, password, userData) {
+    async initializeAuth() {
+        if (!this.supabase) {
+            console.error('Supabase client not initialized');
+            return;
+        }
+
+        // Get initial session
+        const { data: { session } } = await this.supabase.auth.getSession();
+        this.session = session;
+
+        // Listen for auth changes
+        this.supabase.auth.onAuthStateChange((event, session) => {
+            this.session = session;
+            this.handleAuthChange(event, session);
+        });
+    }
+
+    handleAuthChange(event, session) {
+        switch (event) {
+            case 'SIGNED_IN':
+                this.logAuditEvent('login', session.user);
+                break;
+            case 'SIGNED_OUT':
+                this.logAuditEvent('logout');
+                break;
+            case 'TOKEN_REFRESHED':
+                this.logAuditEvent('token_refresh', session.user);
+                break;
+            case 'USER_UPDATED':
+                this.logAuditEvent('user_update', session.user);
+                break;
+        }
+    }
+
+    // Login with email and password
+    async login(email, password, rememberMe = false) {
         try {
+            // Check for rate limiting
+            if (!this.checkRateLimit(email, 'login')) {
+                throw new Error('Too many login attempts. Please try again later.');
+            }
+
+            // Validate input
+            if (!this.validateEmail(email)) {
+                throw new Error('Please enter a valid email address.');
+            }
+
+            if (!password || password.length < AUTH_CONFIG.PASSWORD_MIN_LENGTH) {
+                throw new Error(`Password must be at least ${AUTH_CONFIG.PASSWORD_MIN_LENGTH} characters.`);
+            }
+
+            // Attempt login
+            const { data, error } = await this.supabase.auth.signInWithPassword({
+                email: email.toLowerCase().trim(),
+                password: password
+            });
+
+            if (error) {
+                this.recordFailedAttempt(email);
+                throw error;
+            }
+
+            // Clear failed attempts on successful login
+            this.clearFailedAttempts(email);
+
+            // Store remember me preference
+            if (rememberMe) {
+                localStorage.setItem('rememberMe', 'true');
+            }
+
+            // Log successful login
+            this.logAuditEvent('login_success', data.user);
+
+            return { success: true, user: data.user, session: data.session };
+
+        } catch (error) {
+            console.error('Login error:', error);
+            this.logAuditEvent('login_failed', null, { email, error: error.message });
+            throw error;
+        }
+    }
+
+    // Sign up new user
+    async signup(email, password, metadata = {}) {
+        try {
+            // Check for rate limiting
+            if (!this.checkRateLimit(email, 'signup')) {
+                throw new Error('Too many signup attempts. Please try again later.');
+            }
+
+            // Validate input
+            if (!this.validateEmail(email)) {
+                throw new Error('Please enter a valid email address.');
+            }
+
+            if (!this.validatePassword(password)) {
+                throw new Error(this.getPasswordRequirements());
+            }
+
+            // Check if signup is allowed
+            if (!AUTH_CONFIG.FEATURES.allowSignup) {
+                throw new Error('New registrations are currently disabled.');
+            }
+
+            // Attempt signup
             const { data, error } = await this.supabase.auth.signUp({
-                email: email,
+                email: email.toLowerCase().trim(),
                 password: password,
                 options: {
                     data: {
-                        ...userData,
-                        registration_date: new Date().toISOString(),
-                        ip_address: await this.getUserIP()
+                        ...metadata,
+                        signup_timestamp: new Date().toISOString(),
+                        signup_ip: await this.getClientIP()
                     },
-                    emailRedirectTo: `${window.location.origin}${this.config.REDIRECT_URLS.VERIFY}`
+                    emailRedirectTo: `${AUTH_CONFIG.APP_DOMAIN}/verify-email.html`
                 }
             });
 
             if (error) throw error;
 
-            // Store email in sessionStorage for verify-email page
-            sessionStorage.setItem('signupEmail', email);
+            // Log signup
+            this.logAuditEvent('signup_success', data.user);
 
-            // Log registration
-            await this.logEvent('user_registration', {
-                email: email,
-                ...userData
-            }).catch(err => console.log('Logging failed:', err));
+            return { success: true, user: data.user, requiresVerification: AUTH_CONFIG.REQUIRE_EMAIL_VERIFICATION };
 
-            return {
-                success: true,
-                data: data,
-                message: 'Account created! Check your email to verify.'
-            };
         } catch (error) {
-            return {
-                success: false,
-                error: error.message,
-                message: error.message
-            };
+            console.error('Signup error:', error);
+            this.logAuditEvent('signup_failed', null, { email, error: error.message });
+            throw error;
         }
     }
 
-    /**
-     * Login user
-     */
-    async login(email, password) {
-        try {
-            const { data, error } = await this.supabase.auth.signInWithPassword({
-                email: email,
-                password: password
-            });
-
-            if (error) throw error;
-
-            // Log login event
-            const user = data.user;
-            await this.logEvent('user_login', {
-                user_id: user.id,
-                email: user.email
-            }).catch(err => console.log('Logging failed:', err));
-
-            return {
-                success: true,
-                data: data,
-                user: user,
-                message: 'Login successful'
-            };
-        } catch (error) {
-            return {
-                success: false,
-                error: error.message,
-                message: this.getLoginErrorMessage(error.message)
-            };
-        }
-    }
-
-    /**
-     * Check if user is already logged in
-     */
-    async checkSession() {
-        try {
-            const { data: { session } } = await this.supabase.auth.getSession();
-            return session;
-        } catch (error) {
-            console.error('Session check error:', error);
-            return null;
-        }
-    }
-
-    /**
-     * Logout user
-     */
+    // Logout
     async logout() {
         try {
             const { error } = await this.supabase.auth.signOut();
             if (error) throw error;
 
-            sessionStorage.removeItem('signupEmail');
-            return {
-                success: true,
-                message: 'Logged out successfully'
-            };
+            // Clear local storage
+            localStorage.removeItem('rememberMe');
+            sessionStorage.clear();
+
+            this.logAuditEvent('logout_success');
+            return { success: true };
+
         } catch (error) {
-            return {
-                success: false,
-                error: error.message
-            };
+            console.error('Logout error:', error);
+            this.logAuditEvent('logout_failed', null, { error: error.message });
+            throw error;
         }
     }
 
-    /**
-     * Send password reset email
-     */
+    // Password reset
     async resetPassword(email) {
         try {
-            const { error } = await this.supabase.auth.resetPasswordForEmail(email, {
-                redirectTo: `${window.location.origin}${this.config.REDIRECT_URLS.RESET}`
-            });
+            // Check for rate limiting
+            if (!this.checkRateLimit(email, 'passwordReset')) {
+                throw new Error('Too many password reset attempts. Please try again later.');
+            }
+
+            if (!this.validateEmail(email)) {
+                throw new Error('Please enter a valid email address.');
+            }
+
+            const { error } = await this.supabase.auth.resetPasswordForEmail(
+                email.toLowerCase().trim(),
+                {
+                    redirectTo: `${AUTH_CONFIG.APP_DOMAIN}/reset-password.html`
+                }
+            );
 
             if (error) throw error;
 
-            return {
-                success: true,
-                message: 'Password reset email sent'
-            };
+            this.logAuditEvent('password_reset_requested', null, { email });
+            return { success: true };
+
         } catch (error) {
-            return {
-                success: false,
-                error: error.message
-            };
+            console.error('Password reset error:', error);
+            this.logAuditEvent('password_reset_failed', null, { email, error: error.message });
+            throw error;
         }
     }
 
-    /**
-     * Update password after reset
-     */
+    // Update password
     async updatePassword(newPassword) {
         try {
-            const { error } = await this.supabase.auth.updateUser({
+            if (!this.validatePassword(newPassword)) {
+                throw new Error(this.getPasswordRequirements());
+            }
+
+            const { data, error } = await this.supabase.auth.updateUser({
                 password: newPassword
             });
 
             if (error) throw error;
 
-            return {
-                success: true,
-                message: 'Password updated successfully'
-            };
+            this.logAuditEvent('password_updated', data.user);
+            return { success: true };
+
         } catch (error) {
-            return {
-                success: false,
-                error: error.message
-            };
+            console.error('Password update error:', error);
+            throw error;
         }
     }
 
-    /**
-     * Resend verification email
-     */
-    async resendVerificationEmail(email) {
+    // OAuth login
+    async loginWithOAuth(provider) {
         try {
-            const { error } = await this.supabase.auth.resend({
-                type: 'signup',
-                email: email,
+            if (!AUTH_CONFIG.FEATURES.allowOAuth) {
+                throw new Error('OAuth login is currently disabled.');
+            }
+
+            if (!AUTH_CONFIG.OAUTH_PROVIDERS[provider]) {
+                throw new Error(`${provider} login is not configured.`);
+            }
+
+            const { data, error } = await this.supabase.auth.signInWithOAuth({
+                provider: provider,
                 options: {
-                    emailRedirectTo: `${window.location.origin}${this.config.REDIRECT_URLS.VERIFY}`
+                    redirectTo: `${AUTH_CONFIG.APP_DOMAIN}/dashboard.html`
                 }
             });
 
             if (error) throw error;
 
-            localStorage.setItem('lastResendTime', Date.now().toString());
+            this.logAuditEvent('oauth_login_initiated', null, { provider });
+            return { success: true, url: data.url };
 
-            return {
-                success: true,
-                message: 'Verification email sent'
-            };
         } catch (error) {
-            return {
-                success: false,
-                error: error.message
-            };
+            console.error('OAuth login error:', error);
+            throw error;
         }
     }
 
-    /**
-     * Get user profile
-     */
-    async getUserProfile(userId) {
-        try {
-            const { data, error } = await this.supabase
-                .from('profiles')
-                .select('*')
-                .eq('id', userId)
-                .single();
+    // Get current session
+    async getSession() {
+        const { data: { session } } = await this.supabase.auth.getSession();
+        return session;
+    }
 
-            if (error) throw error;
+    // Get current user
+    async getCurrentUser() {
+        const { data: { user } } = await this.supabase.auth.getUser();
+        return user;
+    }
 
-            return {
-                success: true,
-                data: data
-            };
-        } catch (error) {
-            return {
-                success: false,
-                error: error.message
-            };
+    // Check if user is authenticated
+    async isAuthenticated() {
+        const session = await this.getSession();
+        return !!session;
+    }
+
+    // Validate email format
+    validateEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+
+    // Validate password strength
+    validatePassword(password) {
+        if (!password || password.length < AUTH_CONFIG.PASSWORD_MIN_LENGTH) {
+            return false;
+        }
+
+        // Check for at least one uppercase, one lowercase, one number, and one special character
+        const hasUpperCase = /[A-Z]/.test(password);
+        const hasLowerCase = /[a-z]/.test(password);
+        const hasNumbers = /\d/.test(password);
+        const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+        return hasUpperCase && hasLowerCase && hasNumbers && hasSpecialChar;
+    }
+
+    // Get password requirements message
+    getPasswordRequirements() {
+        return `Password must be at least ${AUTH_CONFIG.PASSWORD_MIN_LENGTH} characters and include:
+        - One uppercase letter
+        - One lowercase letter
+        - One number
+        - One special character (!@#$%^&*(),.?":{}|<>)`;
+    }
+
+    // Rate limiting
+    checkRateLimit(identifier, action) {
+        const key = `rate_${action}_${identifier}`;
+        const now = Date.now();
+        const attempts = JSON.parse(localStorage.getItem(key) || '[]');
+
+        // Clean old attempts (older than 1 minute)
+        const recentAttempts = attempts.filter(time => now - time < 60000);
+
+        const limit = AUTH_CONFIG.RATE_LIMIT[action] || 10;
+        if (recentAttempts.length >= limit) {
+            return false;
+        }
+
+        recentAttempts.push(now);
+        localStorage.setItem(key, JSON.stringify(recentAttempts));
+        return true;
+    }
+
+    // Track failed login attempts
+    recordFailedAttempt(email) {
+        const key = `failed_attempts_${email}`;
+        const attempts = JSON.parse(localStorage.getItem(key) || '{"count": 0, "lastAttempt": 0}');
+
+        attempts.count++;
+        attempts.lastAttempt = Date.now();
+
+        localStorage.setItem(key, JSON.stringify(attempts));
+
+        // Check if account should be locked
+        if (attempts.count >= AUTH_CONFIG.MAX_LOGIN_ATTEMPTS) {
+            this.lockAccount(email);
         }
     }
 
-    /**
-     * Update user profile
-     */
-    async updateUserProfile(userId, updates) {
-        try {
-            const { data, error } = await this.supabase
-                .from('profiles')
-                .update(updates)
-                .eq('id', userId)
-                .select()
-                .single();
-
-            if (error) throw error;
-
-            return {
-                success: true,
-                data: data
-            };
-        } catch (error) {
-            return {
-                success: false,
-                error: error.message
-            };
-        }
+    // Clear failed attempts
+    clearFailedAttempts(email) {
+        localStorage.removeItem(`failed_attempts_${email}`);
+        localStorage.removeItem(`account_locked_${email}`);
     }
 
-    /**
-     * Log event to analytics table
-     */
-    async logEvent(eventName, eventData) {
-        try {
-            const { error } = await this.supabase
-                .from('analytics')
-                .insert([{
-                    event_name: eventName,
-                    event_data: eventData,
-                    ip_address: await this.getUserIP(),
-                    user_agent: navigator.userAgent,
-                    timestamp: new Date().toISOString()
-                }]);
-
-            if (error) throw error;
-            return { success: true };
-        } catch (error) {
-            console.log('Analytics logging failed:', error);
-            return { success: false };
-        }
+    // Lock account temporarily
+    lockAccount(email) {
+        const until = Date.now() + AUTH_CONFIG.LOCKOUT_DURATION;
+        localStorage.setItem(`account_locked_${email}`, until.toString());
     }
 
-    /**
-     * Get user's IP address
-     */
-    async getUserIP() {
+    // Check if account is locked
+    isAccountLocked(email) {
+        const lockedUntil = localStorage.getItem(`account_locked_${email}`);
+        if (!lockedUntil) return false;
+
+        const until = parseInt(lockedUntil);
+        if (Date.now() < until) {
+            return true;
+        }
+
+        // Unlock if time has passed
+        localStorage.removeItem(`account_locked_${email}`);
+        return false;
+    }
+
+    // Get client IP (for audit logging)
+    async getClientIP() {
         try {
             const response = await fetch('https://api.ipify.org?format=json');
             const data = await response.json();
             return data.ip;
-        } catch (error) {
+        } catch {
             return 'unknown';
         }
     }
 
-    /**
-     * Format login error messages
-     */
-    getLoginErrorMessage(error) {
-        if (error.includes('Invalid login credentials')) {
-            return 'Invalid email or password. Please check your credentials.';
-        } else if (error.includes('Email not confirmed')) {
-            return 'Please verify your email address before logging in. Check your inbox.';
-        } else if (error.includes('User not found')) {
-            return 'No account found with this email address.';
-        } else {
-            return error;
-        }
-    }
+    // Audit logging
+    logAuditEvent(event, user = null, metadata = {}) {
+        if (!AUTH_CONFIG.FEATURES.enableAuditLog) return;
 
-    /**
-     * Validate email format
-     */
-    validateEmail(email) {
-        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return re.test(email);
-    }
-
-    /**
-     * Validate password strength
-     */
-    validatePassword(password) {
-        return {
-            isValid: password.length >= 8,
-            message: password.length < 8 ? 'Password must be at least 8 characters' : 'Password is valid'
+        const auditLog = JSON.parse(localStorage.getItem('audit_log') || '[]');
+        const entry = {
+            event,
+            timestamp: new Date().toISOString(),
+            userId: user?.id || null,
+            userEmail: user?.email || null,
+            metadata
         };
+
+        auditLog.push(entry);
+
+        // Keep only last 1000 entries
+        if (auditLog.length > 1000) {
+            auditLog.shift();
+        }
+
+        localStorage.setItem('audit_log', JSON.stringify(auditLog));
+
+        // In production, also send to backend
+        if (this.supabase && user) {
+            this.supabase.from('audit_logs').insert([entry]).catch(() => {});
+        }
     }
 }
 
-// Initialize auth manager when script loads
-const authManager = new AuthManager();
+// Export for use in other files
+if (typeof window !== 'undefined') {
+    window.AuthManager = AuthManager;
+}
