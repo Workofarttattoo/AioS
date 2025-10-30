@@ -1,0 +1,38 @@
+# PyThief and Hak5 Arsenal Dependencies
+# Copyright (c) 2025 Joshua Hendricks Cole (DBA: Corporation of Light). All Rights Reserved. PATENT PENDING.
+
+# Web framework
+flask>=3.0.0
+requests>=2.31.0
+
+# HTML parsing
+beautifulsoup4>=4.12.0
+lxml>=5.0.0
+
+# Network
+netifaces>=0.11.0
+scapy>=2.5.0
+
+# USB support
+pyusb>=1.2.1
+
+# Serial (for Marauder)
+pyserial>=3.5
+
+# Bluetooth
+pybluez>=0.23  # May require system bluetooth dev packages
+
+# SDR support (optional)
+# Uncomment based on your hardware:
+# pyrtlsdr>=0.3.0  # For RTL-SDR
+# SoapySDR>=0.8.1  # Generic SDR interface
+
+# Packet analysis
+dpkt>=1.9.8
+
+# Crypto
+cryptography>=41.0.0
+
+# WiFi Coconut support
+pyshark>=0.6  # For tshark integration
+manuf>=1.1.5  # MAC address vendor lookup

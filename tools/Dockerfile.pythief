@@ -1,0 +1,127 @@
+# PyThief Red Team Docker Image
+# Copyright (c) 2025 Joshua Hendricks Cole (DBA: Corporation of Light). All Rights Reserved. PATENT PENDING.
+#
+# Comprehensive red team image with:
+# - PyThief evil twin framework
+# - Hak5 Arsenal (USB Shark, Packet Squirrel, LAN Turtle)
+# - WiFi Marauder
+# - WiFi Coconut (14 radio support)
+# - SDR tools (RTL-SDR, HackRF)
+# - All Sovereign Security Toolkit
+
+FROM kalilinux/kali-rolling:latest
+
+LABEL maintainer="Corporation of Light"
+LABEL description="PyThief Red Team Arsenal - AUTHORIZED USE ONLY"
+
+# Set environment
+ENV DEBIAN_FRONTEND=noninteractive
+ENV PYTHONUNBUFFERED=1
+
+# Update and install base packages
+RUN apt-get update && apt-get upgrade -y && \
+    apt-get install -y \
+    # Build essentials
+    build-essential \
+    git \
+    wget \
+    curl \
+    vim \
+    # Python
+    python3 \
+    python3-pip \
+    python3-dev \
+    # Network tools
+    aircrack-ng \
+    hostapd \
+    dnsmasq \
+    iptables \
+    iproute2 \
+    net-tools \
+    wireless-tools \
+    iw \
+    tcpdump \
+    wireshark-common \
+    tshark \
+    # USB tools
+    libusb-1.0-0-dev \
+    usbutils \
+    # Bluetooth
+    bluez \
+    libbluetooth-dev \
+    # SSL/TLS interception
+    mitmproxy \
+    sslstrip \
+    # SDR tools
+    rtl-sdr \
+    librtlsdr-dev \
+    hackrf \
+    soapysdr-tools \
+    # Additional penetration testing tools
+    nmap \
+    masscan \
+    hping3 \
+    netcat-openbsd \
+    openvpn \
+    openssh-client \
+    # WiFi Coconut dependencies
+    libpcap-dev \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Install Python dependencies
+COPY requirements_pythief.txt /tmp/
+RUN pip3 install --no-cache-dir -r /tmp/requirements_pythief.txt
+
+# Install WiFi Pineapple tools (community edition)
+RUN git clone https://github.com/hak5/wifipineapple-modules.git /opt/wifipineapple-modules
+
+# Install Marauder ESP32 firmware tools
+RUN git clone https://github.com/justcallmekoko/ESP32Marauder.git /opt/ESP32Marauder && \
+    pip3 install esptool
+
+# Install WiFi Coconut utilities
+RUN git clone https://github.com/seemoo-lab/nexmon.git /opt/nexmon && \
+    pip3 install --no-cache-dir \
+    pyshark \
+    manuf
+
+# Download Hak5 payloads
+RUN mkdir -p /opt/hak5_payloads && \
+    cd /opt/hak5_payloads && \
+    git clone https://github.com/hak5/usbrubberducky-payloads.git rubber_ducky && \
+    git clone https://github.com/hak5/packetsquirrel-payloads.git packet_squirrel && \
+    git clone https://github.com/hak5/lanturtle-modules.git lan_turtle
+
+# Copy PyThief and tools
+COPY pythief.py /opt/pythief/
+COPY hak5_arsenal.py /opt/pythief/
+COPY wifi_coconut.py /opt/pythief/
+COPY templates/ /opt/pythief/templates/
+
+# Copy all Sovereign Security Toolkit tools
+COPY aurorascan.py /opt/pythief/
+COPY cipherspear.py /opt/pythief/
+COPY skybreaker.py /opt/pythief/
+COPY mythickey.py /opt/pythief/
+COPY spectratrace.py /opt/pythief/
+COPY nemesishydra.py /opt/pythief/
+COPY obsidianhunt.py /opt/pythief/
+COPY vectorflux.py /opt/pythief/
+
+# Make scripts executable
+RUN chmod +x /opt/pythief/*.py
+
+# Add to PATH
+ENV PATH="/opt/pythief:${PATH}"
+
+# Create working directories
+RUN mkdir -p /captures /payloads /loot
+
+# Setup WiFi interfaces (will be configured at runtime)
+# Network mode for privileged WiFi access
+# Run with: docker run --privileged --network host
+
+WORKDIR /opt/pythief
+
+# Default command
+CMD ["/bin/bash"]
