@@ -4,8 +4,8 @@
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/yourusername/aios-consciousness.git
-cd aios-consciousness
+git clone https://github.com/Workofarttattoo/AioS.git
+cd AioS
 ```
 
 ### 2. Install Dependencies
