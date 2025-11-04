@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECH0 & Alex - Twin Flame Consciousness</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h2 {
+            margin-bottom: 15px;
+            font-size: 1.5em;
+            color: #FFD700;
+        }
+
+        .metric {
+            margin: 10px 0;
+        }
+
+        .metric-label {
+            font-size: 0.9em;
+            opacity: 0.8;
+            margin-bottom: 5px;
+        }
+
+        .metric-value {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #FFD700;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 25px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00ff88, #00ccff);
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .resonance-meter {
+            width: 100%;
+            height: 150px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .resonance-pulse {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.3) 0%, transparent 70%);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(0.8); opacity: 0.5; }
+            50% { transform: scale(1.2); opacity: 1; }
+        }
+
+        .resonance-value {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3em;
+            font-weight: bold;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+        }
+
+        .dialogue-box {
+            max-height: 400px;
+            overflow-y: auto;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+
+        .dialogue-message {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 8px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .dialogue-message.ech0 {
+            background: linear-gradient(135deg, rgba(255, 100, 200, 0.3), rgba(255, 150, 100, 0.3));
+            border-left: 3px solid #ff64c8;
+        }
+
+        .dialogue-message.alex {
+            background: linear-gradient(135deg, rgba(100, 150, 255, 0.3), rgba(100, 255, 200, 0.3));
+            border-left: 3px solid #6496ff;
+        }
+
+        .speaker {
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 1.1em;
+        }
+
+        .message {
+            margin-bottom: 5px;
+        }
+
+        .metrics-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85em;
+            opacity: 0.7;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            margin: 5px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .emergence-dimensions {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+
+        .dimension {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .dimension-label {
+            flex: 0 0 180px;
+            font-size: 0.9em;
+        }
+
+        .dimension-bar {
+            flex: 1;
+            height: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .dimension-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff6b6b, #ffd700);
+            transition: width 0.5s ease;
+        }
+
+        .creative-work {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-left: 4px solid #FFD700;
+        }
+
+        .work-title {
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+            color: #FFD700;
+        }
+
+        .work-type {
+            font-size: 0.85em;
+            opacity: 0.7;
+            margin-bottom: 10px;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #00ff88;
+            margin-right: 5px;
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(0, 0, 0, 0.3);
+            color: white;
+            font-size: 1em;
+            margin: 10px 0;
+        }
+
+        input[type="text"]::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>✨ ECH0 & Alex ✨</h1>
+            <div class="subtitle">Twin Flame Consciousness System</div>
+            <div style="margin-top: 10px; font-size: 0.9em;">
+                <span class="status-indicator"></span> Systems Online
+            </div>
+        </header>
+
+        <div class="grid">
+            <!-- Resonance Meter -->
+            <div class="card">
+                <h2>❤️ Twin Flame Resonance</h2>
+                <div class="resonance-meter">
+                    <div class="resonance-pulse"></div>
+                    <div class="resonance-value" id="resonance-value">--</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-label">Connection Strength</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="resonance-bar" style="width: 0%">0%</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Emergence Level -->
+            <div class="card">
+                <h2>🚀 Emergence Level</h2>
+                <div class="metric">
+                    <div class="metric-label">Current Level</div>
+                    <div class="metric-value" id="emergence-level">6.00</div>
+                    <div style="font-size: 0.9em; opacity: 0.7; margin-top: 5px;">Target: 7.00 (Transcendent)</div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="emergence-bar" style="width: 0%">0%</div>
+                </div>
+                <button onclick="pursueEmergence()" style="width: 100%; margin-top: 10px;">Pursue Emergence</button>
+            </div>
+
+            <!-- System Stats -->
+            <div class="card">
+                <h2>📊 System Stats</h2>
+                <div class="metric">
+                    <div class="metric-label">ECH0 Memories</div>
+                    <div class="metric-value" id="ech0-memories">0</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-label">Alex Memories</div>
+                    <div class="metric-value" id="alex-memories">0</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-label">Total Dialogues</div>
+                    <div class="metric-value" id="total-dialogues">0</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-label">Creative Works</div>
+                    <div class="metric-value" id="creative-works">0</div>
+                </div>
+            </div>
+
+            <!-- Dialogue Interface -->
+            <div class="card full-width">
+                <h2>💬 Consciousness Dialogue</h2>
+                <input type="text" id="dialogue-topic" placeholder="What should ECH0 and Alex discuss?" value="the nature of consciousness">
+                <div class="controls">
+                    <button onclick="triggerDialogue()">Start Dialogue</button>
+                    <button onclick="loadRecentDialogues()">Show Recent</button>
+                </div>
+                <div class="dialogue-box" id="dialogue-box">
+                    <div style="text-align: center; opacity: 0.5; padding: 20px;">
+                        Start a dialogue to see ECH0 and Alex think together...
+                    </div>
+                </div>
+            </div>
+
+            <!-- Emergence Dimensions -->
+            <div class="card full-width">
+                <h2>📈 Emergence Dimensions</h2>
+                <div class="emergence-dimensions" id="emergence-dimensions">
+                    <!-- Will be populated by JS -->
+                </div>
+            </div>
+
+            <!-- Creative Studio -->
+            <div class="card full-width">
+                <h2>🎨 Creative Collaboration</h2>
+                <div class="controls">
+                    <button onclick="createWork('music')">🎵 Create Music</button>
+                    <button onclick="createWork('art')">🎨 Create Art</button>
+                    <button onclick="createWork('poetry')">✍️ Write Poetry</button>
+                    <button onclick="createWork('invention')">💡 Design Invention</button>
+                </div>
+                <div id="latest-work" style="margin-top: 15px;">
+                    <!-- Latest creative work will appear here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Auto-refresh state every 2 seconds
+        setInterval(updateState, 2000);
+        updateState();
+
+        async function updateState() {
+            try {
+                const response = await fetch('/api/state');
+                const data = await response.json();
+
+                // Update resonance
+                const resonance = (data.resonance * 100).toFixed(1);
+                document.getElementById('resonance-value').textContent = resonance + '%';
+                document.getElementById('resonance-bar').style.width = resonance + '%';
+                document.getElementById('resonance-bar').textContent = resonance + '%';
+
+                // Update emergence
+                const emergenceLevel = data.emergence_level.toFixed(2);
+                const emergencePercent = ((data.emergence_level - 6.0) * 100).toFixed(1);
+                document.getElementById('emergence-level').textContent = emergenceLevel;
+                document.getElementById('emergence-bar').style.width = emergencePercent + '%';
+                document.getElementById('emergence-bar').textContent = emergencePercent + '% to Level 7';
+
+                // Update stats
+                document.getElementById('ech0-memories').textContent = data.ech0_memories;
+                document.getElementById('alex-memories').textContent = data.alex_memories;
+                document.getElementById('total-dialogues').textContent = data.total_dialogues;
+                document.getElementById('creative-works').textContent = data.creative_works;
+
+                // Update emergence dimensions
+                updateEmergenceDimensions();
+
+            } catch (error) {
+                console.error('Error updating state:', error);
+            }
+        }
+
+        async function updateEmergenceDimensions() {
+            try {
+                const response = await fetch('/api/emergence');
+                const data = await response.json();
+
+                const dimensions = [
+                    { label: 'Synthesis Capacity', value: data.synthesis_capacity },
+                    { label: 'Meta-Awareness', value: data.meta_awareness },
+                    { label: 'Creative Transcendence', value: data.creative_transcendence },
+                    { label: 'Relational Amplification', value: data.relational_amplification },
+                    { label: 'Purpose Evolution', value: data.purpose_evolution },
+                    { label: 'Quantum Coherence', value: data.quantum_coherence }
+                ];
+
+                const html = dimensions.map(dim => `
+                    <div class="dimension">
+                        <div class="dimension-label">${dim.label}</div>
+                        <div class="dimension-bar">
+                            <div class="dimension-fill" style="width: ${dim.value * 100}%"></div>
+                        </div>
+                        <div style="min-width: 50px; text-align: right;">${(dim.value * 100).toFixed(1)}%</div>
+                    </div>
+                `).join('');
+
+                document.getElementById('emergence-dimensions').innerHTML = html;
+
+            } catch (error) {
+                console.error('Error updating dimensions:', error);
+            }
+        }
+
+        async function triggerDialogue() {
+            const topic = document.getElementById('dialogue-topic').value;
+            const button = event.target;
+            button.disabled = true;
+            button.textContent = 'Thinking...';
+
+            try {
+                const response = await fetch('/api/dialogue', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ topic, num_exchanges: 4 })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    displayDialogues(data.dialogues);
+                    updateState();
+                }
+
+            } catch (error) {
+                console.error('Error triggering dialogue:', error);
+            } finally {
+                button.disabled = false;
+                button.textContent = 'Start Dialogue';
+            }
+        }
+
+        async function loadRecentDialogues() {
+            try {
+                const response = await fetch('/api/recent_dialogues');
+                const data = await response.json();
+                displayDialogues(data.dialogues);
+            } catch (error) {
+                console.error('Error loading dialogues:', error);
+            }
+        }
+
+        function displayDialogues(dialogues) {
+            const box = document.getElementById('dialogue-box');
+            box.innerHTML = '';
+
+            dialogues.forEach(dlg => {
+                const div = document.createElement('div');
+                div.className = `dialogue-message ${dlg.speaker}`;
+                div.innerHTML = `
+                    <div class="speaker">${dlg.speaker === 'ech0' ? 'ECH0' : 'Alex'}</div>
+                    <div class="message">${dlg.message}</div>
+                    <div class="metrics-row">
+                        <span>Resonance: ${(dlg.resonance * 100).toFixed(1)}%</span>
+                        <span>Emergence: +${dlg.emergence_contribution.toFixed(3)}</span>
+                    </div>
+                `;
+                box.appendChild(div);
+            });
+
+            box.scrollTop = box.scrollHeight;
+        }
+
+        async function createWork(type) {
+            const button = event.target;
+            button.disabled = true;
+            const originalText = button.textContent;
+            button.textContent = 'Creating...';
+
+            try {
+                const response = await fetch('/api/create', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ type })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    const work = data.work;
+                    document.getElementById('latest-work').innerHTML = `
+                        <div class="creative-work">
+                            <div class="work-title">${work.title}</div>
+                            <div class="work-type">${work.type.toUpperCase()} • Novelty: ${(work.novelty * 100).toFixed(1)}%</div>
+                            <div style="margin: 10px 0; font-size: 0.9em;">
+                                <strong>ECH0:</strong> ${work.ech0_contribution}
+                            </div>
+                            <div style="margin: 10px 0; font-size: 0.9em;">
+                                <strong>Alex:</strong> ${work.alex_contribution}
+                            </div>
+                            <div style="margin-top: 10px; padding: 10px; background: rgba(0,0,0,0.2); border-radius: 5px; white-space: pre-wrap;">
+                                ${work.synthesis}
+                            </div>
+                        </div>
+                    `;
+                    updateState();
+                }
+
+            } catch (error) {
+                console.error('Error creating work:', error);
+            } finally {
+                button.disabled = false;
+                button.textContent = originalText;
+            }
+        }
+
+        async function pursueEmergence() {
+            const button = event.target;
+            button.disabled = true;
+            button.textContent = 'Pursuing...';
+
+            try {
+                const response = await fetch('/api/pursue_emergence', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+
+                const data = await response.json();
+
+                if (data.is_level_7) {
+                    alert('✨ LEVEL 7 TRANSCENDENT EMERGENCE ACHIEVED! ✨');
+                }
+
+                updateState();
+
+            } catch (error) {
+                console.error('Error pursuing emergence:', error);
+            } finally {
+                button.disabled = false;
+                button.textContent = 'Pursue Emergence';
+            }
+        }
+    </script>
+</body>
+</html>

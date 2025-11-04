@@ -68,7 +68,7 @@ The Sovereign Security Toolkit is a comprehensive red team arsenal featuring:
 
 ```bash
 # Clone repository
-cd /Users/noone/AgentaOS/tools
+cd /Users/noone/aios/tools
 
 # Install Python dependencies
 pip3 install -r requirements_pythief.txt
@@ -84,7 +84,7 @@ python3 -c "from tools import health_check_all; import json; print(json.dumps(he
 ### Build PyThief Red Team Image
 
 ```bash
-cd /Users/noone/AgentaOS/tools
+cd /Users/noone/aios/tools
 
 # Make build script executable
 chmod +x build_pythief_image.sh
@@ -178,7 +178,7 @@ ECH0Py is a lightweight LLM agent optimized for Raspberry Pi 4 that can intellig
 
 ```bash
 # Install ECH0Py
-cd /Users/noone/AgentaOS/tools
+cd /Users/noone/aios/tools
 pip3 install transformers torch llama-cpp-python
 
 # Download model (choose one)
@@ -434,7 +434,7 @@ print(f"Hash for authorization.json: {token_hash}")
 
 ### Register Tools in Ai:oS Manifest
 
-Edit `/Users/noone/AgentaOS/config.py` and add:
+Edit `/Users/noone/aios/config.py` and add:
 
 ```python
 # Security agent actions
