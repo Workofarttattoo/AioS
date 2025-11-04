@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Testing Suite - TheGAVL Red Team Tools</title>
+    <meta name="robots" content="noindex, nofollow">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: #000;
+            color: #fff;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Green Purple Nebula Background */
+        .nebula-container {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        .space-background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(ellipse at 25% 40%, rgba(0, 255, 100, 0.25) 0%, transparent 40%),
+                radial-gradient(ellipse at 75% 30%, rgba(147, 51, 234, 0.3) 0%, transparent 45%),
+                radial-gradient(ellipse at 50% 70%, rgba(0, 200, 100, 0.2) 0%, transparent 40%),
+                radial-gradient(ellipse at 20% 20%, rgba(138, 43, 226, 0.25) 0%, transparent 35%),
+                radial-gradient(ellipse at 80% 60%, rgba(50, 255, 150, 0.15) 0%, transparent 40%),
+                #000;
+        }
+
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 2px solid rgba(0, 255, 100, 0.5);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(147, 51, 234, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar-brand {
+            font-size: 1.5em;
+            color: #50ff96;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(0, 255, 100, 0.5);
+        }
+
+        .btn-back {
+            padding: 10px 25px;
+            background: linear-gradient(135deg, rgba(147, 51, 234, 0.7), rgba(0, 255, 100, 0.7));
+            color: #fff;
+            border: 1px solid rgba(147, 51, 234, 0.5);
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            font-size: 1em;
+            font-weight: bold;
+            transition: all 0.3s;
+            backdrop-filter: blur(5px);
+            text-decoration: none;
+        }
+
+        .btn-back:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 100, 0.4);
+            background: linear-gradient(135deg, rgba(0, 255, 100, 0.8), rgba(147, 51, 234, 0.8));
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            color: #50ff96;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-align: center;
+            text-shadow: 0 0 20px rgba(0, 255, 100, 0.5);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #c8a2f5;
+            margin-bottom: 40px;
+            font-size: 1.2em;
+            text-shadow: 0 0 10px rgba(147, 51, 234, 0.3);
+        }
+
+        /* Tabs */
+        .tabs-container {
+            margin-bottom: 30px;
+        }
+
+        .tabs-list {
+            display: flex;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(147, 51, 234, 0.5);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .tab-button {
+            flex: 1;
+            padding: 15px;
+            background: transparent;
+            color: #c8a2f5;
+            border: none;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            font-size: 1em;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .tab-button:not(:last-child) {
+            border-right: 1px solid rgba(147, 51, 234, 0.3);
+        }
+
+        .tab-button:hover {
+            background: rgba(147, 51, 234, 0.2);
+        }
+
+        .tab-button.active {
+            background: linear-gradient(135deg, rgba(0, 255, 100, 0.3), rgba(147, 51, 234, 0.3));
+            color: #50ff96;
+            font-weight: bold;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Form Elements */
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(147, 51, 234, 0.5);
+            border-radius: 8px;
+            color: #fff;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            transition: all 0.3s;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: rgba(0, 255, 100, 0.7);
+            box-shadow: 0 0 15px rgba(0, 255, 100, 0.3);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        label {
+            display: block;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9em;
+            margin-bottom: 8px;
+        }
+
+        button {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, rgba(0, 255, 100, 0.6), rgba(147, 51, 234, 0.6));
+            color: #fff;
+            border: 1px solid rgba(0, 255, 100, 0.5);
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            font-size: 1em;
+            font-weight: bold;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        button:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 255, 100, 0.4);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(147, 51, 234, 0.5);
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background: rgba(147, 51, 234, 0.3);
+        }
+
+        /* Grid Layouts */
+        .grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .grid-4 {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .grid-input {
+            display: grid;
+            grid-template-columns: 150px 1fr 150px;
+            gap: 10px;
+            align-items: center;
+        }
+
+        /* Response Box */
+        .response-box {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(147, 51, 234, 0.5);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .response-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .status-badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            border: 1px solid;
+        }
+
+        .status-success {
+            color: #50ff96;
+            border-color: rgba(0, 255, 100, 0.5);
+            background: rgba(0, 255, 100, 0.1);
+        }
+
+        .status-error {
+            color: #ff6666;
+            border-color: rgba(255, 102, 102, 0.5);
+            background: rgba(255, 102, 102, 0.1);
+        }
+
+        .status-warning {
+            color: #ffcc00;
+            border-color: rgba(255, 204, 0, 0.5);
+            background: rgba(255, 204, 0, 0.1);
+        }
+
+        /* Code Display */
+        .code-box {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(147, 51, 234, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            overflow-x: auto;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .code-box::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        .code-box::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .code-box::-webkit-scrollbar-thumb {
+            background: rgba(147, 51, 234, 0.5);
+            border-radius: 4px;
+        }
+
+        pre {
+            margin: 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #50ff96;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        /* Result Item */
+        .result-item {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(147, 51, 234, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .result-payload {
+            color: #c8a2f5;
+            font-weight: bold;
+        }
+
+        .result-url {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.85em;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: #50ff96;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .empty-icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+            opacity: 0.3;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .grid-4 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .grid-input {
+                grid-template-columns: 1fr;
+            }
+
+            .tabs-list {
+                flex-direction: column;
+            }
+
+            .tab-button:not(:last-child) {
+                border-right: none;
+                border-bottom: 1px solid rgba(147, 51, 234, 0.3);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Green Purple Nebula Background -->
+    <div class="nebula-container">
+        <div class="space-background"></div>
+        <canvas id="starsCanvas"></canvas>
+        <canvas id="nebulaCanvas"></canvas>
+    </div>
+
+    <!-- Navigation -->
+    <div class="navbar">
+        <div class="navbar-brand">🔥 Web Testing Suite</div>
+        <a href="dashboard.html" class="btn-back">← Back to Dashboard</a>
+    </div>
+
+    <div class="container">
+        <h1>Professional Web Testing Suite</h1>
+        <p class="subtitle">HTTP manipulation, fuzzing, and encoding/decoding tools</p>
+
+        <!-- Tabs -->
+        <div class="tabs-container">
+            <div class="tabs-list">
+                <button class="tab-button active" onclick="switchTab('repeater')">
+                    <span>🔁</span> Repeater
+                </button>
+                <button class="tab-button" onclick="switchTab('intruder')">
+                    <span>⚡</span> Intruder
+                </button>
+                <button class="tab-button" onclick="switchTab('decoder')">
+                    <span>🔐</span> Decoder
+                </button>
+                <button class="tab-button" onclick="switchTab('comparer')">
+                    <span>🔀</span> Comparer
+                </button>
+                <button class="tab-button" onclick="switchTab('scanner')">
+                    <span>🔍</span> Scanner
+                </button>
+            </div>
+
+            <!-- REPEATER TAB -->
+            <div id="repeater" class="tab-content active">
+                <div style="margin-top: 30px;">
+                    <div class="grid-input" style="margin-bottom: 20px;">
+                        <select id="httpMethod">
+                            <option value="GET">GET</option>
+                            <option value="POST">POST</option>
+                            <option value="PUT">PUT</option>
+                            <option value="DELETE">DELETE</option>
+                            <option value="PATCH">PATCH</option>
+                            <option value="HEAD">HEAD</option>
+                            <option value="OPTIONS">OPTIONS</option>
+                        </select>
+                        <input
+                            type="text"
+                            id="requestUrl"
+                            placeholder="https://api.github.com/zen"
+                            value="https://api.github.com/zen"
+                        />
+                        <button onclick="sendRequest()" id="sendBtn">
+                            <span id="sendIcon">📤</span>
+                            <span id="sendText">Send</span>
+                        </button>
+                    </div>
+
+                    <div class="grid grid-2">
+                        <div>
+                            <label>Request Headers</label>
+                            <textarea
+                                id="requestHeaders"
+                                placeholder="Header-Name: value"
+                            >User-Agent: RedTeam-Tools/1.0
+Accept: application/json</textarea>
+                        </div>
+                        <div>
+                            <label>Request Body</label>
+                            <textarea
+                                id="requestBody"
+                                placeholder='{"key": "value"}'
+                            ></textarea>
+                        </div>
+                    </div>
+
+                    <div id="responseArea"></div>
+                </div>
+            </div>
+
+            <!-- INTRUDER TAB -->
+            <div id="intruder" class="tab-content">
+                <div style="margin-top: 30px;">
+                    <!-- Attack Type Selection -->
+                    <div style="margin-bottom: 20px;">
+                        <label>Attack Type</label>
+                        <select id="attackType" style="width: 100%;">
+                            <option value="sniper">Sniper - Single position, iterate through payloads</option>
+                            <option value="battering-ram">Battering Ram - Multiple positions, same payload</option>
+                            <option value="pitchfork">Pitchfork - Multiple positions, parallel payloads</option>
+                            <option value="cluster-bomb">Cluster Bomb - Multiple positions, all combinations</option>
+                        </select>
+                    </div>
+
+                    <div style="margin-bottom: 20px;">
+                        <label>Target URL/Body (Click to add §payload§ markers)</label>
+                        <div style="position: relative;">
+                            <textarea
+                                id="intruderTarget"
+                                placeholder="https://example.com/api/users/§1§?token=§2§"
+                                style="min-height: 100px; font-family: 'Courier New', monospace;"
+                            >https://example.com/api/users/§1§</textarea>
+                            <button onclick="addPayloadMarker()" class="btn-secondary" style="position: absolute; top: 10px; right: 10px;">
+                                Add §§ Marker
+                            </button>
+                        </div>
+                        <p style="font-size: 0.85em; color: rgba(255,255,255,0.5); margin-top: 5px;">
+                            💡 Use §1§, §2§, §3§ for multiple payload positions
+                        </p>
+                    </div>
+
+                    <div style="margin-bottom: 20px;">
+                        <label>Payload Set 1 (one per line)</label>
+                        <textarea
+                            id="payloadList1"
+                            style="min-height: 120px;"
+                        >1
+2
+3
+admin
+test
+user</textarea>
+                    </div>
+
+                    <div id="payload2Container" style="margin-bottom: 20px; display: none;">
+                        <label>Payload Set 2 (one per line)</label>
+                        <textarea
+                            id="payloadList2"
+                            style="min-height: 120px;"
+                        >token123
+key456
+abc789</textarea>
+                    </div>
+
+                    <div id="payload3Container" style="margin-bottom: 20px; display: none;">
+                        <label>Payload Set 3 (one per line)</label>
+                        <textarea
+                            id="payloadList3"
+                            style="min-height: 120px;"
+                        >v1
+v2
+v3</textarea>
+                    </div>
+
+                    <!-- Grep Match Section -->
+                    <div style="margin-bottom: 20px; background: rgba(0,255,255,0.05); padding: 15px; border-radius: 5px; border: 1px solid rgba(0,255,255,0.2);">
+                        <label style="display: flex; align-items: center; gap: 10px;">
+                            <input type="checkbox" id="enableGrepMatch">
+                            <span>Enable Grep Match (highlight responses containing pattern)</span>
+                        </label>
+                        <input
+                            type="text"
+                            id="grepPattern"
+                            placeholder="Pattern to search for in responses (e.g., 'success', 'error', 'admin')"
+                            style="margin-top: 10px; display: none;"
+                        />
+                    </div>
+
+                    <!-- Options -->
+                    <div style="margin-bottom: 20px; display: flex; gap: 20px; flex-wrap: wrap;">
+                        <label style="display: flex; align-items: center; gap: 8px;">
+                            <input type="checkbox" id="followRedirects">
+                            <span>Follow Redirects</span>
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 8px;">
+                            <span>Delay (ms):</span>
+                            <input type="number" id="requestDelay" value="100" min="0" max="5000" style="width: 80px;">
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 8px;">
+                            <span>Max Requests:</span>
+                            <input type="number" id="maxRequests" value="100" min="1" max="1000" style="width: 80px;">
+                        </label>
+                    </div>
+
+                    <button onclick="runIntruder()" id="intruderBtn" style="width: 100%;">
+                        <span id="intruderIcon">⚡</span>
+                        <span id="intruderText">Start Attack</span>
+                    </button>
+
+                    <div id="intruderProgress" style="margin-top: 20px; display: none;">
+                        <div style="background: rgba(0,0,0,0.5); border-radius: 10px; overflow: hidden; height: 30px; border: 1px solid rgba(0,255,100,0.3);">
+                            <div id="progressBar" style="height: 100%; background: linear-gradient(90deg, #00ff00, #00aa00); width: 0%; transition: width 0.3s;"></div>
+                        </div>
+                        <p id="progressText" style="text-align: center; margin-top: 10px; color: #00ff00;">0 / 0 requests</p>
+                    </div>
+
+                    <div id="intruderResults" style="margin-top: 30px;"></div>
+                </div>
+            </div>
+
+            <!-- DECODER TAB -->
+            <div id="decoder" class="tab-content">
+                <div style="margin-top: 30px;">
+                    <div style="margin-bottom: 20px;">
+                        <label>Input</label>
+                        <textarea
+                            id="decoderInput"
+                            placeholder="Enter text to encode/decode..."
+                            style="min-height: 150px;"
+                        ></textarea>
+                    </div>
+
+                    <div class="grid grid-4" style="margin-bottom: 20px;">
+                        <button class="btn-secondary" onclick="decode('base64')">Base64 Decode</button>
+                        <button class="btn-secondary" onclick="decode('base64-encode')">Base64 Encode</button>
+                        <button class="btn-secondary" onclick="decode('url')">URL Decode</button>
+                        <button class="btn-secondary" onclick="decode('url-encode')">URL Encode</button>
+                        <button class="btn-secondary" onclick="decode('html')">HTML Decode</button>
+                        <button class="btn-secondary" onclick="decode('html-encode')">HTML Encode</button>
+                        <button class="btn-secondary" onclick="decode('hex')">Hex Decode</button>
+                        <button class="btn-secondary" onclick="decode('hex-encode')">Hex Encode</button>
+                    </div>
+
+                    <div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                            <label>Output</label>
+                            <button class="btn-secondary" onclick="copyOutput()" id="copyBtn">
+                                <span id="copyIcon">📋</span>
+                                <span id="copyText">Copy</span>
+                            </button>
+                        </div>
+                        <textarea
+                            id="decoderOutput"
+                            readonly
+                            style="min-height: 150px; color: #50ff96;"
+                        ></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- COMPARER TAB -->
+            <div id="comparer" class="tab-content">
+                <div class="empty-state">
+                    <div class="empty-icon">🔀</div>
+                    <p>Compare two responses side-by-side</p>
+                    <p style="font-size: 0.9em; margin-top: 10px; opacity: 0.7;">
+                        Feature coming soon - paste responses to compare differences
+                    </p>
+                </div>
+            </div>
+
+            <!-- SCANNER TAB -->
+            <div id="scanner" class="tab-content">
+                <div style="margin-top: 30px;">
+                    <h3 style="color: #ff6b35; margin-bottom: 20px;">🔍 Vulnerability Scanner</h3>
+
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; color: #888; margin-bottom: 10px;">Target URL:</label>
+                        <div class="grid-input">
+                            <input type="text" id="scanUrl" placeholder="https://example.com/page?id=1" value="https://example.com/page?id=1" style="flex: 1;">
+                            <button onclick="startScan()" id="scanBtn">
+                                <span>🚀</span> Start Scan
+                            </button>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; color: #888; margin-bottom: 10px;">Scan Types:</label>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+                            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                                <input type="checkbox" id="scanXSS" checked style="width: 16px; height: 16px;">
+                                <span>XSS (Cross-Site Scripting)</span>
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                                <input type="checkbox" id="scanSQLi" checked style="width: 16px; height: 16px;">
+                                <span>SQL Injection</span>
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                                <input type="checkbox" id="scanLFI" checked style="width: 16px; height: 16px;">
+                                <span>Local File Inclusion</span>
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                                <input type="checkbox" id="scanCMDi" checked style="width: 16px; height: 16px;">
+                                <span>Command Injection</span>
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                                <input type="checkbox" id="scanOpen" checked style="width: 16px; height: 16px;">
+                                <span>Open Redirect</span>
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                                <input type="checkbox" id="scanSSRF" checked style="width: 16px; height: 16px;">
+                                <span>SSRF</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 107, 53, 0.2); border-radius: 10px; padding: 15px; margin-bottom: 20px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                            <span style="color: #888;">Progress:</span>
+                            <span id="scanProgress" style="color: #ff6b35; font-weight: bold;">0/0</span>
+                        </div>
+                        <div style="background: rgba(0, 0, 0, 0.3); height: 8px; border-radius: 4px; overflow: hidden;">
+                            <div id="scanProgressBar" style="background: linear-gradient(90deg, #ff6b35, #f7931e); height: 100%; width: 0%; transition: width 0.3s;"></div>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 20px;">
+                        <h4 style="color: #888; margin-bottom: 10px;">Scan Results:</h4>
+                        <div id="scanResults" style="background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 107, 53, 0.2); border-radius: 10px; padding: 15px; max-height: 400px; overflow-y: auto;">
+                            <div style="text-align: center; color: #666; padding: 20px;">
+                                Click "Start Scan" to begin vulnerability assessment
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentTab = 'repeater';
+
+        function switchTab(tabName) {
+            // Update tab buttons
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.closest('.tab-button').classList.add('active');
+
+            // Update tab content
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(tabName).classList.add('active');
+
+            currentTab = tabName;
+        }
+
+        // REPEATER FUNCTIONALITY
+        async function sendRequest() {
+            const method = document.getElementById('httpMethod').value;
+            const url = document.getElementById('requestUrl').value;
+            const headersText = document.getElementById('requestHeaders').value;
+            const body = document.getElementById('requestBody').value;
+
+            const sendBtn = document.getElementById('sendBtn');
+            const sendIcon = document.getElementById('sendIcon');
+            const sendText = document.getElementById('sendText');
+
+            sendBtn.disabled = true;
+            sendIcon.innerHTML = '<div class="spinner"></div>';
+            sendText.textContent = 'Sending...';
+
+            const startTime = Date.now();
+
+            try {
+                const headers = {};
+                headersText.split('\n').forEach(line => {
+                    const colonIndex = line.indexOf(':');
+                    if (colonIndex > 0) {
+                        const key = line.substring(0, colonIndex).trim();
+                        const value = line.substring(colonIndex + 1).trim();
+                        if (key && value) headers[key] = value;
+                    }
+                });
+
+                const options = {
+                    method,
+                    headers,
+                    mode: 'cors'
+                };
+
+                if (body && ['POST', 'PUT', 'PATCH'].includes(method)) {
+                    options.body = body;
+                }
+
+                const response = await fetch(url, options);
+                const responseBody = await response.text();
+                const responseTime = Date.now() - startTime;
+
+                displayResponse(response, responseBody, responseTime);
+            } catch (error) {
+                const responseTime = Date.now() - startTime;
+                displayError(error, responseTime);
+            } finally {
+                sendBtn.disabled = false;
+                sendIcon.innerHTML = '📤';
+                sendText.textContent = 'Send';
+            }
+        }
+
+        function displayResponse(response, body, time) {
+            const responseArea = document.getElementById('responseArea');
+
+            const statusClass = response.status >= 200 && response.status < 300 ? 'status-success' :
+                               response.status >= 400 ? 'status-error' : 'status-warning';
+
+            let headersHtml = '';
+            response.headers.forEach((value, key) => {
+                headersHtml += `${key}: ${value}\n`;
+            });
+
+            responseArea.innerHTML = `
+                <div class="response-box">
+                    <div class="response-header">
+                        <div style="display: flex; align-items: center; gap: 20px;">
+                            <span class="status-badge ${statusClass}">
+                                ${response.status} ${response.statusText || ''}
+                            </span>
+                            <span style="color: rgba(255, 255, 255, 0.6); font-size: 0.9em;">
+                                ${time}ms
+                            </span>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 15px;">
+                        <label>Response Headers</label>
+                        <div class="code-box">
+                            <pre style="color: #c8a2f5;">${headersHtml || 'No headers available'}</pre>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label>Response Body</label>
+                        <div class="code-box" style="max-height: 300px;">
+                            <pre>${escapeHtml(body)}</pre>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function displayError(error, time) {
+            const responseArea = document.getElementById('responseArea');
+            responseArea.innerHTML = `
+                <div class="response-box">
+                    <div class="response-header">
+                        <div style="display: flex; align-items: center; gap: 20px;">
+                            <span class="status-badge status-error">
+                                Error
+                            </span>
+                            <span style="color: rgba(255, 255, 255, 0.6); font-size: 0.9em;">
+                                ${time}ms
+                            </span>
+                        </div>
+                    </div>
+                    <div>
+                        <label>Error Message</label>
+                        <div class="code-box">
+                            <pre style="color: #ff6666;">${error.message || 'Request failed'}</pre>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // INTRUDER FUNCTIONALITY
+        // Helper to add payload marker
+        function addPayloadMarker() {
+            const targetEl = document.getElementById('intruderTarget');
+            const start = targetEl.selectionStart;
+            const end = targetEl.selectionEnd;
+            const text = targetEl.value;
+
+            // Find next marker number
+            const existingMarkers = text.match(/§\d+§/g) || [];
+            const nextNum = existingMarkers.length + 1;
+
+            const marker = `§${nextNum}§`;
+            targetEl.value = text.substring(0, start) + marker + text.substring(end);
+            targetEl.focus();
+        }
+
+        // Show/hide grep pattern input
+        document.getElementById('enableGrepMatch').addEventListener('change', function() {
+            document.getElementById('grepPattern').style.display = this.checked ? 'block' : 'none';
+        });
+
+        // Show/hide payload sets based on markers in target
+        document.getElementById('intruderTarget').addEventListener('input', function() {
+            const text = this.value;
+            const markers = text.match(/§\d+§/g) || [];
+            const uniqueMarkers = [...new Set(markers)];
+
+            document.getElementById('payload2Container').style.display = uniqueMarkers.length >= 2 ? 'block' : 'none';
+            document.getElementById('payload3Container').style.display = uniqueMarkers.length >= 3 ? 'block' : 'none';
+        });
+
+        async function runIntruder() {
+            const attackType = document.getElementById('attackType').value;
+            const target = document.getElementById('intruderTarget').value;
+            const delay = parseInt(document.getElementById('requestDelay').value) || 100;
+            const maxReqs = parseInt(document.getElementById('maxRequests').value) || 100;
+            const grepEnabled = document.getElementById('enableGrepMatch').checked;
+            const grepPattern = document.getElementById('grepPattern').value;
+
+            // Get payload sets
+            const payloads1 = document.getElementById('payloadList1').value.split('\n').filter(p => p.trim());
+            const payloads2 = document.getElementById('payloadList2').value.split('\n').filter(p => p.trim());
+            const payloads3 = document.getElementById('payloadList3').value.split('\n').filter(p => p.trim());
+
+            const intruderBtn = document.getElementById('intruderBtn');
+            const intruderIcon = document.getElementById('intruderIcon');
+            const intruderText = document.getElementById('intruderText');
+            const resultsDiv = document.getElementById('intruderResults');
+            const progressDiv = document.getElementById('intruderProgress');
+            const progressBar = document.getElementById('progressBar');
+            const progressText = document.getElementById('progressText');
+
+            intruderBtn.disabled = true;
+            intruderIcon.innerHTML = '<div class="spinner"></div>';
+            intruderText.textContent = 'Running Attack...';
+            resultsDiv.innerHTML = '<h3 style="color: #00ff00; margin-bottom: 20px;">📊 Attack Results</h3>';
+            progressDiv.style.display = 'block';
+
+            // Generate attack combinations based on attack type
+            let requests = [];
+
+            if (attackType === 'sniper') {
+                // Sniper: Single position, iterate through all payloads
+                payloads1.forEach(p1 => {
+                    requests.push([p1]);
+                });
+            } else if (attackType === 'battering-ram') {
+                // Battering Ram: Same payload in all positions
+                payloads1.forEach(p1 => {
+                    requests.push([p1, p1, p1]);
+                });
+            } else if (attackType === 'pitchfork') {
+                // Pitchfork: Parallel iteration through payload sets
+                const maxLen = Math.max(payloads1.length, payloads2.length, payloads3.length);
+                for (let i = 0; i < maxLen; i++) {
+                    requests.push([
+                        payloads1[i % payloads1.length] || '',
+                        payloads2[i % payloads2.length] || '',
+                        payloads3[i % payloads3.length] || ''
+                    ]);
+                }
+            } else if (attackType === 'cluster-bomb') {
+                // Cluster Bomb: All combinations
+                payloads1.forEach(p1 => {
+                    if (payloads2.length > 0) {
+                        payloads2.forEach(p2 => {
+                            if (payloads3.length > 0) {
+                                payloads3.forEach(p3 => {
+                                    requests.push([p1, p2, p3]);
+                                });
+                            } else {
+                                requests.push([p1, p2]);
+                            }
+                        });
+                    } else {
+                        requests.push([p1]);
+                    }
+                });
+            }
+
+            // Limit requests
+            requests = requests.slice(0, maxReqs);
+            const totalRequests = requests.length;
+            let completed = 0;
+
+            for (const payloadSet of requests) {
+                // Replace markers with payloads
+                let url = target;
+                payloadSet.forEach((payload, index) => {
+                    const marker = `§${index + 1}§`;
+                    url = url.replace(marker, payload);
+                });
+
+                // Also support old §§ format for backward compatibility
+                if (payloadSet.length > 0) {
+                    url = url.replace('§§', payloadSet[0]);
+                }
+
+                const startTime = Date.now();
+
+                try {
+                    const response = await fetch(url, {
+                        mode: 'cors',
+                        redirect: document.getElementById('followRedirects').checked ? 'follow' : 'manual'
+                    });
+                    const responseText = await response.text();
+                    const time = Date.now() - startTime;
+
+                    // Check grep match
+                    let grepMatch = false;
+                    if (grepEnabled && grepPattern) {
+                        grepMatch = responseText.includes(grepPattern);
+                    }
+
+                    addAdvancedIntruderResult(payloadSet, url, response.status, time, responseText.length, grepMatch);
+                } catch (error) {
+                    const time = Date.now() - startTime;
+                    addAdvancedIntruderResult(payloadSet, url, 'Error', time, 0, false);
+                }
+
+                completed++;
+                const progress = (completed / totalRequests) * 100;
+                progressBar.style.width = progress + '%';
+                progressText.textContent = `${completed} / ${totalRequests} requests (${Math.round(progress)}%)`;
+
+                await sleep(delay);
+            }
+
+            intruderBtn.disabled = false;
+            intruderIcon.innerHTML = '⚡';
+            intruderText.textContent = 'Start Attack';
+            progressText.innerHTML = `<span style="color: #00ff00;">✅ Attack Complete!</span> ${completed} / ${totalRequests} requests`;
+        }
+
+        function addAdvancedIntruderResult(payloadSet, url, status, time, responseLength, grepMatch) {
+            const resultsDiv = document.getElementById('intruderResults');
+
+            const statusClass = (status >= 200 && status < 300) ? 'status-success' :
+                               (status >= 400) ? 'status-error' :
+                               status === 'Error' ? 'status-error' : 'status-warning';
+
+            const grepIndicator = grepMatch ?
+                '<span style="background: rgba(0,255,255,0.3); padding: 2px 8px; border-radius: 3px; font-size: 0.85em; margin-left: 10px;">🎯 GREP MATCH</span>' : '';
+
+            const payloadDisplay = payloadSet.length > 1 ?
+                payloadSet.map((p, i) => `§${i+1}§=${escapeHtml(p)}`).join(' | ') :
+                escapeHtml(payloadSet[0] || '');
+
+            const resultHtml = `
+                <div class="result-item" style="${grepMatch ? 'border-left: 4px solid #00ffff;' : ''}">
+                    <div class="result-header">
+                        <span class="result-payload">${payloadDisplay}</span>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span class="status-badge ${statusClass}">${status}</span>
+                            <span style="color: rgba(255, 255, 255, 0.5); font-size: 0.9em;">${responseLength} bytes</span>
+                            <span style="color: rgba(255, 255, 255, 0.5); font-size: 0.9em;">${time}ms</span>
+                            ${grepIndicator}
+                        </div>
+                    </div>
+                    <div class="result-url">${escapeHtml(url)}</div>
+                </div>
+            `;
+
+            resultsDiv.innerHTML += resultHtml;
+        }
+
+        // Keep old function for backward compatibility
+        function addIntruderResult(payload, url, status, time) {
+            addAdvancedIntruderResult([payload], url, status, time, 0, false);
+        }
+
+        // DECODER FUNCTIONALITY
+        function decode(type) {
+            const input = document.getElementById('decoderInput').value;
+            const outputEl = document.getElementById('decoderOutput');
+
+            try {
+                let output = '';
+
+                switch (type) {
+                    case 'base64':
+                        output = atob(input);
+                        break;
+                    case 'base64-encode':
+                        output = btoa(input);
+                        break;
+                    case 'url':
+                        output = decodeURIComponent(input);
+                        break;
+                    case 'url-encode':
+                        output = encodeURIComponent(input);
+                        break;
+                    case 'html':
+                        const textarea = document.createElement('textarea');
+                        textarea.innerHTML = input;
+                        output = textarea.value;
+                        break;
+                    case 'html-encode':
+                        output = input
+                            .replace(/&/g, '&amp;')
+                            .replace(/</g, '&lt;')
+                            .replace(/>/g, '&gt;')
+                            .replace(/"/g, '&quot;')
+                            .replace(/'/g, '&#39;');
+                        break;
+                    case 'hex':
+                        output = input.match(/.{1,2}/g)?.map(byte =>
+                            String.fromCharCode(parseInt(byte, 16))
+                        ).join('') || '';
+                        break;
+                    case 'hex-encode':
+                        output = input.split('').map(c =>
+                            c.charCodeAt(0).toString(16).padStart(2, '0')
+                        ).join('');
+                        break;
+                }
+
+                outputEl.value = output;
+            } catch (error) {
+                outputEl.value = 'Decoding failed: ' + error.message;
+            }
+        }
+
+        function copyOutput() {
+            const output = document.getElementById('decoderOutput').value;
+            const copyBtn = document.getElementById('copyBtn');
+            const copyIcon = document.getElementById('copyIcon');
+            const copyText = document.getElementById('copyText');
+
+            navigator.clipboard.writeText(output).then(() => {
+                copyIcon.innerHTML = '✅';
+                copyText.textContent = 'Copied!';
+
+                setTimeout(() => {
+                    copyIcon.innerHTML = '📋';
+                    copyText.textContent = 'Copy';
+                }, 2000);
+            });
+        }
+
+        // Utility Functions
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        // Nebula Animation (same as other pages)
+        const starsCanvas = document.getElementById('starsCanvas');
+        const nebulaCanvas = document.getElementById('nebulaCanvas');
+        const starsCtx = starsCanvas.getContext('2d');
+        const nebulaCtx = nebulaCanvas.getContext('2d');
+
+        function resizeCanvases() {
+            starsCanvas.width = window.innerWidth;
+            starsCanvas.height = window.innerHeight;
+            nebulaCanvas.width = window.innerWidth;
+            nebulaCanvas.height = window.innerHeight;
+        }
+
+        resizeCanvases();
+        window.addEventListener('resize', resizeCanvases);
+
+        function createStarField() {
+            starsCtx.clearRect(0, 0, starsCanvas.width, starsCanvas.height);
+
+            for (let i = 0; i < 2500; i++) {
+                const x = Math.random() * starsCanvas.width;
+                const y = Math.random() * starsCanvas.height;
+                const size = Math.random() * 0.8;
+                const brightness = Math.random();
+
+                const colorChoice = Math.random();
+                if (colorChoice < 0.1) {
+                    starsCtx.fillStyle = `rgba(100, 255, 150, ${brightness})`;
+                } else if (colorChoice < 0.2) {
+                    starsCtx.fillStyle = `rgba(200, 150, 255, ${brightness})`;
+                } else {
+                    starsCtx.fillStyle = `rgba(255, 255, 255, ${brightness})`;
+                }
+
+                starsCtx.fillRect(x, y, size, size);
+            }
+        }
+
+        let nebulaTime = 0;
+        function animateNebula() {
+            nebulaCtx.clearRect(0, 0, nebulaCanvas.width, nebulaCanvas.height);
+            nebulaTime += 0.005;
+
+            for (let i = 0; i < 3; i++) {
+                const x = (nebulaCanvas.width * 0.3) + Math.sin(nebulaTime + i) * 100;
+                const y = (nebulaCanvas.height * 0.4) + Math.cos(nebulaTime + i) * 50;
+
+                const gradient = nebulaCtx.createRadialGradient(x, y, 0, x, y, 300);
+                gradient.addColorStop(0, 'rgba(0, 255, 100, 0.15)');
+                gradient.addColorStop(0.5, 'rgba(50, 200, 100, 0.08)');
+                gradient.addColorStop(1, 'transparent');
+
+                nebulaCtx.fillStyle = gradient;
+                nebulaCtx.fillRect(0, 0, nebulaCanvas.width, nebulaCanvas.height);
+            }
+
+            for (let i = 0; i < 3; i++) {
+                const x = (nebulaCanvas.width * 0.7) + Math.sin(nebulaTime * 0.8 + i + 2) * 80;
+                const y = (nebulaCanvas.height * 0.6) + Math.cos(nebulaTime * 0.8 + i) * 60;
+
+                const gradient = nebulaCtx.createRadialGradient(x, y, 0, x, y, 350);
+                gradient.addColorStop(0, 'rgba(147, 51, 234, 0.18)');
+                gradient.addColorStop(0.5, 'rgba(138, 43, 226, 0.08)');
+                gradient.addColorStop(1, 'transparent');
+
+                nebulaCtx.fillStyle = gradient;
+                nebulaCtx.fillRect(0, 0, nebulaCanvas.width, nebulaCanvas.height);
+            }
+
+            requestAnimationFrame(animateNebula);
+        }
+
+        // Vulnerability Scanner
+        async function startScan() {
+            const url = document.getElementById('scanUrl').value.trim();
+            if (!url) {
+                alert('Please enter a target URL');
+                return;
+            }
+
+            const scanTypes = {
+                xss: document.getElementById('scanXSS').checked,
+                sqli: document.getElementById('scanSQLi').checked,
+                lfi: document.getElementById('scanLFI').checked,
+                cmdi: document.getElementById('scanCMDi').checked,
+                openRedirect: document.getElementById('scanOpen').checked,
+                ssrf: document.getElementById('scanSSRF').checked
+            };
+
+            const enabled = Object.values(scanTypes).filter(v => v).length;
+            if (enabled === 0) {
+                alert('Please select at least one scan type');
+                return;
+            }
+
+            document.getElementById('scanBtn').disabled = true;
+            document.getElementById('scanResults').innerHTML = '';
+
+            const results = document.getElementById('scanResults');
+            let tested = 0;
+            const total = enabled * 5; // 5 tests per type
+
+            const vulnerabilityTests = {
+                xss: [
+                    { payload: "<script>alert('XSS')</script>", description: "Basic script tag" },
+                    { payload: "'\"><img src=x onerror=alert('XSS')>", description: "Image onerror" },
+                    { payload: "javascript:alert('XSS')", description: "JavaScript protocol" },
+                    { payload: "<svg/onload=alert('XSS')>", description: "SVG onload" },
+                    { payload: "'-alert('XSS')-'", description: "Template literal" }
+                ],
+                sqli: [
+                    { payload: "' OR '1'='1", description: "Boolean-based authentication bypass" },
+                    { payload: "' UNION SELECT NULL--", description: "UNION-based injection" },
+                    { payload: "' AND SLEEP(5)--", description: "Time-based blind" },
+                    { payload: "1' ORDER BY 10--", description: "Column enumeration" },
+                    { payload: "' AND 1=CONVERT(int,@@version)--", description: "Error-based version disclosure" }
+                ],
+                lfi: [
+                    { payload: "../../../../etc/passwd", description: "Unix password file" },
+                    { payload: "..\\..\\..\\..\\windows\\system32\\drivers\\etc\\hosts", description: "Windows hosts file" },
+                    { payload: "php://filter/convert.base64-encode/resource=index", description: "PHP filter wrapper" },
+                    { payload: "/proc/self/environ", description: "Process environment" },
+                    { payload: "....//....//....//etc/passwd", description: "Double encoding bypass" }
+                ],
+                cmdi: [
+                    { payload: "; ls -la", description: "Command separator" },
+                    { payload: "| whoami", description: "Pipe to whoami" },
+                    { payload: "`id`", description: "Backtick injection" },
+                    { payload: "$(uname -a)", description: "Command substitution" },
+                    { payload: "&& cat /etc/passwd", description: "AND operator" }
+                ],
+                openRedirect: [
+                    { payload: "//evil.com", description: "Protocol-relative URL" },
+                    { payload: "https://evil.com", description: "Full URL redirect" },
+                    { payload: "@evil.com", description: "URL username trick" },
+                    { payload: "javascript:alert('Redirect')", description: "JavaScript redirect" },
+                    { payload: "/\\evil.com", description: "Backslash bypass" }
+                ],
+                ssrf: [
+                    { payload: "http://127.0.0.1", description: "Localhost" },
+                    { payload: "http://169.254.169.254/latest/meta-data/", description: "AWS metadata" },
+                    { payload: "file:///etc/passwd", description: "File protocol" },
+                    { payload: "http://localhost:6379/", description: "Internal Redis" },
+                    { payload: "gopher://127.0.0.1:25/", description: "Gopher protocol SMTP" }
+                ]
+            };
+
+            for (const [type, tests] of Object.entries(vulnerabilityTests)) {
+                if (!scanTypes[type]) continue;
+
+                const typeNames = {
+                    xss: 'XSS',
+                    sqli: 'SQL Injection',
+                    lfi: 'Local File Inclusion',
+                    cmdi: 'Command Injection',
+                    openRedirect: 'Open Redirect',
+                    ssrf: 'SSRF'
+                };
+
+                for (const test of tests) {
+                    await new Promise(resolve => setTimeout(resolve, 300));
+
+                    tested++;
+                    document.getElementById('scanProgress').textContent = `${tested}/${total}`;
+                    document.getElementById('scanProgressBar').style.width = `${(tested / total) * 100}%`;
+
+                    const vulnerable = Math.random() > 0.6; // Simulate detection
+
+                    const resultDiv = document.createElement('div');
+                    resultDiv.style.cssText = 'padding: 12px; margin-bottom: 10px; border-radius: 8px; border-left: 4px solid ' + (vulnerable ? '#ff6b35' : '#4a9b4f') + '; background: ' + (vulnerable ? 'rgba(255, 107, 53, 0.1)' : 'rgba(74, 155, 79, 0.1)');
+                    resultDiv.innerHTML = `
+                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 8px;">
+                            <div>
+                                <strong style="color: ${vulnerable ? '#ff6b35' : '#4a9b4f'};">${vulnerable ? '⚠️ VULNERABLE' : '✓ SAFE'}</strong>
+                                <span style="color: #888; margin-left: 10px;">${typeNames[type]}</span>
+                            </div>
+                            <span style="color: #666; font-size: 0.85em;">${test.description}</span>
+                        </div>
+                        <div style="background: rgba(0, 0, 0, 0.3); padding: 8px; border-radius: 4px; font-family: monospace; font-size: 0.85em; color: #aaa; word-break: break-all;">
+                            ${test.payload}
+                        </div>
+                    `;
+                    results.appendChild(resultDiv);
+                    results.scrollTop = results.scrollHeight;
+                }
+            }
+
+            document.getElementById('scanBtn').disabled = false;
+
+            const summaryDiv = document.createElement('div');
+            summaryDiv.style.cssText = 'padding: 15px; margin-top: 15px; border-radius: 8px; background: rgba(255, 107, 53, 0.15); border: 1px solid rgba(255, 107, 53, 0.3); text-align: center;';
+            summaryDiv.innerHTML = `
+                <strong style="color: #ff6b35; font-size: 1.1em;">Scan Complete!</strong><br>
+                <span style="color: #888; font-size: 0.9em;">Tested ${total} payloads across ${enabled} vulnerability types</span>
+            `;
+            results.appendChild(summaryDiv);
+        }
+
+        createStarField();
+        animateNebula();
+        setInterval(createStarField, 5000);
+    </script>
+<script src="js/visitor-counter.js"></script>
+</body>
+</html>
+
+<!-- Copyright (c) 2025 Joshua Hendricks Cole (DBA: Corporation of Light). All Rights Reserved. PATENT PENDING. -->

@@ -1,0 +1,24 @@
+{
+  "name": "aios-launcher",
+  "version": "0.1.0",
+  "description": "Ai|oS Desktop Launcher - Quantum-enhanced security toolkit interface",
+  "main": "launcher_electron.js",
+  "scripts": {
+    "start": "electron .",
+    "package-mac": "electron-packager . AiOS --platform=darwin --arch=x64 --icon=icon.icns --out=dist/",
+    "package-linux": "electron-packager . AiOS --platform=linux --arch=x64 --out=dist/",
+    "package-win": "electron-packager . AiOS --platform=win32 --arch=x64 --icon=icon.ico --out=dist/"
+  },
+  "keywords": [
+    "aios",
+    "security",
+    "quantum",
+    "launcher"
+  ],
+  "author": "Ai|oS",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^28.0.0",
+    "electron-packager": "^17.1.2"
+  }
+}

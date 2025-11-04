@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication Quick Fix - Red Team Tools</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0000 100%);
+            color: #fff;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #ff6666;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #ffcccc;
+            margin-bottom: 40px;
+            font-size: 1.2em;
+        }
+
+        .status {
+            background: rgba(255, 165, 0, 0.2);
+            border: 2px solid #ffa500;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .status h2 {
+            color: #ffa500;
+            margin-bottom: 10px;
+        }
+
+        .step {
+            background: linear-gradient(135deg, rgba(26, 26, 46, 0.8), rgba(15, 52, 96, 0.4));
+            border-left: 4px solid #ff6666;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        .step h2 {
+            color: #ff9999;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .step-number {
+            background: #ff3333;
+            color: #fff;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .step-content {
+            color: #eaeaea;
+            line-height: 1.8;
+            margin-left: 45px;
+        }
+
+        .code-block {
+            background: #0a0a0a;
+            border: 1px solid #ff3333;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            color: #4ecca3;
+        }
+
+        .highlight {
+            color: #ffcc00;
+            font-weight: bold;
+        }
+
+        .success {
+            background: rgba(0, 255, 0, 0.1);
+            border: 2px solid #00ff00;
+            color: #00ff00;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        .warning {
+            background: rgba(255, 165, 0, 0.1);
+            border: 2px solid #ffa500;
+            color: #ffa500;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #ff3333, #ff6666);
+            color: #fff;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px;
+            font-family: 'Courier New', monospace;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 51, 51, 0.5);
+        }
+
+        .checklist {
+            background: rgba(15, 52, 96, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .checklist li {
+            margin: 10px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .checklist li:before {
+            content: "☐";
+            position: absolute;
+            left: 0;
+            color: #ff6666;
+            font-size: 1.5em;
+        }
+
+        .link-box {
+            background: rgba(255, 51, 51, 0.1);
+            border: 1px solid #ff6666;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .link-box a {
+            color: #4ecca3;
+            text-decoration: none;
+        }
+
+        .link-box a:hover {
+            text-decoration: underline;
+        }
+
+        .center {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔐 Authentication Quick Fix</h1>
+        <div class="subtitle">Red Team Tools - Activation Guide</div>
+
+        <div class="status">
+            <h2>⚠️ Current Status</h2>
+            <p>Your authentication code is <strong style="color: #00ff00;">100% ready</strong>.</p>
+            <p>You just need to activate the Supabase backend (takes 2 minutes).</p>
+        </div>
+
+        <!-- Step 1 -->
+        <div class="step">
+            <h2>
+                <span class="step-number">1</span>
+                Go to Supabase Dashboard
+            </h2>
+            <div class="step-content">
+                <div class="link-box">
+                    <strong>Dashboard URL:</strong><br>
+                    <a href="https://supabase.com/dashboard" target="_blank">https://supabase.com/dashboard</a>
+                </div>
+                <p>
+                    1. Login to your Supabase account<br>
+                    2. Select the <span class="highlight">red-team-tools</span> project<br>
+                    3. (The one with URL: <code>trokobwiphidmrmhwkni.supabase.co</code>)
+                </p>
+            </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="step">
+            <h2>
+                <span class="step-number">2</span>
+                Enable Email Authentication
+            </h2>
+            <div class="step-content">
+                <p><strong>In Supabase Dashboard:</strong></p>
+                <ol style="margin-left: 20px; line-height: 2;">
+                    <li>Click <strong>Authentication</strong> in sidebar</li>
+                    <li>Click <strong>Providers</strong></li>
+                    <li>Find <strong>Email</strong> provider</li>
+                    <li>Toggle it <span class="highlight">ON</span></li>
+                    <li>Enable "Confirm email" (recommended)</li>
+                    <li>Click <strong>Save</strong></li>
+                </ol>
+                <div class="success">
+                    ✅ This enables users to register with email/password
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="step">
+            <h2>
+                <span class="step-number">3</span>
+                Create Database Tables
+            </h2>
+            <div class="step-content">
+                <p><strong>This is the most important step!</strong></p>
+                <ol style="margin-left: 20px; line-height: 2;">
+                    <li>In Supabase, click <strong>SQL Editor</strong></li>
+                    <li>Click <strong>New query</strong></li>
+                    <li>Open this file on your computer:</li>
+                </ol>
+                <div class="code-block">
+/Users/noone/aios/red-team-tools/setup_supabase_auth.sql
+                </div>
+                <ol start="4" style="margin-left: 20px; line-height: 2;">
+                    <li>Copy the <strong>entire contents</strong> of that file</li>
+                    <li>Paste into Supabase SQL Editor</li>
+                    <li>Click <strong>Run</strong></li>
+                </ol>
+                <div class="warning">
+                    ⚡ This creates the tables: <code>profiles</code>, <code>user_logins</code>, <code>analytics</code>
+                </div>
+                <div class="success">
+                    ✅ You'll see "Supabase authentication setup complete!" if it works
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="step">
+            <h2>
+                <span class="step-number">4</span>
+                Test It Out
+            </h2>
+            <div class="step-content">
+                <p><strong>Test locally:</strong></p>
+                <div class="code-block">
+cd /Users/noone/aios/red-team-tools
+open login.html
+                </div>
+                <p><strong>Or test on live site:</strong></p>
+                <div class="link-box">
+                    <a href="https://red-team-tools.aios.is/login.html" target="_blank">
+                        https://red-team-tools.aios.is/login.html
+                    </a>
+                </div>
+                <p style="margin-top: 15px;">
+                    1. Click "Register here"<br>
+                    2. Create an account<br>
+                    3. Check your email for verification link<br>
+                    4. Click verification link<br>
+                    5. Login with your credentials<br>
+                    6. Should redirect to dashboard!
+                </p>
+            </div>
+        </div>
+
+        <!-- Checklist -->
+        <div class="step">
+            <h2>✅ Verification Checklist</h2>
+            <div class="step-content">
+                <div class="checklist">
+                    <ul style="list-style: none;">
+                        <li>SQL script ran without errors</li>
+                        <li>Tables exist: profiles, user_logins, analytics</li>
+                        <li>Email provider is enabled</li>
+                        <li>Can register a new user</li>
+                        <li>Receive verification email</li>
+                        <li>Can verify email</li>
+                        <li>Can login successfully</li>
+                        <li>Dashboard loads after login</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- What's Fixed -->
+        <div class="step">
+            <h2>🔧 What We Fixed</h2>
+            <div class="step-content">
+                <div class="success">
+                    ✅ Fixed "Failed to fetch" error at login<br>
+                    ✅ Added timeout to IP address lookup (2 seconds)<br>
+                    ✅ Falls back to 'localhost' if fetch fails<br>
+                    ✅ Same fix applied to both login.html and auth.js
+                </div>
+                <p style="margin-top: 15px;">
+                    The issue was that fetching your IP address from <code>api.ipify.org</code>
+                    was taking too long or failing. Now it has a 2-second timeout and falls
+                    back gracefully.
+                </p>
+            </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="step">
+            <h2>🔗 Quick Links</h2>
+            <div class="step-content">
+                <div class="link-box">
+                    <strong>Supabase Dashboard:</strong><br>
+                    <a href="https://supabase.com/dashboard" target="_blank">https://supabase.com/dashboard</a>
+                </div>
+                <div class="link-box">
+                    <strong>Your Project:</strong><br>
+                    <a href="https://supabase.com/dashboard/project/trokobwiphidmrmhwkni" target="_blank">
+                        https://supabase.com/dashboard/project/trokobwiphidmrmhwkni
+                    </a>
+                </div>
+                <div class="link-box">
+                    <strong>SQL Setup File:</strong><br>
+                    <code>/Users/noone/aios/red-team-tools/setup_supabase_auth.sql</code>
+                </div>
+                <div class="link-box">
+                    <strong>Full Guide:</strong><br>
+                    <code>/Users/noone/aios/red-team-tools/ACTIVATE_AUTHENTICATION.md</code>
+                </div>
+            </div>
+        </div>
+
+        <div class="center" style="margin-top: 40px;">
+            <a href="https://supabase.com/dashboard" target="_blank" class="btn">
+                🚀 Go to Supabase Dashboard
+            </a>
+            <a href="login.html" class="btn">
+                🔐 Test Login Page
+            </a>
+        </div>
+
+        <div class="center" style="margin-top: 30px; color: #888;">
+            <p>Copyright (c) 2025 Joshua Hendricks Cole (DBA: Corporation of Light). All Rights Reserved. PATENT PENDING.</p>
+        </div>
+    </div>
+<script src="js/visitor-counter.js"></script>
+</body>
+</html>

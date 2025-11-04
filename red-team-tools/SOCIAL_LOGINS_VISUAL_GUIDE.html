@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enable Social Logins - Quick Guide</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0000 100%);
+            color: #fff;
+            padding: 40px 20px;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        h1 { color: #ff6666; font-size: 2.5em; margin-bottom: 20px; text-align: center; }
+        .provider-card {
+            background: linear-gradient(135deg, rgba(26, 26, 46, 0.8), rgba(15, 52, 96, 0.4));
+            border: 2px solid #ff6666;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        .provider-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .provider-icon {
+            font-size: 3em;
+        }
+        .provider-title {
+            font-size: 2em;
+            color: #ff9999;
+        }
+        .difficulty {
+            background: #ffa500;
+            color: #000;
+            padding: 5px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-left: auto;
+        }
+        .difficulty.easy { background: #00ff00; }
+        .difficulty.medium { background: #ffa500; }
+        .difficulty.hard { background: #ff3333; }
+        .step {
+            background: rgba(15, 52, 96, 0.3);
+            border-left: 3px solid #4ecca3;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        .step h3 {
+            color: #4ecca3;
+            margin-bottom: 10px;
+        }
+        .code-box {
+            background: #0a0a0a;
+            border: 1px solid #ff6666;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            overflow-x: auto;
+            color: #00ff00;
+        }
+        .highlight {
+            color: #ffcc00;
+            font-weight: bold;
+        }
+        .btn {
+            background: linear-gradient(135deg, #ff3333, #ff6666);
+            color: #fff;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px 5px;
+            transition: all 0.3s;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 51, 51, 0.5);
+        }
+        .callback-box {
+            background: rgba(255, 165, 0, 0.2);
+            border: 2px solid #ffa500;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .callback-box code {
+            color: #4ecca3;
+            font-size: 1.1em;
+        }
+        ul { margin-left: 20px; line-height: 2; }
+        .warning {
+            background: rgba(255, 0, 0, 0.1);
+            border-left: 4px solid #ff3333;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        .success {
+            background: rgba(0, 255, 0, 0.1);
+            border-left: 4px solid #00ff00;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔐 Enable Social Logins</h1>
+        <p style="text-align: center; color: #ffcccc; margin-bottom: 40px; font-size: 1.2em;">
+            GitHub • Google • Apple
+        </p>
+
+        <div class="callback-box">
+            <h3 style="color: #ffa500; margin-bottom: 10px;">🔑 YOUR CALLBACK URL (Use for ALL providers)</h3>
+            <code>https://trokobwiphidmrmhwkni.supabase.co/auth/v1/callback</code>
+            <p style="margin-top: 10px; color: #aaa;">Copy this - you'll need it for each provider!</p>
+        </div>
+
+        <!-- GITHUB -->
+        <div class="provider-card">
+            <div class="provider-header">
+                <div class="provider-icon">🐙</div>
+                <div>
+                    <div class="provider-title">GitHub Login</div>
+                    <div style="color: #aaa;">Easiest & Fastest</div>
+                </div>
+                <div class="difficulty easy">EASY - 2 MIN</div>
+            </div>
+
+            <div class="step">
+                <h3>Step 1: Create OAuth App on GitHub</h3>
+                <a href="https://github.com/settings/developers" target="_blank" class="btn">
+                    🚀 Go to GitHub Developer Settings
+                </a>
+                <ul>
+                    <li>Click <strong>"OAuth Apps"</strong> in sidebar</li>
+                    <li>Click <strong>"New OAuth App"</strong></li>
+                    <li>Fill in the form:</li>
+                </ul>
+                <div class="code-box">
+Application name: Red Team Tools<br>
+Homepage URL: https://red-team-tools.aios.is<br>
+<span class="highlight">Callback URL: https://trokobwiphidmrmhwkni.supabase.co/auth/v1/callback</span>
+                </div>
+                <ul>
+                    <li>Click <strong>"Register application"</strong></li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <h3>Step 2: Get Credentials</h3>
+                <ul>
+                    <li>Copy the <span class="highlight">Client ID</span></li>
+                    <li>Click <strong>"Generate a new client secret"</strong></li>
+                    <li>Copy the <span class="highlight">Client Secret</span> immediately (shown only once!)</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <h3>Step 3: Configure in Supabase</h3>
+                <p>Back in Supabase (where you are now):</p>
+                <ul>
+                    <li>Find <strong>GitHub</strong> provider</li>
+                    <li>Toggle it <span class="highlight">ON</span></li>
+                    <li>Paste <strong>Client ID</strong></li>
+                    <li>Paste <strong>Client Secret</strong></li>
+                    <li>Click <strong>Save</strong></li>
+                </ul>
+                <div class="success">
+                    ✅ Done! GitHub login enabled.
+                </div>
+            </div>
+        </div>
+
+        <!-- GOOGLE -->
+        <div class="provider-card">
+            <div class="provider-header">
+                <div class="provider-icon">🔍</div>
+                <div>
+                    <div class="provider-title">Google Login</div>
+                    <div style="color: #aaa;">Most Popular</div>
+                </div>
+                <div class="difficulty medium">MEDIUM - 5 MIN</div>
+            </div>
+
+            <div class="step">
+                <h3>Step 1: Create Google Cloud Project</h3>
+                <a href="https://console.cloud.google.com/" target="_blank" class="btn">
+                    🚀 Go to Google Cloud Console
+                </a>
+                <ul>
+                    <li>Click project dropdown at top</li>
+                    <li>Click <strong>"New Project"</strong></li>
+                    <li>Name: <code>Red Team Tools</code></li>
+                    <li>Click <strong>Create</strong></li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <h3>Step 2: Enable Google+ API</h3>
+                <ul>
+                    <li>In sidebar: <strong>"APIs & Services"</strong> → <strong>"Library"</strong></li>
+                    <li>Search: <code>Google+ API</code></li>
+                    <li>Click it, then click <strong>"Enable"</strong></li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <h3>Step 3: Configure OAuth Consent Screen</h3>
+                <ul>
+                    <li>Go to <strong>"APIs & Services"</strong> → <strong>"Credentials"</strong></li>
+                    <li>Click <strong>"CONFIGURE CONSENT SCREEN"</strong></li>
+                    <li>Choose <strong>External</strong></li>
+                    <li>Fill in:
+                        <div class="code-box">
+App name: Red Team Tools<br>
+User support email: your@email.com<br>
+Developer contact: your@email.com
+                        </div>
+                    </li>
+                    <li>Click <strong>Save and Continue</strong> (skip scopes)</li>
+                    <li>Click <strong>Back to Dashboard</strong></li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <h3>Step 4: Create OAuth Client ID</h3>
+                <ul>
+                    <li>Go to <strong>"Credentials"</strong></li>
+                    <li>Click <strong>"+ CREATE CREDENTIALS"</strong> → <strong>"OAuth client ID"</strong></li>
+                    <li>Application type: <strong>Web application</strong></li>
+                    <li>Name: <code>Red Team Tools</code></li>
+                    <li>Authorized redirect URIs:
+                        <div class="code-box">
+<span class="highlight">https://trokobwiphidmrmhwkni.supabase.co/auth/v1/callback</span>
+                        </div>
+                    </li>
+                    <li>Click <strong>Create</strong></li>
+                    <li>Copy <strong>Client ID</strong> and <strong>Client Secret</strong></li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <h3>Step 5: Configure in Supabase</h3>
+                <p>Back in Supabase:</p>
+                <ul>
+                    <li>Find <strong>Google</strong> provider</li>
+                    <li>Toggle it <span class="highlight">ON</span></li>
+                    <li>Paste <strong>Client ID</strong></li>
+                    <li>Paste <strong>Client Secret</strong></li>
+                    <li>Click <strong>Save</strong></li>
+                </ul>
+                <div class="success">
+                    ✅ Done! Google login enabled.
+                </div>
+            </div>
+        </div>
+
+        <!-- APPLE -->
+        <div class="provider-card">
+            <div class="provider-header">
+                <div class="provider-icon">🍎</div>
+                <div>
+                    <div class="provider-title">Apple Login</div>
+                    <div style="color: #aaa;">Requires Apple Developer Account ($99/year)</div>
+                </div>
+                <div class="difficulty hard">HARD - 10+ MIN</div>
+            </div>
+
+            <div class="warning">
+                ⚠️ <strong>Prerequisites:</strong> You need an Apple Developer account ($99/year).<br>
+                If you don't have one, skip Apple for now and do GitHub + Google first.
+            </div>
+
+            <div class="step">
+                <h3>Step 1: Create Service ID</h3>
+                <a href="https://developer.apple.com/account/resources/identifiers/list" target="_blank" class="btn">
+                    🚀 Go to Apple Developer
+                </a>
+                <ul>
+                    <li>Click <strong>"+"</strong> to add identifier</li>
+                    <li>Select <strong>"Services IDs"</strong>, click <strong>Continue</strong></li>
+                    <li>Fill in:
+                        <div class="code-box">
+Description: Red Team Tools<br>
+Identifier: com.corporationoflight.redteamtools
+                        </div>
+                    </li>
+                    <li>Click <strong>Continue</strong>, then <strong>Register</strong></li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <h3>Step 2: Configure Sign In with Apple</h3>
+                <ul>
+                    <li>Click on the Service ID you created</li>
+                    <li>Check <strong>"Sign In with Apple"</strong></li>
+                    <li>Click <strong>Configure</strong></li>
+                    <li>Fill in:
+                        <div class="code-box">
+Domains: red-team-tools.aios.is<br>
+<span class="highlight">Return URLs: https://trokobwiphidmrmhwkni.supabase.co/auth/v1/callback</span>
+                        </div>
+                    </li>
+                    <li>Click <strong>Save</strong>, <strong>Continue</strong>, <strong>Save</strong></li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <h3>Step 3: Create Private Key</h3>
+                <a href="https://developer.apple.com/account/resources/authkeys/list" target="_blank" class="btn">
+                    🔑 Go to Keys
+                </a>
+                <ul>
+                    <li>Click <strong>"+"</strong></li>
+                    <li>Key Name: <code>Red Team Tools Auth Key</code></li>
+                    <li>Check <strong>"Sign In with Apple"</strong>, click <strong>Configure</strong></li>
+                    <li>Select your Service ID, click <strong>Save</strong></li>
+                    <li>Click <strong>Continue</strong>, then <strong>Register</strong></li>
+                    <li><strong>Download the .p8 file</strong> (only shown once!)</li>
+                    <li>Note the <strong>Key ID</strong></li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <h3>Step 4: Get Team ID</h3>
+                <ul>
+                    <li>Go to <a href="https://developer.apple.com/account" target="_blank">Apple Developer Account</a></li>
+                    <li>Your <strong>Team ID</strong> is in top right corner</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <h3>Step 5: Configure in Supabase</h3>
+                <p>Back in Supabase:</p>
+                <ul>
+                    <li>Find <strong>Apple</strong> provider</li>
+                    <li>Toggle it <span class="highlight">ON</span></li>
+                    <li>Fill in:
+                        <div class="code-box">
+Services ID: com.corporationoflight.redteamtools<br>
+Team ID: [from step 4]<br>
+Key ID: [from step 3]<br>
+Private Key: [open .p8 file, copy entire contents]
+                        </div>
+                    </li>
+                    <li>Click <strong>Save</strong></li>
+                </ul>
+                <div class="success">
+                    ✅ Done! Apple login enabled.
+                </div>
+            </div>
+        </div>
+
+        <!-- TESTING -->
+        <div class="provider-card" style="border-color: #00ff00;">
+            <h2 style="color: #00ff00; margin-bottom: 20px;">✅ Testing Your Social Logins</h2>
+
+            <div class="step">
+                <h3>Test Each Provider</h3>
+                <ol>
+                    <li>Go to your login page</li>
+                    <li>Click "Continue with [Provider]"</li>
+                    <li>Authorize the app</li>
+                    <li>Should redirect to dashboard</li>
+                    <li>Check Supabase <strong>Authentication → Users</strong> for new user</li>
+                </ol>
+            </div>
+
+            <div class="callback-box" style="background: rgba(0, 255, 0, 0.1); border-color: #00ff00;">
+                <h3 style="color: #00ff00;">🎉 Next Steps</h3>
+                <p>After enabling providers in Supabase, you need to add social login buttons to your login page.</p>
+                <p style="margin-top: 10px;">See <code>ENABLE_SOCIAL_LOGINS.md</code> for the button code!</p>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin: 40px 0;">
+            <h2 style="color: #ff9999; margin-bottom: 20px;">📋 Quick Checklist</h2>
+            <div style="text-align: left; max-width: 600px; margin: 0 auto; background: rgba(15, 52, 96, 0.3); padding: 20px; border-radius: 10px;">
+                <ul style="list-style: none;">
+                    <li style="padding: 10px; border-bottom: 1px solid #333;">☐ Enable GitHub (2 min - easiest)</li>
+                    <li style="padding: 10px; border-bottom: 1px solid #333;">☐ Enable Google (5 min - popular)</li>
+                    <li style="padding: 10px; border-bottom: 1px solid #333;">☐ Enable Apple (10 min - optional)</li>
+                    <li style="padding: 10px; border-bottom: 1px solid #333;">☐ Add social buttons to login.html</li>
+                    <li style="padding: 10px;">☐ Test each provider</li>
+                </ul>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 40px; color: #888;">
+            <p>Copyright (c) 2025 Joshua Hendricks Cole (DBA: Corporation of Light). All Rights Reserved. PATENT PENDING.</p>
+        </div>
+    </div>
+<script src="js/visitor-counter.js"></script>
+</body>
+</html>

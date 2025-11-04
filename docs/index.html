@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ai|oS - Quantum-Enhanced Autonomous Operating System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #00ff88;
+            --secondary: #ff00ff;
+            --quantum-blue: #00d4ff;
+            --quantum-purple: #a855f7;
+            --dark: #0a0a0a;
+            --darker: #050505;
+            --light: #ffffff;
+            --accent: #ffaa00;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--darker);
+            color: var(--light);
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 80px;
+            background: linear-gradient(180deg, rgba(10, 10, 26, 0.95) 0%, rgba(5, 5, 5, 0.9) 100%);
+            border-bottom: 2px solid var(--primary);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 1200px;
+            padding: 0 40px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--primary);
+            text-shadow: 0 0 10px var(--primary);
+            letter-spacing: 2px;
+        }
+
+        .logo span {
+            color: var(--quantum-blue);
+        }
+
+        nav {
+            display: flex;
+            gap: 40px;
+        }
+
+        nav a {
+            color: var(--light);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        /* Background */
+        .quantum-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: linear-gradient(180deg, #0a0a1a 0%, #000511 50%, #000000 100%);
+        }
+
+        .quantum-grid {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(0, 255, 136, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 136, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        /* Main Content */
+        main {
+            margin-top: 80px;
+            padding: 60px 40px;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            margin-bottom: 80px;
+            animation: fadeIn 1s ease-in;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--quantum-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 30px;
+        }
+
+        /* Chapters/Modes Section */
+        .chapters {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-bottom: 80px;
+        }
+
+        .chapter {
+            background: linear-gradient(180deg, rgba(0, 255, 136, 0.05), rgba(0, 212, 255, 0.05));
+            border: 2px solid rgba(0, 255, 136, 0.2);
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s;
+        }
+
+        .chapter:hover {
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .chapter h2 {
+            color: var(--primary);
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .chapter-desc {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .tools-list {
+            list-style: none;
+        }
+
+        .tools-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(0, 255, 136, 0.1);
+        }
+
+        .tools-list li:last-child {
+            border-bottom: none;
+        }
+
+        .tools-list a {
+            color: var(--quantum-blue);
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.3s;
+        }
+
+        .tools-list a:hover {
+            color: var(--primary);
+        }
+
+        /* Tool Count Badge */
+        .tool-count {
+            display: inline-block;
+            background: var(--quantum-purple);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+
+        /* Features Grid */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 80px;
+        }
+
+        .feature-card {
+            background: rgba(0, 255, 136, 0.05);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .feature-icon {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .feature-card h3 {
+            color: var(--primary);
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .feature-card p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 0 20px;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+            nav {
+                gap: 20px;
+                font-size: 12px;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            main {
+                padding: 40px 20px;
+                margin-top: 60px;
+            }
+
+            header {
+                height: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="quantum-bg">
+        <div class="quantum-grid"></div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo">Ai|oS<span>™</span></div>
+            <nav>
+                <a href="#security">Security</a>
+                <a href="#ai-ml">AI/ML</a>
+                <a href="#quantum">Quantum</a>
+                <a href="#legal">Legal</a>
+                <a href="#deployment">Deployment</a>
+                <a href="https://github.com/workofarttattoo/aios" target="_blank">GitHub</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero -->
+        <section class="hero">
+            <h1>Ai|oS™</h1>
+            <p>Quantum-Enhanced Autonomous Operating System</p>
+            <p style="font-size: 14px; color: rgba(0, 255, 136, 0.8);">Agentic control-plane with meta-agent orchestration & sovereign security toolkit</p>
+        </section>
+
+        <!-- Chapters/Modes -->
+        <section class="chapters">
+            <!-- Security Chapter -->
+            <div class="chapter" id="security">
+                <h2>🔒 Security & Defense</h2>
+                <p class="chapter-desc">Defensive security toolkit with reconnaissance, analysis, and hardening tools.</p>
+                <ul class="tools-list">
+                    <li><a href="https://github.com/workofarttattoo/aios/tree/main/tools#aurorascan" target="_blank">🌐 AuroraScan</a> - Network reconnaissance & asset discovery</li>
+                    <li><a href="https://github.com/workofarttattoo/aios/tree/main/tools#cipherspear" target="_blank">💾 CipherSpear</a> - Database injection & SQL analysis</li>
+                    <li><a href="https://github.com/workofarttattoo/aios/tree/main/tools#skybreaker" target="_blank">📡 SkyBreaker</a> - Wireless security & RF analysis</li>
+                    <li><a href="https://github.com/workofarttattoo/aios/tree/main/tools#spectratrace" target="_blank">📊 SpectraTrace</a> - Packet inspection & network analysis</li>
+                    <li><a href="https://github.com/workofarttattoo/aios/tree/main/tools#obsidianhunt" target="_blank">🔍 ObsidianHunt</a> - Host hardening & compliance audit</li>
+                    <li><a href="https://github.com/workofarttattoo/aios/tree/main/tools#nemesishydra" target="_blank">🔐 NemesisHydra</a> - Authentication & credential analysis</li>
+                    <li><a href="https://github.com/workofarttattoo/aios/tree/main/tools#vectorflux" target="_blank">🎯 VectorFlux</a> - Payload staging & threat simulation</li>
+                </ul>
+                <div class="tool-count">7 Tools</div>
+            </div>
+
+            <!-- AI/ML Chapter -->
+            <div class="chapter" id="ai-ml">
+                <h2>🤖 AI & Machine Learning</h2>
+                <p class="chapter-desc">State-of-the-art ML algorithms: Mamba, flow matching, MCTS, Bayesian inference, and more.</p>
+                <ul class="tools-list">
+                    <li><a href="https://github.com/workofarttattoo/aios/blob/main/ml_algorithms.py" target="_blank">📈 Mamba/SSM</a> - Efficient sequence modeling (O(n))</li>
+                    <li><a href="https://github.com/workofarttattoo/aios/blob/main/ml_algorithms.py" target="_blank">🌊 Flow Matching</a> - Fast generative modeling</li>
+                    <li><a href="https://github.com/workofarttattoo/aios/blob/main/ml_algorithms.py" target="_blank">🎮 Neural Guided MCTS</a> - AlphaGo-style planning</li>
+                    <li><a href="https://github.com/workofarttattoo/aios/blob/main/ml_algorithms.py" target="_blank">🔬 Bayesian Inference</a> - NUTS HMC sampling</li>
+                    <li><a href="https://github.com/workofarttattoo/aios/blob/main/ml_algorithms.py" target="_blank">📊 Particle Filter</a> - Sequential Monte Carlo</li>
+                    <li><a href="https://github.com/workofarttattoo/aios/blob/main/ml_algorithms.py" target="_blank">📍 Gaussian Processes</a> - Scalable regression with uncertainty</li>
+                    <li><a href="https://github.com/workofarttattoo/aios/blob/main/ml_algorithms.py" target="_blank">🧠 NAS Controller</a> - Automatic architecture search</li>
+                </ul>
+                <div class="tool-count">7+ Algorithms</div>
+            </div>
+
+            <!-- Quantum Chapter -->
+            <div class="chapter" id="quantum">
+                <h2>⚛️ Quantum Computing</h2>
+                <p class="chapter-desc">Quantum simulation (1-50 qubits), VQE, and quantum-enhanced ML algorithms.</p>
+                <ul class="tools-list">
+                    <li><a href="https://github.com/workofarttattoo/aios/blob/main/quantum_ml_algorithms.py" target="_blank">🔋 Quantum State Engine</a> - Universal quantum simulator</li>
+                    <li><a href="https://github.com/workofarttattoo/aios/blob/main/quantum_ml_algorithms.py" target="_blank">⚡ Variational VQE</a> - Ground state finding</li>
+                    <li><a href="https://github.com/workofarttattoo/aios/blob/main/quantum_ml_algorithms.py" target="_blank">🌐 Quantum ML Algorithms</a> - Hybrid classical-quantum</li>
+                    <li><a href="https://github.com/Workofarttattoo/qiskit" target="_blank">🧬 Qiskit Integration</a> - IBM quantum framework</li>
+                    <li><a href="https://github.com/workofarttattoo/aios/blob/main/autonomous_discovery.py" target="_blank">🚀 Oracle Engine</a> - Probabilistic forecasting with quantum projection</li>
+                </ul>
+                <div class="tool-count">5+ Quantum Capabilities</div>
+            </div>
+
+            <!-- Legal & Intelligence Chapter -->
+            <div class="chapter" id="legal">
+                <h2>⚖️ Legal & Intelligence</h2>
+                <p class="chapter-desc">TheGAVLSuite for legal analysis, rituals, and agentic decision-making.</p>
+                <ul class="tools-list">
+                    <li><a href="https://github.com/Workofarttattoo/TheGAVLSuite" target="_blank">📋 GAVL Analysis Engine</a> - Legal case analysis & research</li>
+                    <li><a href="https://github.com/Workofarttattoo/TheGAVLSuite" target="_blank">🧩 Boardroom of Light</a> - Executive simulation & decision support</li>
+                    <li><a href="https://github.com/Workofarttattoo/TheGAVLSuite" target="_blank">🤖 Jiminy Cricket</a> - Conscience & ethical guidance</li>
+                    <li><a href="https://github.com/Workofarttattoo/TheGAVLSuite" target="_blank">🎭 Agentic Ritual Engine</a> - Autonomous agent orchestration</li>
+                </ul>
+                <div class="tool-count">4+ Legal Tools</div>
+            </div>
+
+            <!-- Deployment Chapter -->
+            <div class="chapter" id="deployment">
+                <h2>🚀 Deployment & Orchestration</h2>
+                <p class="chapter-desc">Multi-cloud, containerization, virtualization, and infrastructure automation.</p>
+                <ul class="tools-list">
+                    <li><a href="https://github.com/workofarttattoo/aios/blob/main/providers.py" target="_blank">☁️ Multi-Cloud Providers</a> - AWS, Azure, GCP, Docker</li>
+                    <li><a href="https://github.com/workofarttattoo/aios/blob/main/virtualization.py" target="_blank">🖥️ Virtualization Layer</a> - QEMU, libvirt, VM management</li>
+                    <li><a href="https://github.com/workofarttattoo/aios/blob/main/runtime.py" target="_blank">⚙️ Runtime Engine</a> - Manifest-driven orchestration</li>
+                    <li><a href="https://github.com/workofarttattoo/aios/blob/main/config.py" target="_blank">📋 Manifest System</a> - Declarative infrastructure</li>
+                </ul>
+                <div class="tool-count">4+ Systems</div>
+            </div>
+
+            <!-- Autonomous Discovery Chapter -->
+            <div class="chapter" id="discovery">
+                <h2>🧠 Autonomous Discovery</h2>
+                <p class="chapter-desc">Level 4 autonomous LLM agents with self-directed learning and knowledge graphs.</p>
+                <ul class="tools-list">
+                    <li><a href="https://github.com/workofarttattoo/aios/blob/main/autonomous_discovery.py" target="_blank">🤖 AutonomousLLMAgent</a> - Self-directed learning</li>
+                    <li><a href="https://github.com/workofarttattoo/aios/blob/main/autonomous_discovery.py" target="_blank">⚡ Ultra-Fast Inference</a> - 60k+ tokens/sec</li>
+                    <li><a href="https://github.com/workofarttattoo/aios/blob/main/autonomous_discovery.py" target="_blank">📊 Knowledge Graphs</a> - Semantic learning representation</li>
+                    <li><a href="https://github.com/workofarttattoo/aios/blob/main/autonomous_discovery.py" target="_blank">🎓 Continuous Learning</a> - Multi-cycle autonomous improvement</li>
+                </ul>
+                <div class="tool-count">4+ Discovery Systems</div>
+            </div>
+        </section>
+
+        <!-- Features -->
+        <section class="features">
+            <div class="feature-card">
+                <div class="feature-icon">🔐</div>
+                <h3>Sovereign Security</h3>
+                <p>Defensive-only security toolkit with 7+ specialized tools for assessment and hardening</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚛️</div>
+                <h3>Quantum-Ready</h3>
+                <p>1-50 qubit simulator with VQE, tensor networks, and quantum-enhanced ML</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🤖</div>
+                <h3>Autonomous Agents</h3>
+                <p>Level 4 autonomous LLM agents with self-directed learning and knowledge graphs</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Advanced ML</h3>
+                <p>Mamba, flow matching, MCTS, Bayesian inference, particle filters, and AutoML</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">☁️</div>
+                <h3>Multi-Cloud</h3>
+                <p>Deploy to AWS, Azure, GCP, Docker, QEMU, or on-premise infrastructure</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚙️</div>
+                <h3>Manifest-Driven</h3>
+                <p>Declarative configuration for infrastructure, agents, and orchestration</p>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Smooth scrolling for nav links
+        document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

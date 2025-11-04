@@ -1,0 +1,74 @@
+
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Email Capture Example</title>
+            <!-- Google Analytics -->
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+            <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'G-XXXXXXXXXX');
+            </script>
+        </head>
+        <body style="font-family: -apple-system, BlinkMacSystemFont, sans-serif; padding: 20px;">
+            <h1>AuroraScan Security Tool</h1>
+            
+        <div class="roi-email-capture" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px; border-radius: 10px; margin: 20px 0;">
+            <h3 style="color: white; margin-bottom: 10px;">🚀 Get AuroraScan Pro Features Free</h3>
+            <p style="color: rgba(255,255,255,0.9); margin-bottom: 15px;">
+                Join 10,000+ security professionals using AuroraScan
+            </p>
+            <form onsubmit="trackEmailCapture(event, 'AuroraScan')" style="display: flex; gap: 10px;">
+                <input type="email" placeholder="Enter your email" required
+                       style="flex: 1; padding: 10px; border-radius: 5px; border: none;">
+                <button type="submit" style="padding: 10px 20px; background: white; color: #667eea;
+                        border: none; border-radius: 5px; font-weight: bold; cursor: pointer;">
+                    Get Free Access
+                </button>
+            </form>
+        
+            <div style="margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 5px;">
+                <span style="background: #fbbf24; color: black; padding: 2px 8px; border-radius: 3px;
+                      font-size: 12px; font-weight: bold;">FLOWSTATE ENTERPRISE</span>
+                <p style="color: white; margin: 10px 0;">
+                    ⚡ Unlock unlimited scans, API access, and priority support
+                </p>
+                <a href="#" onclick="trackFlowStateClick('AuroraScan')"
+                   style="display: inline-block; padding: 8px 16px; background: #fbbf24;
+                   color: black; text-decoration: none; border-radius: 5px; font-weight: bold;">
+                    Start Free Trial →
+                </a>
+            </div>
+            
+        </div>
+        <script>
+        function trackEmailCapture(e, tool) {
+            e.preventDefault();
+            // Send to analytics
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'email_capture', {
+                    'tool_name': tool,
+                    'timestamp': new Date().toISOString()
+                });
+            }
+            console.log('Email captured for tool:', tool);
+            alert('Thank you! Check your email for access instructions.');
+        }
+
+        function trackFlowStateClick(tool) {
+            // Send to analytics
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'flowstate_click', {
+                    'tool_name': tool,
+                    'timestamp': new Date().toISOString()
+                });
+            }
+            console.log('FlowState CTA clicked for tool:', tool);
+        }
+        </script>
+        
+        </body>
+        </html>
+        

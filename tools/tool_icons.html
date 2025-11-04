@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ai|oS Security Tool Icons</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Courier New', monospace;
+            background: #000;
+            color: #fff;
+            padding: 30px;
+        }
+        h1 {
+            text-align: center;
+            color: #ff00ff;
+            margin-bottom: 40px;
+            font-size: 36px;
+            text-shadow: 0 0 20px #ff00ff;
+        }
+        .icon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .icon-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            border: 2px solid var(--color);
+            transition: all 0.3s;
+        }
+        .icon-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px var(--color);
+        }
+        .icon-card svg {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 10px var(--color));
+        }
+        .tool-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--color);
+            margin-bottom: 5px;
+        }
+        .tool-desc {
+            font-size: 12px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎨 Ai|oS Security Tool Icons</h1>
+    <div class="icon-grid">
+
+        <!-- DirReaper -->
+        <div class="icon-card" style="--color: #8800cc;">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <!-- Grim Reaper Scythe -->
+                <path d="M20 80 L30 50 L40 30 L50 20 L60 25 L70 35 L75 50 L78 65"
+                      stroke="#8800cc" stroke-width="3" fill="none"/>
+                <circle cx="78" cy="65" r="15" fill="#8800cc" opacity="0.7"/>
+                <path d="M78 65 Q90 60, 95 55" stroke="#aa33ff" stroke-width="4" fill="none"/>
+                <!-- Hood -->
+                <path d="M35 30 Q50 15, 65 30 L65 45 Q50 35, 35 45 Z" fill="#660099"/>
+                <circle cx="45" cy="38" r="3" fill="#ff0000"/>
+                <circle cx="55" cy="38" r="3" fill="#ff0000"/>
+            </svg>
+            <div class="tool-name">💀 DirReaper</div>
+            <div class="tool-desc">Directory Enumeration</div>
+        </div>
+
+        <!-- ProxyPhantom -->
+        <div class="icon-card" style="--color: #ff6600;">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <!-- Phantom Fox Head -->
+                <path d="M30 60 Q20 50, 25 35 L30 30 L35 25 Q40 20, 50 20 Q60 20, 65 25 L70 30 L75 35 Q80 50, 70 60 L65 70 Q50 75, 35 70 Z"
+                      fill="#ff6600" opacity="0.8"/>
+                <!-- Ears -->
+                <path d="M30 30 L25 15 L35 25" fill="#ffaa00"/>
+                <path d="M70 30 L75 15 L65 25" fill="#ffaa00"/>
+                <!-- Eyes -->
+                <circle cx="40" cy="45" r="5" fill="#fff"/>
+                <circle cx="60" cy="45" r="5" fill="#fff"/>
+                <circle cx="42" cy="45" r="3" fill="#000"/>
+                <circle cx="62" cy="45" r="3" fill="#000"/>
+                <!-- Nose -->
+                <path d="M50 55 L45 58 L50 60 L55 58 Z" fill="#cc5500"/>
+                <!-- Spirit flames -->
+                <path d="M35 70 Q30 80, 32 90" stroke="#ff9933" stroke-width="2" opacity="0.6"/>
+                <path d="M65 70 Q70 80, 68 90" stroke="#ff9933" stroke-width="2" opacity="0.6"/>
+            </svg>
+            <div class="tool-name">🦊 ProxyPhantom</div>
+            <div class="tool-desc">HTTP/HTTPS Proxy</div>
+        </div>
+
+        <!-- VulnHunter -->
+        <div class="icon-card" style="--color: #cc0000;">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <!-- Target Crosshair -->
+                <circle cx="50" cy="50" r="35" stroke="#cc0000" stroke-width="3" fill="none"/>
+                <circle cx="50" cy="50" r="25" stroke="#ff3333" stroke-width="2" fill="none"/>
+                <circle cx="50" cy="50" r="15" stroke="#cc0000" stroke-width="2" fill="none"/>
+                <circle cx="50" cy="50" r="8" fill="#ff0000"/>
+                <!-- Crosshair lines -->
+                <line x1="50" y1="10" x2="50" y2="35" stroke="#cc0000" stroke-width="3"/>
+                <line x1="50" y1="65" x2="50" y2="90" stroke="#cc0000" stroke-width="3"/>
+                <line x1="10" y1="50" x2="35" y2="50" stroke="#cc0000" stroke-width="3"/>
+                <line x1="65" y1="50" x2="90" y2="50" stroke="#cc0000" stroke-width="3"/>
+                <!-- Blood drops -->
+                <path d="M30 80 Q28 85, 30 90" fill="#990000"/>
+                <path d="M70 80 Q72 85, 70 90" fill="#990000"/>
+            </svg>
+            <div class="tool-name">🎯 VulnHunter</div>
+            <div class="tool-desc">Vulnerability Scanner</div>
+        </div>
+
+        <!-- PayloadForge -->
+        <div class="icon-card" style="--color: #ff00ff;">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <!-- Lightning Bolt -->
+                <path d="M50 10 L35 45 L50 45 L40 90 L70 50 L55 50 L65 10 Z"
+                      fill="url(#lightning-gradient)"/>
+                <defs>
+                    <linearGradient id="lightning-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:#ff00ff;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#cc00cc;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <!-- Electric sparks -->
+                <circle cx="30" cy="35" r="3" fill="#ff33ff"/>
+                <circle cx="70" cy="55" r="3" fill="#ff33ff"/>
+                <circle cx="45" cy="25" r="2" fill="#fff"/>
+                <circle cx="60" cy="70" r="2" fill="#fff"/>
+            </svg>
+            <div class="tool-name">⚡ PayloadForge</div>
+            <div class="tool-desc">Exploit Framework</div>
+        </div>
+
+        <!-- NmapPro -->
+        <div class="icon-card" style="--color: #00ff88;">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <!-- Radar circles -->
+                <circle cx="50" cy="50" r="40" stroke="#00ff88" stroke-width="2" fill="none" opacity="0.3"/>
+                <circle cx="50" cy="50" r="30" stroke="#00ff88" stroke-width="2" fill="none" opacity="0.5"/>
+                <circle cx="50" cy="50" r="20" stroke="#00ff88" stroke-width="2" fill="none" opacity="0.7"/>
+                <circle cx="50" cy="50" r="5" fill="#00ff88"/>
+                <!-- Radar sweep -->
+                <path d="M50 50 L50 10" stroke="#00ff88" stroke-width="3" opacity="0.8"/>
+                <path d="M50 50 L85 35" stroke="#00cc6f" stroke-width="2" opacity="0.6"/>
+                <!-- Network nodes -->
+                <circle cx="35" cy="25" r="4" fill="#00ff00"/>
+                <circle cx="70" cy="30" r="4" fill="#00ff00"/>
+                <circle cx="30" cy="70" r="4" fill="#00ff00"/>
+                <circle cx="75" cy="65" r="4" fill="#00ff00"/>
+                <!-- Connection lines -->
+                <line x1="50" y1="50" x2="35" y2="25" stroke="#00cc6f" stroke-width="1" opacity="0.4"/>
+                <line x1="50" y1="50" x2="70" y2="30" stroke="#00cc6f" stroke-width="1" opacity="0.4"/>
+            </svg>
+            <div class="tool-name">📡 NmapPro</div>
+            <div class="tool-desc">Network Scanner</div>
+        </div>
+
+        <!-- AuroraScan -->
+        <div class="icon-card" style="--color: #00ffff;">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <!-- Aurora waves -->
+                <path d="M10 50 Q25 30, 40 50 T70 50 T100 50" stroke="#00ffff" stroke-width="3" fill="none" opacity="0.8"/>
+                <path d="M10 60 Q25 40, 40 60 T70 60 T100 60" stroke="#88ffaa" stroke-width="2" fill="none" opacity="0.6"/>
+                <path d="M10 70 Q25 50, 40 70 T70 70 T100 70" stroke="#00ccaa" stroke-width="2" fill="none" opacity="0.4"/>
+                <!-- Stars -->
+                <circle cx="20" cy="20" r="2" fill="#fff"/>
+                <circle cx="45" cy="15" r="2" fill="#fff"/>
+                <circle cx="75" cy="25" r="2" fill="#fff"/>
+                <circle cx="85" cy="35" r="2" fill="#fff"/>
+                <!-- Ice crystal -->
+                <path d="M50 80 L50 90 M45 85 L55 85 M47 82 L53 88 M47 88 L53 82"
+                      stroke="#00ffff" stroke-width="2"/>
+            </svg>
+            <div class="tool-name">🌌 AuroraScan</div>
+            <div class="tool-desc">Lightweight Scanner</div>
+        </div>
+
+        <!-- SpectraTrace -->
+        <div class="icon-card" style="--color: #00aaff;">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <!-- Waveform -->
+                <path d="M10 50 L20 30 L30 70 L40 20 L50 80 L60 25 L70 75 L80 35 L90 50"
+                      stroke="#00aaff" stroke-width="3" fill="none"/>
+                <!-- Frequency bars -->
+                <rect x="15" y="55" width="5" height="35" fill="#0088cc" opacity="0.7"/>
+                <rect x="25" y="45" width="5" height="45" fill="#0088cc" opacity="0.7"/>
+                <rect x="35" y="35" width="5" height="55" fill="#00aaff" opacity="0.7"/>
+                <rect x="45" y="30" width="5" height="60" fill="#00ccff" opacity="0.7"/>
+                <rect x="55" y="35" width="5" height="55" fill="#00aaff" opacity="0.7"/>
+                <rect x="65" y="40" width="5" height="50" fill="#0088cc" opacity="0.7"/>
+                <rect x="75" y="50" width="5" height="40" fill="#0088cc" opacity="0.7"/>
+            </svg>
+            <div class="tool-name">🌊 SpectraTrace</div>
+            <div class="tool-desc">Packet Analyzer</div>
+        </div>
+
+        <!-- CipherSpear -->
+        <div class="icon-card" style="--color: #ff3333;">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <!-- Spear -->
+                <path d="M20 80 L40 60 L60 40 L80 20" stroke="#ff3333" stroke-width="4"/>
+                <path d="M80 20 L75 15 L85 10 L90 20 L85 25 L80 20" fill="#cc0000"/>
+                <!-- Database cylinders being pierced -->
+                <ellipse cx="35" cy="65" rx="15" ry="8" fill="none" stroke="#ff6666" stroke-width="2"/>
+                <path d="M20 65 L20 75 Q20 80, 35 80 Q50 80, 50 75 L50 65"
+                      fill="none" stroke="#ff6666" stroke-width="2"/>
+                <!-- SQL injection symbol -->
+                <text x="15" y="50" font-size="12" fill="#ff0000" font-family="monospace">SQL</text>
+            </svg>
+            <div class="tool-name">🗡️ CipherSpear</div>
+            <div class="tool-desc">SQL Injection</div>
+        </div>
+
+        <!-- SkyBreaker -->
+        <div class="icon-card" style="--color: #00ccff;">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <!-- WiFi signal broken -->
+                <path d="M50 70 Q30 60, 20 50" stroke="#00ccff" stroke-width="3" fill="none"/>
+                <path d="M50 70 Q40 65, 30 60" stroke="#00ccff" stroke-width="3" fill="none"/>
+                <circle cx="50" cy="70" r="5" fill="#00ccff"/>
+                <!-- Broken signal lines -->
+                <path d="M50 70 Q70 60, 80 50" stroke="#00ccff" stroke-width="3" fill="none"
+                      stroke-dasharray="5,5"/>
+                <path d="M50 70 Q60 65, 70 60" stroke="#00ccff" stroke-width="3" fill="none"
+                      stroke-dasharray="5,5"/>
+                <!-- Lightning crack -->
+                <path d="M50 10 L45 30 L50 30 L48 50" stroke="#ffff00" stroke-width="2"/>
+            </svg>
+            <div class="tool-name">📡 SkyBreaker</div>
+            <div class="tool-desc">Wireless Auditing</div>
+        </div>
+
+        <!-- MythicKey -->
+        <div class="icon-card" style="--color: #ffd700;">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <!-- Key -->
+                <circle cx="30" cy="30" r="15" fill="none" stroke="#ffd700" stroke-width="3"/>
+                <circle cx="30" cy="30" r="8" fill="none" stroke="#ffd700" stroke-width="2"/>
+                <rect x="37" y="27" width="50" height="6" fill="#ffd700" rx="3"/>
+                <!-- Key teeth -->
+                <rect x="60" y="27" width="5" height="12" fill="#ffd700"/>
+                <rect x="70" y="27" width="5" height="15" fill="#ffd700"/>
+                <rect x="80" y="27" width="5" height="10" fill="#ffd700"/>
+                <!-- Sparkles -->
+                <path d="M25 55 L27 60 L25 65 L23 60 Z M25 60 L20 60 L25 62 L30 60 Z" fill="#ffaa00"/>
+                <path d="M70 50 L72 55 L70 60 L68 55 Z M70 55 L65 55 L70 57 L75 55 Z" fill="#ffaa00"/>
+            </svg>
+            <div class="tool-name">🔑 MythicKey</div>
+            <div class="tool-desc">Password Cracking</div>
+        </div>
+
+        <!-- NemesisHydra -->
+        <div class="icon-card" style="--color: #ff0000;">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <!-- Three serpent heads -->
+                <path d="M30 50 Q20 30, 25 15" stroke="#ff0000" stroke-width="4" fill="none"/>
+                <path d="M50 50 Q50 30, 50 10" stroke="#ff0000" stroke-width="4" fill="none"/>
+                <path d="M70 50 Q80 30, 75 15" stroke="#ff0000" stroke-width="4" fill="none"/>
+                <!-- Heads -->
+                <circle cx="25" cy="15" r="8" fill="#cc0000"/>
+                <circle cx="50" cy="10" r="8" fill="#cc0000"/>
+                <circle cx="75" cy="15" r="8" fill="#cc0000"/>
+                <!-- Eyes -->
+                <circle cx="23" cy="14" r="2" fill="#00ff00"/>
+                <circle cx="48" cy="9" r="2" fill="#00ff00"/>
+                <circle cx="73" cy="14" r="2" fill="#00ff00"/>
+                <!-- Body -->
+                <path d="M20 55 Q50 70, 80 55 L75 75 Q50 85, 25 75 Z" fill="#990000"/>
+            </svg>
+            <div class="tool-name">🐍 NemesisHydra</div>
+            <div class="tool-desc">Login Brute Force</div>
+        </div>
+
+        <!-- ObsidianHunt -->
+        <div class="icon-card" style="--color: #666666;">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <!-- Shield/Fortress -->
+                <path d="M50 10 L80 25 L80 50 Q80 75, 50 90 Q20 75, 20 50 L20 25 Z"
+                      fill="#444444" stroke="#666666" stroke-width="3"/>
+                <!-- Inner shield -->
+                <path d="M50 25 L70 35 L70 50 Q70 65, 50 75 Q30 65, 30 50 L30 35 Z"
+                      fill="#222222"/>
+                <!-- Obsidian cracks -->
+                <path d="M50 10 L45 40 M50 10 L55 40 M50 90 L45 60 M50 90 L55 60"
+                      stroke="#888888" stroke-width="1"/>
+            </svg>
+            <div class="tool-name">⚫ ObsidianHunt</div>
+            <div class="tool-desc">Host Hardening</div>
+        </div>
+
+        <!-- VectorFlux -->
+        <div class="icon-card" style="--color: #9933ff;">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <!-- Portal ring -->
+                <circle cx="50" cy="50" r="35" fill="none" stroke="#9933ff" stroke-width="3" opacity="0.7"/>
+                <circle cx="50" cy="50" r="28" fill="none" stroke="#aa44ff" stroke-width="2" opacity="0.5"/>
+                <circle cx="50" cy="50" r="20" fill="none" stroke="#7700cc" stroke-width="2" opacity="0.3"/>
+                <circle cx="50" cy="50" r="10" fill="#6600aa" opacity="0.8"/>
+                <!-- Vector arrows -->
+                <path d="M50 15 L50 30 M50 15 L45 20 M50 15 L55 20" stroke="#aa44ff" stroke-width="2"/>
+                <path d="M85 50 L70 50 M85 50 L80 45 M85 50 L80 55" stroke="#aa44ff" stroke-width="2"/>
+                <path d="M50 85 L50 70 M50 85 L45 80 M50 85 L55 80" stroke="#aa44ff" stroke-width="2"/>
+                <path d="M15 50 L30 50 M15 50 L20 45 M15 50 L20 55" stroke="#aa44ff" stroke-width="2"/>
+            </svg>
+            <div class="tool-name">🌀 VectorFlux</div>
+            <div class="tool-desc">Payload Staging</div>
+        </div>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Getting Started - Red Team Tools Suite</title>
+    <meta name="description" content="Quick start guide for the Red Team Tools Suite. Install, configure, and run your first security assessment.">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .guide-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+
+        .guide-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .guide-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .step {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .step-number {
+            display: inline-block;
+            background: var(--primary);
+            color: var(--dark-bg);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .step h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .step p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .code-block {
+            background: var(--dark-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .code-block code {
+            color: var(--primary);
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .code-block::before {
+            content: 'Click to copy';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            opacity: 0.5;
+        }
+
+        .code-block:hover {
+            border-color: var(--primary);
+            cursor: pointer;
+        }
+
+        .warning-box {
+            background: rgba(255, 170, 0, 0.1);
+            border-left: 4px solid var(--warning);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+
+        .warning-box strong {
+            color: var(--warning);
+        }
+
+        .info-box {
+            background: rgba(0, 136, 255, 0.1);
+            border-left: 4px solid var(--secondary);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+
+        .success-box {
+            background: rgba(0, 255, 136, 0.1);
+            border-left: 4px solid var(--success);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .quick-link {
+            background: var(--dark-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all 0.3s;
+        }
+
+        .quick-link:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .quick-link-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <span class="logo">🛡️</span>
+                <span class="brand-text">Red Team Tools</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#tools">Tools</a></li>
+                <li><a href="getting-started.html">Get Started</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="https://github.com/Workofarttattoo/AioS" target="_blank" class="github-btn">GitHub</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="guide-container">
+        <div class="guide-header">
+            <h1>Getting Started</h1>
+            <p style="color: var(--text-secondary); font-size: 1.1rem;">Your journey into defensive security begins here</p>
+        </div>
+
+        <div class="warning-box">
+            <p><strong>⚠️ Important:</strong> These tools are designed for <strong>authorized security assessments only</strong>. You MUST have explicit permission before testing any system you don't own. Unauthorized use is illegal and unethical.</p>
+        </div>
+
+        <div class="step">
+            <div class="step-number">1</div>
+            <h2>Clone the Repository</h2>
+            <p>First, clone the Ai:oS repository which includes the Red Team Tools Suite:</p>
+            <div class="code-block"><code># Clone via HTTPS
+git clone https://github.com/Workofarttattoo/AioS.git
+cd AioS
+
+# Or clone via SSH
+git clone git@github.com:Workofarttattoo/AioS.git
+cd AioS</code></div>
+
+            <div class="info-box">
+                <p><strong>ℹ️ Note on Encrypted Files:</strong> Some files are encrypted with git-crypt. You'll see the public interfaces and documentation, but encrypted source code will appear as binary data. This protects proprietary algorithms while keeping usage patterns open.</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-number">2</div>
+            <h2>Install Dependencies</h2>
+            <p>Install the required Python packages:</p>
+            <div class="code-block"><code># Create a virtual environment (recommended)
+python3 -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Install base dependencies
+pip install numpy scipy
+
+# Optional: Install ML/Quantum dependencies
+pip install torch
+
+# Optional: Install development dependencies
+pip install pytest black mypy</code></div>
+
+            <div class="success-box">
+                <p><strong>✅ Lightweight Setup:</strong> The red-team-tools suite has minimal dependencies. Most tools only require NumPy and SciPy!</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-number">3</div>
+            <h2>Verify Installation</h2>
+            <p>Run health checks to ensure everything is working:</p>
+            <div class="code-block"><code># Check AuroraScan
+python -m red-team-tools.aurorascan --health --json
+
+# Check CipherSpear
+python -m red-team-tools.cipherspear --health --json
+
+# Check MythicKey
+python -m red-team-tools.mythickey --health --json</code></div>
+
+            <p>You should see JSON output indicating the health status of each tool.</p>
+        </div>
+
+        <div class="step">
+            <div class="step-number">4</div>
+            <h2>Run Your First Tool in Demo Mode</h2>
+            <p>Try running a tool in safe demo mode (no actual network activity):</p>
+            <div class="code-block"><code># Run AuroraScan in demo mode
+python -m red-team-tools.aurorascan --demo --json
+
+# Run CipherSpear in demo mode
+python -m red-team-tools.cipherspear --demo --json
+
+# Run MythicKey in demo mode
+python -m red-team-tools.mythickey --demo --profile gpu-balanced</code></div>
+
+            <p>Demo mode simulates tool behavior without making actual connections or tests.</p>
+        </div>
+
+        <div class="step">
+            <div class="step-number">5</div>
+            <h2>Explore Individual Tools</h2>
+            <p>Once you're comfortable, explore specific tools:</p>
+
+            <div class="quick-links">
+                <a href="tools/aurorascan.html" class="quick-link">
+                    <div class="quick-link-icon">🔍</div>
+                    <div>AuroraScan</div>
+                </a>
+                <a href="tools/cipherspear.html" class="quick-link">
+                    <div class="quick-link-icon">💉</div>
+                    <div>CipherSpear</div>
+                </a>
+                <a href="tools/mythickey.html" class="quick-link">
+                    <div class="quick-link-icon">🔑</div>
+                    <div>MythicKey</div>
+                </a>
+                <a href="tools/nmappro.html" class="quick-link">
+                    <div class="quick-link-icon">🗺️</div>
+                    <div>NmapPro</div>
+                </a>
+            </div>
+
+            <div class="code-block"><code># Get help for any tool
+python -m red-team-tools.aurorascan --help
+
+# Run with specific options
+python -m red-team-tools.aurorascan 192.168.1.0/24 --profile recon --json
+
+# Use GUI interface (where available)
+python -m red-team-tools.cipherspear --gui</code></div>
+        </div>
+
+        <div class="step">
+            <div class="step-number">6</div>
+            <h2>Integrate with Ai:oS</h2>
+            <p>For advanced usage, integrate tools with the Ai:oS meta-agent system:</p>
+            <div class="code-block"><code># Boot Ai:oS with security manifest
+python aios --manifest aios/examples/manifest-security-response.json --env AGENTA_SECURITY_TOOLS=AuroraScan,CipherSpear -v boot
+
+# Check security agent health
+python aios -v exec security.sovereign_suite
+
+# Run natural language prompts
+python aios -v prompt "scan network and check for vulnerabilities"</code></div>
+
+            <div class="info-box">
+                <p><strong>ℹ️ Ai:oS Integration:</strong> Ai:oS provides meta-agent coordination, automatic health monitoring, and agentic workflows. It's optional but recommended for advanced users.</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-number">7</div>
+            <h2>Best Practices</h2>
+            <p>Follow these best practices for safe and effective use:</p>
+            <ul style="color: var(--text-secondary); margin-left: 2rem; line-height: 1.8;">
+                <li><strong>Always get authorization</strong> before testing any system</li>
+                <li><strong>Start with --demo mode</strong> to understand tool behavior</li>
+                <li><strong>Use --health checks</strong> before production use</li>
+                <li><strong>Test in isolated environments</strong> (VMs, lab networks)</li>
+                <li><strong>Read tool documentation</strong> before running scans</li>
+                <li><strong>Respect rate limits</strong> to avoid disruption</li>
+                <li><strong>Log all activities</strong> for audit trails</li>
+                <li><strong>Report findings responsibly</strong> via proper channels</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <div class="step-number">8</div>
+            <h2>Next Steps</h2>
+            <p>Ready to dive deeper? Here are some suggestions:</p>
+
+            <div class="quick-links">
+                <a href="index.html#tools" class="quick-link">
+                    <div class="quick-link-icon">🛠️</div>
+                    <div>Explore All Tools</div>
+                </a>
+                <a href="algorithms.html" class="quick-link">
+                    <div class="quick-link-icon">🤖</div>
+                    <div>ML Algorithms</div>
+                </a>
+                <a href="faq.html" class="quick-link">
+                    <div class="quick-link-icon">💬</div>
+                    <div>Read FAQ</div>
+                </a>
+                <a href="https://github.com/Workofarttattoo/AioS" class="quick-link">
+                    <div class="quick-link-icon">📖</div>
+                    <div>View on GitHub</div>
+                </a>
+            </div>
+
+            <ul style="color: var(--text-secondary); margin: 2rem 0 0 2rem; line-height: 1.8;">
+                <li>Read the <a href="faq.html" style="color: var(--secondary);">FAQ</a> for common questions</li>
+                <li>Explore the <a href="algorithms.html" style="color: var(--secondary);">ML & Quantum algorithms</a></li>
+                <li>Join discussions on <a href="https://github.com/Workofarttattoo/AioS/issues" style="color: var(--secondary);">GitHub Issues</a></li>
+                <li>Contribute improvements via <a href="https://github.com/Workofarttattoo/AioS/pulls" style="color: var(--secondary);">Pull Requests</a></li>
+                <li>Star the repo to support the project</li>
+            </ul>
+        </div>
+
+        <div class="success-box" style="margin-top: 3rem;">
+            <p style="margin: 0;"><strong>🎉 Congratulations!</strong> You're now ready to explore the Red Team Tools Suite. Remember: with great power comes great responsibility. Use these tools ethically, legally, and with curiosity.</p>
+        </div>
+
+        <div class="warning-box" style="margin-top: 2rem;">
+            <p style="margin: 0;"><strong>⚠️ Need Help?</strong> If you encounter issues, check the <a href="faq.html" style="color: var(--warning); font-weight: 600;">FAQ</a> or open an issue on <a href="https://github.com/Workofarttattoo/AioS/issues" style="color: var(--warning); font-weight: 600;">GitHub</a>. The community is here to help!</p>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Red Team Tools</h4>
+                    <p>Open source defensive security suite built to inspire curiosity and empower the community.</p>
+                    <p class="copyright">Copyright © 2025 Joshua Hendricks Cole<br>DBA: Corporation of Light</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="getting-started.html">Getting Started</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="about.html">About the Creator</a></li>
+                        <li><a href="https://github.com/Workofarttattoo/AioS">GitHub Repository</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="https://github.com/Workofarttattoo/AioS/blob/main/LICENSE">Apache 2.0 License</a></li>
+                        <li>PATENT PENDING</li>
+                        <li><a href="index.html#ethics">Ethics & Responsible Use</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Built with ❤️ and curiosity. Funded out of pocket. Given away free.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Make code blocks copyable
+        document.querySelectorAll('.code-block').forEach(block => {
+            block.addEventListener('click', () => {
+                const code = block.querySelector('code').textContent;
+                navigator.clipboard.writeText(code).then(() => {
+                    block.style.borderColor = 'var(--success)';
+                    setTimeout(() => {
+                        block.style.borderColor = 'var(--border)';
+                    }, 1000);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

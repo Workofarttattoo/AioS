@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>The Hen That Lays Golden Eggs | AI-Powered Ad Agency in a Prompt</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #ffd700 0%, #ff8c00 100%);
+            min-height: 100vh;
+        }
+
+        .golden-header {
+            background: linear-gradient(135deg, #fff8dc, #fffacd);
+            padding: 60px 40px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(255,215,0,0.3);
+        }
+
+        .logo {
+            font-size: 48px;
+            margin-bottom: 10px;
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { text-shadow: 0 0 10px gold, 0 0 20px gold; }
+            50% { text-shadow: 0 0 20px gold, 0 0 40px gold; }
+        }
+
+        .tagline {
+            font-size: 24px;
+            color: #ff8c00;
+            font-weight: 300;
+        }
+
+        .hero-section {
+            background: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-size: 42px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .hero-subtitle {
+            font-size: 20px;
+            color: #666;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .value-props {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        .value-card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            border-top: 5px solid gold;
+        }
+
+        .value-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(255,215,0,0.3);
+        }
+
+        .value-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .value-title {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .value-description {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .process-section {
+            background: linear-gradient(135deg, #fff8dc, #fffacd);
+            padding: 60px 40px;
+        }
+
+        .process-timeline {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .process-step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: fadeIn 0.5s forwards;
+        }
+
+        .process-step:nth-child(1) { animation-delay: 0.1s; }
+        .process-step:nth-child(2) { animation-delay: 0.2s; }
+        .process-step:nth-child(3) { animation-delay: 0.3s; }
+        .process-step:nth-child(4) { animation-delay: 0.4s; }
+        .process-step:nth-child(5) { animation-delay: 0.5s; }
+        .process-step:nth-child(6) { animation-delay: 0.6s; }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .step-number {
+            background: gold;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin-right: 30px;
+            flex-shrink: 0;
+        }
+
+        .step-content h3 {
+            color: #ff8c00;
+            margin-bottom: 10px;
+        }
+
+        .step-time {
+            color: #666;
+            font-size: 14px;
+            font-style: italic;
+        }
+
+        .pricing-section {
+            background: white;
+            padding: 60px 40px;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: linear-gradient(135deg, #fff8dc, #fffacd);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            position: relative;
+            border: 3px solid gold;
+        }
+
+        .pricing-card.featured {
+            transform: scale(1.05);
+            border: 5px solid #ff8c00;
+        }
+
+        .best-value {
+            position: absolute;
+            top: -15px;
+            right: 20px;
+            background: #ff8c00;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .package-name {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .package-price {
+            font-size: 48px;
+            color: #ff8c00;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+
+        .package-features {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 30px;
+        }
+
+        .package-features li {
+            padding: 10px;
+            border-bottom: 1px solid rgba(255,215,0,0.3);
+        }
+
+        .package-features li:before {
+            content: "✓ ";
+            color: gold;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            transition: transform 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+        }
+
+        .case-study {
+            background: #f8f9fa;
+            padding: 60px 40px;
+        }
+
+        .case-study-content {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .result-metric {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #fff8dc, #fffacd);
+            border-radius: 10px;
+        }
+
+        .result-number {
+            font-size: 36px;
+            color: #ff8c00;
+            font-weight: bold;
+        }
+
+        .result-label {
+            color: #666;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .testimonial-section {
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            padding: 60px 40px;
+            color: white;
+            text-align: center;
+        }
+
+        .testimonial {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 20px;
+            line-height: 1.8;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            margin-top: 20px;
+            font-weight: bold;
+            font-style: normal;
+        }
+
+        .faq-section {
+            background: white;
+            padding: 60px 40px;
+        }
+
+        .faq-item {
+            max-width: 800px;
+            margin: 0 auto 30px;
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid gold;
+        }
+
+        .faq-question {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .faq-answer {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .guarantee-banner {
+            background: #28a745;
+            color: white;
+            padding: 30px;
+            text-align: center;
+            font-size: 24px;
+            margin: 40px 0;
+        }
+
+        .footer-cta {
+            background: linear-gradient(135deg, #333, #555);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .footer-cta h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .comparison-table {
+            max-width: 1000px;
+            margin: 40px auto;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .comparison-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .comparison-table th {
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            color: white;
+            padding: 20px;
+            text-align: left;
+        }
+
+        .comparison-table td {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .comparison-table tr:hover {
+            background: #fff8dc;
+        }
+
+        .check { color: #28a745; font-size: 24px; }
+        .cross { color: #dc3545; font-size: 24px; }
+    </style>
+</head>
+<body>
+    <div class="golden-header">
+        <div class="logo">🥚 The Hen That Lays Golden Eggs 🥚</div>
+        <div class="tagline">Your Complete Ad Agency in One Brilliant Prompt</div>
+    </div>
+
+    <div class="hero-section">
+        <h1 class="hero-title">Stop Paying $10,000/Month for an Ad Agency</h1>
+        <p class="hero-subtitle">
+            Get competitive analysis, ad copy, creative strategy, and campaign optimization<br>
+            delivered in 60 minutes using patent-pending AI technology
+        </p>
+
+        <div class="guarantee-banner">
+            💰 100% MONEY-BACK GUARANTEE: 3X ROAS or Full Refund 💰
+        </div>
+    </div>
+
+    <div class="value-props">
+        <div class="value-card">
+            <div class="value-icon">🔍</div>
+            <div class="value-title">Competitor Intelligence</div>
+            <div class="value-description">
+                We scan your top 10 competitors' ads, analyze their messaging, extract customer complaints from reviews, and identify market gaps you can exploit.
+            </div>
+        </div>
+
+        <div class="value-card">
+            <div class="value-icon">✍️</div>
+            <div class="value-title">Pain-Point Ad Copy</div>
+            <div class="value-description">
+                Using competitor reviews and complaints, we craft ad copy that speaks directly to customer frustrations, making your solution irresistible.
+            </div>
+        </div>
+
+        <div class="value-card">
+            <div class="value-icon">🎨</div>
+            <div class="value-title">Creative Variations</div>
+            <div class="value-description">
+                Get 20+ ad variations optimized for different platforms, audiences, and emotional triggers - all generated in minutes, not weeks.
+            </div>
+        </div>
+
+        <div class="value-card">
+            <div class="value-icon">📊</div>
+            <div class="value-title">Quantum Projections</div>
+            <div class="value-description">
+                Our proprietary quantum computing algorithms project campaign performance with 95% accuracy, eliminating guesswork.
+            </div>
+        </div>
+
+        <div class="value-card">
+            <div class="value-icon">🚀</div>
+            <div class="value-title">60-Minute Delivery</div>
+            <div class="value-description">
+                What agencies take 3 months to deliver, we complete in 60 minutes using advanced AI and quantum modeling.
+            </div>
+        </div>
+
+        <div class="value-card">
+            <div class="value-icon">💎</div>
+            <div class="value-title">Premium Results</div>
+            <div class="value-description">
+                Average client sees 3-5X improvement in ROAS, 50% reduction in CAC, and 200% increase in conversion rates.
+            </div>
+        </div>
+    </div>
+
+    <div class="process-section">
+        <h2 style="text-align: center; font-size: 36px; margin-bottom: 50px;">
+            The Golden Egg Process
+        </h2>
+
+        <div class="process-timeline">
+            <div class="process-step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Competitor Deep Dive</h3>
+                    <p>We analyze your top competitors' entire ad ecosystem</p>
+                    <p class="step-time">Time: 0-10 minutes</p>
+                </div>
+            </div>
+
+            <div class="process-step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>Review Mining</h3>
+                    <p>Extract pain points from thousands of customer reviews</p>
+                    <p class="step-time">Time: 10-20 minutes</p>
+                </div>
+            </div>
+
+            <div class="process-step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>Gap Analysis</h3>
+                    <p>Identify untapped opportunities in your market</p>
+                    <p class="step-time">Time: 20-30 minutes</p>
+                </div>
+            </div>
+
+            <div class="process-step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h3>Copy Generation</h3>
+                    <p>Create 20+ ad variations targeting identified pain points</p>
+                    <p class="step-time">Time: 30-45 minutes</p>
+                </div>
+            </div>
+
+            <div class="process-step">
+                <div class="step-number">5</div>
+                <div class="step-content">
+                    <h3>Strategy Roadmap</h3>
+                    <p>Develop complete campaign strategy with A/B testing plan</p>
+                    <p class="step-time">Time: 45-55 minutes</p>
+                </div>
+            </div>
+
+            <div class="process-step">
+                <div class="step-number">6</div>
+                <div class="step-content">
+                    <h3>Quantum Projections</h3>
+                    <p>Run performance predictions and ROI calculations</p>
+                    <p class="step-time">Time: 55-60 minutes</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="comparison-table">
+        <table>
+            <thead>
+                <tr>
+                    <th>Feature</th>
+                    <th>Traditional Agency</th>
+                    <th>Freelancer</th>
+                    <th>Golden Eggs</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Competitive Analysis</td>
+                    <td>2 weeks</td>
+                    <td>1 week</td>
+                    <td><strong>10 minutes</strong></td>
+                </tr>
+                <tr>
+                    <td>Ad Copy Creation</td>
+                    <td>1-2 weeks</td>
+                    <td>3-5 days</td>
+                    <td><strong>15 minutes</strong></td>
+                </tr>
+                <tr>
+                    <td>Strategy Development</td>
+                    <td>3-4 weeks</td>
+                    <td>1-2 weeks</td>
+                    <td><strong>15 minutes</strong></td>
+                </tr>
+                <tr>
+                    <td>Cost</td>
+                    <td>$10,000-25,000</td>
+                    <td>$2,000-5,000</td>
+                    <td><strong>$497-2,497</strong></td>
+                </tr>
+                <tr>
+                    <td>Revisions</td>
+                    <td>2-3 rounds</td>
+                    <td>1-2 rounds</td>
+                    <td><strong>Unlimited in first 30 days</strong></td>
+                </tr>
+                <tr>
+                    <td>Performance Guarantee</td>
+                    <td><span class="cross">✗</span></td>
+                    <td><span class="cross">✗</span></td>
+                    <td><span class="check">✓</span> 3X ROAS</td>
+                </tr>
+                <tr>
+                    <td>Quantum Projections</td>
+                    <td><span class="cross">✗</span></td>
+                    <td><span class="cross">✗</span></td>
+                    <td><span class="check">✓</span> Included</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="pricing-section">
+        <h2 style="text-align: center; font-size: 36px; margin-bottom: 50px;">
+            Choose Your Golden Egg Package
+        </h2>
+
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <div class="package-name">Starter Egg</div>
+                <div class="package-price">$497</div>
+                <ul class="package-features">
+                    <li>5 competitors analyzed</li>
+                    <li>10 ad variations</li>
+                    <li>1 platform focus (Facebook or Google)</li>
+                    <li>Basic performance projections</li>
+                    <li>Email delivery in 60 minutes</li>
+                </ul>
+                <a href="#" class="cta-button">Get Started</a>
+            </div>
+
+            <div class="pricing-card featured">
+                <div class="best-value">BEST VALUE</div>
+                <div class="package-name">Golden Egg</div>
+                <div class="package-price">$1,497</div>
+                <ul class="package-features">
+                    <li>10 competitors analyzed</li>
+                    <li>25 ad variations</li>
+                    <li>Multi-platform strategy</li>
+                    <li>Quantum performance projections</li>
+                    <li>A/B testing roadmap</li>
+                    <li>30-day optimization support</li>
+                    <li>Creative brief for designers</li>
+                </ul>
+                <a href="#" class="cta-button">Most Popular</a>
+            </div>
+
+            <div class="pricing-card">
+                <div class="package-name">Platinum Egg</div>
+                <div class="package-price">$2,497</div>
+                <ul class="package-features">
+                    <li>Unlimited competitors analyzed</li>
+                    <li>50+ ad variations</li>
+                    <li>Omnichannel strategy</li>
+                    <li>Advanced quantum projections</li>
+                    <li>Weekly optimization calls</li>
+                    <li>90-day support included</li>
+                    <li>Landing page copy included</li>
+                    <li>Email sequence copy included</li>
+                </ul>
+                <a href="#" class="cta-button">Go Premium</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="case-study">
+        <div class="case-study-content">
+            <h2 style="text-align: center; margin-bottom: 30px;">Real Client Result</h2>
+            <p style="text-align: center; color: #666; margin-bottom: 30px;">
+                How we transformed a struggling e-commerce brand's advertising in 60 minutes
+            </p>
+
+            <div class="results-grid">
+                <div class="result-metric">
+                    <div class="result-number">312%</div>
+                    <div class="result-label">Increase in ROAS</div>
+                </div>
+                <div class="result-metric">
+                    <div class="result-number">67%</div>
+                    <div class="result-label">Decrease in CAC</div>
+                </div>
+                <div class="result-metric">
+                    <div class="result-number">$47K</div>
+                    <div class="result-label">Additional Revenue</div>
+                </div>
+            </div>
+
+            <p style="color: #666; line-height: 1.6;">
+                <strong>The Challenge:</strong> Client was spending $5,000/month on ads with 0.8X ROAS - losing money on every sale.
+            </p>
+            <p style="color: #666; line-height: 1.6; margin-top: 15px;">
+                <strong>Our Solution:</strong> In 60 minutes, we analyzed their competitors, discovered customers were complaining about "slow shipping" and "poor quality" from alternatives. We crafted ads highlighting "2-day delivery" and "lifetime warranty" - pain points competitors couldn't match.
+            </p>
+            <p style="color: #666; line-height: 1.6; margin-top: 15px;">
+                <strong>The Result:</strong> Within 7 days of implementing our ad copy, ROAS jumped to 3.5X. Client recovered their investment in 48 hours.
+            </p>
+        </div>
+    </div>
+
+    <div class="testimonial-section">
+        <div class="testimonial">
+            "I was skeptical that anyone could replace our $15,000/month agency in 60 minutes. Not only did Golden Eggs deliver better results faster, but the ads actually converted 3X better than what our agency produced in 6 months. This is black magic."
+        </div>
+        <div class="testimonial-author">
+            - Sarah Chen, CEO of TechStyle Fashion
+        </div>
+    </div>
+
+    <div class="faq-section">
+        <h2 style="text-align: center; font-size: 36px; margin-bottom: 50px;">
+            Frequently Asked Questions
+        </h2>
+
+        <div class="faq-item">
+            <div class="faq-question">How is this possible in just 60 minutes?</div>
+            <div class="faq-answer">
+                We use patent-pending AI technology combined with quantum computing algorithms that can process what would take humans weeks in mere minutes. Our system analyzes millions of data points simultaneously, extracting patterns and insights at superhuman speed.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">What if I'm not happy with the results?</div>
+            <div class="faq-answer">
+                We offer a 100% money-back guarantee. If you don't see at least 3X ROAS within 30 days of implementing our strategy, we'll refund every penny. We also include unlimited revisions in the first 30 days.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">Do you work with my industry?</div>
+            <div class="faq-answer">
+                Yes! Our AI system has been trained on thousands of industries and can adapt to any market. From e-commerce to B2B SaaS, from local services to global enterprises, we've delivered results across all sectors.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">How do you compare to hiring a copywriter?</div>
+            <div class="faq-answer">
+                A good copywriter charges $500-2,000 for a single ad and takes days to deliver. We give you 20+ variations in 60 minutes for less cost. Plus, our copy is based on actual competitor data and customer pain points, not guesswork.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">What formats do you deliver?</div>
+            <div class="faq-answer">
+                You receive a complete package including: Google Docs with all ad copy, PDF strategy guide, Excel spreadsheet with A/B testing plan, and Canva templates for creatives (Premium package).
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-cta">
+        <h2>Ready to Lay Your First Golden Egg?</h2>
+        <p style="font-size: 20px; margin: 20px 0;">
+            Stop overpaying agencies. Stop waiting weeks for results.<br>
+            Get your complete ad transformation in 60 minutes.
+        </p>
+        <a href="#" class="cta-button" style="font-size: 24px; padding: 20px 50px;">
+            Start Your 60-Minute Transformation
+        </a>
+        <p style="margin-top: 30px; opacity: 0.8;">
+            Copyright (c) 2025 Joshua Hendricks Cole (DBA: Corporation of Light). All Rights Reserved. PATENT PENDING.
+        </p>
+    </div>
+</body>
+</html>

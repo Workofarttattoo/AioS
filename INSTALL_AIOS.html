@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI:OS One-Click Installer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            width: 100%;
+            padding: 40px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            font-size: 48px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 18px;
+        }
+
+        .divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #667eea, transparent);
+            margin: 30px 0;
+        }
+
+        .platform-section {
+            margin: 30px 0;
+        }
+
+        .platform-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .platform-icon {
+            width: 32px;
+            height: 32px;
+            margin-right: 10px;
+        }
+
+        .instructions {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .step {
+            display: flex;
+            margin: 15px 0;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .download-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin: 10px 0;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .download-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .command-box {
+            background: #2d2d2d;
+            color: #00ff00;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            position: relative;
+            overflow-x: auto;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .feature {
+            background: #f0f4ff;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .feature-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .copyright {
+            text-align: center;
+            color: #666;
+            font-size: 12px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .alert {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            color: #856404;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .success {
+            background: #d4edda;
+            border-color: #28a745;
+            color: #155724;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">AI:OS</div>
+            <div class="subtitle">The Agentic Intelligence Operating System</div>
+            <div class="subtitle">One-Click Installation Guide</div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="alert">
+            <strong>⚡ Quick Install:</strong> Just double-click the appropriate file for your operating system!
+        </div>
+
+        <!-- macOS Section -->
+        <div class="platform-section">
+            <div class="platform-title">
+                <span class="platform-icon">🍎</span>
+                macOS Installation
+            </div>
+            <div class="instructions">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <strong>Double-click</strong> the file: <code>bootstrap_aios.sh</code>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        If macOS asks for permission, click "Open" or right-click and select "Open"
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        The installer will automatically:
+                        <ul style="margin-top: 10px; margin-left: 20px;">
+                            <li>Check/install Python</li>
+                            <li>Install dependencies</li>
+                            <li>Create desktop launcher</li>
+                            <li>Set up 'aios' command</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="command-box">
+                <button class="copy-btn" onclick="copyToClipboard('macos-cmd')">Copy</button>
+                <span id="macos-cmd">./bootstrap_aios.sh</span>
+            </div>
+        </div>
+
+        <!-- Linux Section -->
+        <div class="platform-section">
+            <div class="platform-title">
+                <span class="platform-icon">🐧</span>
+                Linux Installation
+            </div>
+            <div class="instructions">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        Open terminal in this directory
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        Run the installer:
+                    </div>
+                </div>
+            </div>
+
+            <div class="command-box">
+                <button class="copy-btn" onclick="copyToClipboard('linux-cmd')">Copy</button>
+                <span id="linux-cmd">chmod +x bootstrap_aios.sh && ./bootstrap_aios.sh</span>
+            </div>
+        </div>
+
+        <!-- Windows Section -->
+        <div class="platform-section">
+            <div class="platform-title">
+                <span class="platform-icon">🪟</span>
+                Windows Installation
+            </div>
+            <div class="instructions">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <strong>Double-click</strong> the file: <code>bootstrap_aios.bat</code>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        If Windows asks for permission, click "Yes" or "Run Anyway"
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        The installer will check Python and install everything automatically
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert">
+                <strong>Note:</strong> Python 3.8+ must be installed first. Download from <a href="https://python.org" target="_blank">python.org</a> and check "Add Python to PATH" during installation.
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <h3 style="margin-bottom: 15px;">✨ After Installation</h3>
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">🖱️</div>
+                <strong>Desktop Launcher</strong>
+                <p style="font-size: 12px; margin-top: 5px;">Double-click icon to start</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">⌨️</div>
+                <strong>Terminal Command</strong>
+                <p style="font-size: 12px; margin-top: 5px;">Type 'aios' anywhere</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🔒</div>
+                <strong>Security Tools</strong>
+                <p style="font-size: 12px; margin-top: 5px;">Built-in security suite</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🧠</div>
+                <strong>AI Agents</strong>
+                <p style="font-size: 12px; margin-top: 5px;">Autonomous meta-agents</p>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <h3 style="margin-bottom: 15px;">🚀 Quick Commands</h3>
+        <div class="command-box">
+            python3 aios -v boot              # Boot the system<br>
+            python3 aios wizard               # Setup wizard<br>
+            python3 aios --help               # View all options
+        </div>
+
+        <div class="copyright">
+            <strong>Copyright © 2025 Joshua Hendricks Cole (DBA: Corporation of Light)</strong><br>
+            All Rights Reserved. PATENT PENDING.
+        </div>
+    </div>
+
+    <script>
+        function copyToClipboard(id) {
+            const text = document.getElementById(id).textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = 'Copied!';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>

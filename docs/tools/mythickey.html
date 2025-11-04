@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MythicKey - Credential Security Analysis</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <span class="logo">🛡️</span>
+                <span class="brand-text">Red Team Tools</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../index.html#tools">Tools</a></li>
+                <li><a href="../getting-started.html">Get Started</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="https://github.com/Workofarttattoo/AioS" target="_blank" class="github-btn">GitHub</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container" style="padding: 80px 20px; max-width: 900px;">
+        <h1 style="font-size: 3rem; margin-bottom: 1rem; color: var(--primary);">🔑 MythicKey</h1>
+        <p style="font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 3rem;">GPU-accelerated credential security analysis and password strength assessment</p>
+
+        <div class="step">
+            <h2>Overview</h2>
+            <p>MythicKey is a powerful credential security analysis tool that evaluates password strength, detects weak hashing algorithms, and provides GPU-accelerated hash cracking capabilities for security assessments.</p>
+        </div>
+
+        <div class="step">
+            <h2>Features</h2>
+            <ul style="color: var(--text-secondary); margin-left: 2rem;">
+                <li>🔑 Password strength analysis</li>
+                <li>⚡ GPU-accelerated hash cracking (CUDA/OpenCL)</li>
+                <li>🎯 Support for 20+ hash algorithms (MD5, SHA-256, bcrypt, etc.)</li>
+                <li>📊 Entropy calculation and complexity scoring</li>
+                <li>🔍 Dictionary and rule-based attacks</li>
+                <li>💾 Custom wordlist support</li>
+                <li>🖥️ GUI interface with progress tracking</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h2>Quick Start</h2>
+            <div class="code-block"><code># Demo mode (safe testing)
+python -m red-team-tools.mythickey --demo --json
+
+# Analyze password strength
+python -m red-team-tools.mythickey --demo --profile gpu-balanced
+
+# GUI mode
+python -m red-team-tools.mythickey --gui
+
+# Health check
+python -m red-team-tools.mythickey --health --json</code></div>
+        </div>
+
+        <div class="step">
+            <h2>Performance Profiles</h2>
+            <ul style="color: var(--text-secondary); margin-left: 2rem;">
+                <li><strong>cpu-only</strong>: CPU-based analysis (no GPU required)</li>
+                <li><strong>gpu-balanced</strong>: Balanced GPU utilization</li>
+                <li><strong>gpu-max</strong>: Maximum GPU performance (requires cooling)</li>
+                <li><strong>distributed</strong>: Multi-GPU cluster support</li>
+            </ul>
+        </div>
+
+        <div class="warning-box">
+            <p><strong>⚠️ Ethical Use Only:</strong> This tool is for analyzing YOUR OWN credentials or testing systems you have authorization to assess. Never use it to crack passwords you don't own.</p>
+        </div>
+
+        <div class="step">
+            <h2>Supported Hash Types</h2>
+            <p style="color: var(--text-secondary);">MD5, SHA-1, SHA-256, SHA-512, bcrypt, scrypt, PBKDF2, Argon2, NTLM, LM, and more...</p>
+        </div>
+
+        <div class="step">
+            <h2>GPU Requirements</h2>
+            <ul style="color: var(--text-secondary); margin-left: 2rem;">
+                <li>CUDA-compatible NVIDIA GPU (recommended: RTX 3060+)</li>
+                <li>4GB+ VRAM for standard workloads</li>
+                <li>8GB+ VRAM for large-scale analysis</li>
+                <li>Proper cooling for extended sessions</li>
+            </ul>
+        </div>
+
+        <p style="margin-top: 3rem;"><a href="../index.html#tools" style="color: var(--secondary);">← Back to all tools</a></p>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p style="text-align: center; color: var(--text-secondary);">Copyright © 2025 Joshua Hendricks Cole (DBA: Corporation of Light)</p>
+        </div>
+    </footer>
+</body>
+</html>

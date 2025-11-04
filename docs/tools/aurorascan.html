@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AuroraScan - Network Reconnaissance Tool</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <span class="logo">🛡️</span>
+                <span class="brand-text">Red Team Tools</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../index.html#tools">Tools</a></li>
+                <li><a href="../getting-started.html">Get Started</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="https://github.com/Workofarttattoo/AioS" target="_blank" class="github-btn">GitHub</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container" style="padding: 80px 20px; max-width: 900px;">
+        <h1 style="font-size: 3rem; margin-bottom: 1rem; color: var(--primary);">🔍 AuroraScan</h1>
+        <p style="font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 3rem;">Advanced network reconnaissance and intelligent host discovery</p>
+
+        <div class="step">
+            <h2>Overview</h2>
+            <p>AuroraScan is a ParrotOS-inspired network reconnaissance tool designed for defensive security assessments. It provides intelligent host discovery, service enumeration, and network mapping capabilities.</p>
+        </div>
+
+        <div class="step">
+            <h2>Features</h2>
+            <ul style="color: var(--text-secondary); margin-left: 2rem;">
+                <li>🔍 Intelligent host discovery</li>
+                <li>📊 Service enumeration</li>
+                <li>🎯 Multiple scan profiles (stealth, balanced, aggressive)</li>
+                <li>📈 JSON output for automation</li>
+                <li>🖥️ GUI interface available</li>
+                <li>✅ Health check support</li>
+                <li>🔒 Demo mode for safe testing</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h2>Quick Start</h2>
+            <div class="code-block"><code># Basic network scan
+python -m red-team-tools.aurorascan 192.168.1.0/24 --profile recon --json
+
+# Demo mode (safe testing)
+python -m red-team-tools.aurorascan --demo --json
+
+# GUI mode
+python -m red-team-tools.aurorascan --gui
+
+# Health check
+python -m red-team-tools.aurorascan --health --json</code></div>
+        </div>
+
+        <div class="step">
+            <h2>Scan Profiles</h2>
+            <ul style="color: var(--text-secondary); margin-left: 2rem;">
+                <li><strong>stealth</strong>: Slow, low-noise scanning</li>
+                <li><strong>recon</strong>: Balanced reconnaissance</li>
+                <li><strong>full</strong>: Comprehensive deep scan</li>
+                <li><strong>quick</strong>: Fast discovery scan</li>
+            </ul>
+        </div>
+
+        <p style="margin-top: 3rem;"><a href="../index.html#tools" style="color: var(--secondary);">← Back to all tools</a></p>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p style="text-align: center; color: var(--text-secondary);">Copyright © 2025 Joshua Hendricks Cole (DBA: Corporation of Light)</p>
+        </div>
+    </footer>
+</body>
+</html>

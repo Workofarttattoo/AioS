@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resend Email Verification - Red Team Tools</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0000 100%);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: linear-gradient(135deg, #1a0000, #0a0a0a);
+            border: 2px solid #ff3333;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(255, 51, 51, 0.4);
+        }
+
+        h1 {
+            text-align: center;
+            color: #ff6666;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .info-box {
+            background: rgba(255, 255, 0, 0.1);
+            border: 2px solid #ffff00;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            color: #ffff00;
+        }
+
+        .success-box {
+            background: rgba(0, 255, 0, 0.1);
+            border: 2px solid #00ff00;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            color: #00ff00;
+            display: none;
+        }
+
+        .error-box {
+            background: rgba(255, 0, 0, 0.1);
+            border: 2px solid #ff0000;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            color: #ff6666;
+            display: none;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            margin: 15px 0;
+            background: #0a0a0a;
+            border: 1px solid #ff3333;
+            border-radius: 5px;
+            color: #fff;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1em;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #ff6666;
+            box-shadow: 0 0 15px rgba(255, 51, 51, 0.3);
+        }
+
+        button {
+            width: 100%;
+            padding: 18px;
+            margin: 10px 0;
+            background: linear-gradient(135deg, #ff3333, #ff6666);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 51, 51, 0.5);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-link a {
+            color: #ff9999;
+            text-decoration: none;
+        }
+
+        .back-link a:hover {
+            color: #ff6666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📧 Email Verification</h1>
+
+        <div class="info-box">
+            <strong>⚠️ Email Not Confirmed</strong><br><br>
+            Your account needs email verification before you can log in.<br><br>
+            Enter your email below to resend the verification link.
+        </div>
+
+        <div id="successBox" class="success-box"></div>
+        <div id="errorBox" class="error-box"></div>
+
+        <input type="email" id="email" placeholder="inventor@aios.is" value="inventor@aios.is">
+
+        <button onclick="resendVerification()">📨 Resend Verification Email</button>
+
+        <div class="back-link">
+            <a href="login.html">← Back to Login</a>
+        </div>
+    </div>
+
+    <script>
+        const SUPABASE_URL = 'https://cszoklkfdszqsxhufhhj.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNzem9rbGtmZHN6cXN4aHVmaGhqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjExNzI0MzAsImV4cCI6MjA3Njc0ODQzMH0.HdqXrWVTPCQ2NYH-5ED_nx91a38UGPvTHjva4NzBG8I';
+
+        const { createClient } = supabase;
+        const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        async function resendVerification() {
+            const email = document.getElementById('email').value.toLowerCase();
+            const successBox = document.getElementById('successBox');
+            const errorBox = document.getElementById('errorBox');
+
+            // Hide previous messages
+            successBox.style.display = 'none';
+            errorBox.style.display = 'none';
+
+            if (!email) {
+                errorBox.textContent = '❌ Please enter your email address.';
+                errorBox.style.display = 'block';
+                return;
+            }
+
+            try {
+                // Resend verification email
+                const { data, error } = await supabaseClient.auth.resend({
+                    type: 'signup',
+                    email: email,
+                    options: {
+                        emailRedirectTo: window.location.origin + '/confirm-email.html'
+                    }
+                });
+
+                if (error) {
+                    throw error;
+                }
+
+                successBox.innerHTML = `
+                    <strong>✅ Verification Email Sent!</strong><br><br>
+                    Check your inbox at <strong>${email}</strong><br><br>
+                    Click the verification link in the email, then return here to log in.
+                `;
+                successBox.style.display = 'block';
+
+            } catch (error) {
+                console.error('Resend error:', error);
+                errorBox.innerHTML = `
+                    <strong>❌ Error</strong><br><br>
+                    ${error.message}<br><br>
+                    If you're still having issues, try registering again with a different email.
+                `;
+                errorBox.style.display = 'block';
+            }
+        }
+
+        // Auto-fill email from URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const emailParam = urlParams.get('email');
+        if (emailParam) {
+            document.getElementById('email').value = emailParam;
+        }
+    </script>
+<script src="js/visitor-counter.js"></script>
+</body>
+</html>
+
+<!-- Copyright (c) 2025 Joshua Hendricks Cole (DBA: Corporation of Light). All Rights Reserved. PATENT PENDING. -->

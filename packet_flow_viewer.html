@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ai|oS Live Packet Flow - Wireshark Style</title>
+    <style>
+        /* Copyright (c) 2025 Joshua Hendricks Cole (DBA: Corporation of Light). All Rights Reserved. PATENT PENDING. */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', 'Consolas', monospace;
+            background: transparent;
+            color: #00ff00;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        html {
+            background: transparent;
+        }
+
+        /* Galaxy Background */
+        .galaxy-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(ellipse at center, #0a0a1a 0%, #000000 100%);
+        }
+
+        .quantum-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--primary, #00ff00);
+            border-radius: 50%;
+            animation: float 20s infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            50% { transform: translateY(-100vh) translateX(50px); }
+        }
+
+        /* Header Bar */
+        #header {
+            background: rgba(26, 26, 26, 0.5);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid rgba(0, 255, 0, 0.5);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 60px;
+        }
+
+        #title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #00ff00;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        #stats {
+            display: flex;
+            gap: 30px;
+            font-size: 12px;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 10px;
+            text-transform: uppercase;
+        }
+
+        .stat-value {
+            color: #00ff00;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        /* Filter Bar */
+        #filter-bar {
+            background: rgba(21, 21, 21, 0.5);
+            backdrop-filter: blur(10px);
+            padding: 8px 20px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            border-bottom: 1px solid rgba(51, 51, 51, 0.5);
+            font-size: 11px;
+        }
+
+        .filter-btn {
+            padding: 4px 12px;
+            background: rgba(42, 42, 42, 0.5);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(68, 68, 68, 0.5);
+            color: #888;
+            cursor: pointer;
+            border-radius: 3px;
+            font-family: inherit;
+            font-size: 11px;
+            transition: all 0.2s;
+        }
+
+        .filter-btn:hover {
+            background: #3a3a3a;
+            border-color: #666;
+        }
+
+        .filter-btn.active {
+            background: rgba(0, 255, 0, 0.3);
+            color: #00ff00;
+            border-color: #00ff00;
+        }
+
+        #search-input {
+            padding: 4px 8px;
+            background: rgba(42, 42, 42, 0.5);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(68, 68, 68, 0.5);
+            color: #00ff00;
+            font-family: inherit;
+            font-size: 11px;
+            width: 200px;
+        }
+
+        #search-input:focus {
+            outline: none;
+            border-color: #00ff00;
+        }
+
+        /* Packet Table Container */
+        #packet-container {
+            height: calc(100vh - 120px);
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Packet Table Header */
+        #packet-header {
+            display: flex;
+            background: rgba(26, 26, 26, 0.5);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid rgba(0, 255, 0, 0.5);
+            padding: 8px 0;
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .header-col {
+            padding: 0 10px;
+            border-right: 1px solid #333;
+            display: flex;
+            align-items: center;
+            color: #00ff00;
+        }
+
+        .header-col:last-child {
+            border-right: none;
+        }
+
+        /* Column widths - resizable */
+        .col-no { width: 60px; min-width: 40px; }
+        .col-time { width: 120px; min-width: 80px; }
+        .col-source { width: 200px; min-width: 100px; }
+        .col-dest { width: 200px; min-width: 100px; }
+        .col-protocol { width: 80px; min-width: 60px; }
+        .col-length { width: 80px; min-width: 60px; }
+        .col-sport { width: 70px; min-width: 50px; }
+        .col-dport { width: 70px; min-width: 50px; }
+        .col-flags { width: 100px; min-width: 70px; }
+        .col-info { flex: 1; min-width: 200px; }
+
+        /* Column resizer */
+        .col-resizer {
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            cursor: col-resize;
+            background: transparent;
+            z-index: 100;
+        }
+
+        .col-resizer:hover {
+            background: rgba(0, 255, 0, 0.3);
+        }
+
+        .header-col {
+            position: relative;
+        }
+
+        /* Packet Rows */
+        #packet-rows {
+            height: calc(100vh - 180px);
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        /* Custom scrollbar */
+        #packet-rows::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        #packet-rows::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+
+        #packet-rows::-webkit-scrollbar-thumb {
+            background: #00ff00;
+            border-radius: 6px;
+        }
+
+        #packet-rows::-webkit-scrollbar-thumb:hover {
+            background: #00ff88;
+        }
+
+        .packet-row {
+            display: flex;
+            padding: 6px 0;
+            border-bottom: 1px solid rgba(34, 34, 34, 0.5);
+            background: rgba(10, 10, 10, 0.3);
+            backdrop-filter: blur(5px);
+            font-size: 11px;
+            transition: background 0.15s;
+            animation: slideIn 0.3s ease-out;
+            cursor: pointer;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .packet-row:hover {
+            background: rgba(26, 42, 26, 0.5);
+        }
+
+        .packet-row.selected {
+            background: rgba(26, 58, 26, 0.7);
+            border-color: rgba(0, 255, 0, 0.8);
+        }
+
+        .packet-col {
+            padding: 0 10px;
+            border-right: 1px solid #222;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .packet-col:last-child {
+            border-right: none;
+        }
+
+        /* Protocol Colors */
+        .protocol-TCP { color: #00ffff; }
+        .protocol-UDP { color: #ff00ff; }
+        .protocol-ICMP { color: #ffff00; }
+        .protocol-ARP { color: #ff8800; }
+        .protocol-DNS { color: #00ff88; }
+        .protocol-HTTP { color: #88ff00; }
+        .protocol-HTTPS { color: #0088ff; }
+        .protocol-SSH { color: #ff0088; }
+
+        /* Source IP Colors (hash-based) */
+        .source-1 { color: #ff6b6b; }
+        .source-2 { color: #4ecdc4; }
+        .source-3 { color: #45b7d1; }
+        .source-4 { color: #feca57; }
+        .source-5 { color: #ff9ff3; }
+        .source-6 { color: #54a0ff; }
+        .source-7 { color: #48dbfb; }
+        .source-8 { color: #1dd1a1; }
+
+        /* Packet Detail Panel */
+        #detail-panel {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 0;
+            background: rgba(26, 26, 26, 0.5);
+            backdrop-filter: blur(15px);
+            border-top: 2px solid rgba(0, 255, 0, 0.5);
+            overflow-y: auto;
+            transition: height 0.3s;
+            z-index: 20;
+            padding: 0;
+        }
+
+        #detail-panel.open {
+            height: 300px;
+            padding: 15px;
+        }
+
+        #detail-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            color: #00ff00;
+            font-size: 20px;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+        }
+
+        #detail-close:hover {
+            color: #00ff88;
+        }
+
+        .detail-section {
+            margin-bottom: 15px;
+        }
+
+        .detail-title {
+            color: #00ff00;
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 12px;
+        }
+
+        .detail-content {
+            color: #aaa;
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+        .detail-hex {
+            font-family: 'Courier New', monospace;
+            background: rgba(15, 15, 15, 0.7);
+            backdrop-filter: blur(5px);
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+
+        /* Pause/Resume Button */
+        #pause-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 12px 24px;
+            background: #00ff00;
+            color: #0a0a0a;
+            border: none;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 255, 0, 0.4);
+            transition: all 0.3s;
+            z-index: 30;
+        }
+
+        #pause-btn:hover {
+            background: #00ff88;
+            box-shadow: 0 6px 20px rgba(0, 255, 0, 0.6);
+        }
+
+        #pause-btn.paused {
+            background: #ff0000;
+            color: #fff;
+        }
+
+        /* Blink animation for new packets */
+        .packet-row.new {
+            animation: blink 0.5s ease-in-out;
+        }
+
+        @keyframes blink {
+            0%, 100% { background: #1a1a1a; }
+            50% { background: #2a4a2a; }
+        }
+
+        /* Legend */
+        #legend {
+            position: fixed;
+            top: 70px;
+            right: 20px;
+            background: rgba(26, 26, 26, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(51, 51, 51, 0.5);
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 10px;
+            display: none;
+            z-index: 25;
+        }
+
+        #legend.visible {
+            display: block;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 5px;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 12px;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Galaxy Background -->
+    <div class="galaxy-bg">
+        <div class="quantum-particles" id="particles"></div>
+    </div>
+
+    <!-- Header -->
+    <div id="header">
+        <div id="title">⚡ Ai|oS Live Packet Capture</div>
+        <div id="stats">
+            <div class="stat-item">
+                <div class="stat-label">Packets</div>
+                <div class="stat-value" id="packet-count">0</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">Rate</div>
+                <div class="stat-value" id="packet-rate">0/s</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">Nodes</div>
+                <div class="stat-value" id="node-count">0</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">Status</div>
+                <div class="stat-value" id="capture-status">LIVE</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filter Bar -->
+    <div id="filter-bar">
+        <span style="color: #666;">Filters:</span>
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="TCP">TCP</button>
+        <button class="filter-btn" data-filter="UDP">UDP</button>
+        <button class="filter-btn" data-filter="ICMP">ICMP</button>
+        <button class="filter-btn" data-filter="ARP">ARP</button>
+        <button class="filter-btn" data-filter="DNS">DNS</button>
+        <button class="filter-btn" data-filter="HTTP">HTTP/S</button>
+        <span style="color: #666; margin-left: 20px;">Search:</span>
+        <input type="text" id="search-input" placeholder="IP address or port...">
+        <button class="filter-btn" onclick="toggleLegend()">Legend</button>
+    </div>
+
+    <!-- Packet Table -->
+    <div id="packet-container">
+        <!-- Header Row -->
+        <div id="packet-header">
+            <div class="header-col col-no" data-col="no">
+                #
+                <div class="col-resizer"></div>
+            </div>
+            <div class="header-col col-time" data-col="time">
+                Time
+                <div class="col-resizer"></div>
+            </div>
+            <div class="header-col col-source" data-col="source">
+                Source
+                <div class="col-resizer"></div>
+            </div>
+            <div class="header-col col-dest" data-col="dest">
+                Destination
+                <div class="col-resizer"></div>
+            </div>
+            <div class="header-col col-protocol" data-col="protocol">
+                Protocol
+                <div class="col-resizer"></div>
+            </div>
+            <div class="header-col col-length" data-col="length">
+                Length
+                <div class="col-resizer"></div>
+            </div>
+            <div class="header-col col-sport" data-col="sport">
+                SPort
+                <div class="col-resizer"></div>
+            </div>
+            <div class="header-col col-dport" data-col="dport">
+                DPort
+                <div class="col-resizer"></div>
+            </div>
+            <div class="header-col col-flags" data-col="flags">
+                Flags
+                <div class="col-resizer"></div>
+            </div>
+            <div class="header-col col-info" data-col="info">Info</div>
+        </div>
+
+        <!-- Packet Rows (dynamically populated) -->
+        <div id="packet-rows"></div>
+    </div>
+
+    <!-- Detail Panel -->
+    <div id="detail-panel">
+        <button id="detail-close" onclick="closeDetail()">✕</button>
+        <div id="detail-content"></div>
+    </div>
+
+    <!-- Legend -->
+    <div id="legend">
+        <div style="font-weight: bold; margin-bottom: 8px; color: #00ff00;">Protocol Colors</div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #00ffff;"></div>
+            <span>TCP</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #ff00ff;"></div>
+            <span>UDP</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #ffff00;"></div>
+            <span>ICMP</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #ff8800;"></div>
+            <span>ARP</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #00ff88;"></div>
+            <span>DNS</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #88ff00;"></div>
+            <span>HTTP</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #0088ff;"></div>
+            <span>HTTPS</span>
+        </div>
+    </div>
+
+    <!-- Pause/Resume Button -->
+    <button id="pause-btn" onclick="togglePause()">⏸ Pause</button>
+
+    <script>
+        // State
+        let packets = [];
+        let packetCounter = 0;
+        let paused = false;
+        let activeFilter = 'all';
+        let searchTerm = '';
+        let lastPacketTime = Date.now();
+        let packetRateCounter = 0;
+        let selectedPacketId = null;
+        let autoScroll = true;
+        let deviceMap = {};  // IP -> device name mapping
+
+        const packetRowsContainer = document.getElementById('packet-rows');
+        const detailPanel = document.getElementById('detail-panel');
+
+        // Color hash for source IPs
+        function getSourceColor(ip) {
+            const hash = ip.split('.').reduce((acc, octet) => acc + parseInt(octet), 0);
+            return `source-${(hash % 8) + 1}`;
+        }
+
+        // Get display name for IP (device name if available, otherwise IP)
+        function getDisplayName(ip) {
+            return deviceMap[ip] || ip;
+        }
+
+        // Format time
+        function formatTime(timestamp) {
+            // Handle both seconds and milliseconds timestamps
+            const ms = timestamp > 10000000000 ? timestamp : timestamp * 1000;
+            const date = new Date(ms);
+            return date.toLocaleTimeString('en-US', { hour12: false, fractionalSecondDigits: 3 });
+        }
+
+        // Fetch device discovery data
+        function fetchDevices() {
+            fetch('/api/network/devices')
+                .then(r => r.json())
+                .then(data => {
+                    if (data.devices && data.devices.length > 0) {
+                        // Update device map
+                        data.devices.forEach(device => {
+                            deviceMap[device.ip] = device.display_name;
+                        });
+
+                        // Refresh display to show device names
+                        updateDisplayNames();
+                    }
+                })
+                .catch(err => {
+                    // Discovery not available
+                });
+        }
+
+        // Update all displayed IP addresses with device names
+        function updateDisplayNames() {
+            document.querySelectorAll('.packet-col.col-source, .packet-col.col-dest').forEach(col => {
+                const ip = col.textContent.trim();
+                if (deviceMap[ip]) {
+                    col.textContent = deviceMap[ip];
+                    col.title = ip;  // Keep IP as tooltip
+                }
+            });
+        }
+
+        // Add packet to display
+        function addPacket(packet) {
+            if (paused) return;
+
+            packetCounter++;
+            packet.id = packetCounter;
+            packets.unshift(packet);
+
+            // Keep last 1000 packets
+            if (packets.length > 1000) {
+                packets.pop();
+            }
+
+            // Update rate
+            packetRateCounter++;
+
+            // Apply filters
+            if (!matchesFilter(packet)) return;
+
+            // Create row
+            const row = document.createElement('div');
+            row.className = 'packet-row new';
+            row.dataset.id = packet.id;
+            row.onclick = () => showPacketDetail(packet);
+
+            // Determine protocol color
+            let protocolClass = `protocol-${packet.protocol}`;
+            let sourceClass = getSourceColor(packet.src);
+
+            row.innerHTML = `
+                <div class="packet-col col-no">${packet.id}</div>
+                <div class="packet-col col-time">${formatTime(packet.timestamp)}</div>
+                <div class="packet-col col-source ${sourceClass}" title="${packet.src}">${getDisplayName(packet.src)}</div>
+                <div class="packet-col col-dest" title="${packet.dst}">${getDisplayName(packet.dst)}</div>
+                <div class="packet-col col-protocol ${protocolClass}">${packet.protocol}</div>
+                <div class="packet-col col-length">${packet.length}</div>
+                <div class="packet-col col-sport">${packet.sport || '-'}</div>
+                <div class="packet-col col-dport">${packet.dport || '-'}</div>
+                <div class="packet-col col-flags">${packet.flags || '-'}</div>
+                <div class="packet-col col-info">${packet.info || '-'}</div>
+            `;
+
+            // Insert at top
+            packetRowsContainer.insertBefore(row, packetRowsContainer.firstChild);
+
+            // Remove blink class after animation
+            setTimeout(() => row.classList.remove('new'), 500);
+
+            // Auto-scroll to top if enabled
+            if (autoScroll && packetRowsContainer.scrollTop < 100) {
+                packetRowsContainer.scrollTop = 0;
+            }
+
+            // Update stats
+            updateStats();
+        }
+
+        // Check if packet matches current filter
+        function matchesFilter(packet) {
+            if (activeFilter !== 'all' && !packet.protocol.includes(activeFilter)) {
+                return false;
+            }
+
+            if (searchTerm) {
+                const search = searchTerm.toLowerCase();
+                return packet.src.includes(search) ||
+                       packet.dst.includes(search) ||
+                       (packet.sport && packet.sport.toString().includes(search)) ||
+                       (packet.dport && packet.dport.toString().includes(search));
+            }
+
+            return true;
+        }
+
+        // Update statistics
+        function updateStats() {
+            document.getElementById('packet-count').textContent = packetCounter;
+            document.getElementById('node-count').textContent = new Set([...packets.map(p => p.src), ...packets.map(p => p.dst)]).size;
+        }
+
+        // Calculate packet rate (every second)
+        setInterval(() => {
+            document.getElementById('packet-rate').textContent = `${packetRateCounter}/s`;
+            packetRateCounter = 0;
+        }, 1000);
+
+        // Show packet detail
+        function showPacketDetail(packet) {
+            selectedPacketId = packet.id;
+
+            // Highlight selected row
+            document.querySelectorAll('.packet-row').forEach(row => {
+                row.classList.remove('selected');
+            });
+            document.querySelector(`[data-id="${packet.id}"]`).classList.add('selected');
+
+            // Build detail view
+            let html = `
+                <div class="detail-section">
+                    <div class="detail-title">Packet #${packet.id}</div>
+                    <div class="detail-content">
+                        <strong>Time:</strong> ${new Date(packet.timestamp).toISOString()}<br>
+                        <strong>Protocol:</strong> ${packet.protocol}<br>
+                        <strong>Length:</strong> ${packet.length} bytes
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <div class="detail-title">Network Layer</div>
+                    <div class="detail-content">
+                        <strong>Source:</strong> ${getDisplayName(packet.src)}${deviceMap[packet.src] ? ` (${packet.src})` : ''}<br>
+                        <strong>Destination:</strong> ${getDisplayName(packet.dst)}${deviceMap[packet.dst] ? ` (${packet.dst})` : ''}<br>
+                        ${packet.ttl ? `<strong>TTL:</strong> ${packet.ttl}<br>` : ''}
+                    </div>
+                </div>
+            `;
+
+            if (packet.sport || packet.dport) {
+                html += `
+                    <div class="detail-section">
+                        <div class="detail-title">Transport Layer</div>
+                        <div class="detail-content">
+                            ${packet.sport ? `<strong>Source Port:</strong> ${packet.sport}<br>` : ''}
+                            ${packet.dport ? `<strong>Destination Port:</strong> ${packet.dport}<br>` : ''}
+                            ${packet.flags ? `<strong>Flags:</strong> ${packet.flags}<br>` : ''}
+                            ${packet.seq ? `<strong>Sequence:</strong> ${packet.seq}<br>` : ''}
+                            ${packet.ack ? `<strong>Acknowledgment:</strong> ${packet.ack}<br>` : ''}
+                        </div>
+                    </div>
+                `;
+            }
+
+            if (packet.payload) {
+                html += `
+                    <div class="detail-section">
+                        <div class="detail-title">Payload Preview</div>
+                        <div class="detail-content detail-hex">
+                            ${packet.payload}
+                        </div>
+                    </div>
+                `;
+            }
+
+            document.getElementById('detail-content').innerHTML = html;
+            detailPanel.classList.add('open');
+
+            // Adjust packet container height
+            document.getElementById('packet-rows').style.height = 'calc(100vh - 480px)';
+        }
+
+        // Close detail panel
+        function closeDetail() {
+            detailPanel.classList.remove('open');
+            document.getElementById('packet-rows').style.height = 'calc(100vh - 180px)';
+            document.querySelectorAll('.packet-row').forEach(row => {
+                row.classList.remove('selected');
+            });
+        }
+
+        // Toggle pause
+        function togglePause() {
+            paused = !paused;
+            const btn = document.getElementById('pause-btn');
+            if (paused) {
+                btn.textContent = '▶ Resume';
+                btn.classList.add('paused');
+                document.getElementById('capture-status').textContent = 'PAUSED';
+                document.getElementById('capture-status').style.color = '#ff0000';
+            } else {
+                btn.textContent = '⏸ Pause';
+                btn.classList.remove('paused');
+                document.getElementById('capture-status').textContent = 'LIVE';
+                document.getElementById('capture-status').style.color = '#00ff00';
+            }
+        }
+
+        // Toggle legend
+        function toggleLegend() {
+            document.getElementById('legend').classList.toggle('visible');
+        }
+
+        // Filter buttons
+        document.querySelectorAll('.filter-btn[data-filter]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn[data-filter]').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                activeFilter = btn.dataset.filter;
+                refreshDisplay();
+            });
+        });
+
+        // Search input
+        document.getElementById('search-input').addEventListener('input', (e) => {
+            searchTerm = e.target.value;
+            refreshDisplay();
+        });
+
+        // Refresh display with current filters
+        function refreshDisplay() {
+            packetRowsContainer.innerHTML = '';
+            packets.forEach(packet => {
+                if (matchesFilter(packet)) {
+                    // Re-create row (simplified version of addPacket)
+                    const row = document.createElement('div');
+                    row.className = 'packet-row';
+                    row.dataset.id = packet.id;
+                    row.onclick = () => showPacketDetail(packet);
+
+                    let protocolClass = `protocol-${packet.protocol}`;
+                    let sourceClass = getSourceColor(packet.src);
+
+                    row.innerHTML = `
+                        <div class="packet-col col-no">${packet.id}</div>
+                        <div class="packet-col col-time">${formatTime(packet.timestamp)}</div>
+                        <div class="packet-col col-source ${sourceClass}" title="${packet.src}">${getDisplayName(packet.src)}</div>
+                        <div class="packet-col col-dest" title="${packet.dst}">${getDisplayName(packet.dst)}</div>
+                        <div class="packet-col col-protocol ${protocolClass}">${packet.protocol}</div>
+                        <div class="packet-col col-length">${packet.length}</div>
+                        <div class="packet-col col-sport">${packet.sport || '-'}</div>
+                        <div class="packet-col col-dport">${packet.dport || '-'}</div>
+                        <div class="packet-col col-flags">${packet.flags || '-'}</div>
+                        <div class="packet-col col-info">${packet.info || '-'}</div>
+                    `;
+
+                    packetRowsContainer.appendChild(row);
+                }
+            });
+        }
+
+        // Detect auto-scroll disable
+        packetRowsContainer.addEventListener('scroll', () => {
+            autoScroll = packetRowsContainer.scrollTop < 50;
+        });
+
+        // Fetch packets from API
+        let simulationStarted = false;
+        let emptyPacketCount = 0;
+
+        function fetchPackets() {
+            fetch('/api/network/packets')
+                .then(r => r.json())
+                .then(data => {
+                    if (data.packets && data.packets.length > 0) {
+                        data.packets.forEach(packet => addPacket(packet));
+                        emptyPacketCount = 0;
+                    } else {
+                        // If we get 5 consecutive empty responses, start simulation
+                        emptyPacketCount++;
+                        if (emptyPacketCount >= 5 && !simulationStarted) {
+                            console.log('[info] No live packets detected, starting simulation...');
+                            startSimulation();
+                            simulationStarted = true;
+                        }
+                    }
+                })
+                .catch(err => {
+                    // Use simulated data if API not available
+                    if (!simulationStarted) {
+                        console.log('[info] API error, starting simulation...');
+                        startSimulation();
+                        simulationStarted = true;
+                    }
+                });
+        }
+
+        // Simulated packet generation (for testing without capture)
+        function startSimulation() {
+            const protocols = ['TCP', 'UDP', 'ICMP', 'ARP', 'DNS', 'HTTP', 'HTTPS', 'SSH'];
+            const ips = ['192.168.1.1', '192.168.1.100', '192.168.1.50', '10.0.0.1', '172.16.0.5', '8.8.8.8', '1.1.1.1'];
+            const ports = [80, 443, 22, 53, 8080, 3000, 5432, 3306];
+
+            // Add some simulated device names for demo
+            deviceMap['192.168.1.1'] = 'gateway.local';
+            deviceMap['192.168.1.100'] = 'MacBook-Pro.local';
+            deviceMap['192.168.1.50'] = 'iPhone-12.local';
+            deviceMap['10.0.0.1'] = 'router.home';
+            deviceMap['172.16.0.5'] = 'ubuntu-server.local';
+            deviceMap['8.8.8.8'] = 'dns.google';
+            deviceMap['1.1.1.1'] = 'one.one.one.one';
+
+            setInterval(() => {
+                if (!paused) {
+                    const protocol = protocols[Math.floor(Math.random() * protocols.length)];
+                    const packet = {
+                        timestamp: Date.now() / 1000,  // Convert to seconds like real capture
+                        src: ips[Math.floor(Math.random() * ips.length)],
+                        dst: ips[Math.floor(Math.random() * ips.length)],
+                        protocol: protocol,
+                        length: Math.floor(Math.random() * 1500) + 60,
+                        sport: protocol === 'TCP' || protocol === 'UDP' ? ports[Math.floor(Math.random() * ports.length)] : null,
+                        dport: protocol === 'TCP' || protocol === 'UDP' ? ports[Math.floor(Math.random() * ports.length)] : null,
+                        flags: protocol === 'TCP' ? ['SYN', 'ACK', 'PSH', 'FIN'][Math.floor(Math.random() * 4)] : null,
+                        info: `${protocol} packet`,
+                        ttl: Math.floor(Math.random() * 128) + 1
+                    };
+                    addPacket(packet);
+                }
+            }, 100 + Math.random() * 400); // Random interval 100-500ms
+        }
+
+        // Try to fetch from API, fallback to simulation
+        fetchPackets();
+        setInterval(fetchPackets, 1000);
+
+        // Fetch device discovery data every 5 seconds
+        fetchDevices();
+        setInterval(fetchDevices, 5000);
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.key === ' ') {
+                e.preventDefault();
+                togglePause();
+            } else if (e.key === 'Escape') {
+                closeDetail();
+            } else if (e.key === 'l' || e.key === 'L') {
+                toggleLegend();
+            }
+        });
+
+        // Column resizing functionality
+        let resizingColumn = null;
+        let startX = 0;
+        let startWidth = 0;
+
+        document.querySelectorAll('.col-resizer').forEach(resizer => {
+            resizer.addEventListener('mousedown', (e) => {
+                e.preventDefault();
+                resizingColumn = e.target.parentElement;
+                startX = e.pageX;
+                startWidth = resizingColumn.offsetWidth;
+                document.body.style.cursor = 'col-resize';
+            });
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (resizingColumn) {
+                const diff = e.pageX - startX;
+                const newWidth = Math.max(startWidth + diff, parseInt(getComputedStyle(resizingColumn).minWidth));
+                resizingColumn.style.width = newWidth + 'px';
+
+                // Update all packet rows for this column
+                const colClass = 'col-' + resizingColumn.dataset.col;
+                document.querySelectorAll('.' + colClass).forEach(col => {
+                    col.style.width = newWidth + 'px';
+                });
+            }
+        });
+
+        document.addEventListener('mouseup', () => {
+            if (resizingColumn) {
+                resizingColumn = null;
+                document.body.style.cursor = 'default';
+            }
+        });
+
+        // Notification system for discovered files
+        let discoveredFiles = [];
+        let lastDeviceCheck = Date.now();
+
+        function checkForNewDiscoveries() {
+            fetch('/api/network/devices')
+                .then(r => r.json())
+                .then(data => {
+                    if (data.devices && data.devices.length > 0) {
+                        data.devices.forEach(device => {
+                            // Check for file services
+                            const services = device.services || {};
+                            Object.entries(services).forEach(([port, serviceName]) => {
+                                const key = `${device.ip}:${port}`;
+                                if (!discoveredFiles.includes(key)) {
+                                    discoveredFiles.push(key);
+
+                                    // Show notification
+                                    if (serviceName.includes('FTP') || serviceName.includes('SMB') || serviceName.includes('HTTP')) {
+                                        showNotification(
+                                            `📁 File Service Discovered`,
+                                            `${device.display_name} (${device.ip})\n${serviceName} on port ${port}`,
+                                            5000
+                                        );
+                                    }
+                                }
+                            });
+                        });
+                    }
+                })
+                .catch(err => {});
+        }
+
+        function showNotification(title, message, duration = 5000) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 80px;
+                right: 20px;
+                background: rgba(26, 26, 26, 0.95);
+                backdrop-filter: blur(15px);
+                border: 2px solid #00ff00;
+                border-radius: 8px;
+                padding: 15px 20px;
+                color: #00ff00;
+                font-size: 12px;
+                max-width: 350px;
+                z-index: 10000;
+                box-shadow: 0 4px 20px rgba(0, 255, 0, 0.3);
+                animation: slideInRight 0.3s ease-out;
+            `;
+
+            notification.innerHTML = `
+                <div style="font-weight: bold; margin-bottom: 5px;">${title}</div>
+                <div style="color: #aaa; white-space: pre-wrap;">${message}</div>
+            `;
+
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.style.animation = 'slideOutRight 0.3s ease-in';
+                setTimeout(() => notification.remove(), 300);
+            }, duration);
+        }
+
+        // Add animation for notifications
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideInRight {
+                from { transform: translateX(400px); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOutRight {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(400px); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Check for discoveries every 10 seconds
+        setInterval(checkForNewDiscoveries, 10000);
+
+        // Generate quantum particles for galaxy background
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 100; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 20 + 's';
+
+            // Vary particle colors
+            const colors = ['#00ff00', '#00ff88', '#00ffff', '#a855f7', '#00d4ff'];
+            particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+
+            particlesContainer.appendChild(particle);
+        }
+
+        console.log('[info] Ai|oS Network Visualizer loaded');
+        console.log('[info] Column resizing enabled - drag column borders to resize');
+        console.log('[info] File discovery notifications enabled');
+    </script>
+</body>
+</html>

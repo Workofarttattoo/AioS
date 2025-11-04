@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI:OS - Living Desktop</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: #000000;
+            color: #00ff88;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        /* Canvas for generative macro animation */
+        #macroCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        /* Code stream overlay */
+        .code-stream {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+            font-size: 12px;
+            line-height: 1.4;
+            opacity: 0.6;
+        }
+
+        .code-line {
+            position: absolute;
+            white-space: nowrap;
+            color: #00ff88;
+            text-shadow: 0 0 5px #00ff88;
+            animation: slideCode linear;
+        }
+
+        @keyframes slideCode {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100vw);
+                opacity: 0;
+            }
+        }
+
+        /* AI OS Stats HUD */
+        .stats-hud {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.85);
+            border: 2px solid #00ff88;
+            border-radius: 10px;
+            padding: 20px;
+            min-width: 300px;
+            z-index: 10;
+            font-family: 'Courier New', monospace;
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.5);
+        }
+
+        .hud-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #00ff88;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 13px;
+        }
+
+        .stat-label {
+            color: #00d4ff;
+        }
+
+        .stat-value {
+            color: #00ff88;
+            font-weight: bold;
+        }
+
+        .stat-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(0, 255, 136, 0.2);
+            border-radius: 4px;
+            margin-top: 5px;
+            overflow: hidden;
+        }
+
+        .stat-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00ff88, #00d4ff);
+            transition: width 0.5s;
+            box-shadow: 0 0 10px #00ff88;
+        }
+
+        /* System log */
+        .system-log {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.85);
+            border: 2px solid #00ff88;
+            border-radius: 10px;
+            padding: 15px;
+            max-width: 400px;
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 10;
+            font-size: 11px;
+            font-family: 'Courier New', monospace;
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.5);
+        }
+
+        .log-entry {
+            margin-bottom: 5px;
+            opacity: 0;
+            animation: fadeInLog 0.5s forwards;
+        }
+
+        @keyframes fadeInLog {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .log-timestamp {
+            color: #666;
+        }
+
+        .log-info {
+            color: #00d4ff;
+        }
+
+        .log-success {
+            color: #00ff88;
+        }
+
+        .log-quantum {
+            color: #a855f7;
+        }
+
+        /* Quantum particle effect */
+        .quantum-particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: #a855f7;
+            border-radius: 50%;
+            pointer-events: none;
+            box-shadow: 0 0 10px #a855f7;
+            animation: floatParticle linear infinite;
+        }
+
+        @keyframes floatParticle {
+            0% {
+                transform: translate(0, 0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty));
+                opacity: 0;
+            }
+        }
+
+        /* Boot animation */
+        .boot-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            animation: fadeOutBoot 3s 5s forwards;
+        }
+
+        @keyframes fadeOutBoot {
+            to {
+                opacity: 0;
+                pointer-events: none;
+            }
+        }
+
+        .boot-logo {
+            font-size: 48px;
+            font-weight: bold;
+            color: #00ff88;
+            margin-bottom: 30px;
+            text-shadow: 0 0 20px #00ff88;
+            animation: pulseBoot 1s infinite;
+        }
+
+        @keyframes pulseBoot {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.7;
+                transform: scale(1.05);
+            }
+        }
+
+        .boot-text {
+            font-size: 14px;
+            color: #00d4ff;
+            margin: 5px 0;
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #00ff88;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Boot Screen -->
+    <div class="boot-screen" id="bootScreen">
+        <div class="boot-logo">AI:OS</div>
+        <div class="boot-text">▰▰▰▰▰▰▰▰▰▰ Initializing Quantum Core...</div>
+        <div class="boot-text">▰▰▰▰▰▰▰▰▰▰ Loading Neural Networks...</div>
+        <div class="boot-text">▰▰▰▰▰▰▰▰▰▰ Starting Self-Update Daemon...</div>
+        <div class="boot-text">▰▰▰▰▰▰▰▰▰▰ Connecting to Quantum Backends...</div>
+    </div>
+
+    <!-- Living Macro Canvas -->
+    <canvas id="macroCanvas"></canvas>
+
+    <!-- Code Stream Overlay -->
+    <div class="code-stream" id="codeStream"></div>
+
+    <!-- System Log -->
+    <div class="system-log" id="systemLog">
+        <div class="log-entry log-info"><span class="log-timestamp">[00:00]</span> AI:OS v1.0 initialized</div>
+    </div>
+
+    <!-- Stats HUD -->
+    <div class="stats-hud">
+        <div class="hud-title">AI:OS TELEMETRY</div>
+
+        <div class="stat-row">
+            <span class="stat-label">CPU Usage:</span>
+            <span class="stat-value" id="cpuValue">0%</span>
+        </div>
+        <div class="stat-bar">
+            <div class="stat-bar-fill" id="cpuBar" style="width: 0%"></div>
+        </div>
+
+        <div class="stat-row">
+            <span class="stat-label">Memory:</span>
+            <span class="stat-value" id="memValue">0 MB</span>
+        </div>
+        <div class="stat-bar">
+            <div class="stat-bar-fill" id="memBar" style="width: 0%"></div>
+        </div>
+
+        <div class="stat-row">
+            <span class="stat-label">Inference Speed:</span>
+            <span class="stat-value" id="inferenceValue">0 tok/s</span>
+        </div>
+        <div class="stat-bar">
+            <div class="stat-bar-fill" id="inferenceBar" style="width: 0%"></div>
+        </div>
+
+        <div class="stat-row">
+            <span class="stat-label">Quantum Qubits:</span>
+            <span class="stat-value" id="qubitValue">0</span>
+        </div>
+        <div class="stat-bar">
+            <div class="stat-bar-fill" id="qubitBar" style="width: 0%"></div>
+        </div>
+
+        <div class="stat-row">
+            <span class="stat-label">Active Agents:</span>
+            <span class="stat-value" id="agentValue">0</span>
+        </div>
+
+        <div class="stat-row">
+            <span class="stat-label">Uptime:</span>
+            <span class="stat-value" id="uptimeValue">0s</span>
+        </div>
+    </div>
+
+    <script>
+        // ============================================================
+        // GENERATIVE MACRO ANIMATION (Like Codex Installation)
+        // ============================================================
+
+        const canvas = document.getElementById('macroCanvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        // Particles system
+        const particles = [];
+        const particleCount = 100;
+        const connectionDistance = 150;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 2;
+                this.vy = (Math.random() - 0.5) * 2;
+                this.size = Math.random() * 2 + 1;
+                this.color = this.randomColor();
+            }
+
+            randomColor() {
+                const colors = ['#00ff88', '#00d4ff', '#a855f7'];
+                return colors[Math.floor(Math.random() * colors.length)];
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                // Bounce off edges
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+
+                // Keep in bounds
+                this.x = Math.max(0, Math.min(canvas.width, this.x));
+                this.y = Math.max(0, Math.min(canvas.height, this.y));
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.shadowBlur = 15;
+                ctx.shadowColor = this.color;
+                ctx.fill();
+                ctx.shadowBlur = 0;
+            }
+        }
+
+        // Initialize particles
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+
+        // Wave pattern
+        let waveOffset = 0;
+
+        function drawConnections() {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < connectionDistance) {
+                        const opacity = 1 - (distance / connectionDistance);
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = `rgba(0, 255, 136, ${opacity * 0.3})`;
+                        ctx.lineWidth = 1;
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function drawWaves() {
+            ctx.beginPath();
+            for (let x = 0; x < canvas.width; x += 10) {
+                const y = canvas.height / 2 + Math.sin((x + waveOffset) * 0.01) * 100;
+                if (x === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+            }
+            ctx.strokeStyle = 'rgba(168, 85, 247, 0.3)';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            waveOffset += 2;
+        }
+
+        function animate() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            drawWaves();
+            drawConnections();
+
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        // ============================================================
+        // CODE STREAM (Matrix-style flowing code)
+        // ============================================================
+
+        const codeLines = [
+            'import quantum_ml_algorithms',
+            'from ai_os_integration import initialize_ai_os',
+            'qc = QuantumStateEngine(num_qubits=45)',
+            'await use_ultrafast_reasoning("optimize")',
+            'forecast = await forecast_system_issues()',
+            'self.state = torch.einsum("ij,ja->ia", gate, state)',
+            'cnot_matrix.reshape(2, 2, 2, 2)',
+            'result = minimize(cost_function, params)',
+            'qc.hadamard(0); qc.cnot(0, 1)',
+            'policy_network = QuantumReinforcementLearning()',
+            'kernel_matrix = compute_kernel_matrix(X)',
+            'generator.train_step(real_states)',
+            'posterior = quantum_bayesian.compute_posterior()',
+            'amplitude = estimate_amplitude(function)',
+            'async def autonomous_research(topic):',
+            'speculative_decoder.generate(tokens)',
+            'torch.linalg.svd(result_flat)',
+            'await self_update.perform_update()',
+            'energy = boltzmann.energy(visible, hidden)',
+            'circuit = qaoa.run_circuit(params, edges)'
+        ];
+
+        function spawnCodeLine() {
+            const codeStream = document.getElementById('codeStream');
+            const line = document.createElement('div');
+            line.className = 'code-line';
+            line.textContent = codeLines[Math.floor(Math.random() * codeLines.length)];
+            line.style.top = Math.random() * 80 + 10 + '%';
+            line.style.animationDuration = (Math.random() * 10 + 10) + 's';
+
+            const colors = ['#00ff88', '#00d4ff', '#a855f7'];
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            line.style.color = color;
+            line.style.textShadow = `0 0 5px ${color}`;
+
+            codeStream.appendChild(line);
+
+            setTimeout(() => {
+                line.remove();
+            }, parseFloat(line.style.animationDuration) * 1000);
+        }
+
+        setInterval(spawnCodeLine, 500);
+
+        // ============================================================
+        // REAL-TIME STATS (Simulated feedback loop)
+        // ============================================================
+
+        let startTime = Date.now();
+        let cpuUsage = 0;
+        let memUsage = 0;
+        let inferenceSpeed = 0;
+        let qubits = 0;
+        let activeAgents = 0;
+
+        function updateStats() {
+            // Simulate realistic stats with some randomness
+            cpuUsage = Math.min(100, Math.max(10, cpuUsage + (Math.random() - 0.5) * 10));
+            memUsage = Math.min(8000, Math.max(500, memUsage + (Math.random() - 0.5) * 200));
+            inferenceSpeed = Math.min(7500, Math.max(1000, inferenceSpeed + (Math.random() - 0.5) * 500));
+            qubits = Math.min(50, Math.max(0, qubits + (Math.random() - 0.5) * 2));
+            activeAgents = Math.min(11, Math.max(5, Math.floor(activeAgents + (Math.random() - 0.5) * 1)));
+
+            // Update UI
+            document.getElementById('cpuValue').textContent = cpuUsage.toFixed(1) + '%';
+            document.getElementById('cpuBar').style.width = cpuUsage + '%';
+
+            document.getElementById('memValue').textContent = memUsage.toFixed(0) + ' MB';
+            document.getElementById('memBar').style.width = (memUsage / 8000 * 100) + '%';
+
+            document.getElementById('inferenceValue').textContent = inferenceSpeed.toFixed(0) + ' tok/s';
+            document.getElementById('inferenceBar').style.width = (inferenceSpeed / 7500 * 100) + '%';
+
+            document.getElementById('qubitValue').textContent = qubits.toFixed(0);
+            document.getElementById('qubitBar').style.width = (qubits / 50 * 100) + '%';
+
+            document.getElementById('agentValue').textContent = activeAgents;
+
+            const uptime = Math.floor((Date.now() - startTime) / 1000);
+            const hours = Math.floor(uptime / 3600);
+            const minutes = Math.floor((uptime % 3600) / 60);
+            const seconds = uptime % 60;
+            document.getElementById('uptimeValue').textContent =
+                `${hours}h ${minutes}m ${seconds}s`;
+        }
+
+        setInterval(updateStats, 1000);
+
+        // Initialize stats
+        setTimeout(() => {
+            cpuUsage = 35;
+            memUsage = 2500;
+            inferenceSpeed = 3200;
+            qubits = 25;
+            activeAgents = 8;
+            updateStats();
+        }, 3000);
+
+        // ============================================================
+        // SYSTEM LOG (Real-time events)
+        // ============================================================
+
+        const logMessages = [
+            { type: 'info', msg: 'Ultra-fast discovery engine initialized' },
+            { type: 'success', msg: 'Quantum platforms connected' },
+            { type: 'quantum', msg: 'VQE optimization complete' },
+            { type: 'info', msg: 'Self-update daemon running' },
+            { type: 'quantum', msg: 'QAOA solving MaxCut problem' },
+            { type: 'success', msg: 'Speculative decoding active (2.8x speedup)' },
+            { type: 'quantum', msg: 'Quantum kernel computed' },
+            { type: 'info', msg: 'Autonomous research started' },
+            { type: 'success', msg: 'Neural network inference complete' },
+            { type: 'quantum', msg: 'Quantum forecast: risk level 0.12' },
+            { type: 'info', msg: 'Agent orchestration active' },
+            { type: 'success', msg: 'System health check passed' },
+            { type: 'quantum', msg: 'MPS compression active (45 qubits)' }
+        ];
+
+        function addLogEntry() {
+            const log = document.getElementById('systemLog');
+            const entry = document.createElement('div');
+            entry.className = 'log-entry';
+
+            const msg = logMessages[Math.floor(Math.random() * logMessages.length)];
+            const timestamp = new Date().toTimeString().slice(0, 8);
+
+            entry.className = `log-entry log-${msg.type}`;
+            entry.innerHTML = `<span class="log-timestamp">[${timestamp}]</span> ${msg.msg}`;
+
+            log.appendChild(entry);
+
+            // Keep only last 20 entries
+            while (log.children.length > 20) {
+                log.removeChild(log.firstChild);
+            }
+
+            // Auto scroll to bottom
+            log.scrollTop = log.scrollHeight;
+        }
+
+        // Add log entries periodically
+        setInterval(addLogEntry, 3000);
+
+        // Add initial logs
+        setTimeout(() => {
+            addLogEntry();
+        }, 4000);
+
+        // ============================================================
+        // QUANTUM PARTICLES
+        // ============================================================
+
+        function spawnQuantumParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'quantum-particle';
+
+            const startX = Math.random() * window.innerWidth;
+            const startY = Math.random() * window.innerHeight;
+            const endX = (Math.random() - 0.5) * 400;
+            const endY = (Math.random() - 0.5) * 400;
+
+            particle.style.left = startX + 'px';
+            particle.style.top = startY + 'px';
+            particle.style.setProperty('--tx', endX + 'px');
+            particle.style.setProperty('--ty', endY + 'px');
+            particle.style.animationDuration = (Math.random() * 3 + 2) + 's';
+
+            document.body.appendChild(particle);
+
+            setTimeout(() => {
+                particle.remove();
+            }, parseFloat(particle.style.animationDuration) * 1000);
+        }
+
+        setInterval(spawnQuantumParticle, 300);
+
+        // ============================================================
+        // RESIZE HANDLER
+        // ============================================================
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // ============================================================
+        // BOOT SEQUENCE
+        // ============================================================
+
+        const bootTexts = document.querySelectorAll('.boot-text');
+        bootTexts.forEach((text, index) => {
+            setTimeout(() => {
+                text.style.color = '#00ff88';
+                text.innerHTML = text.innerHTML.replace('▰▰▰▰▰▰▰▰▰▰', '▰▰▰▰▰▰▰▰▰▰ ✓');
+            }, (index + 1) * 1000);
+        });
+    </script>
+</body>
+</html>

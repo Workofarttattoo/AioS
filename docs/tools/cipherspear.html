@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CipherSpear - Database Injection Analysis</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <span class="logo">🛡️</span>
+                <span class="brand-text">Red Team Tools</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../index.html#tools">Tools</a></li>
+                <li><a href="../getting-started.html">Get Started</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="https://github.com/Workofarttattoo/AioS" target="_blank" class="github-btn">GitHub</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container" style="padding: 80px 20px; max-width: 900px;">
+        <h1 style="font-size: 3rem; margin-bottom: 1rem; color: var(--primary);">💉 CipherSpear</h1>
+        <p style="font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 3rem;">Advanced database injection analysis and SQL vulnerability detection</p>
+
+        <div class="step">
+            <h2>Overview</h2>
+            <p>CipherSpear is a sophisticated database injection analysis tool designed for identifying SQL injection vulnerabilities in web applications and database interfaces. It supports multiple database engines and injection techniques.</p>
+        </div>
+
+        <div class="step">
+            <h2>Features</h2>
+            <ul style="color: var(--text-secondary); margin-left: 2rem;">
+                <li>💉 SQL injection detection (Union, Boolean, Time-based, Error-based)</li>
+                <li>🗄️ Multi-database support (PostgreSQL, MySQL, MSSQL, Oracle, SQLite)</li>
+                <li>🔍 Automated vulnerability scanning</li>
+                <li>🎯 Custom payload generation</li>
+                <li>📊 Detailed reporting with severity ratings</li>
+                <li>🖥️ GUI interface with real-time feedback</li>
+                <li>🔒 Demo mode for safe testing</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h2>Quick Start</h2>
+            <div class="code-block"><code># Test database connection (demo mode)
+python -m red-team-tools.cipherspear --demo --json
+
+# Test specific database
+python -m red-team-tools.cipherspear --dsn postgresql://localhost/testdb --demo
+
+# GUI mode for interactive testing
+python -m red-team-tools.cipherspear --gui
+
+# Health check
+python -m red-team-tools.cipherspear --health --json</code></div>
+        </div>
+
+        <div class="step">
+            <h2>Injection Techniques</h2>
+            <ul style="color: var(--text-secondary); margin-left: 2rem;">
+                <li><strong>Union-based</strong>: Combines results from multiple queries</li>
+                <li><strong>Boolean-based</strong>: Uses conditional logic to extract data</li>
+                <li><strong>Time-based blind</strong>: Infers data from response delays</li>
+                <li><strong>Error-based</strong>: Leverages database error messages</li>
+                <li><strong>Stacked queries</strong>: Executes multiple statements</li>
+            </ul>
+        </div>
+
+        <div class="warning-box">
+            <p><strong>⚠️ Authorization Required:</strong> Only test databases and applications you own or have explicit written permission to test. Unauthorized SQL injection testing is illegal.</p>
+        </div>
+
+        <div class="step">
+            <h2>Best Practices</h2>
+            <ul style="color: var(--text-secondary); margin-left: 2rem;">
+                <li>Always start with <code>--demo</code> mode to understand behavior</li>
+                <li>Test against development/staging environments first</li>
+                <li>Use read-only database accounts when possible</li>
+                <li>Document all findings and report responsibly</li>
+                <li>Verify results manually to avoid false positives</li>
+            </ul>
+        </div>
+
+        <p style="margin-top: 3rem;"><a href="../index.html#tools" style="color: var(--secondary);">← Back to all tools</a></p>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p style="text-align: center; color: var(--text-secondary);">Copyright © 2025 Joshua Hendricks Cole (DBA: Corporation of Light)</p>
+        </div>
+    </footer>
+</body>
+</html>

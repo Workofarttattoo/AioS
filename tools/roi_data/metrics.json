@@ -1,0 +1,87 @@
+{
+  "total_conversions": 7269,
+  "email_captures": 5782,
+  "flowstate_clicks": 893,
+  "trial_signups": 427,
+  "paid_conversions": 167,
+  "revenue": 20949,
+  "tool_metrics": {
+    "AuroraScan": {
+      "views": 928,
+      "email_captures": 647,
+      "flowstate_clicks": 168,
+      "conversions": 33,
+      "revenue": 3851
+    },
+    "SpectraTrace": {
+      "views": 968,
+      "email_captures": 673,
+      "flowstate_clicks": 169,
+      "conversions": 38,
+      "revenue": 4186
+    },
+    "MythicKey": {
+      "views": 1000,
+      "email_captures": 717,
+      "flowstate_clicks": 183,
+      "conversions": 23,
+      "revenue": 3231
+    },
+    "CipherSpear": {
+      "views": 989,
+      "email_captures": 705,
+      "flowstate_clicks": 171,
+      "conversions": 31,
+      "revenue": 4207
+    },
+    "SkyBreaker": {
+      "views": 1077,
+      "email_captures": 733,
+      "flowstate_clicks": 202,
+      "conversions": 42,
+      "revenue": 5474
+    },
+    "NemesisHydra": {
+      "views": 768,
+      "email_captures": 768,
+      "flowstate_clicks": 0,
+      "conversions": 0,
+      "revenue": 0
+    },
+    "ObsidianHunt": {
+      "views": 780,
+      "email_captures": 780,
+      "flowstate_clicks": 0,
+      "conversions": 0,
+      "revenue": 0
+    },
+    "VectorFlux": {
+      "views": 759,
+      "email_captures": 759,
+      "flowstate_clicks": 0,
+      "conversions": 0,
+      "revenue": 0
+    }
+  },
+  "variant_performance": {
+    "A": {
+      "views": 2445,
+      "conversions": 2135
+    },
+    "B": {
+      "views": 2341,
+      "conversions": 2058
+    },
+    "C": {
+      "views": 2483,
+      "conversions": 2183
+    }
+  },
+  "daily_metrics": {
+    "2025-10-27": {
+      "conversions": 7269,
+      "revenue": 20949,
+      "email_captures": 5782
+    }
+  }
+}

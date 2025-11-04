@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NmapPro - Advanced Network Mapping</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <span class="logo">🛡️</span>
+                <span class="brand-text">Red Team Tools</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../index.html#tools">Tools</a></li>
+                <li><a href="../getting-started.html">Get Started</a></li>
+                <li><a href="../faq.html">FAQ</a></li>
+                <li><a href="https://github.com/Workofarttattoo/AioS" target="_blank" class="github-btn">GitHub</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container" style="padding: 80px 20px; max-width: 900px;">
+        <h1 style="font-size: 3rem; margin-bottom: 1rem; color: var(--primary);">🗺️ NmapPro</h1>
+        <p style="font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 3rem;">Advanced network mapping with intelligent service enumeration</p>
+
+        <div class="step">
+            <h2>Overview</h2>
+            <p>NmapPro is an enhanced network mapper that combines traditional port scanning with ML-driven service detection, OS fingerprinting, and network topology visualization.</p>
+        </div>
+
+        <div class="step">
+            <h2>Features</h2>
+            <ul style="color: var(--text-secondary); margin-left: 2rem;">
+                <li>🗺️ Intelligent network topology mapping</li>
+                <li>🔍 Advanced service version detection</li>
+                <li>💻 OS fingerprinting with ML classification</li>
+                <li>📊 Network diagram generation</li>
+                <li>⚡ Parallel scanning with adaptive timing</li>
+                <li>🎯 Scriptable service enumeration (NSE)</li>
+                <li>🖥️ Interactive GUI with network visualization</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h2>Quick Start</h2>
+            <div class="code-block"><code># Basic scan
+python -m red-team-tools.nmappro --scan 192.168.1.0/24 --profile quick
+
+# Full comprehensive scan
+python -m red-team-tools.nmappro --scan 192.168.1.100 --profile full
+
+# GUI mode
+python -m red-team-tools.nmappro --gui
+
+# Health check
+python -m red-team-tools.nmappro --health --json</code></div>
+        </div>
+
+        <div class="step">
+            <h2>Scan Profiles</h2>
+            <ul style="color: var(--text-secondary); margin-left: 2rem;">
+                <li><strong>quick</strong>: Fast port discovery</li>
+                <li><strong>full</strong>: Comprehensive scan with service detection</li>
+                <li><strong>stealth</strong>: SYN stealth scanning</li>
+                <li><strong>aggressive</strong>: OS detection + version scanning + traceroute</li>
+            </ul>
+        </div>
+
+        <p style="margin-top: 3rem;"><a href="../index.html#tools" style="color: var(--secondary);">← Back to all tools</a></p>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p style="text-align: center; color: var(--text-secondary);">Copyright © 2025 Joshua Hendricks Cole (DBA: Corporation of Light)</p>
+        </div>
+    </footer>
+</body>
+</html>

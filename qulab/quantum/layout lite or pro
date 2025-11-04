@@ -1,0 +1,25 @@
+qulab/
+ ├─ backend/
+ │   ├─ requirements.txt
+ │   ├─ app.py
+ │   └─ api/
+ │       ├─ __init__.py
+ │       ├─ encoding.py
+ │       ├─ governance.py
+ │       └─ sim/
+ │           ├─ __init__.py
+ │           └─ teleport.py
+ └─ frontend/
+     ├─ package.json
+     ├─ index.html
+     ├─ vite.config.ts
+     └─ src/
+         ├─ main.tsx
+         ├─ App.tsx
+         ├─ routes/
+         │   ├─ Teleport.tsx
+         │   ├─ Encoding.tsx
+         │   └─ Governance.tsx
+         └─ widgets/
+             ├─ CircuitPane.tsx
+             └─ FidelityChart.tsx

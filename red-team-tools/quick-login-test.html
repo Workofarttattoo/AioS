@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Login Test</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        body {
+            font-family: monospace;
+            background: #000;
+            color: #0f0;
+            padding: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        input, button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            background: #111;
+            border: 1px solid #0f0;
+            color: #0f0;
+            font-family: monospace;
+            font-size: 16px;
+        }
+        button {
+            cursor: pointer;
+            background: #003300;
+        }
+        button:hover {
+            background: #005500;
+        }
+        .log {
+            background: #001100;
+            border: 1px solid #0f0;
+            padding: 20px;
+            margin-top: 20px;
+            white-space: pre-wrap;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .error {
+            color: #f00;
+        }
+        .success {
+            color: #0ff;
+        }
+        h1, h2 {
+            color: #0ff;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 Quick Login Debug Tool</h1>
+
+    <h2>Step 1: Create Account (if you haven't already)</h2>
+    <input type="email" id="regEmail" placeholder="Email" value="test@test.com">
+    <input type="password" id="regPassword" placeholder="Password (min 8 chars)" value="TestPass123!">
+    <button onclick="quickRegister()">📝 Create Account</button>
+
+    <h2>Step 2: Login</h2>
+    <input type="email" id="loginEmail" placeholder="Email" value="test@test.com">
+    <input type="password" id="loginPassword" placeholder="Password" value="TestPass123!">
+    <button onclick="quickLogin()">🔐 Login</button>
+
+    <h2>Step 3: Check Session</h2>
+    <button onclick="checkSession()">👤 Check Current Session</button>
+
+    <h2>Debug Console</h2>
+    <div class="log" id="log"></div>
+
+    <script>
+        const SUPABASE_URL = 'https://cszoklkfdszqsxhufhhj.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNzem9rbGtmZHN6cXN4aHVmaGhqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjExNzI0MzAsImV4cCI6MjA3Njc0ODQzMH0.HdqXrWVTPCQ2NYH-5ED_nx91a38UGPvTHjva4NzBG8I';
+
+        const { createClient } = supabase;
+        const client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        function log(message, type = 'normal') {
+            const logDiv = document.getElementById('log');
+            const timestamp = new Date().toLocaleTimeString();
+            let className = '';
+
+            if (type === 'error') className = 'error';
+            if (type === 'success') className = 'success';
+
+            logDiv.innerHTML += `<div class="${className}">[${timestamp}] ${message}</div>`;
+            logDiv.scrollTop = logDiv.scrollHeight;
+        }
+
+        async function quickRegister() {
+            const email = document.getElementById('regEmail').value;
+            const password = document.getElementById('regPassword').value;
+
+            log(`\n=== REGISTRATION ATTEMPT ===`);
+            log(`Email: ${email}`);
+            log(`Password length: ${password.length}`);
+
+            try {
+                const { data, error } = await client.auth.signUp({
+                    email: email,
+                    password: password,
+                    options: {
+                        emailRedirectTo: window.location.origin + '/dashboard.html'
+                    }
+                });
+
+                if (error) {
+                    log(`❌ Registration Error: ${error.message}`, 'error');
+                    log(`Error details: ${JSON.stringify(error, null, 2)}`, 'error');
+                    return;
+                }
+
+                log(`✅ Registration successful!`, 'success');
+                log(`User ID: ${data.user?.id}`, 'success');
+                log(`Email confirmed: ${data.user?.email_confirmed_at ? 'YES' : 'NO (check email)'}`, 'success');
+
+                if (data.session) {
+                    log(`Session created: YES`, 'success');
+                } else {
+                    log(`Session created: NO (email confirmation may be required)`, 'error');
+                }
+
+            } catch (err) {
+                log(`❌ Exception: ${err.message}`, 'error');
+                log(`Stack: ${err.stack}`, 'error');
+            }
+        }
+
+        async function quickLogin() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            log(`\n=== LOGIN ATTEMPT ===`);
+            log(`Email: ${email}`);
+            log(`Password length: ${password.length}`);
+
+            try {
+                const { data, error } = await client.auth.signInWithPassword({
+                    email: email,
+                    password: password
+                });
+
+                if (error) {
+                    log(`❌ Login Error: ${error.message}`, 'error');
+                    log(`Error code: ${error.status}`, 'error');
+                    log(`Full error: ${JSON.stringify(error, null, 2)}`, 'error');
+
+                    // Provide helpful hints
+                    if (error.message.includes('Invalid login credentials')) {
+                        log(`\n💡 HINT: This usually means:`, 'error');
+                        log(`  1. Wrong email or password`, 'error');
+                        log(`  2. Email not verified yet (check your inbox)`, 'error');
+                        log(`  3. Account doesn't exist (register first)`, 'error');
+                    }
+
+                    return;
+                }
+
+                log(`✅ Login successful!`, 'success');
+                log(`User ID: ${data.user.id}`, 'success');
+                log(`Email: ${data.user.email}`, 'success');
+                log(`Email verified: ${data.user.email_confirmed_at ? 'YES' : 'NO'}`, 'success');
+                log(`Session token: ${data.session.access_token.substring(0, 20)}...`, 'success');
+                log(`\n🎉 YOU ARE NOW LOGGED IN!`, 'success');
+
+            } catch (err) {
+                log(`❌ Exception: ${err.message}`, 'error');
+                log(`Stack: ${err.stack}`, 'error');
+            }
+        }
+
+        async function checkSession() {
+            log(`\n=== CHECKING SESSION ===`);
+
+            try {
+                const { data, error } = await client.auth.getSession();
+
+                if (error) {
+                    log(`❌ Session Error: ${error.message}`, 'error');
+                    return;
+                }
+
+                if (data.session) {
+                    log(`✅ Active session found!`, 'success');
+                    log(`User: ${data.session.user.email}`, 'success');
+                    log(`User ID: ${data.session.user.id}`, 'success');
+                    log(`Session expires: ${new Date(data.session.expires_at * 1000).toLocaleString()}`, 'success');
+                } else {
+                    log(`❌ No active session`, 'error');
+                    log(`You need to login first`, 'error');
+                }
+
+            } catch (err) {
+                log(`❌ Exception: ${err.message}`, 'error');
+            }
+        }
+
+        // Initialize
+        log('🚀 Quick Login Test Tool Initialized');
+        log(`Supabase URL: ${SUPABASE_URL}`);
+        log(`Ready to test!\n`);
+
+        // Auto-check session on load
+        checkSession();
+    </script>
+<script src="js/visitor-counter.js"></script>
+</body>
+</html>
+
+<!-- Copyright (c) 2025 Joshua Hendricks Cole (DBA: Corporation of Light). All Rights Reserved. PATENT PENDING. -->

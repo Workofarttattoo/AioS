@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Diagnostic - Red Team Tools</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background: #0a0a0a;
+            color: #0f0;
+            padding: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .section {
+            background: #1a1a1a;
+            border: 1px solid #0f0;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        h1 { color: #0f0; text-align: center; }
+        h2 { color: #0f0; margin-bottom: 15px; }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            background: #0a0a0a;
+            border: 1px solid #0f0;
+            color: #0f0;
+            font-family: 'Courier New', monospace;
+        }
+        button {
+            background: #0f0;
+            color: #0a0a0a;
+            border: none;
+            padding: 15px 30px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            margin: 10px 5px;
+            border-radius: 5px;
+        }
+        button:hover { background: #0c0; }
+        .log {
+            background: #000;
+            color: #0f0;
+            padding: 15px;
+            border: 1px solid #0f0;
+            border-radius: 5px;
+            font-size: 0.9em;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .success { color: #0f0; }
+        .error { color: #f00; }
+        .info { color: #0ff; }
+    </style>
+</head>
+<body>
+    <h1>🔍 Red Team Tools - Login Diagnostic</h1>
+
+    <div class="section">
+        <h2>1. Supabase Connection Test</h2>
+        <button onclick="testConnection()">Test Connection</button>
+        <div id="connectionLog" class="log">Click button to test...</div>
+    </div>
+
+    <div class="section">
+        <h2>2. Create Test Account</h2>
+        <input type="email" id="testEmail" placeholder="test@example.com" value="test@example.com">
+        <input type="password" id="testPassword" placeholder="password" value="TestPassword123!">
+        <button onclick="createAccount()">Create Account</button>
+        <div id="signupLog" class="log">Click button to create account...</div>
+    </div>
+
+    <div class="section">
+        <h2>3. Login Test</h2>
+        <input type="email" id="loginEmail" placeholder="email" value="test@example.com">
+        <input type="password" id="loginPassword" placeholder="password" value="TestPassword123!">
+        <button onclick="testLogin()">Login</button>
+        <div id="loginLog" class="log">Click button to login...</div>
+    </div>
+
+    <div class="section">
+        <h2>4. Check Current Session</h2>
+        <button onclick="checkSession()">Check Session</button>
+        <div id="sessionLog" class="log">Click button to check...</div>
+    </div>
+
+    <script>
+        const SUPABASE_URL = 'https://cszoklkfdszqsxhufhhj.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNzem9rbGtmZHN6cXN4aHVmaGhqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjExNzI0MzAsImV4cCI6MjA3Njc0ODQzMH0.HdqXrWVTPCQ2NYH-5ED_nx91a38UGPvTHjva4NzBG8I';
+
+        const { createClient } = supabase;
+        const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        function log(elementId, message, type = 'info') {
+            const element = document.getElementById(elementId);
+            const timestamp = new Date().toLocaleTimeString();
+            const colorClass = type === 'success' ? 'success' : type === 'error' ? 'error' : 'info';
+            element.innerHTML += `<span class="${colorClass}">[${timestamp}] ${message}</span>\n`;
+            element.scrollTop = element.scrollHeight;
+        }
+
+        async function testConnection() {
+            const logId = 'connectionLog';
+            document.getElementById(logId).innerHTML = '';
+
+            log(logId, 'Testing Supabase connection...', 'info');
+
+            try {
+                const response = await fetch(`${SUPABASE_URL}/auth/v1/health`, {
+                    headers: {
+                        'apikey': SUPABASE_ANON_KEY
+                    }
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    log(logId, `✓ Connection successful!`, 'success');
+                    log(logId, `Version: ${data.version}`, 'success');
+                    log(logId, `Service: ${data.name}`, 'success');
+                } else {
+                    log(logId, `✗ Connection failed: ${response.status}`, 'error');
+                }
+            } catch (error) {
+                log(logId, `✗ Error: ${error.message}`, 'error');
+            }
+        }
+
+        async function createAccount() {
+            const logId = 'signupLog';
+            document.getElementById(logId).innerHTML = '';
+
+            const email = document.getElementById('testEmail').value;
+            const password = document.getElementById('testPassword').value;
+
+            log(logId, `Creating account for: ${email}`, 'info');
+
+            try {
+                const { data, error } = await supabaseClient.auth.signUp({
+                    email: email,
+                    password: password,
+                    options: {
+                        data: {
+                            full_name: 'Test User'
+                        }
+                    }
+                });
+
+                if (error) {
+                    log(logId, `✗ Signup error: ${error.message}`, 'error');
+                    log(logId, `Error details: ${JSON.stringify(error, null, 2)}`, 'error');
+                } else {
+                    log(logId, `✓ Account created successfully!`, 'success');
+                    log(logId, `User ID: ${data.user?.id}`, 'success');
+                    log(logId, `Email: ${data.user?.email}`, 'success');
+
+                    if (data.user && !data.user.email_confirmed_at) {
+                        log(logId, `⚠ Email confirmation required!`, 'info');
+                        log(logId, `Check your inbox for verification email`, 'info');
+                    }
+
+                    if (data.session) {
+                        log(logId, `✓ Session created automatically`, 'success');
+                    }
+                }
+            } catch (error) {
+                log(logId, `✗ Exception: ${error.message}`, 'error');
+            }
+        }
+
+        async function testLogin() {
+            const logId = 'loginLog';
+            document.getElementById(logId).innerHTML = '';
+
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            log(logId, `Attempting login for: ${email}`, 'info');
+
+            try {
+                const { data, error } = await supabaseClient.auth.signInWithPassword({
+                    email: email,
+                    password: password
+                });
+
+                if (error) {
+                    log(logId, `✗ Login error: ${error.message}`, 'error');
+                    log(logId, `Error code: ${error.status}`, 'error');
+                    log(logId, `Full error: ${JSON.stringify(error, null, 2)}`, 'error');
+                } else {
+                    log(logId, `✓ Login successful!`, 'success');
+                    log(logId, `User ID: ${data.user?.id}`, 'success');
+                    log(logId, `Email: ${data.user?.email}`, 'success');
+                    log(logId, `Email confirmed: ${data.user?.email_confirmed_at ? 'YES' : 'NO'}`, data.user?.email_confirmed_at ? 'success' : 'error');
+                    log(logId, `Session token: ${data.session?.access_token?.substring(0, 20)}...`, 'success');
+                }
+            } catch (error) {
+                log(logId, `✗ Exception: ${error.message}`, 'error');
+            }
+        }
+
+        async function checkSession() {
+            const logId = 'sessionLog';
+            document.getElementById(logId).innerHTML = '';
+
+            log(logId, 'Checking current session...', 'info');
+
+            try {
+                const { data: { session }, error } = await supabaseClient.auth.getSession();
+
+                if (error) {
+                    log(logId, `✗ Error: ${error.message}`, 'error');
+                } else if (session) {
+                    log(logId, `✓ Active session found!`, 'success');
+                    log(logId, `User: ${session.user.email}`, 'success');
+                    log(logId, `User ID: ${session.user.id}`, 'success');
+                    log(logId, `Expires at: ${new Date(session.expires_at * 1000).toLocaleString()}`, 'info');
+                } else {
+                    log(logId, `⚠ No active session`, 'info');
+                }
+            } catch (error) {
+                log(logId, `✗ Exception: ${error.message}`, 'error');
+            }
+        }
+
+        // Auto-test connection on load
+        window.addEventListener('load', () => {
+            testConnection();
+        });
+    </script>
+<script src="js/visitor-counter.js"></script>
+</body>
+</html>
+
+<!-- Copyright (c) 2025 Joshua Hendricks Cole (DBA: Corporation of Light). All Rights Reserved. PATENT PENDING. -->

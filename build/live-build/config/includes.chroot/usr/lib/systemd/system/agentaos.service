@@ -1,0 +1,15 @@
+[Unit]
+Description=AgentaOS Boot Orchestrator
+After=network-online.target systemd-user-sessions.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/agentaos
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/usr/bin/python3 /opt/agentaos/AgentaOS --no-menu --no-dashboard -v boot
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
