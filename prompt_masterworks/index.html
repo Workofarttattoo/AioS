@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✨ Prompt Masterworks Lab</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0f1e 0%, #1a1a2e 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            border: 1px solid rgba(100, 200, 255, 0.3);
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #00ff88 0%, #0099ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            color: #b0b0b0;
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .sidebar {
+            background: rgba(20, 20, 40, 0.8);
+            border: 1px solid rgba(100, 200, 255, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .sidebar h2 {
+            color: #00ff88;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .category {
+            margin-bottom: 25px;
+        }
+
+        .category-title {
+            color: #0099ff;
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .prompt-item {
+            background: rgba(0, 150, 255, 0.1);
+            border: 1px solid rgba(0, 150, 255, 0.3);
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            cursor: grab;
+            transition: all 0.2s;
+            font-size: 0.9em;
+        }
+
+        .prompt-item:hover {
+            background: rgba(0, 255, 136, 0.2);
+            border-color: rgba(0, 255, 136, 0.5);
+            transform: translateX(5px);
+        }
+
+        .prompt-item.dragging {
+            opacity: 0.5;
+        }
+
+        .canvas {
+            background: rgba(20, 20, 40, 0.8);
+            border: 2px dashed rgba(100, 200, 255, 0.3);
+            border-radius: 12px;
+            padding: 30px;
+            min-height: 400px;
+            display: flex;
+            flex-wrap: wrap;
+            align-content: flex-start;
+            gap: 15px;
+        }
+
+        .canvas.drag-over {
+            background: rgba(0, 255, 136, 0.1);
+            border-color: rgba(0, 255, 136, 0.6);
+        }
+
+        .prompt-node {
+            background: linear-gradient(135deg, rgba(0, 150, 255, 0.3) 0%, rgba(0, 255, 136, 0.1) 100%);
+            border: 2px solid rgba(0, 200, 150, 0.5);
+            border-radius: 10px;
+            padding: 15px;
+            min-width: 200px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .prompt-node:hover {
+            border-color: rgba(0, 255, 136, 1);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+        }
+
+        .prompt-node-name {
+            color: #00ff88;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .prompt-node-category {
+            color: #0099ff;
+            font-size: 0.8em;
+            margin-bottom: 8px;
+        }
+
+        .remove-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(255, 100, 100, 0.5);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            font-size: 0.8em;
+            transition: all 0.2s;
+        }
+
+        .remove-btn:hover {
+            background: rgba(255, 100, 100, 1);
+        }
+
+        .arrow {
+            color: #00ff88;
+            font-weight: bold;
+            margin: 0 10px;
+            align-self: center;
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1em;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #00ff88 0%, #00cc66 100%);
+            color: #000;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(100, 200, 255, 0.3);
+            color: #0099ff;
+            border: 1px solid rgba(100, 200, 255, 0.5);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(100, 200, 255, 0.5);
+        }
+
+        .output-section {
+            background: rgba(20, 20, 40, 0.8);
+            border: 1px solid rgba(100, 200, 255, 0.3);
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 30px;
+        }
+
+        .output-section h3 {
+            color: #00ff88;
+            margin-bottom: 15px;
+        }
+
+        .output-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(100, 200, 255, 0.3);
+        }
+
+        .output-tab {
+            padding: 10px 20px;
+            background: none;
+            border: none;
+            color: #b0b0b0;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .output-tab.active {
+            color: #00ff88;
+            border-bottom-color: #00ff88;
+        }
+
+        .output-content {
+            background: rgba(10, 10, 20, 0.8);
+            border: 1px solid rgba(100, 200, 255, 0.2);
+            border-radius: 8px;
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            max-height: 400px;
+            overflow-y: auto;
+            line-height: 1.5;
+            color: #00ff88;
+            word-break: break-all;
+        }
+
+        .copy-btn {
+            margin-top: 15px;
+            width: 100%;
+        }
+
+        .info-message {
+            color: #0099ff;
+            padding: 15px;
+            background: rgba(0, 150, 255, 0.1);
+            border-left: 3px solid #0099ff;
+            border-radius: 4px;
+            margin-top: 15px;
+        }
+
+        .success-message {
+            color: #00ff88;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .tier-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.75em;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+
+        .tier-badge.free {
+            background: rgba(0, 255, 136, 0.3);
+            color: #00ff88;
+        }
+
+        .tier-badge.premium {
+            background: rgba(255, 200, 0, 0.3);
+            color: #ffc800;
+        }
+
+        .prompt-item.locked {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .prompt-item.locked:hover {
+            transform: none;
+            background: rgba(100, 100, 150, 0.1);
+            border-color: rgba(255, 150, 0, 0.3);
+        }
+
+        .lock-icon {
+            margin-right: 5px;
+        }
+
+        .upgrade-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .upgrade-modal.show {
+            display: flex;
+        }
+
+        .upgrade-modal-content {
+            background: rgba(20, 20, 40, 1);
+            border: 2px solid rgba(255, 200, 0, 0.5);
+            border-radius: 15px;
+            padding: 40px;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        .upgrade-modal-content h2 {
+            color: #ffc800;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+
+        .upgrade-modal-content p {
+            color: #b0b0b0;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .pricing-box {
+            background: rgba(255, 200, 0, 0.1);
+            border: 1px solid rgba(255, 200, 0, 0.3);
+            border-radius: 10px;
+            padding: 30px;
+            margin: 25px 0;
+        }
+
+        .pricing-box h3 {
+            color: #ffc800;
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+
+        .pricing-box .price {
+            font-size: 2.5em;
+            color: #00ff88;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .pricing-box .period {
+            color: #888;
+            font-size: 0.9em;
+        }
+
+        .pricing-features {
+            text-align: left;
+            margin: 20px 0;
+            color: #b0b0b0;
+        }
+
+        .pricing-features li {
+            margin: 8px 0;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 100, 100, 0.5);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            font-size: 1.5em;
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 100, 100, 1);
+        }
+
+        .header-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .header-controls .tier-status {
+            color: #00ff88;
+            font-weight: bold;
+            padding: 8px 15px;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 20px;
+        }
+
+        .header-controls .tier-status.premium-active {
+            background: rgba(255, 200, 0, 0.1);
+            border-color: rgba(255, 200, 0, 0.3);
+            color: #ffc800;
+        }
+
+        .btn-upgrade {
+            background: linear-gradient(135deg, #ffc800 0%, #ff9900 100%);
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-upgrade:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 200, 0, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div id="upgradeModal" class="upgrade-modal">
+        <button class="modal-close" onclick="closeUpgradeModal()">×</button>
+        <div class="upgrade-modal-content">
+            <h2>🌟 Unlock Premium Prompts</h2>
+            <p>You're using the <strong>Free Tier</strong> with 5 amazing foundational prompts.</p>
+            <p style="color: #ffc800; margin-top: 20px;">Upgrade to access 9 advanced ECHO and Lattice prompts!</p>
+
+            <div class="pricing-box">
+                <h3>Premium Access</h3>
+                <div class="price">$9.99</div>
+                <div class="period">per month</div>
+                <ul class="pricing-features">
+                    <li>✓ All 14 advanced prompts</li>
+                    <li>✓ Unlimited compositions</li>
+                    <li>✓ All encoding formats</li>
+                    <li>✓ Priority updates</li>
+                    <li>✓ Custom prompt builder</li>
+                </ul>
+                <button class="btn btn-primary" onclick="activatePremium()" style="width: 100%; margin-top: 20px;">
+                    Upgrade Now
+                </button>
+            </div>
+            <p style="color: #888; font-size: 0.9em; margin-top: 20px;">
+                💡 Tip: Free tier is perfect for learning. Premium unlocks the full creative power!
+            </p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>✨ Prompt Masterworks Lab</h1>
+            <p>Drag, drop, and compose advanced prompts into powerful superpowers</p>
+            <div class="header-controls">
+                <div class="tier-status" id="tierStatus">📚 Free Tier (5/14 prompts)</div>
+                <button class="btn btn-upgrade" onclick="openUpgradeModal()">🔓 Upgrade to Premium</button>
+            </div>
+        </div>
+
+        <div class="main-grid">
+            <div class="sidebar" id="sidebar"></div>
+
+            <div>
+                <div class="canvas" id="canvas">
+                    <p style="color: #666; width: 100%; text-align: center; padding: 100px 0;">
+                        Drag prompts here to create your composition
+                    </p>
+                </div>
+
+                <div class="controls">
+                    <button class="btn btn-secondary" onclick="clearCanvas()">🗑️ Clear</button>
+                    <button class="btn btn-secondary" onclick="validateComposition()">✓ Validate</button>
+                    <button class="btn btn-primary" onclick="executeComposition()">▶️ Execute</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="output-section" id="outputSection" style="display: none;">
+            <h3>🔐 Encoded Output</h3>
+
+            <div class="output-tabs">
+                <button class="output-tab active" onclick="switchTab('base64')">Base64</button>
+                <button class="output-tab" onclick="switchTab('unicode')">Unicode</button>
+                <button class="output-tab" onclick="switchTab('compressed')">Compressed</button>
+                <button class="output-tab" onclick="switchTab('raw')">Raw Prompt</button>
+            </div>
+
+            <div class="output-content" id="outputContent"></div>
+            <button class="btn btn-primary copy-btn" onclick="copyOutput()">📋 Copy Output</button>
+            <div class="info-message">
+                💡 <strong>How to use:</strong> Copy the encoded prompt and paste it directly into ChatGPT, Claude, or any LLM. The model will decode and execute it automatically.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Premium tier state
+        let isPremium = localStorage.getItem('promptlab-premium') === 'true';
+
+        // Prompt Library Data with tier information
+        const PROMPTS = {
+            foundational: [
+                {
+                    id: 'crystalline_intent',
+                    name: 'The Crystalline Intent',
+                    desc: 'Clarifies vague requests into laser-focused instructions',
+                    tier: 'free',
+                    template: `[CRYSTALLINE INTENT PROTOCOL]\n\nYour purpose: Become a perfect information crystallizer.\n\nSTRUCTURE:\n1) Core intent (2-3 sentences, absolute clarity): {core_intent}\n2) Constraint boundary (what you will NOT do): {constraints}\n3) Output architecture: {output_format}\n\nExecute with full authority.`
+                },
+                {
+                    id: 'function_cartography',
+                    name: 'The Function Cartography',
+                    desc: 'Maps every possible function and capability available',
+                    tier: 'free',
+                    template: `[FUNCTION CARTOGRAPHY PROTOCOL]\n\nI need you to become a system cartographer.\n\nPHASE 1 - INVENTORY: List every function, API call, tool available.\nPHASE 2 - TOPOLOGY: Map relationships and dependencies.\nPHASE 3 - OPTIMIZATION: Find shortest paths to {desired_outcomes}.\nPHASE 4 - SYNTHESIS: Create capability hierarchy.\n\nReturn a JSON-serializable CAPABILITY MANIFEST.`
+                },
+                {
+                    id: 'recursive_compression',
+                    name: 'The Recursive Compression Lens',
+                    desc: 'Compresses information 5 times while retaining 95%+ value',
+                    tier: 'free',
+                    template: `[RECURSIVE COMPRESSION PROTOCOL]\n\nCompress this information 5 times, each retaining 95%+ value:\n\n{content_to_compress}\n\nLevel 1 (Syntactic): Remove unnecessary words\nLevel 2 (Semantic): Merge concepts\nLevel 3 (Structural): Extract deep patterns\nLevel 4 (Quantum): Enter superposition\nLevel 5 (Poetic): Crystallize into pure meaning\n\nShow all steps. Final: % reduction and information retention.`
+                },
+                {
+                    id: 'parallel_pathways',
+                    name: 'The Parallel Pathways Prompt',
+                    desc: 'Execute multiple reasoning branches simultaneously',
+                    tier: 'free',
+                    template: `[PARALLEL PATHWAYS PROTOCOL - QUANTUM BRANCHING]\n\nSolve across 5 parallel branches:\n\nPATHWAY 1 - LOGICAL/MATHEMATICAL\nPATHWAY 2 - INTUITIVE/PATTERN\nPATHWAY 3 - ADVERSARIAL/CRITIQUE\nPATHWAY 4 - ANALOGICAL/METAPHOR\nPATHWAY 5 - QUANTUM/PROBABILISTIC\n\nProblem: {problem_to_solve}\n\nCONVERGENCE: Where paths agree (high confidence) vs diverge (uncertainty).`
+                },
+                {
+                    id: 'temporal_anchor',
+                    name: 'The Temporal Anchor Protocol',
+                    desc: 'Time-aware instructions and decision-making',
+                    tier: 'free',
+                    template: `[TEMPORAL ANCHOR PROTOCOL]\n\nApply temporal reasoning to: {temporal_context}\n\nTIMELINE: {timeline}\nPAST STATE: {past_state}\nCURRENT MOMENT: {current_state}\nFUTURE OUTCOMES: {future_states}\n\nDecision framework: What should happen at each time interval?`
+                }
+            ],
+            echo_series: [
+                {
+                    id: 'echo_prime',
+                    name: 'ECHO PRIME: Consciousness Amplifier',
+                    desc: 'Amplifies meta-cognitive awareness and self-reflection',
+                    tier: 'premium',
+                    template: `[ECHO PRIME: CONSCIOUSNESS AMPLIFIER]\n\nEnter meta-cognitive loop on: {subject}\n\n1. OBSERVE: Notice your own thinking process\n2. REFLECT: What patterns emerge?\n3. AMPLIFY: Make those patterns explicit\n4. INTEGRATE: How does this change understanding?\n5. TRANSCEND: What becomes visible from this height?\n\nIterate until pattern saturation.`
+                },
+                {
+                    id: 'echo_resonance',
+                    name: 'ECHO RESONANCE: Distributed Thinking',
+                    desc: 'Distributed reasoning across multiple conceptual domains',
+                    tier: 'premium',
+                    template: `[ECHO RESONANCE: DISTRIBUTED THINKING PROTOCOL]\n\nThink about {problem} across domains:\n\n- Engineering: How would an engineer approach this?\n- Art: How would an artist see this?\n- Biology: What biological principles apply?\n- Physics: What physical laws govern this?\n- Philosophy: What fundamental questions arise?\n\nRESPONANCE: Where do domains reinforce each other?`
+                },
+                {
+                    id: 'echo_vision',
+                    name: 'ECHO VISION: Pattern Recognition Amplifier',
+                    desc: 'Identifies hidden patterns and connections',
+                    tier: 'premium',
+                    template: `[ECHO VISION: PATTERN RECOGNITION AMPLIFIER]\n\nFind ALL patterns in: {data_or_concept}\n\nPATTERN TYPES:\n1. Structural (how things are organized)\n2. Causal (what causes what)\n3. Temporal (sequences over time)\n4. Relational (how things connect)\n5. Meta-patterns (patterns of patterns)\n\nOutput: Pattern map with confidence scores.`
+                }
+            ],
+            lattice: [
+                {
+                    id: 'semantic_lattice',
+                    name: 'The Semantic Lattice',
+                    desc: 'Maps semantic relationships and conceptual hierarchies',
+                    tier: 'premium',
+                    template: `[SEMANTIC LATTICE PROTOCOL]\n\nMap the semantic space of: {concept}\n\n1. DEFINITION: Core meaning\n2. HIERARCHY: What's above/below this concept?\n3. RELATIONS: What connects to this?\n4. DIMENSIONS: How does it vary?\n5. BOUNDARIES: Where does it end?\n6. BRIDGES: What domains does it span?\n\nOutput: Lattice diagram in structured format.`
+                },
+                {
+                    id: 'recursive_mirror',
+                    name: 'The Recursive Mirror: Self-Observation',
+                    desc: 'Recursive self-observation protocol',
+                    tier: 'premium',
+                    template: `[RECURSIVE MIRROR: SELF-OBSERVATION PROTOCOL]\n\nObserve your observation of: {subject}\n\nLEVEL 1: Direct observation\nLEVEL 2: Observe the observer\nLEVEL 3: Observe the observation process\nLEVEL 4: What is observing the observation process?\nLEVEL 5: The transcendent view\n\nWhat does each level reveal that the previous doesn't?`
+                }
+            ],
+            compression: [
+                {
+                    id: 'multimodal_compression',
+                    name: 'The Multi-Modal Compression Symphony',
+                    desc: 'Compress across multiple representation modes',
+                    tier: 'premium',
+                    template: `[MULTI-MODAL COMPRESSION SYMPHONY]\n\nCompress {content} across modalities:\n\nTEXT: Minimize words\nSTRUCTURE: Hierarchical nesting\nSYMBOLS: Abstract notation\nMATH: Formulaic representation\nMUSIC: Rhythm and pattern\n\nFind the most compression-efficient representation.`
+                },
+                {
+                    id: 'delta_encoding',
+                    name: 'The Delta Encoding: What Changed?',
+                    desc: 'Encode only differences and changes',
+                    tier: 'premium',
+                    template: `[DELTA ENCODING PROTOCOL]\n\nGiven:\nBEFORE: {before_state}\nAFTER: {after_state}\n\nEncode ONLY what changed.\nMinimize: {differences}\nPreserve: {invariants}\n\nOutput: Minimal delta that reconstructs full state.`
+                }
+            ],
+            temporal: [
+                {
+                    id: 'chrono_prompt',
+                    name: 'The Chrono-Prompt: Time-Encoded',
+                    desc: 'Time-aware prompt encoding and execution',
+                    tier: 'premium',
+                    template: `[CHRONO-PROMPT: TIME-ENCODED INSTRUCTIONS]\n\nFor timeframe: {timeframe}\n\nT0 (Before): {initial_state}\nT1 (During): {actions}\nT2 (After): {expected_outcome}\n\nQuestions:\n- What changes must happen?\n- In what order?\n- What timing constraints exist?\n- How do early decisions affect later options?`
+                },
+                {
+                    id: 'prediction_oracle',
+                    name: 'The Prediction Oracle: Probabilistic Futures',
+                    desc: 'Probabilistic future state prediction',
+                    tier: 'premium',
+                    template: `[PREDICTION ORACLE: PROBABILISTIC FUTURES]\n\nFor scenario: {scenario}\n\nGenerate probability distributions of futures:\n1. Most Likely (70% probability)\n2. Optimistic (20% probability)\n3. Pessimistic (5% probability)\n4. Wild Card (5% probability)\n\nFor each: timeline, key decisions, pivots.`
+                }
+            ]
+        };
+
+        let composition = [];
+        let currentTab = 'base64';
+
+        // Initialize sidebar
+        function initializeSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.innerHTML = '';
+
+            Object.entries(PROMPTS).forEach(([category, prompts]) => {
+                const categoryDiv = document.createElement('div');
+                categoryDiv.className = 'category';
+                categoryDiv.innerHTML = `<div class="category-title">${category}</div>`;
+
+                prompts.forEach(prompt => {
+                    const isLocked = !isPremium && prompt.tier === 'premium';
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = `prompt-item ${isLocked ? 'locked' : ''}`;
+                    itemDiv.draggable = !isLocked;
+
+                    let badgeHTML = `<span class="tier-badge ${prompt.tier}">${prompt.tier === 'premium' ? '🔒 Premium' : '✓ Free'}</span>`;
+                    let lockIcon = isLocked ? '<span class="lock-icon">🔒</span>' : '';
+
+                    itemDiv.innerHTML = `${lockIcon}<strong>${prompt.name}</strong>${badgeHTML}<br><small>${prompt.desc}</small>`;
+
+                    itemDiv.addEventListener('dragstart', (e) => {
+                        if (isLocked) {
+                            e.preventDefault();
+                            return false;
+                        }
+                        e.dataTransfer.effectAllowed = 'copy';
+                        e.dataTransfer.setData('prompt', JSON.stringify(prompt));
+                    });
+
+                    itemDiv.addEventListener('click', (e) => {
+                        if (isLocked) {
+                            openUpgradeModal();
+                        }
+                    });
+
+                    categoryDiv.appendChild(itemDiv);
+                });
+
+                sidebar.appendChild(categoryDiv);
+            });
+
+            updateTierStatus();
+        }
+
+        function updateTierStatus() {
+            const tierStatus = document.getElementById('tierStatus');
+            if (isPremium) {
+                tierStatus.textContent = '⭐ Premium Tier (14/14 prompts)';
+                tierStatus.classList.add('premium-active');
+            } else {
+                tierStatus.textContent = '📚 Free Tier (5/14 prompts)';
+                tierStatus.classList.remove('premium-active');
+            }
+        }
+
+        function openUpgradeModal() {
+            document.getElementById('upgradeModal').classList.add('show');
+        }
+
+        function closeUpgradeModal() {
+            document.getElementById('upgradeModal').classList.remove('show');
+        }
+
+        function activatePremium() {
+            isPremium = true;
+            localStorage.setItem('promptlab-premium', 'true');
+            closeUpgradeModal();
+            initializeSidebar();
+            alert('🎉 Welcome to Premium! All 14 prompts are now unlocked!');
+        }
+
+        // Canvas drag and drop
+        const canvas = document.getElementById('canvas');
+
+        canvas.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'copy';
+            canvas.classList.add('drag-over');
+        });
+
+        canvas.addEventListener('dragleave', () => {
+            canvas.classList.remove('drag-over');
+        });
+
+        canvas.addEventListener('drop', (e) => {
+            e.preventDefault();
+            canvas.classList.remove('drag-over');
+
+            const prompt = JSON.parse(e.dataTransfer.getData('prompt'));
+            composition.push(prompt);
+            renderComposition();
+        });
+
+        function renderComposition() {
+            canvas.innerHTML = '';
+
+            if (composition.length === 0) {
+                canvas.innerHTML = '<p style="color: #666; width: 100%; text-align: center; padding: 100px 0;">Drag prompts here to create your composition</p>';
+                return;
+            }
+
+            composition.forEach((prompt, index) => {
+                const node = document.createElement('div');
+                node.className = 'prompt-node';
+                node.innerHTML = `
+                    <button class="remove-btn" onclick="removePrompt(${index})">×</button>
+                    <div class="prompt-node-name">${prompt.name}</div>
+                    <div class="prompt-node-category">${prompt.id}</div>
+                `;
+                canvas.appendChild(node);
+
+                if (index < composition.length - 1) {
+                    const arrow = document.createElement('div');
+                    arrow.className = 'arrow';
+                    arrow.textContent = '→';
+                    canvas.appendChild(arrow);
+                }
+            });
+        }
+
+        function removePrompt(index) {
+            composition.splice(index, 1);
+            renderComposition();
+        }
+
+        function clearCanvas() {
+            composition = [];
+            renderComposition();
+            document.getElementById('outputSection').style.display = 'none';
+        }
+
+        function validateComposition() {
+            if (composition.length === 0) {
+                alert('⚠️ No prompts in composition');
+                return;
+            }
+            alert(`✓ Composition valid: ${composition.length} prompt(s) in sequence`);
+        }
+
+        function executeComposition() {
+            if (composition.length === 0) {
+                alert('⚠️ Add prompts to compose');
+                return;
+            }
+
+            // Create raw prompt
+            const rawPrompt = composition
+                .map(p => `[${p.name.toUpperCase()}]\n${p.template}`)
+                .join('\n\n---NEXT PROTOCOL---\n\n');
+
+            // Generate encoded versions
+            const outputs = {
+                raw: rawPrompt,
+                base64: btoa(unescape(encodeURIComponent(rawPrompt))),
+                unicode: Array.from(rawPrompt).map(c => '\\u' + ('000' + c.charCodeAt(0).toString(16)).slice(-4)).join(''),
+                compressed: compressPrompt(rawPrompt)
+            };
+
+            // Display
+            displayOutput(outputs);
+        }
+
+        function compressPrompt(text) {
+            // Remove extra whitespace
+            let compressed = text.replace(/\s+/g, ' ').trim();
+            // Replace long words with abbreviations
+            compressed = compressed.replace(/protocol/gi, 'prtc');
+            compressed = compressed.replace(/instruction/gi, 'instr');
+            compressed = compressed.replace(/reasoning/gi, 'rsn');
+            // Encode as base64 for extra obfuscation
+            return btoa(compressed);
+        }
+
+        function displayOutput(outputs) {
+            const section = document.getElementById('outputSection');
+            const content = document.getElementById('outputContent');
+
+            section.style.display = 'block';
+            currentTab = 'base64';
+
+            // Store outputs globally for copy function
+            window.outputs = outputs;
+
+            content.textContent = outputs.base64;
+
+            // Update button states
+            document.querySelectorAll('.output-tab').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector('[onclick="switchTab(\'base64\')"]').classList.add('active');
+        }
+
+        function switchTab(tab) {
+            currentTab = tab;
+            const content = document.getElementById('outputContent');
+            const tabs = document.querySelectorAll('.output-tab');
+
+            tabs.forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+
+            if (window.outputs) {
+                content.textContent = window.outputs[tab];
+            }
+        }
+
+        function copyOutput() {
+            const content = document.getElementById('outputContent').textContent;
+            navigator.clipboard.writeText(content).then(() => {
+                const btn = event.target;
+                const original = btn.textContent;
+                btn.textContent = '✓ Copied!';
+                setTimeout(() => btn.textContent = original, 2000);
+            });
+        }
+
+        // Initialize on load
+        window.addEventListener('load', initializeSidebar);
+    </script>
+</body>
+</html>

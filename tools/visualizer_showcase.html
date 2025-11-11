@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ai|oS Unique Celebration Visualizers Showcase</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .header {
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(135deg, #1a0033, #330066);
+            border-bottom: 3px solid #ff00ff;
+        }
+
+        .header h1 {
+            font-size: 48px;
+            color: #ff00ff;
+            text-shadow: 0 0 30px #ff00ff;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 18px;
+            color: #aaa;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 30px;
+        }
+
+        .tool-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            border: 2px solid var(--tool-color, #fff);
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px var(--tool-color, #fff);
+        }
+
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, var(--tool-color) 0%, transparent 70%);
+            opacity: 0.1;
+            animation: pulse 3s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(0.8); opacity: 0.1; }
+            50% { transform: scale(1.2); opacity: 0.2; }
+        }
+
+        .tool-name {
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--tool-color, #fff);
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px var(--tool-color, #fff);
+        }
+
+        .tool-theme {
+            font-size: 14px;
+            color: #aaa;
+            margin-bottom: 15px;
+        }
+
+        .particle-list {
+            font-size: 12px;
+            color: #ccc;
+            line-height: 1.6;
+        }
+
+        .particle-list li {
+            margin-left: 20px;
+            margin-bottom: 5px;
+        }
+
+        .test-btn {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: var(--tool-color, #fff);
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        .test-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px var(--tool-color, #fff);
+        }
+
+        .demo-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            overflow: hidden;
+        }
+
+        /* Include all particle CSS from visualizers */
+        .particle-doll_head { position: absolute; font-size: 40px; animation: doll-fall 4s ease-in forwards; filter: grayscale(80%) contrast(120%); }
+        .particle-doll_head::after { content: ''; position: absolute; width: 2px; height: 50px; background: linear-gradient(to bottom, #000, transparent); left: 50%; top: 100%; animation: mascara-run 4s ease-out; }
+        @keyframes doll-fall { 0% { transform: translateY(-50px) rotate(0deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(360deg); opacity: 0; } }
+        @keyframes mascara-run { 0% { height: 0; } 100% { height: 50px; } }
+
+        .particle-dead_rose { position: absolute; width: 30px; height: 40px; background: radial-gradient(circle, #1a0000, #000); border-radius: 50% 50% 45% 45%; animation: rose-wilt 5s ease-in-out forwards; box-shadow: 0 0 10px rgba(139, 0, 0, 0.5); }
+        .particle-dead_rose::before { content: '🥀'; position: absolute; font-size: 30px; filter: grayscale(100%) brightness(50%); }
+        @keyframes rose-wilt { 0% { transform: translateY(-30px) rotate(0deg); opacity: 1; } 50% { transform: translateY(50vh) rotate(180deg); } 100% { transform: translateY(100vh) rotate(360deg); opacity: 0; } }
+
+        .particle-skull { position: absolute; font-size: 35px; animation: skull-float 4s ease-in-out forwards; filter: drop-shadow(0 0 10px #8800cc); }
+        @keyframes skull-float { 0% { transform: translateY(-30px) rotate(-10deg); opacity: 1; } 50% { transform: translateY(50vh) rotate(10deg); } 100% { transform: translateY(100vh) rotate(-10deg); opacity: 0; } }
+
+        .particle-phantom_fox { position: absolute; font-size: 45px; animation: fox-dash 3s ease-out forwards; filter: drop-shadow(0 0 20px #ff6600); opacity: 0.8; }
+        @keyframes fox-dash { 0% { transform: translateX(-100px) scaleX(-1); opacity: 0; } 30% { transform: translateX(30vw) scaleX(-1); opacity: 0.8; } 70% { transform: translateX(70vw) scaleX(1); opacity: 0.6; } 100% { transform: translateX(120vw) scaleX(1); opacity: 0; } }
+
+        .particle-spirit_flame { position: absolute; width: 20px; height: 40px; background: linear-gradient(to top, #ff6600, #ffaa00, transparent); border-radius: 50% 50% 20% 20%; animation: flame-flicker 2s ease-in-out forwards; box-shadow: 0 0 20px #ff6600, 0 0 40px #ffaa00; }
+        @keyframes flame-flicker { 0%, 100% { transform: translateY(-20px) scale(1); opacity: 1; } 25% { transform: translateY(25vh) scale(1.2); } 50% { transform: translateY(50vh) scale(0.8); } 75% { transform: translateY(75vh) scale(1.1); } 100% { transform: translateY(100vh) scale(0); opacity: 0; } }
+
+        .particle-blood_drop { position: absolute; width: 12px; height: 16px; background: radial-gradient(ellipse at 50% 40%, #ff3333, #990000); border-radius: 50% 50% 50% 0; transform: rotate(45deg); animation: blood-drip 3s ease-in forwards; box-shadow: 0 0 5px #cc0000; }
+        @keyframes blood-drip { 0% { transform: translateY(-30px) rotate(45deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(45deg); opacity: 0; } }
+
+        .particle-broken_shield { position: absolute; font-size: 40px; animation: shield-shatter 2s ease-out forwards; filter: drop-shadow(0 0 10px #ff3333); }
+        @keyframes shield-shatter { 0% { transform: scale(1) rotate(0deg); opacity: 1; } 50% { transform: scale(1.5) rotate(180deg); opacity: 0.8; } 100% { transform: scale(0) rotate(360deg); opacity: 0; } }
+
+        /* Big win modal */
+        .big-win-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.98), rgba(20, 20, 20, 0.98));
+            border: 5px solid var(--win-color, #ffd700);
+            border-radius: 20px;
+            padding: 40px;
+            z-index: 10000;
+            text-align: center;
+            box-shadow: 0 0 100px var(--win-color, #ffd700);
+            animation: big-win-appear 0.5s ease-out forwards;
+            max-width: 600px;
+        }
+
+        @keyframes big-win-appear {
+            to { transform: translate(-50%, -50%) scale(1); }
+        }
+
+        .big-win-title {
+            font-size: 60px;
+            font-weight: 900;
+            color: var(--win-color, #ffd700);
+            text-shadow: 0 0 30px var(--win-color, #ffd700);
+            animation: pulse-glow 1s infinite alternate;
+            margin-bottom: 20px;
+        }
+
+        @keyframes pulse-glow {
+            from { text-shadow: 0 0 30px var(--win-color, #ffd700); }
+            to { text-shadow: 0 0 60px var(--win-color, #ffd700), 0 0 90px var(--win-color, #ffd700); }
+        }
+
+        .big-win-message {
+            font-size: 24px;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .close-celebration {
+            margin-top: 20px;
+            padding: 12px 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            color: #fff;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .close-celebration:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-overlay" id="demoOverlay"></div>
+
+    <div class="header">
+        <h1>🎮 Ai|oS Celebration Visualizers</h1>
+        <p>Each tool has UNIQUE dark/cyberpunk celebration particles - Click to test!</p>
+    </div>
+
+    <div class="grid">
+        <!-- DirReaper -->
+        <div class="tool-card" style="--tool-color: #8800cc;" onclick="testVisualizer('dirreaper')">
+            <div class="tool-name">💀 DirReaper</div>
+            <div class="tool-theme">Grim Reaper / Death</div>
+            <ul class="particle-list">
+                <li>🎎 Doll heads with running mascara</li>
+                <li>🥀 Dead roses with falling petals</li>
+                <li>⚰️ Tombstones with RIP</li>
+                <li>💀 Floating skulls</li>
+                <li>👻 Transparent ghosts</li>
+                <li>🗡️ Reaper scythes slashing</li>
+            </ul>
+            <button class="test-btn">TEST CELEBRATION</button>
+        </div>
+
+        <!-- ProxyPhantom -->
+        <div class="tool-card" style="--tool-color: #ff6600;" onclick="testVisualizer('proxyphantom')">
+            <div class="tool-name">🦊 ProxyPhantom</div>
+            <div class="tool-theme">Phantom Fox / Spirit Fire</div>
+            <ul class="particle-list">
+                <li>🦊 Ghostly fox silhouettes</li>
+                <li>🔥 Orange ethereal flames</li>
+                <li>🐾 Fox paw prints appearing</li>
+                <li>💨 Ghostly whisper trails</li>
+                <li>✨ Orange embers</li>
+                <li>🌑 Dark orange orbs</li>
+            </ul>
+            <button class="test-btn">TEST CELEBRATION</button>
+        </div>
+
+        <!-- VulnHunter -->
+        <div class="tool-card" style="--tool-color: #cc0000;" onclick="testVisualizer('vulnhunter')">
+            <div class="tool-name">🎯 VulnHunter</div>
+            <div class="tool-theme">Blood / Broken Defenses</div>
+            <ul class="particle-list">
+                <li>🩸 Crimson blood drops</li>
+                <li>🛡️ Shattering shields</li>
+                <li>💥 Screen crack patterns</li>
+                <li>🎯 Targeting crosshairs hitting</li>
+                <li>⚠️ Flashing warning triangles</li>
+                <li>🔓 Broken padlocks</li>
+            </ul>
+            <button class="test-btn">TEST CELEBRATION</button>
+        </div>
+
+        <!-- PayloadForge -->
+        <div class="tool-card" style="--tool-color: #ff00ff;" onclick="testVisualizer('payloadforge')">
+            <div class="tool-name">⚡ PayloadForge</div>
+            <div class="tool-theme">Lightning / Digital Corruption</div>
+            <ul class="particle-list">
+                <li>⚡ Electric lightning strikes</li>
+                <li>✨ Electric sparks</li>
+                <li>📺 Glitchy digital blocks</li>
+                <li>💻 Corrupted binary code</li>
+                <li>⚡ Energy surge waves</li>
+                <li>🔌 Fried circuit patterns</li>
+            </ul>
+            <button class="test-btn">TEST CELEBRATION</button>
+        </div>
+
+        <!-- NmapPro -->
+        <div class="tool-card" style="--tool-color: #00ff88;" onclick="testVisualizer('nmappro')">
+            <div class="tool-name">⚡ NmapPro</div>
+            <div class="tool-theme">Matrix Code / Network Nodes</div>
+            <ul class="particle-list">
+                <li>💚 Green falling characters</li>
+                <li>🔗 Network node connections</li>
+                <li>📡 Radar pulse circles</li>
+                <li>📦 Network packet boxes</li>
+                <li>🌐 Floating IP addresses</li>
+                <li>🔌 Open port indicators</li>
+            </ul>
+            <button class="test-btn">TEST CELEBRATION</button>
+        </div>
+
+        <!-- More tools... -->
+        <div class="tool-card" style="--tool-color: #00ffff;" onclick="testVisualizer('aurorascan')">
+            <div class="tool-name">🌌 AuroraScan</div>
+            <div class="tool-theme">Northern Lights / Ice</div>
+            <ul class="particle-list">
+                <li>🌈 Aurora borealis waves</li>
+                <li>❄️ Crystalline snowflakes</li>
+                <li>✨ Ribbon-like light streams</li>
+                <li>🧊 Frost spreading patterns</li>
+                <li>⭐ Twinkling stars</li>
+                <li>💫 Polar light beams</li>
+            </ul>
+            <button class="test-btn">TEST CELEBRATION</button>
+        </div>
+
+    </div>
+
+    <script>
+        const visualizers = {
+            dirreaper: {
+                particles: ['doll_head', 'dead_rose', 'skull'],
+                emojis: ['🎎', '🥀', '💀', '👻', '⚰️'],
+                color: '#8800cc',
+                title: '💀 DIRECTORY FOUND!',
+                message: 'Hidden path discovered in the darkness...'
+            },
+            proxyphantom: {
+                particles: ['phantom_fox', 'spirit_flame'],
+                emojis: ['🦊', '🔥', '🐾', '💨', '✨'],
+                color: '#ff6600',
+                title: '🦊 VULNERABILITY FOUND!',
+                message: 'The phantom fox reveals a weakness...'
+            },
+            vulnhunter: {
+                particles: ['blood_drop', 'broken_shield'],
+                emojis: ['🩸', '🛡️', '💥', '🎯', '⚠️', '🔓'],
+                color: '#cc0000',
+                title: '🎯 CRITICAL CVE!',
+                message: 'Critical vulnerability detected!'
+            },
+            payloadforge: {
+                particles: [],
+                emojis: ['⚡', '✨', '📺', '💻', '🔌'],
+                color: '#ff00ff',
+                title: '⚡ SHELL OBTAINED!',
+                message: 'Remote access established!'
+            },
+            nmappro: {
+                particles: [],
+                emojis: ['💚', '🔗', '📡', '📦', '🌐', '🔌'],
+                color: '#00ff88',
+                title: '📡 SCAN COMPLETE!',
+                message: 'Network fully mapped!'
+            },
+            aurorascan: {
+                particles: [],
+                emojis: ['🌈', '❄️', '✨', '🧊', '⭐', '💫'],
+                color: '#00ffff',
+                title: '🌌 AURORA SCAN COMPLETE!',
+                message: 'Services discovered!'
+            }
+        };
+
+        const overlay = document.getElementById('demoOverlay');
+
+        function testVisualizer(toolKey) {
+            const vis = visualizers[toolKey];
+            if (!vis) return;
+
+            // Clear existing particles
+            overlay.innerHTML = '';
+
+            // Spawn particles
+            const count = 30;
+            for (let i = 0; i < count; i++) {
+                const particle = document.createElement('div');
+
+                // Use particle classes or emojis
+                if (vis.particles.length > 0) {
+                    const pType = vis.particles[Math.floor(Math.random() * vis.particles.length)];
+                    particle.className = `particle-${pType}`;
+
+                    if (pType === 'doll_head') particle.innerHTML = '🎎';
+                    else if (pType === 'skull') particle.innerHTML = '💀';
+                    else if (pType === 'phantom_fox') particle.innerHTML = '🦊';
+                    else if (pType === 'broken_shield') particle.innerHTML = '🛡️';
+                } else {
+                    // Fallback to emoji shower
+                    particle.style.position = 'absolute';
+                    particle.style.fontSize = (30 + Math.random() * 20) + 'px';
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.innerHTML = vis.emojis[Math.floor(Math.random() * vis.emojis.length)];
+                    particle.style.animation = `doll-fall ${3 + Math.random() * 2}s ease-in forwards`;
+                    particle.style.animationDelay = Math.random() * 0.3 + 's';
+                    particle.style.filter = `drop-shadow(0 0 20px ${vis.color})`;
+                }
+
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 0.5 + 's';
+
+                overlay.appendChild(particle);
+
+                setTimeout(() => particle.remove(), 6000);
+            }
+
+            // Show big win modal
+            setTimeout(() => showBigWin(vis), 1000);
+        }
+
+        function showBigWin(vis) {
+            const modal = document.createElement('div');
+            modal.className = 'big-win-modal';
+            modal.style.setProperty('--win-color', vis.color);
+
+            modal.innerHTML = `
+                <div class="big-win-title">${vis.title}</div>
+                <div class="big-win-message">${vis.message}</div>
+                <button class="close-celebration" onclick="this.parentElement.remove()">CONTINUE</button>
+            `;
+
+            document.body.appendChild(modal);
+        }
+
+        console.log('🎮 Ai|oS Visualizer Showcase loaded! Click any card to test.');
+    </script>
+</body>
+</html>

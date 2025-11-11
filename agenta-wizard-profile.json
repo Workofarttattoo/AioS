@@ -1,0 +1,164 @@
+{
+  "environment": {
+    "AGENTA_PROVIDER": "docker,qemu,libvirt",
+    "AGENTA_FORENSIC_MODE": "1",
+    "AGENTA_SUPERVISOR_CONCURRENCY": "4",
+    "AGENTA_SECURITY_SUITE": "Sovereign Security Toolkit",
+    "AGENTA_SECURITY_TOOLS": "AuroraScan,CipherSpear,SkyBreaker,MythicKey,SpectraTrace,NemesisHydra,ObsidianHunt,VectorFlux",
+    "AGENTA_SECURITY_PROFILE": "offensive-readiness",
+    "DOCKER_SOCKET": "/var/run/docker.sock"
+  },
+  "profile": "minimal-telemetry",
+  "detections": {
+    "providers": {
+      "docker": "/usr/local/bin/docker",
+      "qemu": "/opt/homebrew/bin/qemu-system-x86_64",
+      "libvirt": "/opt/homebrew/bin/virsh",
+      "multipass": null,
+      "aws": null,
+      "azure": null,
+      "gcloud": null
+    },
+    "sockets": {
+      "docker_socket": "/var/run/docker.sock"
+    },
+    "images": {
+      "disk": [],
+      "cdrom": []
+    },
+    "existing_env": {}
+  },
+  "security_tools": [
+    {
+      "name": "AuroraScan",
+      "origin": "Inspired by nmap",
+      "summary": "Adaptive network mapper with service fingerprint diffing.",
+      "improvements": "Adds ML-assisted baseline comparisons and encrypted scan profiles.",
+      "command_hint": "python -m tools.aurorascan --gui"
+    },
+    {
+      "name": "CipherSpear",
+      "origin": "Inspired by sqlmap",
+      "summary": "Precision database exploitation engine with query replay walls.",
+      "improvements": "Focuses on safe payload rehearsal and telemetry capture per injection chain.",
+      "command_hint": "cipherspear --dsn jdbc:mysql://target/db --tech blind,bool"
+    },
+    {
+      "name": "SkyBreaker",
+      "origin": "Inspired by aircrack-ng",
+      "summary": "Wireless audit orchestrator supporting live spectrum overlays.",
+      "improvements": "Adds replay-resistant capture scheduling and integrated device fingerprinting.",
+      "command_hint": "python -m tools.skybreaker --gui"
+    },
+    {
+      "name": "MythicKey",
+      "origin": "Inspired by John the Ripper",
+      "summary": "Credential resilience analyzer with hardware offload targeting.",
+      "improvements": "Extends with wordlist mutation graphs and audit-grade reporting.",
+      "command_hint": "python -m tools.mythickey --gui"
+    },
+    {
+      "name": "SpectraTrace",
+      "origin": "Inspired by Wireshark",
+      "summary": "Protocol inspection studio with redacted capture lanes.",
+      "improvements": "Introduces privacy-preserving packet mirroring and policy-based redaction.",
+      "command_hint": "python -m tools.spectratrace --gui"
+    },
+    {
+      "name": "NemesisHydra",
+      "origin": "Inspired by THC-Hydra",
+      "summary": "Distributed authentication tester with adaptive throttle controls.",
+      "improvements": "Coordinates credential sprays with feedback-aware pacing and compliance gates.",
+      "command_hint": "python -m tools.nemesishydra --gui"
+    },
+    {
+      "name": "ObsidianHunt",
+      "origin": "Inspired by Lynis",
+      "summary": "Host hardening assessor tuned for forensic baselines.",
+      "improvements": "Generates remediation manifests consumable by AgentaOS supervisors.",
+      "command_hint": "python -m tools.obsidianhunt --gui"
+    },
+    {
+      "name": "VectorFlux",
+      "origin": "Inspired by Metasploit Framework",
+      "summary": "Payload crafting workbench integrated with scenario guardrails.",
+      "improvements": "Enforces signed module registries and live sandbox verdict streaming.",
+      "command_hint": "python -m tools.vectorflux --gui"
+    }
+  ],
+  "validation": {
+    "status": "warn",
+    "warnings": [
+      "No virtualization images were discovered automatically."
+    ],
+    "info": [
+      "os=darwin",
+      "providers=docker,qemu,libvirt"
+    ],
+    "checks": [
+      {
+        "name": "os-detection",
+        "status": "ok",
+        "detail": {
+          "platform": "darwin"
+        }
+      },
+      {
+        "name": "provider-fallback",
+        "status": "ok",
+        "detail": {
+          "configured": [
+            "docker",
+            "qemu",
+            "libvirt"
+          ],
+          "detected": [
+            "docker",
+            "qemu",
+            "libvirt"
+          ]
+        }
+      },
+      {
+        "name": "image-discovery",
+        "status": "warn",
+        "detail": {
+          "disk": 0,
+          "cdrom": 0
+        }
+      }
+    ]
+  },
+  "post_boot_checklist": [
+    {
+      "title": "Antivirus exclusions",
+      "summary": "Temporarily add AgentaOS labs, VM images, and tool directories to antivirus exclusions or pause real-time scanning while exercises run.",
+      "category": "protection"
+    },
+    {
+      "title": "Firewall allowances",
+      "summary": "Permit inbound connections for virtualization bridges, remote consoles, and telemetry agents. Restore hardened rules when finished.",
+      "category": "network"
+    },
+    {
+      "title": "Inbound access",
+      "summary": "Confirm the host accepts incoming connections from coordinators or teammate workstations used during labs.",
+      "category": "network"
+    },
+    {
+      "title": "Post-lab recovery",
+      "summary": "Track every host security change and re-enable protections after the engagement to maintain compliance baselines.",
+      "category": "hygiene"
+    },
+    {
+      "title": "macOS firewall prompt",
+      "summary": "Review System Settings > Network > Firewall and allow incoming connections for qemu, socat, and AgentaOS tool wrappers.",
+      "category": "platform"
+    },
+    {
+      "title": "Endpoint security agents",
+      "summary": "Coordinate with any MDR/EDR tooling (e.g., CrowdStrike, SentinelOne) to place the lab host in monitor-only mode.",
+      "category": "platform"
+    }
+  ]
+}

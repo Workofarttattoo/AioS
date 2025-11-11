@@ -1,0 +1,86 @@
+{
+  "estimated_time": "8-12 hours for basic POC",
+  "difficulty": "Intermediate (electronics experience helpful)",
+  "prerequisites": [
+    "Basic soldering skills (optional)",
+    "Arduino IDE installed",
+    "Understanding of electrical safety"
+  ],
+  "build_steps": [
+    {
+      "phase": "Phase 1: Safety System (CRITICAL - BUILD FIRST)",
+      "time": "3-4 hours",
+      "steps": [
+        "1. Install Arduino IDE and add Arduino Nano 33 BLE board support",
+        "2. Wire polyfuse in series: USB 5V \u2192 Polyfuse \u2192 Arduino VIN",
+        "3. Connect emergency button to D3 with pull-down resistor",
+        "4. Connect relay module to D2 (control pin)",
+        "5. Wire MAX30102 to I2C (SDA=A4, SCL=A5)",
+        "6. Wire MLX90614 to I2C bus",
+        "7. Wire MPU6050 to I2C bus",
+        "8. Upload safety firmware (provided)",
+        "9. TEST: Verify emergency button triggers relay open",
+        "10. TEST: Verify polyfuse trips at 5mA (use resistor test)",
+        "11. TEST: Verify health sensors read values",
+        "12. CRITICAL: Do not proceed until all safety tests pass"
+      ]
+    },
+    {
+      "phase": "Phase 2: TENS Integration",
+      "time": "2-3 hours",
+      "steps": [
+        "1. Attach electrode pads to glove fingertips and palm",
+        "2. Wire electrodes to TENS unit outputs",
+        "3. Wire TENS unit input through relay (normally open)",
+        "4. Test relay control: Arduino should be able to enable/disable TENS",
+        "5. Set TENS to minimum intensity (2-5 Hz, low amplitude)",
+        "6. Verify safety system can instantly cut power via relay",
+        "7. Test with hand NOT in glove first - use multimeter",
+        "8. ONLY when safe: brief 1-second test on own hand at minimum intensity"
+      ]
+    },
+    {
+      "phase": "Phase 3: VR Integration",
+      "time": "3-5 hours",
+      "steps": [
+        "1. Install Unity or Unreal Engine",
+        "2. Create new VR project (Quest or other headset)",
+        "3. Import BLE communication library",
+        "4. Write firmware to send haptic commands via BLE",
+        "5. Create simple VR scene (e.g., touch virtual objects)",
+        "6. Map touch events to haptic zones (finger 1-5, palm)",
+        "7. Implement intensity mapping (light touch = 10 Hz, firm = 50 Hz)",
+        "8. Add safety checks: max 30-min session, health monitoring",
+        "9. Test with headset: verify latency <50ms",
+        "10. Refine haptic feedback patterns"
+      ]
+    }
+  ],
+  "testing_protocol": {
+    "safety_first": [
+      "NEVER exceed 5 mA current",
+      "NEVER exceed 200 Hz frequency",
+      "ALWAYS test emergency shutoff before each session",
+      "ALWAYS monitor health sensors",
+      "STOP immediately if any discomfort"
+    ],
+    "functional_tests": [
+      "Verify all sensor readings accurate",
+      "Verify BLE connection stable",
+      "Verify haptic zones map correctly to virtual objects",
+      "Verify session timer enforces 30-min limit",
+      "Verify emergency button works from any state"
+    ],
+    "user_acceptance": [
+      "Test with 5+ users for feedback",
+      "Collect data on comfort, immersion, safety",
+      "Iterate on haptic patterns for best experience"
+    ]
+  },
+  "troubleshooting": {
+    "issue_no_haptic_feedback": "Check relay is closing, verify TENS unit powered, check electrode connection",
+    "issue_ble_disconnect": "Reduce distance to headset, check for interference, update firmware",
+    "issue_sensors_not_reading": "Verify I2C wiring (SDA/SCL), check library versions, use I2C scanner",
+    "issue_emergency_button_not_working": "DO NOT USE SYSTEM. Check wiring, verify pull-down resistor, test relay directly"
+  }
+}

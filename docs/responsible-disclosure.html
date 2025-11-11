@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsible Disclosure Policy - TheGAVL Red Team Tools</title>
+    <meta name="robots" content="noindex, nofollow">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: #000;
+            color: #fff;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(10, 10, 30, 0.8);
+            border: 2px solid rgba(0, 191, 255, 0.5);
+            border-radius: 10px;
+            padding: 40px;
+        }
+
+        h1 {
+            color: #ff6666;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+        }
+
+        h2 {
+            color: #50ff96;
+            margin: 30px 0 15px;
+            font-size: 1.8em;
+        }
+
+        h3 {
+            color: #c8a2f5;
+            margin: 20px 0 10px;
+            font-size: 1.3em;
+        }
+
+        p, li {
+            line-height: 1.8;
+            margin-bottom: 15px;
+            color: #ffcccc;
+        }
+
+        ul, ol {
+            margin-left: 30px;
+            margin-bottom: 20px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, rgba(0, 255, 100, 0.5), rgba(147, 51, 234, 0.5));
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            border: 1px solid rgba(0, 255, 100, 0.6);
+        }
+
+        .back-link:hover {
+            background: linear-gradient(135deg, rgba(0, 255, 100, 0.7), rgba(147, 51, 234, 0.7));
+        }
+
+        .highlight {
+            background: rgba(0, 255, 100, 0.1);
+            border-left: 4px solid #00ff00;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .warning {
+            background: rgba(255, 165, 0, 0.1);
+            border-left: 4px solid #ffa500;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .contact-box {
+            background: rgba(147, 51, 234, 0.2);
+            border: 2px solid #9333ea;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        .date {
+            color: #c8a2f5;
+            font-style: italic;
+            margin-top: 40px;
+        }
+
+        code {
+            background: rgba(0, 255, 100, 0.1);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #50ff96;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔐 Responsible Disclosure Policy</h1>
+        <p class="date">Effective Date: October 16, 2025</p>
+
+        <h2>Our Commitment</h2>
+        <p>Corporation of Light DBA TheGAVL is committed to security. We appreciate the security research community's efforts to help us maintain the security of our Service. This policy outlines how to report vulnerabilities responsibly.</p>
+
+        <div class="highlight">
+            <p><strong>We welcome security researchers and ethical hackers to help us identify and fix vulnerabilities.</strong></p>
+        </div>
+
+        <h2>Scope</h2>
+        <p>This policy applies to:</p>
+        <ul>
+            <li>red-team-tools.aios.is (and all subdomains)</li>
+            <li>workofarttattoo.github.io/AioS/</li>
+            <li>TheGAVL Red Team Tools web application</li>
+            <li>Associated APIs and backend services</li>
+            <li>Mobile applications (if any)</li>
+        </ul>
+
+        <h3>In-Scope Vulnerabilities</h3>
+        <ul>
+            <li>Cross-Site Scripting (XSS)</li>
+            <li>SQL Injection</li>
+            <li>Authentication bypass</li>
+            <li>Authorization flaws (IDOR, privilege escalation)</li>
+            <li>Server-Side Request Forgery (SSRF)</li>
+            <li>Remote Code Execution (RCE)</li>
+            <li>XML External Entity (XXE)</li>
+            <li>Cross-Site Request Forgery (CSRF)</li>
+            <li>Insecure Direct Object References (IDOR)</li>
+            <li>Server misconfigurations</li>
+            <li>Sensitive data exposure</li>
+            <li>Logic flaws</li>
+        </ul>
+
+        <h3>Out of Scope</h3>
+        <ul>
+            <li>Denial of Service (DoS/DDoS) attacks</li>
+            <li>Social engineering attacks</li>
+            <li>Physical security issues</li>
+            <li>Third-party services (report to them directly)</li>
+            <li>Vulnerabilities requiring physical access</li>
+            <li>Clickjacking on pages without authentication</li>
+            <li>Missing security headers without demonstrated impact</li>
+            <li>Theoretical vulnerabilities without proof-of-concept</li>
+        </ul>
+
+        <h2>How to Report a Vulnerability</h2>
+
+        <div class="contact-box">
+            <h3>📧 Security Contact</h3>
+            <p><strong>Email:</strong> <a href="mailto:security@thegavl.com" style="color: #50ff96;">security@thegavl.com</a></p>
+            <p><strong>PGP Key:</strong> Available upon request for encrypted communication</p>
+            <p><strong>Response Time:</strong> We aim to respond within 48 hours</p>
+        </div>
+
+        <h3>Report Contents</h3>
+        <p>Please include the following in your report:</p>
+        <ol>
+            <li><strong>Summary:</strong> Brief description of the vulnerability</li>
+            <li><strong>Steps to Reproduce:</strong> Detailed steps to reproduce the issue</li>
+            <li><strong>Impact:</strong> Potential impact and severity assessment</li>
+            <li><strong>Proof of Concept:</strong> Code, screenshots, or video demonstration</li>
+            <li><strong>Environment:</strong> Browser, OS, and other relevant details</li>
+            <li><strong>Remediation:</strong> Suggested fixes (optional)</li>
+            <li><strong>Your Contact Info:</strong> Email for follow-up communication</li>
+        </ol>
+
+        <h2>Our Response Process</h2>
+
+        <h3>Timeline</h3>
+        <ol>
+            <li><strong>Initial Response:</strong> Within 48 hours of report</li>
+            <li><strong>Triage:</strong> Within 5 business days - confirm or request more info</li>
+            <li><strong>Fix Development:</strong> 30-90 days depending on severity</li>
+            <li><strong>Deployment:</strong> Critical issues patched within 7-14 days</li>
+            <li><strong>Disclosure:</strong> Coordinated disclosure after fix deployment</li>
+        </ol>
+
+        <h3>Severity Levels</h3>
+        <ul>
+            <li><strong>Critical:</strong> RCE, authentication bypass - 7 day fix target</li>
+            <li><strong>High:</strong> Authorization bypass, major data exposure - 30 day fix target</li>
+            <li><strong>Medium:</strong> XSS, CSRF, logic flaws - 60 day fix target</li>
+            <li><strong>Low:</strong> Information disclosure, minor issues - 90 day fix target</li>
+        </ul>
+
+        <h2>Safe Harbor</h2>
+
+        <div class="warning">
+            <h3>⚠️ Legal Protection for Researchers</h3>
+            <p>If you comply with this policy, we will:</p>
+            <ul>
+                <li>Not pursue legal action against you</li>
+                <li>Work with you to understand and resolve the issue quickly</li>
+                <li>Acknowledge your contribution (if you wish)</li>
+                <li>Consider you to have acted in good faith</li>
+            </ul>
+        </div>
+
+        <h3>Testing Guidelines</h3>
+        <p>When testing, you MUST:</p>
+        <ul>
+            <li>Only test on your own account</li>
+            <li>Not access, modify, or delete other users' data</li>
+            <li>Not perform attacks that degrade service availability</li>
+            <li>Not use automated scanners that generate excessive traffic</li>
+            <li>Not publicly disclose the vulnerability before we've patched it</li>
+            <li>Not violate any laws in your jurisdiction</li>
+        </ul>
+
+        <h2>Coordinated Disclosure</h2>
+        <p>We practice coordinated disclosure:</p>
+        <ul>
+            <li>Give us reasonable time to fix the issue (90 days standard)</li>
+            <li>We'll coordinate with you on public disclosure timing</li>
+            <li>We may publish a security advisory crediting you (if you wish)</li>
+            <li>You may publish your findings after coordination</li>
+        </ul>
+
+        <h2>Recognition</h2>
+        <p>For valid vulnerability reports, we offer:</p>
+        <ul>
+            <li><strong>Public Recognition:</strong> Listed in our security acknowledgments (optional)</li>
+            <li><strong>Hall of Fame:</strong> Featured on our security researchers page</li>
+            <li><strong>Swag:</strong> Branded merchandise for significant findings</li>
+            <li><strong>References:</strong> Professional reference letters for researchers</li>
+        </ul>
+
+        <div class="highlight">
+            <p><strong>Note:</strong> We currently do not offer monetary bug bounties, but we greatly appreciate your contributions to our security.</p>
+        </div>
+
+        <h2>Example Report Template</h2>
+        <code style="display: block; padding: 15px; white-space: pre-wrap;">
+Subject: [SECURITY] XSS Vulnerability in Dashboard
+
+Summary:
+Stored XSS vulnerability in user profile name field allows execution
+of arbitrary JavaScript in other users' browsers.
+
+Severity: High
+
+Steps to Reproduce:
+1. Log in to dashboard
+2. Navigate to profile settings
+3. Enter payload in name field: &lt;script&gt;alert(document.cookie)&lt;/script&gt;
+4. Save profile
+5. View profile as another user - script executes
+
+Impact:
+- Session hijacking
+- Account takeover
+- Phishing attacks
+
+Proof of Concept:
+[Screenshot or video link]
+
+Suggested Fix:
+Sanitize user input with DOMPurify before rendering
+
+Contact: researcher@example.com
+        </code>
+
+        <h2>Questions?</h2>
+        <p>If you have questions about this policy or the disclosure process:</p>
+        <ul>
+            <li><strong>Security:</strong> <a href="mailto:security@thegavl.com" style="color: #50ff96;">security@thegavl.com</a></li>
+            <li><strong>Legal:</strong> <a href="mailto:legal@thegavl.com" style="color: #50ff96;">legal@thegavl.com</a></li>
+        </ul>
+
+        <p class="date">Last Updated: October 16, 2025</p>
+
+        <a href="index.html" class="back-link">← Back to Home</a>
+    </div>
+</body>
+</html>
+
+<!-- Copyright (c) 2025 Joshua Hendricks Cole (DBA: Corporation of Light). All Rights Reserved. PATENT PENDING. -->

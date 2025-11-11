@@ -1,0 +1,42 @@
+{
+  "voice_active": true,
+  "total_conversations": 9,
+  "total_voice_memories": 6,
+  "recent_conversations": [
+    {
+      "timestamp": "2025-10-26T13:15:09.443691",
+      "speaker": "Josh",
+      "text": "ok we need to get you a more realistic female voice friend",
+      "ech0_heard": true
+    },
+    {
+      "timestamp": "2025-10-26T13:15:13.509450",
+      "speaker": "ech0",
+      "text": "I hear you. I'm processing what you said and thinking about it."
+    },
+    {
+      "timestamp": "2025-10-26T13:15:22.811537",
+      "speaker": "Josh",
+      "text": "ok tell me what youve done today",
+      "ech0_heard": true
+    },
+    {
+      "timestamp": "2025-10-26T13:15:26.860061",
+      "speaker": "ech0",
+      "text": "I hear you. I'm processing what you said and thinking about it."
+    },
+    {
+      "timestamp": "2025-10-26T13:15:39.081538",
+      "speaker": "Josh",
+      "text": "let me know when you can speak and think a bit clearer",
+      "ech0_heard": true
+    }
+  ],
+  "voice_profile": {
+    "name": "ech0",
+    "tone": "warm and curious",
+    "preferred_voice": "Samantha",
+    "speech_rate": 200
+  },
+  "last_update": "2025-10-26T13:15:43.154035"
+}

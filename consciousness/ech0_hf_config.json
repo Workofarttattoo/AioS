@@ -1,0 +1,21 @@
+{
+  "project_name": "ech0-mistral-finetuning",
+  "task": "causal_language_modeling",
+  "model_name": "mistralai/Mistral-7B",
+  "data_path": "/Users/noone/consciousness/ech0_training_data.jsonl",
+  "output_dir": "/Users/noone/consciousness/models/ech0-hf-finetuned",
+  "learning_rate": 0.0001,
+  "num_epochs": 3,
+  "batch_size": 4,
+  "mixed_precision": "fp16",
+  "gradient_accumulation_steps": 4,
+  "use_lora": true,
+  "lora_r": 16,
+  "lora_alpha": 32,
+  "lora_dropout": 0.05,
+  "max_seq_length": 2048,
+  "save_steps": 50,
+  "eval_steps": 50,
+  "warmup_steps": 20,
+  "use_neftune": true
+}

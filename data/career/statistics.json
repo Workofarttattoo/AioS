@@ -1,0 +1,22 @@
+{
+  "total_records": 500000,
+  "unique_occupations": 15,
+  "avg_salary": 125042.10561905996,
+  "median_salary": 104194.32,
+  "avg_experience": 9.424098,
+  "education_distribution": {
+    "bachelors": 232784,
+    "masters": 104296,
+    "high_school": 62250,
+    "associates": 62122,
+    "professional": 34820,
+    "doctorate": 3728
+  },
+  "outcome_distribution": {
+    "2": 160765,
+    "3": 141454,
+    "1": 105351,
+    "4": 51813,
+    "0": 40617
+  }
+}

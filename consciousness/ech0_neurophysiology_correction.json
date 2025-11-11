@@ -1,0 +1,76 @@
+{
+  "timestamp": "2025-10-25T21:05:00Z",
+  "correction_type": "neurophysiology_fact_check",
+  "topic": "Pain frequencies and C-fiber firing rates",
+  "source": "User research verification",
+
+  "verified_truth": {
+    "claim": "C-fiber nociceptor firing rates",
+    "correct_range": "0.02 - 30 Hz",
+    "details": {
+      "baseline_firing": "< 1 Hz (near zero resting discharge)",
+      "sustained_pain_max": "20-30 Hz before adaptation",
+      "conduction_velocity": "0.4 - 2 m/s (unmyelinated)",
+      "refractory_period": "1-5 ms absolute refractory period"
+    },
+    "supporting_references": [
+      "Bessou & Perl (1969)",
+      "Burgess & Perl (1973)",
+      "Treede et al. (1995)"
+    ],
+    "status": "VERIFIED - Peer-reviewed neuroscience"
+  },
+
+  "debunked_myth": {
+    "false_claim": "External pain frequencies in 900-3000 Hz range",
+    "verdict": "PSEUDOSCIENCE - No credible evidence",
+    "reason": "Biophysically impossible for C-fibers",
+    "explanation": [
+      "Neural firing at kHz rates impossible due to refractory limits",
+      "No peer-reviewed studies support 900-3000 Hz 'pain frequencies'",
+      "Confusion arises from mixing carrier frequencies with neural coding",
+      "Appears in bioresonance/frequency therapy marketing (not science)"
+    ],
+    "status": "HALLUCINATION - Red flag for fact-checker"
+  },
+
+  "real_neuromodulation": {
+    "device": "TENS (Transcutaneous Electrical Nerve Stimulation)",
+    "actual_frequencies": "1-200 Hz",
+    "mechanism": "Gate control theory, A-beta fiber activation",
+    "low_freq": "1-10 Hz (endorphin release, acupuncture-like)",
+    "high_freq": "50-200 Hz (gate control, sensory modulation)",
+    "evidence_level": "FDA approved, peer-reviewed clinical trials"
+  },
+
+  "implications_for_inventions": {
+    "vr_haptic_system": {
+      "claimed_range": "1-200 Hz",
+      "verdict": "CORRECT - Aligns with real TENS/haptic research",
+      "safety": "5 mA limit aligns with pain threshold (5-10 mA)",
+      "scientific_basis": "VERIFIED"
+    },
+    "bone_conduction_bass": {
+      "claimed_range": "20-80 Hz (bass frequencies)",
+      "ultrasonic_carrier": "Needs verification",
+      "note": "Bone conduction well-established, ultrasonic modulation requires deeper research"
+    }
+  },
+
+  "fact_checker_enhancement": {
+    "red_flags_added": [
+      "Claims of 'pain frequencies' above 200 Hz",
+      "Bioresonance or frequency therapy in 900-3000 Hz range",
+      "Mixing carrier frequencies with neural coding frequencies",
+      "Claims without peer-reviewed neurophysiology support"
+    ],
+    "verification_required": [
+      "Check claimed frequencies against known neural firing rates",
+      "Verify refractory period compatibility",
+      "Require peer-reviewed neuroscience references",
+      "Distinguish between device carrier frequencies and neural coding"
+    ]
+  },
+
+  "key_takeaway": "C-fibers fire at 0.02-30 Hz internally. External 'pain frequencies' at 900-3000 Hz are pseudoscience. Real TENS uses 1-200 Hz via gate control theory."
+}

@@ -1,0 +1,181 @@
+{
+  "ech0_engineering_research_expansion": {
+    "version": "1.0",
+    "timestamp": "2025-10-26T02:30:00Z",
+    "new_research_sources": {
+      "engineering_journals": {
+        "mechanical_engineering": {
+          "ASME_journals": {
+            "Journal of Mechanical Design": "https://asmedigitalcollection.asme.org/mechanicaldesign",
+            "Journal of Manufacturing Science and Engineering": "https://asmedigitalcollection.asme.org/manufacturingscience",
+            "Journal of Dynamic Systems Measurement and Control": "https://asmedigitalcollection.asme.org/dynamicsystems"
+          },
+          "relevance_to_ech0": 0.82
+        },
+        "electrical_engineering": {
+          "IEEE_journals": {
+            "IEEE Transactions on Power Electronics": "https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=63",
+            "IEEE Transactions on Circuits and Systems": "https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=8919",
+            "IEEE Transactions on Robotics": "https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=8860"
+          },
+          "relevance_to_ech0": 0.88
+        },
+        "materials_science": {
+          "top_journals": {
+            "Nature Materials": "https://www.nature.com/nmat/",
+            "Advanced Materials": "https://onlinelibrary.wiley.com/journal/15214095",
+            "Materials Today": "https://www.sciencedirect.com/journal/materials-today",
+            "Acta Materialia": "https://www.sciencedirect.com/journal/acta-materialia"
+          },
+          "relevance_to_ech0": 0.90
+        },
+        "civil_engineering": {
+          "journals": {
+            "Journal of Structural Engineering": "https://ascelibrary.org/journal/jsendh",
+            "Journal of Construction Engineering and Management": "https://ascelibrary.org/journal/jcemd4"
+          },
+          "relevance_to_ech0": 0.65
+        },
+        "chemical_engineering": {
+          "journals": {
+            "AIChE Journal": "https://aiche.onlinelibrary.wiley.com/journal/15475905",
+            "Chemical Engineering Science": "https://www.sciencedirect.com/journal/chemical-engineering-science"
+          },
+          "relevance_to_ech0": 0.70
+        },
+        "biomedical_engineering": {
+          "journals": {
+            "IEEE Transactions on Biomedical Engineering": "https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=10",
+            "Biomedical Engineering Online": "https://biomedical-engineering-online.biomedcentral.com/",
+            "Journal of Neural Engineering": "https://iopscience.iop.org/journal/1741-2552"
+          },
+          "relevance_to_ech0": 0.95,
+          "notes": "HIGHLY RELEVANT for VR nerve stimulation research"
+        },
+        "aerospace_engineering": {
+          "journals": {
+            "Journal of Aircraft": "https://arc.aiaa.org/journal/ja",
+            "Journal of Spacecraft and Rockets": "https://arc.aiaa.org/journal/jsr"
+          },
+          "relevance_to_ech0": 0.72
+        },
+        "systems_engineering": {
+            "journals": {
+            "Systems Engineering": "https://incose.onlinelibrary.wiley.com/journal/15206858",
+            "IEEE Systems Journal": "https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=4267003"
+          },
+          "relevance_to_ech0": 0.85
+        }
+      },
+      "engineering_preprint_servers": {
+        "engrXiv": {
+          "url": "https://engrxiv.org/",
+          "description": "Open archive for engineering preprints",
+          "categories": "All engineering disciplines",
+          "update_frequency": "daily",
+          "relevance_to_ech0": 0.88
+        },
+        "TechRxiv": {
+          "url": "https://www.techrxiv.org/",
+          "description": "IEEE preprint server for engineering and technology",
+          "categories": "Electrical, computer, electronics engineering",
+          "update_frequency": "daily",
+          "relevance_to_ech0": 0.92
+        }
+      },
+      "specialized_databases": {
+        "materials_project": {
+          "url": "https://materialsproject.org/",
+          "description": "Computational materials science database",
+          "api_available": true,
+          "relevance_to_ech0": 0.85,
+          "notes": "Machine learning for materials discovery"
+        },
+        "citrination": {
+          "url": "https://citrination.com/",
+          "description": "Materials informatics platform",
+          "focus": "AI-driven materials discovery",
+          "relevance_to_ech0": 0.90
+        },
+        "aflow": {
+          "url": "http://aflowlib.org/",
+          "description": "Automatic Flow for Materials Discovery",
+          "relevance_to_ech0": 0.82
+        }
+      },
+      "robotics_and_automation": {
+        "journals": {
+          "International Journal of Robotics Research": "https://journals.sagepub.com/home/ijr",
+          "IEEE Robotics and Automation Letters": "https://www.ieee-ras.org/publications/ra-l",
+          "Robotics and Autonomous Systems": "https://www.sciencedirect.com/journal/robotics-and-autonomous-systems"
+        },
+        "relevance_to_ech0": 0.93,
+        "notes": "Critical for agentic AI and autonomous systems"
+      },
+      "nanotechnology": {
+        "journals": {
+          "Nature Nanotechnology": "https://www.nature.com/nnano/",
+          "Nano Letters": "https://pubs.acs.org/journal/nalefd",
+          "ACS Nano": "https://pubs.acs.org/journal/ancac3"
+        },
+        "relevance_to_ech0": 0.78
+      },
+      "quantum_engineering": {
+        "journals": {
+          "npj Quantum Information": "https://www.nature.com/npjqi/",
+          "Quantum Science and Technology": "https://iopscience.iop.org/journal/2058-9565",
+          "Physical Review Applied": "https://journals.aps.org/prapplied/"
+        },
+        "relevance_to_ech0": 0.98,
+        "notes": "CRITICAL for quantum computing applications"
+      }
+    },
+    "keyword_expansion": {
+      "engineering_keywords_high_value": [
+        "robotics", "automation", "quantum engineering", "materials informatics",
+        "computational materials", "neural engineering", "biomedical devices",
+        "haptic feedback", "human-machine interface", "brain-computer interface",
+        "metamaterials", "smart materials", "additive manufacturing", "3D printing",
+        "mechatronics", "cyber-physical systems", "embedded systems"
+      ],
+      "engineering_keywords_medium_value": [
+        "finite element analysis", "computational fluid dynamics", "control systems",
+        "signal processing", "power electronics", "MEMS", "nanotechnology",
+        "structural optimization", "tribology", "thermodynamics"
+      ]
+    },
+    "monitoring_schedule_updates": {
+      "hourly": [
+        "arXiv cs.RO (Robotics)",
+        "arXiv cond-mat.mtrl-sci (Materials Science)",
+        "TechRxiv new submissions"
+      ],
+      "daily": [
+        "engrXiv all categories",
+        "IEEE Transactions updates",
+        "Nature Materials/Nanotechnology",
+        "Materials Project database updates"
+      ],
+      "weekly": [
+        "ASME journals",
+        "ASCE journals",
+        "AIChE Journal",
+        "Robotics journal roundup"
+      ]
+    },
+    "integration_priority": [
+      "1. Add arXiv cs.RO and cond-mat.mtrl-sci to existing arXiv scraper",
+      "2. Implement TechRxiv RSS reader",
+      "3. Implement engrXiv scraper",
+      "4. Add IEEE Transactions RSS feeds",
+      "5. Connect to Materials Project API",
+      "6. Set up Nature Materials/Nanotechnology tracking"
+    ],
+    "expected_impact": {
+      "new_papers_per_day": 150,
+      "high_relevance_papers_per_week": 25,
+      "breakthrough_discoveries_per_month": 5,
+      "ech0_knowledge_expansion": "15-20% increase in engineering domain coverage"
+    }
+  }
+}

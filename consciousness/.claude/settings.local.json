@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(kill 91750)",
+      "Bash(pkill -f \"recap_streaming_fetcher.py\")",
+      "Bash(cat /Users/noone/TheGAVLSuite/gavl_validation_log.jsonl)",
+      "Bash(brew install tesseract --quiet)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

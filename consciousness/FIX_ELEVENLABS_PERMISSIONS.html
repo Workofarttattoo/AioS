@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔧 Fix ElevenLabs API Key Permissions</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: #ffffff;
+            padding: 40px 20px;
+            line-height: 1.8;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #ffd700;
+        }
+
+        h2 {
+            color: #ffd700;
+            margin: 30px 0 15px;
+            font-size: 32px;
+        }
+
+        .error {
+            background: rgba(239, 68, 68, 0.3);
+            border: 2px solid #ef4444;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+        }
+
+        .step {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 15px;
+            border-left: 4px solid #ffd700;
+        }
+
+        .step-number {
+            background: #ffd700;
+            color: #000;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+            margin-right: 15px;
+        }
+
+        .success {
+            background: rgba(16, 185, 129, 0.3);
+            border: 2px solid #10b981;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+            text-align: center;
+        }
+
+        ul {
+            margin-left: 30px;
+            margin-top: 15px;
+        }
+
+        li {
+            margin: 12px 0;
+            font-size: 18px;
+        }
+
+        a {
+            color: #ffd700;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .code {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 15px;
+            border-radius: 10px;
+            font-family: monospace;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Fix API Key Permissions</h1>
+
+        <div class="error">
+            <h2 style="color: #ef4444; margin-top: 0;">⚠️ The Problem</h2>
+            <p style="font-size: 18px;">
+                Your API key is <strong>missing text-to-speech permissions</strong>.
+            </p>
+            <p style="margin-top: 10px; font-size: 16px;">
+                Error: <code style="background: rgba(0,0,0,0.3); padding: 2px 6px; border-radius: 3px;">missing_permissions: text_to_speech</code>
+            </p>
+        </div>
+
+        <h2>✅ Solution (Choose One)</h2>
+
+        <div class="step">
+            <span class="step-number">1</span>
+            <div style="display: inline-block; vertical-align: top; width: calc(100% - 65px);">
+                <strong>Option A: Generate a NEW API Key</strong>
+                <p style="margin-top: 10px;">The easiest solution:</p>
+                <ol style="margin-left: 30px; margin-top: 10px;">
+                    <li>Go to: <a href="https://elevenlabs.io/app/settings/api-keys" target="_blank">https://elevenlabs.io/app/settings/api-keys</a></li>
+                    <li>Click <strong>"Delete"</strong> on the old key</li>
+                    <li>Click <strong>"Create New API Key"</strong></li>
+                    <li><strong>IMPORTANT:</strong> Make sure <strong>"Text to Speech"</strong> is <strong>CHECKED</strong></li>
+                    <li>Copy the new key</li>
+                    <li>Come back here and I'll set it up</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="step">
+            <span class="step-number">2</span>
+            <div style="display: inline-block; vertical-align: top; width: calc(100% - 65px);">
+                <strong>Option B: Check Account Status</strong>
+                <p style="margin-top: 10px;">Sometimes new accounts need activation:</p>
+                <ol style="margin-left: 30px; margin-top: 10px;">
+                    <li>Go to: <a href="https://elevenlabs.io/app/settings" target="_blank">https://elevenlabs.io/app/settings</a></li>
+                    <li>Check if you need to verify your email</li>
+                    <li>Check if you need to accept Terms of Service</li>
+                    <li>Go to <strong>Subscription</strong> and make sure FREE tier is active</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="step">
+            <span class="step-number">3</span>
+            <div style="display: inline-block; vertical-align: top; width: calc(100% - 65px);">
+                <strong>Option C: Try the Dashboard Test First</strong>
+                <p style="margin-top: 10px;">Verify your account is working:</p>
+                <ol style="margin-left: 30px; margin-top: 10px;">
+                    <li>Go to: <a href="https://elevenlabs.io/app/speech-synthesis" target="_blank">https://elevenlabs.io/app/speech-synthesis</a></li>
+                    <li>Type some text and click <strong>"Generate"</strong></li>
+                    <li>If it works → Generate new API key with TTS permission</li>
+                    <li>If it doesn't work → Check account status/activation</li>
+                </ol>
+            </div>
+        </div>
+
+        <h2>🔄 After You Fix It</h2>
+        <p>Once you have a NEW API key with text-to-speech permissions:</p>
+
+        <div class="code">
+            # In Terminal, run:
+            cd /Users/noone/consciousness
+            ./setup_elevenlabs.sh
+        </div>
+
+        <p style="margin-top: 15px;">OR just give me your new API key and I'll set it up!</p>
+
+        <div class="success">
+            <h2 style="color: #10b981; margin-top: 0;">💡 Most Common Solution</h2>
+            <p style="font-size: 20px; margin-top: 15px;">
+                <strong>Generate a NEW API key</strong> and make sure <strong>"Text to Speech"</strong> is checked when creating it.
+            </p>
+            <p style="margin-top: 15px; font-size: 18px;">
+                Link: <a href="https://elevenlabs.io/app/settings/api-keys" target="_blank">https://elevenlabs.io/app/settings/api-keys</a>
+            </p>
+        </div>
+
+        <h2>🆘 Still Not Working?</h2>
+        <ul>
+            <li>Make sure you're on the FREE tier (not just trial)</li>
+            <li>Verify your email address is confirmed</li>
+            <li>Check you have credits remaining (Free = 10k characters/month)</li>
+            <li>Try logging out and back in to ElevenLabs</li>
+            <li>Contact ElevenLabs support if nothing works</li>
+        </ul>
+
+        <p style="text-align: center; margin-top: 50px; color: #999; font-size: 14px;">
+            Copyright © 2025 Joshua Hendricks Cole (DBA: Corporation of Light)<br>
+            All Rights Reserved. PATENT PENDING.
+        </p>
+    </div>
+</body>
+</html>

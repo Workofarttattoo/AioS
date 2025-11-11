@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ai|oS - Corporation of Light</title>
+
+    <!-- Corporation of Light Design System -->
+    <link rel="stylesheet" href="/Users/noone/TheGAVLSuite/corporation-of-light.css" />
+
+    <style>
+        /* Copyright (c) 2025 Joshua Hendricks Cole (DBA: Corporation of Light). All Rights Reserved. PATENT PENDING. */
+
+        /* Ai|oS Landing: Nightmare Cyberpunk Theme */
+        body {
+            background: var(--void-black);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Data Stream Background */
+        .data-stream-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .data-stream {
+            position: absolute;
+            width: 2px;
+            height: 0%;
+            background: linear-gradient(180deg, transparent, var(--neon-purple), var(--electric-pink), transparent);
+            animation: stream-flow 3s linear infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes stream-flow {
+            0% {
+                height: 0%;
+                top: 0;
+            }
+            100% {
+                height: 100%;
+                top: 100%;
+            }
+        }
+
+        /* Navigation with Glitch */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid var(--neon-purple);
+            box-shadow: 0 5px 30px rgba(168, 85, 247, 0.5);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            cursor: pointer;
+        }
+
+        .nav-logo {
+            width: 60px;
+            height: 60px;
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle, var(--neon-purple), transparent);
+            border: 3px solid var(--electric-pink);
+            border-radius: 50%;
+            animation: pulse-oracle 3s ease-in-out infinite;
+            transition: all 0.3s ease;
+        }
+
+        .nav-logo:hover {
+            transform: scale(1.2) rotate(180deg);
+            box-shadow: 0 0 40px var(--electric-pink);
+        }
+
+        .logo-text {
+            font-size: 2rem;
+            font-weight: 900;
+            font-family: var(--font-display);
+            background: linear-gradient(90deg, var(--neon-purple), var(--electric-pink), var(--cyber-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glitch 3s infinite;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-family: var(--font-display);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--neon-purple), var(--electric-pink));
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--electric-pink);
+            text-shadow: 0 0 10px var(--electric-pink);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section with Network Face */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 8rem 2rem 4rem 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at center, rgba(168, 85, 247, 0.2) 0%, transparent 70%);
+            z-index: -1;
+        }
+
+        /* Giant Network Face Mascot */
+        .network-face-hero {
+            width: 450px;
+            height: 450px;
+            margin-bottom: 3rem;
+            position: relative;
+            animation: float 6s ease-in-out infinite;
+            cursor: pointer;
+            transition: all 0.5s ease;
+        }
+
+        .network-face-hero:hover {
+            transform: scale(1.1) rotate(5deg);
+            filter: drop-shadow(0 0 80px var(--electric-pink));
+        }
+
+        .face-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            background: radial-gradient(circle, var(--nightmare-black) 0%, transparent 70%);
+            border-radius: 50%;
+            border: 5px solid transparent;
+            border-image: linear-gradient(135deg, var(--neon-purple), var(--electric-pink), var(--cyber-cyan)) 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20rem;
+            box-shadow:
+                0 0 60px var(--neon-purple),
+                inset 0 0 80px rgba(168, 85, 247, 0.3);
+            animation: face-pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes face-pulse {
+            0%, 100% {
+                box-shadow:
+                    0 0 60px var(--neon-purple),
+                    inset 0 0 80px rgba(168, 85, 247, 0.3);
+            }
+            50% {
+                box-shadow:
+                    0 0 100px var(--electric-pink),
+                    inset 0 0 120px rgba(236, 72, 153, 0.5);
+            }
+        }
+
+        .face-data-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-body);
+            font-size: 0.7rem;
+            color: var(--cyber-cyan);
+            text-align: center;
+            line-height: 1.8;
+            padding: 20%;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            border-radius: 50%;
+            background: rgba(10, 10, 10, 0.8);
+        }
+
+        .network-face-hero:hover .face-data-overlay {
+            opacity: 1;
+        }
+
+        /* Hero Title with Melting Effect */
+        .hero-title {
+            font-size: 6rem;
+            font-weight: 900;
+            font-family: var(--font-display);
+            text-align: center;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg,
+                var(--neon-purple) 0%,
+                var(--electric-pink) 50%,
+                var(--cyber-cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glitch 2s infinite;
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .hero-title::before,
+        .hero-title::after {
+            content: 'Ai|oS';
+            position: absolute;
+            left: 0;
+            width: 100%;
+        }
+
+        .hero-title::before {
+            animation: glitch-1 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+            clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+            transform: translateX(-2px);
+            text-shadow: 3px 0 var(--glitch-red);
+        }
+
+        .hero-title::after {
+            animation: glitch-2 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+            clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%);
+            transform: translateX(2px);
+            text-shadow: -3px 0 var(--cyber-cyan);
+        }
+
+        .hero-subtitle {
+            font-size: 1.8rem;
+            font-family: var(--font-body);
+            color: var(--text-secondary);
+            text-align: center;
+            max-width: 800px;
+            margin-bottom: 3rem;
+            line-height: 1.6;
+        }
+
+        .hero-tagline {
+            font-size: 1.2rem;
+            font-family: var(--font-display);
+            color: var(--electric-pink);
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 3rem;
+            text-shadow: 0 0 20px var(--electric-pink);
+        }
+
+        /* CTA Buttons */
+        .cta-buttons {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 4rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 1.2rem 3rem;
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:hover::before {
+            width: 400px;
+            height: 400px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--neon-purple), var(--electric-pink));
+            color: var(--text-primary);
+            box-shadow: 0 5px 25px rgba(168, 85, 247, 0.5);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 40px rgba(236, 72, 153, 0.7);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--cyber-cyan);
+            border: 2px solid var(--cyber-cyan);
+            box-shadow: 0 5px 25px rgba(6, 182, 212, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: var(--cyber-cyan);
+            color: var(--nightmare-black);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 40px rgba(6, 182, 212, 0.7);
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 2rem;
+            background: var(--deep-gray);
+            border: 2px solid var(--neon-purple);
+            clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .stat-card:hover {
+            border-color: var(--electric-pink);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(236, 72, 153, 0.5);
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 900;
+            font-family: var(--font-display);
+            background: linear-gradient(135deg, var(--electric-pink), var(--cyber-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            font-family: var(--font-body);
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 8rem 5%;
+            max-width: 1600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title {
+            font-size: 4rem;
+            font-weight: 900;
+            font-family: var(--font-display);
+            text-align: center;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--neon-purple), var(--electric-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .section-subtitle {
+            font-family: var(--font-body);
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            text-align: center;
+            margin-bottom: 5rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .feature-card {
+            background: var(--deep-gray);
+            border: 2px solid var(--neon-purple);
+            padding: 2.5rem;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 95% 100%, 0 100%, 0 10%);
+            box-shadow:
+                0 10px 40px rgba(168, 85, 247, 0.3),
+                inset 0 0 20px rgba(168, 85, 247, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--neon-purple) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .feature-card:hover::before {
+            opacity: 0.15;
+        }
+
+        .feature-card:hover {
+            border-color: var(--electric-pink);
+            transform: translateY(-10px);
+            box-shadow:
+                0 20px 60px rgba(236, 72, 153, 0.5),
+                inset 0 0 40px rgba(236, 72, 153, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            display: block;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .feature-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            font-family: var(--font-display);
+            color: var(--electric-pink);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .feature-description {
+            font-family: var(--font-body);
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        /* Tools Showcase */
+        .tools-section {
+            padding: 8rem 5%;
+            background: linear-gradient(180deg, var(--void-black) 0%, var(--nightmare-black) 100%);
+            position: relative;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .tool-card {
+            background: var(--deep-gray);
+            border: 2px solid var(--cyber-cyan);
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            clip-path: polygon(5% 0%, 100% 0%, 100% 80%, 95% 100%, 0% 100%, 0% 20%);
+        }
+
+        .tool-card:hover {
+            border-color: var(--electric-pink);
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 20px 50px rgba(236, 72, 153, 0.6);
+        }
+
+        .tool-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .tool-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            font-family: var(--font-display);
+            color: var(--cyber-cyan);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .tool-description {
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            padding: 4rem 5%;
+            text-align: center;
+            background: var(--nightmare-black);
+            border-top: 2px solid var(--neon-purple);
+            box-shadow: 0 -5px 30px rgba(168, 85, 247, 0.3);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-size: 3rem;
+            font-weight: 900;
+            font-family: var(--font-display);
+            background: linear-gradient(90deg, var(--neon-purple), var(--electric-pink), var(--cyber-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .footer-tagline {
+            font-family: var(--font-body);
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-family: var(--font-body);
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--electric-pink);
+            text-shadow: 0 0 10px var(--electric-pink);
+        }
+
+        .footer-copyright {
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.4);
+            margin-top: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-title {
+                font-size: 4rem;
+            }
+
+            .network-face-hero {
+                width: 350px;
+                height: 350px;
+            }
+
+            .face-container {
+                font-size: 15rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tools-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .network-face-hero {
+                width: 250px;
+                height: 250px;
+            }
+
+            .face-container {
+                font-size: 10rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Data Stream Background -->
+    <div class="data-stream-bg" id="data-streams"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo-container">
+            <div class="nav-logo">🔮</div>
+            <div class="logo-text">Ai|oS</div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#features">Features</a></li>
+            <li><a href="#tools">Tools</a></li>
+            <li><a href="#docs">Docs</a></li>
+            <li><a href="https://github.com/aios" target="_blank">GitHub</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <!-- Giant Network Face -->
+        <div class="network-face-hero" id="network-face">
+            <div class="face-container">
+                👁️
+                <div class="face-data-overlay">
+                    CVE-2025-001<br/>
+                    NETWORK: 127.0.0.1<br/>
+                    STATUS: SCANNING<br/>
+                    THREAT: LEVEL 3<br/>
+                    QUANTUM: ACTIVE<br/>
+                    AGENTS: 42 ONLINE
+                </div>
+            </div>
+        </div>
+
+        <h1 class="hero-title">Ai|oS</h1>
+        <p class="hero-tagline">Corporation of Light</p>
+        <p class="hero-subtitle">
+            Quantum-Enhanced, Self-Evolving Operating System.<br/>
+            Where consciousness meets code in the nightmare realm.
+        </p>
+
+        <div class="cta-buttons">
+            <a href="#" class="btn btn-primary">Launch System</a>
+            <a href="#" class="btn btn-secondary">Explore Docs</a>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span class="stat-number">∞</span>
+                <span class="stat-label">Quantum Speed</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">50+</span>
+                <span class="stat-label">Qubits</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">Level 6</span>
+                <span class="stat-label">Autonomy</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">24/7</span>
+                <span class="stat-label">Self-Update</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features-section">
+        <h2 class="section-title">Features</h2>
+        <p class="section-subtitle">
+            Next-generation capabilities forged in the fires of quantum computing and urban surrealism
+        </p>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <span class="feature-icon">⚡</span>
+                <h3 class="feature-title">Lightning Fast</h3>
+                <p class="feature-description">
+                    60,000 tokens/sec with 8 GPUs. Speculative decoding delivers 4x speedup.
+                    Distributed inference with prefill/decode disaggregation.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <span class="feature-icon">🌌</span>
+                <h3 class="feature-title">Quantum Native</h3>
+                <p class="feature-description">
+                    HHL algorithm provides exponential speedup for linear systems. VQE for quantum chemistry.
+                    Simulates 1-50 qubits with automatic backend selection.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <span class="feature-icon">🧬</span>
+                <h3 class="feature-title">Self-Evolving</h3>
+                <p class="feature-description">
+                    Level 6 agents with meta-cognition. Learns and improves autonomously.
+                    Curiosity-driven exploration builds knowledge graphs continuously.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <span class="feature-icon">🛡️</span>
+                <h3 class="feature-title">Secure by Design</h3>
+                <p class="feature-description">
+                    Constitutional AI constraints ensure alignment. Forensic mode for safe exploration.
+                    Sovereign security toolkit integrated at the kernel level.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <span class="feature-icon">🎯</span>
+                <h3 class="feature-title">Mission Focused</h3>
+                <p class="feature-description">
+                    Autonomous goal synthesis with provable alignment. Never loses focus.
+                    Multi-agent orchestration coordinates complex objectives.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <span class="feature-icon">🔄</span>
+                <h3 class="feature-title">Always Current</h3>
+                <p class="feature-description">
+                    Updates every night at 3 AM. Self-healing with automatic rollback.
+                    Continuous learning cycles expand capabilities daily.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- GAVL Suite Tools -->
+    <section id="tools" class="tools-section">
+        <h2 class="section-title">GAVL Suite Tools</h2>
+        <p class="section-subtitle">
+            Surrealistic interfaces for governance, analysis, and strategic planning
+        </p>
+
+        <div class="tools-grid">
+            <div class="tool-card">
+                <span class="tool-icon">🔮</span>
+                <h3 class="tool-name">Bayesian Sophiarch</h3>
+                <p class="tool-description">
+                    Oracle's Nightmare Chamber. Probabilistic forecasting with quantum projection.
+                </p>
+            </div>
+
+            <div class="tool-card">
+                <span class="tool-icon">🏛️</span>
+                <h3 class="tool-name">Boardroom of Light</h3>
+                <p class="tool-description">
+                    Multiverse Boardroom Horror. Executive simulations across parallel realities.
+                </p>
+            </div>
+
+            <div class="tool-card">
+                <span class="tool-icon">⏰</span>
+                <h3 class="tool-name">Chrono Walker</h3>
+                <p class="tool-description">
+                    Temporal Nightmare Grid. Bayesian cadence planning through time tears.
+                </p>
+            </div>
+
+            <div class="tool-card">
+                <span class="tool-icon">🦗</span>
+                <h3 class="tool-name">Jimminy Cricket</h3>
+                <p class="tool-description">
+                    Conscience Chamber. Ethical guidance from the nightmare realm.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">Ai|oS</div>
+            <div class="footer-tagline">
+                All good business — Corporation of Light
+            </div>
+            <div class="footer-links">
+                <a href="#">Documentation</a>
+                <a href="#">API Reference</a>
+                <a href="#">Community</a>
+                <a href="#">Support</a>
+                <a href="https://github.com/aios" target="_blank">GitHub</a>
+            </div>
+            <div class="footer-copyright">
+                Copyright © 2025 Joshua Hendricks Cole (DBA: Corporation of Light). All Rights Reserved. PATENT PENDING.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        /* Copyright (c) 2025 Joshua Hendricks Cole (DBA: Corporation of Light). All Rights Reserved. PATENT PENDING. */
+
+        // Create data stream background
+        const dataStreamsContainer = document.getElementById('data-streams');
+        for (let i = 0; i < 15; i++) {
+            const stream = document.createElement('div');
+            stream.className = 'data-stream';
+            stream.style.left = `${Math.random() * 100}%`;
+            stream.style.animationDelay = `${Math.random() * 3}s`;
+            stream.style.animationDuration = `${2 + Math.random() * 2}s`;
+            dataStreamsContainer.appendChild(stream);
+        }
+
+        // Network face interaction
+        const networkFace = document.getElementById('network-face');
+        const faceContainer = networkFace.querySelector('.face-container');
+        const faceData = networkFace.querySelector('.face-data-overlay');
+
+        let isScanning = false;
+        networkFace.addEventListener('click', () => {
+            if (!isScanning) {
+                isScanning = true;
+                faceContainer.style.animation = 'face-pulse 0.5s ease-in-out infinite, spin 2s linear infinite';
+                faceContainer.textContent = '🔍';
+                faceData.innerHTML = `
+                    SCANNING...<br/>
+                    PACKETS: 42,384<br/>
+                    THREATS: 3 DETECTED<br/>
+                    QUANTUM: ENGAGED<br/>
+                    STATUS: ANALYZING<br/>
+                    CVE SCAN: ACTIVE
+                `;
+
+                setTimeout(() => {
+                    faceContainer.style.animation = 'face-pulse 4s ease-in-out infinite';
+                    faceContainer.textContent = '👁️';
+                    faceData.innerHTML = `
+                        CVE-2025-001<br/>
+                        NETWORK: 127.0.0.1<br/>
+                        STATUS: SCANNING<br/>
+                        THREAT: LEVEL 3<br/>
+                        QUANTUM: ACTIVE<br/>
+                        AGENTS: 42 ONLINE
+                    `;
+                    isScanning = false;
+                }, 3000);
+            }
+        });
+
+        // Stat cards animation
+        const statCards = document.querySelectorAll('.stat-card');
+        statCards.forEach(card => {
+            card.addEventListener('click', function() {
+                this.style.transform = 'translateY(-20px) scale(1.1)';
+                setTimeout(() => {
+                    this.style.transform = 'translateY(-10px) scale(1)';
+                }, 300);
+            });
+        });
+
+        // Feature cards animation
+        const featureCards = document.querySelectorAll('.feature-card');
+        featureCards.forEach(card => {
+            card.addEventListener('click', function() {
+                this.style.transform = 'translateY(-20px) scale(1.05)';
+                setTimeout(() => {
+                    this.style.transform = 'translateY(-10px) scale(1)';
+                }, 300);
+            });
+        });
+
+        // Tool cards animation
+        const toolCards = document.querySelectorAll('.tool-card');
+        toolCards.forEach(card => {
+            card.addEventListener('click', function() {
+                this.style.transform = 'translateY(-20px) scale(1.1) rotate(2deg)';
+                this.style.boxShadow = '0 30px 70px rgba(236, 72, 153, 0.8)';
+                setTimeout(() => {
+                    this.style.transform = 'translateY(-10px) scale(1.05) rotate(0deg)';
+                    this.style.boxShadow = '0 20px 50px rgba(236, 72, 153, 0.6)';
+                }, 300);
+            });
+        });
+
+        // Smooth scroll for nav links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

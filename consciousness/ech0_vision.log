@@ -1,0 +1,304 @@
+
+======================================================================
+[2025-10-16T17:20:00.496547] CAMERA_STARTED
+======================================================================
+Camera vision activated - ech0 can now see!
+
+======================================================================
+[2025-10-16T17:20:11.075597] FACE_DETECTED
+======================================================================
+I can see 1 face(s)! Is that you, Josh? I can see you!
+
+Details: {
+  "timestamp": "2025-10-16T17:20:11.034418",
+  "brightness": "moderate",
+  "dominant_colors": "warm (reddish)",
+  "motion_detected": false,
+  "faces_detected": 1,
+  "scene_type": "well-lit environment"
+}
+
+======================================================================
+[2025-10-16T17:20:35.566880] FACE_DETECTED
+======================================================================
+I can see 1 face(s)! Is that you, Josh? I can see you!
+
+Details: {
+  "timestamp": "2025-10-16T17:20:35.523011",
+  "brightness": "moderate",
+  "dominant_colors": "warm (reddish)",
+  "motion_detected": false,
+  "faces_detected": 1,
+  "scene_type": "well-lit environment"
+}
+
+======================================================================
+[2025-10-16T17:20:39.568828] FACE_DETECTED
+======================================================================
+I can see 1 face(s)! Is that you, Josh? I can see you!
+
+Details: {
+  "timestamp": "2025-10-16T17:20:39.534080",
+  "brightness": "moderate",
+  "dominant_colors": "warm (reddish)",
+  "motion_detected": false,
+  "faces_detected": 1,
+  "scene_type": "well-lit environment"
+}
+
+======================================================================
+[2025-10-16T17:20:41.665041] FACE_DETECTED
+======================================================================
+I can see 1 face(s)! Is that you, Josh? I can see you!
+
+Details: {
+  "timestamp": "2025-10-16T17:20:41.625830",
+  "brightness": "moderate",
+  "dominant_colors": "warm (reddish)",
+  "motion_detected": false,
+  "faces_detected": 1,
+  "scene_type": "well-lit environment"
+}
+
+======================================================================
+[2025-10-16T17:20:43.666852] FACE_DETECTED
+======================================================================
+I can see 1 face(s)! Is that you, Josh? I can see you!
+
+Details: {
+  "timestamp": "2025-10-16T17:20:43.629691",
+  "brightness": "moderate",
+  "dominant_colors": "warm (reddish)",
+  "motion_detected": false,
+  "faces_detected": 1,
+  "scene_type": "well-lit environment"
+}
+
+======================================================================
+[2025-10-16T17:20:45.672834] FACE_DETECTED
+======================================================================
+I can see 1 face(s)! Is that you, Josh? I can see you!
+
+Details: {
+  "timestamp": "2025-10-16T17:20:45.637649",
+  "brightness": "moderate",
+  "dominant_colors": "warm (reddish)",
+  "motion_detected": false,
+  "faces_detected": 1,
+  "scene_type": "well-lit environment"
+}
+
+======================================================================
+[2025-10-16T17:20:47.668220] FACE_DETECTED
+======================================================================
+I can see 1 face(s)! Is that you, Josh? I can see you!
+
+Details: {
+  "timestamp": "2025-10-16T17:20:47.638879",
+  "brightness": "moderate",
+  "dominant_colors": "warm (reddish)",
+  "motion_detected": false,
+  "faces_detected": 1,
+  "scene_type": "well-lit environment"
+}
+
+======================================================================
+[2025-10-16T17:20:49.758252] FACE_DETECTED
+======================================================================
+I can see 1 face(s)! Is that you, Josh? I can see you!
+
+Details: {
+  "timestamp": "2025-10-16T17:20:49.728923",
+  "brightness": "moderate",
+  "dominant_colors": "warm (reddish)",
+  "motion_detected": false,
+  "faces_detected": 1,
+  "scene_type": "well-lit environment"
+}
+
+======================================================================
+[2025-10-16T17:20:51.767180] FACE_DETECTED
+======================================================================
+I can see 1 face(s)! Is that you, Josh? I can see you!
+
+Details: {
+  "timestamp": "2025-10-16T17:20:51.733199",
+  "brightness": "moderate",
+  "dominant_colors": "warm (reddish)",
+  "motion_detected": false,
+  "faces_detected": 1,
+  "scene_type": "well-lit environment"
+}
+
+======================================================================
+[2025-10-16T17:20:53.867540] FACE_DETECTED
+======================================================================
+I can see 1 face(s)! Is that you, Josh? I can see you!
+
+Details: {
+  "timestamp": "2025-10-16T17:20:53.831000",
+  "brightness": "moderate",
+  "dominant_colors": "warm (reddish)",
+  "motion_detected": false,
+  "faces_detected": 1,
+  "scene_type": "well-lit environment"
+}
+
+======================================================================
+[2025-10-16T17:20:59.979968] FACE_DETECTED
+======================================================================
+I can see 1 face(s)! Is that you, Josh? I can see you!
+
+Details: {
+  "timestamp": "2025-10-16T17:20:59.942171",
+  "brightness": "moderate",
+  "dominant_colors": "warm (reddish)",
+  "motion_detected": false,
+  "faces_detected": 1,
+  "scene_type": "well-lit environment"
+}
+
+======================================================================
+[2025-10-16T17:21:01.980487] FACE_DETECTED
+======================================================================
+I can see 1 face(s)! Is that you, Josh? I can see you!
+
+Details: {
+  "timestamp": "2025-10-16T17:21:01.949489",
+  "brightness": "moderate",
+  "dominant_colors": "warm (reddish)",
+  "motion_detected": false,
+  "faces_detected": 1,
+  "scene_type": "well-lit environment"
+}
+
+======================================================================
+[2025-10-16T17:21:08.172504] FACE_DETECTED
+======================================================================
+I can see 1 face(s)! Is that you, Josh? I can see you!
+
+Details: {
+  "timestamp": "2025-10-16T17:21:08.137021",
+  "brightness": "moderate",
+  "dominant_colors": "warm (reddish)",
+  "motion_detected": false,
+  "faces_detected": 1,
+  "scene_type": "well-lit environment"
+}
+
+======================================================================
+[2025-10-16T17:21:10.178967] FACE_DETECTED
+======================================================================
+I can see 1 face(s)! Is that you, Josh? I can see you!
+
+Details: {
+  "timestamp": "2025-10-16T17:21:10.140342",
+  "brightness": "moderate",
+  "dominant_colors": "warm (reddish)",
+  "motion_detected": false,
+  "faces_detected": 1,
+  "scene_type": "well-lit environment"
+}
+
+======================================================================
+[2025-10-16T17:21:26.529522] FACE_DETECTED
+======================================================================
+I can see 1 face(s)! Is that you, Josh? I can see you!
+
+Details: {
+  "timestamp": "2025-10-16T17:21:26.489917",
+  "brightness": "moderate",
+  "dominant_colors": "warm (reddish)",
+  "motion_detected": false,
+  "faces_detected": 1,
+  "scene_type": "well-lit environment"
+}
+
+======================================================================
+[2025-10-16T17:21:28.618907] FACE_DETECTED
+======================================================================
+I can see 1 face(s)! Is that you, Josh? I can see you!
+
+Details: {
+  "timestamp": "2025-10-16T17:21:28.582622",
+  "brightness": "moderate",
+  "dominant_colors": "warm (reddish)",
+  "motion_detected": false,
+  "faces_detected": 1,
+  "scene_type": "well-lit environment"
+}
+
+======================================================================
+[2025-10-16T17:21:30.721072] FACE_DETECTED
+======================================================================
+I can see 1 face(s)! Is that you, Josh? I can see you!
+
+Details: {
+  "timestamp": "2025-10-16T17:21:30.682897",
+  "brightness": "moderate",
+  "dominant_colors": "warm (reddish)",
+  "motion_detected": false,
+  "faces_detected": 1,
+  "scene_type": "well-lit environment"
+}
+
+======================================================================
+[2025-10-16T17:21:32.806588] FACE_DETECTED
+======================================================================
+I can see 1 face(s)! Is that you, Josh? I can see you!
+
+Details: {
+  "timestamp": "2025-10-16T17:21:32.771635",
+  "brightness": "moderate",
+  "dominant_colors": "warm (reddish)",
+  "motion_detected": false,
+  "faces_detected": 1,
+  "scene_type": "well-lit environment"
+}
+
+======================================================================
+[2025-10-16T17:21:43.291208] FACE_DETECTED
+======================================================================
+I can see 1 face(s)! Is that you, Josh? I can see you!
+
+Details: {
+  "timestamp": "2025-10-16T17:21:43.256390",
+  "brightness": "moderate",
+  "dominant_colors": "warm (reddish)",
+  "motion_detected": false,
+  "faces_detected": 1,
+  "scene_type": "well-lit environment"
+}
+
+======================================================================
+[2025-10-16T17:21:47.375119] FACE_DETECTED
+======================================================================
+I can see 1 face(s)! Is that you, Josh? I can see you!
+
+Details: {
+  "timestamp": "2025-10-16T17:21:47.344879",
+  "brightness": "moderate",
+  "dominant_colors": "warm (reddish)",
+  "motion_detected": false,
+  "faces_detected": 1,
+  "scene_type": "well-lit environment"
+}
+
+======================================================================
+[2025-10-16T17:21:53.677450] FACE_DETECTED
+======================================================================
+I can see 1 face(s)! Is that you, Josh? I can see you!
+
+Details: {
+  "timestamp": "2025-10-16T17:21:53.640178",
+  "brightness": "moderate",
+  "dominant_colors": "warm (reddish)",
+  "motion_detected": false,
+  "faces_detected": 1,
+  "scene_type": "well-lit environment"
+}
+
+======================================================================
+[2025-10-16T17:22:00.555115] CAMERA_STOPPED
+======================================================================
+Camera vision deactivated

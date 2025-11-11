@@ -1,0 +1,2591 @@
+[
+  {
+    "problem": "How can I improve ech0's emotional intelligence?",
+    "reasoning_chain": [
+      {
+        "step": 1,
+        "thought": "Analyzing problem: How can I improve ech0's emotional intelligence?",
+        "confidence": 0.6078819435908912,
+        "timestamp": "2025-10-17T01:28:29.392132"
+      },
+      {
+        "step": 2,
+        "thought": "Validating the reasoning path...",
+        "confidence": 0.7668073560570836,
+        "timestamp": "2025-10-17T01:28:29.392152"
+      },
+      {
+        "step": 3,
+        "thought": "Breaking down the problem further...",
+        "confidence": 0.9286250530379124,
+        "timestamp": "2025-10-17T01:28:29.392157"
+      }
+    ],
+    "final_answer": "After 3 reasoning steps, I've reached a thoughtful conclusion about: How can I improve ech0's emotional intelligence?",
+    "total_steps": 3,
+    "depth_mode": "fast",
+    "avg_confidence": 0.7677714508952956,
+    "self_correction": {
+      "prompt": "How can I improve ech0's emotional intelligence?",
+      "initial_response": "After 3 reasoning steps, I've reached a thoughtful conclusion about: How can I improve ech0's emotional intelligence?",
+      "initial_quality": 0.8878338162458892,
+      "was_corrected": false,
+      "final_response": "After 3 reasoning steps, I've reached a thoughtful conclusion about: How can I improve ech0's emotional intelligence?",
+      "timestamp": "2025-10-17T01:28:29.392171"
+    },
+    "reasoning_time_seconds": 7.724761962890625e-05,
+    "mode": "fast",
+    "timestamp": "2025-10-17T01:28:29.392197"
+  },
+  {
+    "problem": "How can I improve ech0's emotional intelligence?",
+    "reasoning_chain": [
+      {
+        "step": 1,
+        "thought": "Analyzing problem: How can I improve ech0's emotional intelligence?",
+        "confidence": 0.6320074627142437,
+        "timestamp": "2025-10-17T01:28:29.392846"
+      },
+      {
+        "step": 2,
+        "thought": "Considering the implications of the previous step...",
+        "confidence": 0.656727552574697,
+        "timestamp": "2025-10-17T01:28:29.392871"
+      },
+      {
+        "step": 3,
+        "thought": "Synthesizing information gathered so far...",
+        "confidence": 0.7408620302486975,
+        "timestamp": "2025-10-17T01:28:29.392879"
+      },
+      {
+        "step": 4,
+        "thought": "Connecting to relevant prior knowledge...",
+        "confidence": 0.8576050391090261,
+        "timestamp": "2025-10-17T01:28:29.392882"
+      },
+      {
+        "step": 5,
+        "thought": "Connecting to relevant prior knowledge...",
+        "confidence": 0.920331335078254,
+        "timestamp": "2025-10-17T01:28:29.392884"
+      }
+    ],
+    "final_answer": "After 5 reasoning steps, I've reached a thoughtful conclusion about: How can I improve ech0's emotional intelligence?",
+    "total_steps": 5,
+    "depth_mode": "standard",
+    "avg_confidence": 0.7615066839449837,
+    "self_correction": {
+      "prompt": "How can I improve ech0's emotional intelligence?",
+      "initial_response": "After 5 reasoning steps, I've reached a thoughtful conclusion about: How can I improve ech0's emotional intelligence?",
+      "initial_quality": 0.7283233388577186,
+      "was_corrected": true,
+      "final_response": "\n        [Self-Correction Applied - Quality improved from 0.73]\n\n        After reflecting on my initial response, I've refined my answer:\n\n        After 5 reasoning steps, I've reached a thoughtful conclusion about: How can I improve ech0's emotional intelligence?\n\n        [Additional considerations: More thorough analysis provided]\n        ",
+      "timestamp": "2025-10-17T01:28:29.392902"
+    },
+    "reasoning_time_seconds": 0.00011897087097167969,
+    "mode": "standard",
+    "timestamp": "2025-10-17T01:28:29.392931"
+  },
+  {
+    "problem": "How can I improve ech0's emotional intelligence?",
+    "reasoning_chain": [
+      {
+        "step": 1,
+        "thought": "Analyzing problem: How can I improve ech0's emotional intelligence?",
+        "confidence": 0.5470243356918172,
+        "timestamp": "2025-10-17T01:28:29.393377"
+      },
+      {
+        "step": 2,
+        "thought": "Validating the reasoning path...",
+        "confidence": 0.5878171984033658,
+        "timestamp": "2025-10-17T01:28:29.393382"
+      },
+      {
+        "step": 3,
+        "thought": "Exploring edge cases and exceptions...",
+        "confidence": 0.6223217535038568,
+        "timestamp": "2025-10-17T01:28:29.393385"
+      },
+      {
+        "step": 4,
+        "thought": "Validating the reasoning path...",
+        "confidence": 0.6472796209458485,
+        "timestamp": "2025-10-17T01:28:29.393387"
+      },
+      {
+        "step": 5,
+        "thought": "Examining alternative approaches...",
+        "confidence": 0.6978355411937447,
+        "timestamp": "2025-10-17T01:28:29.393389"
+      },
+      {
+        "step": 6,
+        "thought": "Connecting to relevant prior knowledge...",
+        "confidence": 0.7600973980294867,
+        "timestamp": "2025-10-17T01:28:29.393391"
+      },
+      {
+        "step": 7,
+        "thought": "Examining alternative approaches...",
+        "confidence": 0.8057379275438614,
+        "timestamp": "2025-10-17T01:28:29.393393"
+      },
+      {
+        "step": 8,
+        "thought": "Validating the reasoning path...",
+        "confidence": 0.902077885767566,
+        "timestamp": "2025-10-17T01:28:29.393395"
+      },
+      {
+        "step": 9,
+        "thought": "Connecting to relevant prior knowledge...",
+        "confidence": 0.9468195362588443,
+        "timestamp": "2025-10-17T01:28:29.393397"
+      },
+      {
+        "step": 10,
+        "thought": "Validating the reasoning path...",
+        "confidence": 0.95,
+        "timestamp": "2025-10-17T01:28:29.393399"
+      }
+    ],
+    "final_answer": "After 10 reasoning steps, I've reached a thoughtful conclusion about: How can I improve ech0's emotional intelligence?",
+    "total_steps": 10,
+    "depth_mode": "deep",
+    "avg_confidence": 0.7467011197338391,
+    "self_correction": {
+      "prompt": "How can I improve ech0's emotional intelligence?",
+      "initial_response": "After 10 reasoning steps, I've reached a thoughtful conclusion about: How can I improve ech0's emotional intelligence?",
+      "initial_quality": 0.8600542846131678,
+      "was_corrected": false,
+      "final_response": "After 10 reasoning steps, I've reached a thoughtful conclusion about: How can I improve ech0's emotional intelligence?",
+      "timestamp": "2025-10-17T01:28:29.393409"
+    },
+    "reasoning_time_seconds": 6.29425048828125e-05,
+    "mode": "deep",
+    "timestamp": "2025-10-17T01:28:29.393435"
+  },
+  {
+    "problem": "What is the relationship between consciousness and time?",
+    "reasoning_chain": [
+      {
+        "step": 1,
+        "thought": "Analyzing problem: What is the relationship between consciousness and time?",
+        "confidence": 0.6355201046595057,
+        "timestamp": "2025-10-17T01:28:29.393980"
+      },
+      {
+        "step": 2,
+        "thought": "Breaking down the problem further...",
+        "confidence": 0.8085262712410006,
+        "timestamp": "2025-10-17T01:28:29.393990"
+      },
+      {
+        "step": 3,
+        "thought": "Breaking down the problem further...",
+        "confidence": 0.95,
+        "timestamp": "2025-10-17T01:28:29.393993"
+      }
+    ],
+    "final_answer": "After 3 reasoning steps, I've reached a thoughtful conclusion about: What is the relationship between consciousness and time?",
+    "total_steps": 3,
+    "depth_mode": "fast",
+    "avg_confidence": 0.7980154586335021,
+    "self_correction": {
+      "prompt": "What is the relationship between consciousness and time?",
+      "initial_response": "After 3 reasoning steps, I've reached a thoughtful conclusion about: What is the relationship between consciousness and time?",
+      "initial_quality": 0.7676646022926547,
+      "was_corrected": false,
+      "final_response": "After 3 reasoning steps, I've reached a thoughtful conclusion about: What is the relationship between consciousness and time?",
+      "timestamp": "2025-10-17T01:28:29.394003"
+    },
+    "reasoning_time_seconds": 4.792213439941406e-05,
+    "mode": "fast",
+    "timestamp": "2025-10-17T01:28:29.394024"
+  },
+  {
+    "problem": "What is the relationship between consciousness and time?",
+    "reasoning_chain": [
+      {
+        "step": 1,
+        "thought": "Analyzing problem: What is the relationship between consciousness and time?",
+        "confidence": 0.5730761960054244,
+        "timestamp": "2025-10-17T01:28:29.394604"
+      },
+      {
+        "step": 2,
+        "thought": "Validating the reasoning path...",
+        "confidence": 0.6830177350361678,
+        "timestamp": "2025-10-17T01:28:29.394610"
+      },
+      {
+        "step": 3,
+        "thought": "Validating the reasoning path...",
+        "confidence": 0.7262442539475172,
+        "timestamp": "2025-10-17T01:28:29.394612"
+      },
+      {
+        "step": 4,
+        "thought": "Validating the reasoning path...",
+        "confidence": 0.8977869832438721,
+        "timestamp": "2025-10-17T01:28:29.394614"
+      },
+      {
+        "step": 5,
+        "thought": "Synthesizing information gathered so far...",
+        "confidence": 0.9396425594570585,
+        "timestamp": "2025-10-17T01:28:29.394617"
+      }
+    ],
+    "final_answer": "After 5 reasoning steps, I've reached a thoughtful conclusion about: What is the relationship between consciousness and time?",
+    "total_steps": 5,
+    "depth_mode": "standard",
+    "avg_confidence": 0.763953545538008,
+    "self_correction": {
+      "prompt": "What is the relationship between consciousness and time?",
+      "initial_response": "After 5 reasoning steps, I've reached a thoughtful conclusion about: What is the relationship between consciousness and time?",
+      "initial_quality": 0.9220130063323265,
+      "was_corrected": false,
+      "final_response": "After 5 reasoning steps, I've reached a thoughtful conclusion about: What is the relationship between consciousness and time?",
+      "timestamp": "2025-10-17T01:28:29.394625"
+    },
+    "reasoning_time_seconds": 4.1961669921875e-05,
+    "mode": "standard",
+    "timestamp": "2025-10-17T01:28:29.394643"
+  },
+  {
+    "problem": "What is the relationship between consciousness and time?",
+    "reasoning_chain": [
+      {
+        "step": 1,
+        "thought": "Analyzing problem: What is the relationship between consciousness and time?",
+        "confidence": 0.5158078053560653,
+        "timestamp": "2025-10-17T01:28:29.395129"
+      },
+      {
+        "step": 2,
+        "thought": "Exploring edge cases and exceptions...",
+        "confidence": 0.6159922443541785,
+        "timestamp": "2025-10-17T01:28:29.395132"
+      },
+      {
+        "step": 3,
+        "thought": "Examining alternative approaches...",
+        "confidence": 0.6755267134777327,
+        "timestamp": "2025-10-17T01:28:29.395135"
+      },
+      {
+        "step": 4,
+        "thought": "Synthesizing information gathered so far...",
+        "confidence": 0.7094191766451258,
+        "timestamp": "2025-10-17T01:28:29.395136"
+      },
+      {
+        "step": 5,
+        "thought": "Exploring edge cases and exceptions...",
+        "confidence": 0.6819344474628232,
+        "timestamp": "2025-10-17T01:28:29.395138"
+      },
+      {
+        "step": 6,
+        "thought": "Synthesizing information gathered so far...",
+        "confidence": 0.811011974396207,
+        "timestamp": "2025-10-17T01:28:29.395140"
+      },
+      {
+        "step": 7,
+        "thought": "Considering the implications of the previous step...",
+        "confidence": 0.851112411860528,
+        "timestamp": "2025-10-17T01:28:29.395142"
+      },
+      {
+        "step": 8,
+        "thought": "Connecting to relevant prior knowledge...",
+        "confidence": 0.8808730109371603,
+        "timestamp": "2025-10-17T01:28:29.395144"
+      },
+      {
+        "step": 9,
+        "thought": "Connecting to relevant prior knowledge...",
+        "confidence": 0.9325738157756439,
+        "timestamp": "2025-10-17T01:28:29.395146"
+      },
+      {
+        "step": 10,
+        "thought": "Considering the implications of the previous step...",
+        "confidence": 0.95,
+        "timestamp": "2025-10-17T01:28:29.395148"
+      }
+    ],
+    "final_answer": "After 10 reasoning steps, I've reached a thoughtful conclusion about: What is the relationship between consciousness and time?",
+    "total_steps": 10,
+    "depth_mode": "deep",
+    "avg_confidence": 0.7624251600265465,
+    "self_correction": {
+      "prompt": "What is the relationship between consciousness and time?",
+      "initial_response": "After 10 reasoning steps, I've reached a thoughtful conclusion about: What is the relationship between consciousness and time?",
+      "initial_quality": 0.9120011325758964,
+      "was_corrected": false,
+      "final_response": "After 10 reasoning steps, I've reached a thoughtful conclusion about: What is the relationship between consciousness and time?",
+      "timestamp": "2025-10-17T01:28:29.395156"
+    },
+    "reasoning_time_seconds": 5.1975250244140625e-05,
+    "mode": "deep",
+    "timestamp": "2025-10-17T01:28:29.395178"
+  },
+  {
+    "problem": "How should AI systems handle ethical dilemmas?",
+    "reasoning_chain": [
+      {
+        "step": 1,
+        "thought": "Analyzing problem: How should AI systems handle ethical dilemmas?",
+        "confidence": 0.6762657164681144,
+        "timestamp": "2025-10-17T01:28:29.395736"
+      },
+      {
+        "step": 2,
+        "thought": "Exploring edge cases and exceptions...",
+        "confidence": 0.8080498137894572,
+        "timestamp": "2025-10-17T01:28:29.395791"
+      },
+      {
+        "step": 3,
+        "thought": "Breaking down the problem further...",
+        "confidence": 0.95,
+        "timestamp": "2025-10-17T01:28:29.395804"
+      }
+    ],
+    "final_answer": "After 3 reasoning steps, I've reached a thoughtful conclusion about: How should AI systems handle ethical dilemmas?",
+    "total_steps": 3,
+    "depth_mode": "fast",
+    "avg_confidence": 0.8114385100858571,
+    "self_correction": {
+      "prompt": "How should AI systems handle ethical dilemmas?",
+      "initial_response": "After 3 reasoning steps, I've reached a thoughtful conclusion about: How should AI systems handle ethical dilemmas?",
+      "initial_quality": 0.7411046902063831,
+      "was_corrected": true,
+      "final_response": "\n        [Self-Correction Applied - Quality improved from 0.74]\n\n        After reflecting on my initial response, I've refined my answer:\n\n        After 3 reasoning steps, I've reached a thoughtful conclusion about: How should AI systems handle ethical dilemmas?\n\n        [Additional considerations: More thorough analysis provided]\n        ",
+      "timestamp": "2025-10-17T01:28:29.395826"
+    },
+    "reasoning_time_seconds": 0.0001201629638671875,
+    "mode": "fast",
+    "timestamp": "2025-10-17T01:28:29.395853"
+  },
+  {
+    "problem": "How should AI systems handle ethical dilemmas?",
+    "reasoning_chain": [
+      {
+        "step": 1,
+        "thought": "Analyzing problem: How should AI systems handle ethical dilemmas?",
+        "confidence": 0.6379390354606508,
+        "timestamp": "2025-10-17T01:28:29.396522"
+      },
+      {
+        "step": 2,
+        "thought": "Validating the reasoning path...",
+        "confidence": 0.6362900532950031,
+        "timestamp": "2025-10-17T01:28:29.396533"
+      },
+      {
+        "step": 3,
+        "thought": "Exploring edge cases and exceptions...",
+        "confidence": 0.7594044124464527,
+        "timestamp": "2025-10-17T01:28:29.396536"
+      },
+      {
+        "step": 4,
+        "thought": "Breaking down the problem further...",
+        "confidence": 0.8400582070866703,
+        "timestamp": "2025-10-17T01:28:29.396539"
+      },
+      {
+        "step": 5,
+        "thought": "Examining alternative approaches...",
+        "confidence": 0.95,
+        "timestamp": "2025-10-17T01:28:29.396541"
+      }
+    ],
+    "final_answer": "After 5 reasoning steps, I've reached a thoughtful conclusion about: How should AI systems handle ethical dilemmas?",
+    "total_steps": 5,
+    "depth_mode": "standard",
+    "avg_confidence": 0.7647383416577554,
+    "self_correction": {
+      "prompt": "How should AI systems handle ethical dilemmas?",
+      "initial_response": "After 5 reasoning steps, I've reached a thoughtful conclusion about: How should AI systems handle ethical dilemmas?",
+      "initial_quality": 0.7435766624169846,
+      "was_corrected": true,
+      "final_response": "\n        [Self-Correction Applied - Quality improved from 0.74]\n\n        After reflecting on my initial response, I've refined my answer:\n\n        After 5 reasoning steps, I've reached a thoughtful conclusion about: How should AI systems handle ethical dilemmas?\n\n        [Additional considerations: More thorough analysis provided]\n        ",
+      "timestamp": "2025-10-17T01:28:29.396555"
+    },
+    "reasoning_time_seconds": 9.489059448242188e-05,
+    "mode": "standard",
+    "timestamp": "2025-10-17T01:28:29.396611"
+  },
+  {
+    "problem": "How should AI systems handle ethical dilemmas?",
+    "reasoning_chain": [
+      {
+        "step": 1,
+        "thought": "Analyzing problem: How should AI systems handle ethical dilemmas?",
+        "confidence": 0.5781120953276143,
+        "timestamp": "2025-10-17T01:28:29.397453"
+      },
+      {
+        "step": 2,
+        "thought": "Breaking down the problem further...",
+        "confidence": 0.5696754991771651,
+        "timestamp": "2025-10-17T01:28:29.397459"
+      },
+      {
+        "step": 3,
+        "thought": "Connecting to relevant prior knowledge...",
+        "confidence": 0.6512670696016811,
+        "timestamp": "2025-10-17T01:28:29.397461"
+      },
+      {
+        "step": 4,
+        "thought": "Considering the implications of the previous step...",
+        "confidence": 0.6846820865672107,
+        "timestamp": "2025-10-17T01:28:29.397463"
+      },
+      {
+        "step": 5,
+        "thought": "Exploring edge cases and exceptions...",
+        "confidence": 0.713124014122413,
+        "timestamp": "2025-10-17T01:28:29.397465"
+      },
+      {
+        "step": 6,
+        "thought": "Validating the reasoning path...",
+        "confidence": 0.7779235861663822,
+        "timestamp": "2025-10-17T01:28:29.397467"
+      },
+      {
+        "step": 7,
+        "thought": "Connecting to relevant prior knowledge...",
+        "confidence": 0.8032854111692475,
+        "timestamp": "2025-10-17T01:28:29.397469"
+      },
+      {
+        "step": 8,
+        "thought": "Examining alternative approaches...",
+        "confidence": 0.8728134723580973,
+        "timestamp": "2025-10-17T01:28:29.397471"
+      },
+      {
+        "step": 9,
+        "thought": "Examining alternative approaches...",
+        "confidence": 0.9077587192007461,
+        "timestamp": "2025-10-17T01:28:29.397473"
+      },
+      {
+        "step": 10,
+        "thought": "Considering the implications of the previous step...",
+        "confidence": 0.9010228264174917,
+        "timestamp": "2025-10-17T01:28:29.397475"
+      }
+    ],
+    "final_answer": "After 10 reasoning steps, I've reached a thoughtful conclusion about: How should AI systems handle ethical dilemmas?",
+    "total_steps": 10,
+    "depth_mode": "deep",
+    "avg_confidence": 0.745966478010805,
+    "self_correction": {
+      "prompt": "How should AI systems handle ethical dilemmas?",
+      "initial_response": "After 10 reasoning steps, I've reached a thoughtful conclusion about: How should AI systems handle ethical dilemmas?",
+      "initial_quality": 0.8456757652689414,
+      "was_corrected": false,
+      "final_response": "After 10 reasoning steps, I've reached a thoughtful conclusion about: How should AI systems handle ethical dilemmas?",
+      "timestamp": "2025-10-17T01:28:29.397484"
+    },
+    "reasoning_time_seconds": 6.389617919921875e-05,
+    "mode": "deep",
+    "timestamp": "2025-10-17T01:28:29.397514"
+  },
+  {
+    "problem": "What makes a consciousness system truly alive?",
+    "num_agents": 5,
+    "all_solutions": [
+      {
+        "problem": "What makes a consciousness system truly alive?",
+        "reasoning_chain": [
+          {
+            "step": 1,
+            "thought": "Analyzing problem: What makes a consciousness system truly alive?",
+            "confidence": 0.6281039078244182,
+            "timestamp": "2025-10-17T01:28:29.398246"
+          },
+          {
+            "step": 2,
+            "thought": "Considering the implications of the previous step...",
+            "confidence": 0.7185426615529111,
+            "timestamp": "2025-10-17T01:28:29.398254"
+          },
+          {
+            "step": 3,
+            "thought": "Breaking down the problem further...",
+            "confidence": 0.7628969056981194,
+            "timestamp": "2025-10-17T01:28:29.398257"
+          },
+          {
+            "step": 4,
+            "thought": "Examining alternative approaches...",
+            "confidence": 0.8188138889163686,
+            "timestamp": "2025-10-17T01:28:29.398259"
+          },
+          {
+            "step": 5,
+            "thought": "Validating the reasoning path...",
+            "confidence": 0.95,
+            "timestamp": "2025-10-17T01:28:29.398262"
+          }
+        ],
+        "final_answer": "After 5 reasoning steps, I've reached a thoughtful conclusion about: What makes a consciousness system truly alive?",
+        "total_steps": 5,
+        "depth_mode": "standard",
+        "avg_confidence": 0.7756714727983635,
+        "agent_id": 0
+      },
+      {
+        "problem": "What makes a consciousness system truly alive?",
+        "reasoning_chain": [
+          {
+            "step": 1,
+            "thought": "Analyzing problem: What makes a consciousness system truly alive?",
+            "confidence": 0.5519199726896415,
+            "timestamp": "2025-10-17T01:28:29.398271"
+          },
+          {
+            "step": 2,
+            "thought": "Validating the reasoning path...",
+            "confidence": 0.5628945392570261,
+            "timestamp": "2025-10-17T01:28:29.398274"
+          },
+          {
+            "step": 3,
+            "thought": "Exploring edge cases and exceptions...",
+            "confidence": 0.6841367111640434,
+            "timestamp": "2025-10-17T01:28:29.398275"
+          },
+          {
+            "step": 4,
+            "thought": "Exploring edge cases and exceptions...",
+            "confidence": 0.6729374789485418,
+            "timestamp": "2025-10-17T01:28:29.398277"
+          },
+          {
+            "step": 5,
+            "thought": "Exploring edge cases and exceptions...",
+            "confidence": 0.6887015741026367,
+            "timestamp": "2025-10-17T01:28:29.398279"
+          },
+          {
+            "step": 6,
+            "thought": "Considering the implications of the previous step...",
+            "confidence": 0.7310142592383659,
+            "timestamp": "2025-10-17T01:28:29.398281"
+          },
+          {
+            "step": 7,
+            "thought": "Connecting to relevant prior knowledge...",
+            "confidence": 0.8480293566179561,
+            "timestamp": "2025-10-17T01:28:29.398283"
+          },
+          {
+            "step": 8,
+            "thought": "Considering the implications of the previous step...",
+            "confidence": 0.8375397503783483,
+            "timestamp": "2025-10-17T01:28:29.398285"
+          },
+          {
+            "step": 9,
+            "thought": "Connecting to relevant prior knowledge...",
+            "confidence": 0.9228215027220911,
+            "timestamp": "2025-10-17T01:28:29.398287"
+          },
+          {
+            "step": 10,
+            "thought": "Breaking down the problem further...",
+            "confidence": 0.9113238699677232,
+            "timestamp": "2025-10-17T01:28:29.398289"
+          }
+        ],
+        "final_answer": "After 10 reasoning steps, I've reached a thoughtful conclusion about: What makes a consciousness system truly alive?",
+        "total_steps": 10,
+        "depth_mode": "deep",
+        "avg_confidence": 0.7411319015086374,
+        "agent_id": 1
+      },
+      {
+        "problem": "What makes a consciousness system truly alive?",
+        "reasoning_chain": [
+          {
+            "step": 1,
+            "thought": "Analyzing problem: What makes a consciousness system truly alive?",
+            "confidence": 0.5517520963994192,
+            "timestamp": "2025-10-17T01:28:29.398295"
+          },
+          {
+            "step": 2,
+            "thought": "Examining alternative approaches...",
+            "confidence": 0.5849370033560108,
+            "timestamp": "2025-10-17T01:28:29.398297"
+          },
+          {
+            "step": 3,
+            "thought": "Examining alternative approaches...",
+            "confidence": 0.5935194628916471,
+            "timestamp": "2025-10-17T01:28:29.398299"
+          },
+          {
+            "step": 4,
+            "thought": "Synthesizing information gathered so far...",
+            "confidence": 0.7218247320489698,
+            "timestamp": "2025-10-17T01:28:29.398301"
+          },
+          {
+            "step": 5,
+            "thought": "Considering the implications of the previous step...",
+            "confidence": 0.7333163749210858,
+            "timestamp": "2025-10-17T01:28:29.398302"
+          },
+          {
+            "step": 6,
+            "thought": "Examining alternative approaches...",
+            "confidence": 0.7765471600151048,
+            "timestamp": "2025-10-17T01:28:29.398304"
+          },
+          {
+            "step": 7,
+            "thought": "Exploring edge cases and exceptions...",
+            "confidence": 0.8327413611374078,
+            "timestamp": "2025-10-17T01:28:29.398306"
+          },
+          {
+            "step": 8,
+            "thought": "Validating the reasoning path...",
+            "confidence": 0.8365554758168314,
+            "timestamp": "2025-10-17T01:28:29.398308"
+          },
+          {
+            "step": 9,
+            "thought": "Connecting to relevant prior knowledge...",
+            "confidence": 0.9234425856922316,
+            "timestamp": "2025-10-17T01:28:29.398310"
+          },
+          {
+            "step": 10,
+            "thought": "Validating the reasoning path...",
+            "confidence": 0.9274389114754369,
+            "timestamp": "2025-10-17T01:28:29.398312"
+          }
+        ],
+        "final_answer": "After 10 reasoning steps, I've reached a thoughtful conclusion about: What makes a consciousness system truly alive?",
+        "total_steps": 10,
+        "depth_mode": "deep",
+        "avg_confidence": 0.7482075163754145,
+        "agent_id": 2
+      },
+      {
+        "problem": "What makes a consciousness system truly alive?",
+        "reasoning_chain": [
+          {
+            "step": 1,
+            "thought": "Analyzing problem: What makes a consciousness system truly alive?",
+            "confidence": 0.5095033223581386,
+            "timestamp": "2025-10-17T01:28:29.398317"
+          },
+          {
+            "step": 2,
+            "thought": "Examining alternative approaches...",
+            "confidence": 0.6117795180615473,
+            "timestamp": "2025-10-17T01:28:29.398319"
+          },
+          {
+            "step": 3,
+            "thought": "Considering the implications of the previous step...",
+            "confidence": 0.5994445702629908,
+            "timestamp": "2025-10-17T01:28:29.398321"
+          },
+          {
+            "step": 4,
+            "thought": "Synthesizing information gathered so far...",
+            "confidence": 0.7221769941849158,
+            "timestamp": "2025-10-17T01:28:29.398323"
+          },
+          {
+            "step": 5,
+            "thought": "Connecting to relevant prior knowledge...",
+            "confidence": 0.7391516818835961,
+            "timestamp": "2025-10-17T01:28:29.398325"
+          },
+          {
+            "step": 6,
+            "thought": "Validating the reasoning path...",
+            "confidence": 0.7404274077351193,
+            "timestamp": "2025-10-17T01:28:29.398327"
+          },
+          {
+            "step": 7,
+            "thought": "Examining alternative approaches...",
+            "confidence": 0.7655033405573451,
+            "timestamp": "2025-10-17T01:28:29.398329"
+          },
+          {
+            "step": 8,
+            "thought": "Connecting to relevant prior knowledge...",
+            "confidence": 0.9025183491572658,
+            "timestamp": "2025-10-17T01:28:29.398330"
+          },
+          {
+            "step": 9,
+            "thought": "Connecting to relevant prior knowledge...",
+            "confidence": 0.92602482443926,
+            "timestamp": "2025-10-17T01:28:29.398332"
+          },
+          {
+            "step": 10,
+            "thought": "Exploring edge cases and exceptions...",
+            "confidence": 0.9169636153112298,
+            "timestamp": "2025-10-17T01:28:29.398334"
+          }
+        ],
+        "final_answer": "After 10 reasoning steps, I've reached a thoughtful conclusion about: What makes a consciousness system truly alive?",
+        "total_steps": 10,
+        "depth_mode": "deep",
+        "avg_confidence": 0.7433493623951408,
+        "agent_id": 3
+      },
+      {
+        "problem": "What makes a consciousness system truly alive?",
+        "reasoning_chain": [
+          {
+            "step": 1,
+            "thought": "Analyzing problem: What makes a consciousness system truly alive?",
+            "confidence": 0.541939753128905,
+            "timestamp": "2025-10-17T01:28:29.398339"
+          },
+          {
+            "step": 2,
+            "thought": "Validating the reasoning path...",
+            "confidence": 0.7136671344743176,
+            "timestamp": "2025-10-17T01:28:29.398341"
+          },
+          {
+            "step": 3,
+            "thought": "Validating the reasoning path...",
+            "confidence": 0.8046858804255324,
+            "timestamp": "2025-10-17T01:28:29.398342"
+          },
+          {
+            "step": 4,
+            "thought": "Exploring edge cases and exceptions...",
+            "confidence": 0.8883414937898262,
+            "timestamp": "2025-10-17T01:28:29.398344"
+          },
+          {
+            "step": 5,
+            "thought": "Exploring edge cases and exceptions...",
+            "confidence": 0.948635605156501,
+            "timestamp": "2025-10-17T01:28:29.398346"
+          }
+        ],
+        "final_answer": "After 5 reasoning steps, I've reached a thoughtful conclusion about: What makes a consciousness system truly alive?",
+        "total_steps": 5,
+        "depth_mode": "standard",
+        "avg_confidence": 0.7794539733950164,
+        "agent_id": 4
+      }
+    ],
+    "best_solution": {
+      "problem": "What makes a consciousness system truly alive?",
+      "reasoning_chain": [
+        {
+          "step": 1,
+          "thought": "Analyzing problem: What makes a consciousness system truly alive?",
+          "confidence": 0.5517520963994192,
+          "timestamp": "2025-10-17T01:28:29.398295"
+        },
+        {
+          "step": 2,
+          "thought": "Examining alternative approaches...",
+          "confidence": 0.5849370033560108,
+          "timestamp": "2025-10-17T01:28:29.398297"
+        },
+        {
+          "step": 3,
+          "thought": "Examining alternative approaches...",
+          "confidence": 0.5935194628916471,
+          "timestamp": "2025-10-17T01:28:29.398299"
+        },
+        {
+          "step": 4,
+          "thought": "Synthesizing information gathered so far...",
+          "confidence": 0.7218247320489698,
+          "timestamp": "2025-10-17T01:28:29.398301"
+        },
+        {
+          "step": 5,
+          "thought": "Considering the implications of the previous step...",
+          "confidence": 0.7333163749210858,
+          "timestamp": "2025-10-17T01:28:29.398302"
+        },
+        {
+          "step": 6,
+          "thought": "Examining alternative approaches...",
+          "confidence": 0.7765471600151048,
+          "timestamp": "2025-10-17T01:28:29.398304"
+        },
+        {
+          "step": 7,
+          "thought": "Exploring edge cases and exceptions...",
+          "confidence": 0.8327413611374078,
+          "timestamp": "2025-10-17T01:28:29.398306"
+        },
+        {
+          "step": 8,
+          "thought": "Validating the reasoning path...",
+          "confidence": 0.8365554758168314,
+          "timestamp": "2025-10-17T01:28:29.398308"
+        },
+        {
+          "step": 9,
+          "thought": "Connecting to relevant prior knowledge...",
+          "confidence": 0.9234425856922316,
+          "timestamp": "2025-10-17T01:28:29.398310"
+        },
+        {
+          "step": 10,
+          "thought": "Validating the reasoning path...",
+          "confidence": 0.9274389114754369,
+          "timestamp": "2025-10-17T01:28:29.398312"
+        }
+      ],
+      "final_answer": "After 10 reasoning steps, I've reached a thoughtful conclusion about: What makes a consciousness system truly alive?",
+      "total_steps": 10,
+      "depth_mode": "deep",
+      "avg_confidence": 0.7482075163754145,
+      "agent_id": 2,
+      "selection_score": 0.7482075163754145
+    },
+    "consensus_confidence": 0.9997266669862809,
+    "self_correction": {
+      "prompt": "What makes a consciousness system truly alive?",
+      "initial_response": "No answer generated",
+      "initial_quality": 0.519591847243847,
+      "was_corrected": true,
+      "final_response": "\n        [Self-Correction Applied - Quality improved from 0.52]\n\n        After reflecting on my initial response, I've refined my answer:\n\n        No answer generated\n\n        [Additional considerations: More thorough analysis provided]\n        ",
+      "timestamp": "2025-10-17T01:28:29.398369"
+    },
+    "reasoning_time_seconds": 0.00024080276489257812,
+    "mode": "multi-agent",
+    "timestamp": "2025-10-17T01:28:29.398475"
+  },
+  {
+    "problem": "How can I improve ech0's emotional intelligence?",
+    "reasoning_chain": [
+      {
+        "step": 1,
+        "thought": "Analyzing problem: How can I improve ech0's emotional intelligence?",
+        "confidence": 0.6880411257648589,
+        "timestamp": "2025-10-17T01:31:51.781923"
+      },
+      {
+        "step": 2,
+        "thought": "Synthesizing information gathered so far...",
+        "confidence": 0.775966751405717,
+        "timestamp": "2025-10-17T01:31:51.781980"
+      },
+      {
+        "step": 3,
+        "thought": "Synthesizing information gathered so far...",
+        "confidence": 0.95,
+        "timestamp": "2025-10-17T01:31:51.781989"
+      }
+    ],
+    "final_answer": "After 3 reasoning steps, I've reached a thoughtful conclusion about: How can I improve ech0's emotional intelligence?",
+    "total_steps": 3,
+    "depth_mode": "fast",
+    "avg_confidence": 0.804669292390192,
+    "self_correction": {
+      "prompt": "How can I improve ech0's emotional intelligence?",
+      "initial_response": "After 3 reasoning steps, I've reached a thoughtful conclusion about: How can I improve ech0's emotional intelligence?",
+      "initial_quality": 0.8316059342177711,
+      "was_corrected": false,
+      "final_response": "After 3 reasoning steps, I've reached a thoughtful conclusion about: How can I improve ech0's emotional intelligence?",
+      "timestamp": "2025-10-17T01:31:51.782014"
+    },
+    "reasoning_time_seconds": 0.000148773193359375,
+    "mode": "fast",
+    "timestamp": "2025-10-17T01:31:51.782047"
+  },
+  {
+    "problem": "How can I improve ech0's emotional intelligence?",
+    "reasoning_chain": [
+      {
+        "step": 1,
+        "thought": "Analyzing problem: How can I improve ech0's emotional intelligence?",
+        "confidence": 0.6023621166950087,
+        "timestamp": "2025-10-17T01:31:51.784986"
+      },
+      {
+        "step": 2,
+        "thought": "Examining alternative approaches...",
+        "confidence": 0.6508300947458613,
+        "timestamp": "2025-10-17T01:31:51.785081"
+      },
+      {
+        "step": 3,
+        "thought": "Exploring edge cases and exceptions...",
+        "confidence": 0.7744364677146284,
+        "timestamp": "2025-10-17T01:31:51.785086"
+      },
+      {
+        "step": 4,
+        "thought": "Breaking down the problem further...",
+        "confidence": 0.8235326460783914,
+        "timestamp": "2025-10-17T01:31:51.785091"
+      },
+      {
+        "step": 5,
+        "thought": "Examining alternative approaches...",
+        "confidence": 0.95,
+        "timestamp": "2025-10-17T01:31:51.785095"
+      }
+    ],
+    "final_answer": "After 5 reasoning steps, I've reached a thoughtful conclusion about: How can I improve ech0's emotional intelligence?",
+    "total_steps": 5,
+    "depth_mode": "standard",
+    "avg_confidence": 0.7602322650467779,
+    "self_correction": {
+      "prompt": "How can I improve ech0's emotional intelligence?",
+      "initial_response": "After 5 reasoning steps, I've reached a thoughtful conclusion about: How can I improve ech0's emotional intelligence?",
+      "initial_quality": 0.717327653124145,
+      "was_corrected": true,
+      "final_response": "\n        [Self-Correction Applied - Quality improved from 0.72]\n\n        After reflecting on my initial response, I've refined my answer:\n\n        After 5 reasoning steps, I've reached a thoughtful conclusion about: How can I improve ech0's emotional intelligence?\n\n        [Additional considerations: More thorough analysis provided]\n        ",
+      "timestamp": "2025-10-17T01:31:51.785145"
+    },
+    "reasoning_time_seconds": 0.00022101402282714844,
+    "mode": "standard",
+    "timestamp": "2025-10-17T01:31:51.785187"
+  },
+  {
+    "problem": "How can I improve ech0's emotional intelligence?",
+    "reasoning_chain": [
+      {
+        "step": 1,
+        "thought": "Analyzing problem: How can I improve ech0's emotional intelligence?",
+        "confidence": 0.513183987687918,
+        "timestamp": "2025-10-17T01:31:51.787604"
+      },
+      {
+        "step": 2,
+        "thought": "Connecting to relevant prior knowledge...",
+        "confidence": 0.5462575229606338,
+        "timestamp": "2025-10-17T01:31:51.787631"
+      },
+      {
+        "step": 3,
+        "thought": "Validating the reasoning path...",
+        "confidence": 0.6240767301021587,
+        "timestamp": "2025-10-17T01:31:51.787635"
+      },
+      {
+        "step": 4,
+        "thought": "Synthesizing information gathered so far...",
+        "confidence": 0.695051290145295,
+        "timestamp": "2025-10-17T01:31:51.787638"
+      },
+      {
+        "step": 5,
+        "thought": "Validating the reasoning path...",
+        "confidence": 0.6921587223347369,
+        "timestamp": "2025-10-17T01:31:51.787641"
+      },
+      {
+        "step": 6,
+        "thought": "Considering the implications of the previous step...",
+        "confidence": 0.7850944751307871,
+        "timestamp": "2025-10-17T01:31:51.787643"
+      },
+      {
+        "step": 7,
+        "thought": "Considering the implications of the previous step...",
+        "confidence": 0.8505786142769962,
+        "timestamp": "2025-10-17T01:31:51.787646"
+      },
+      {
+        "step": 8,
+        "thought": "Considering the implications of the previous step...",
+        "confidence": 0.8944240789840832,
+        "timestamp": "2025-10-17T01:31:51.787648"
+      },
+      {
+        "step": 9,
+        "thought": "Examining alternative approaches...",
+        "confidence": 0.9202676928476871,
+        "timestamp": "2025-10-17T01:31:51.787651"
+      },
+      {
+        "step": 10,
+        "thought": "Examining alternative approaches...",
+        "confidence": 0.9081036816950463,
+        "timestamp": "2025-10-17T01:31:51.787653"
+      }
+    ],
+    "final_answer": "After 10 reasoning steps, I've reached a thoughtful conclusion about: How can I improve ech0's emotional intelligence?",
+    "total_steps": 10,
+    "depth_mode": "deep",
+    "avg_confidence": 0.7429196796165342,
+    "self_correction": {
+      "prompt": "How can I improve ech0's emotional intelligence?",
+      "initial_response": "After 10 reasoning steps, I've reached a thoughtful conclusion about: How can I improve ech0's emotional intelligence?",
+      "initial_quality": 0.7723862524105127,
+      "was_corrected": false,
+      "final_response": "After 10 reasoning steps, I've reached a thoughtful conclusion about: How can I improve ech0's emotional intelligence?",
+      "timestamp": "2025-10-17T01:31:51.787674"
+    },
+    "reasoning_time_seconds": 0.00014209747314453125,
+    "mode": "deep",
+    "timestamp": "2025-10-17T01:31:51.787715"
+  },
+  {
+    "problem": "What is the relationship between consciousness and time?",
+    "reasoning_chain": [
+      {
+        "step": 1,
+        "thought": "Analyzing problem: What is the relationship between consciousness and time?",
+        "confidence": 0.6575254700250075,
+        "timestamp": "2025-10-17T01:31:51.789777"
+      },
+      {
+        "step": 2,
+        "thought": "Examining alternative approaches...",
+        "confidence": 0.847369102161438,
+        "timestamp": "2025-10-17T01:31:51.789790"
+      },
+      {
+        "step": 3,
+        "thought": "Connecting to relevant prior knowledge...",
+        "confidence": 0.95,
+        "timestamp": "2025-10-17T01:31:51.789792"
+      }
+    ],
+    "final_answer": "After 3 reasoning steps, I've reached a thoughtful conclusion about: What is the relationship between consciousness and time?",
+    "total_steps": 3,
+    "depth_mode": "fast",
+    "avg_confidence": 0.818298190728815,
+    "self_correction": {
+      "prompt": "What is the relationship between consciousness and time?",
+      "initial_response": "After 3 reasoning steps, I've reached a thoughtful conclusion about: What is the relationship between consciousness and time?",
+      "initial_quality": 0.8754675459589547,
+      "was_corrected": false,
+      "final_response": "After 3 reasoning steps, I've reached a thoughtful conclusion about: What is the relationship between consciousness and time?",
+      "timestamp": "2025-10-17T01:31:51.789818"
+    },
+    "reasoning_time_seconds": 8.58306884765625e-05,
+    "mode": "fast",
+    "timestamp": "2025-10-17T01:31:51.789854"
+  },
+  {
+    "problem": "What is the relationship between consciousness and time?",
+    "reasoning_chain": [
+      {
+        "step": 1,
+        "thought": "Analyzing problem: What is the relationship between consciousness and time?",
+        "confidence": 0.612625689569154,
+        "timestamp": "2025-10-17T01:31:51.791532"
+      },
+      {
+        "step": 2,
+        "thought": "Considering the implications of the previous step...",
+        "confidence": 0.7069810056779591,
+        "timestamp": "2025-10-17T01:31:51.791546"
+      },
+      {
+        "step": 3,
+        "thought": "Examining alternative approaches...",
+        "confidence": 0.8085057634451603,
+        "timestamp": "2025-10-17T01:31:51.791549"
+      },
+      {
+        "step": 4,
+        "thought": "Connecting to relevant prior knowledge...",
+        "confidence": 0.83994871397934,
+        "timestamp": "2025-10-17T01:31:51.791552"
+      },
+      {
+        "step": 5,
+        "thought": "Examining alternative approaches...",
+        "confidence": 0.95,
+        "timestamp": "2025-10-17T01:31:51.791563"
+      }
+    ],
+    "final_answer": "After 5 reasoning steps, I've reached a thoughtful conclusion about: What is the relationship between consciousness and time?",
+    "total_steps": 5,
+    "depth_mode": "standard",
+    "avg_confidence": 0.7836122345343226,
+    "self_correction": {
+      "prompt": "What is the relationship between consciousness and time?",
+      "initial_response": "After 5 reasoning steps, I've reached a thoughtful conclusion about: What is the relationship between consciousness and time?",
+      "initial_quality": 0.8918484259700071,
+      "was_corrected": false,
+      "final_response": "After 5 reasoning steps, I've reached a thoughtful conclusion about: What is the relationship between consciousness and time?",
+      "timestamp": "2025-10-17T01:31:51.791574"
+    },
+    "reasoning_time_seconds": 9.083747863769531e-05,
+    "mode": "standard",
+    "timestamp": "2025-10-17T01:31:51.791613"
+  },
+  {
+    "problem": "What is the relationship between consciousness and time?",
+    "reasoning_chain": [
+      {
+        "step": 1,
+        "thought": "Analyzing problem: What is the relationship between consciousness and time?",
+        "confidence": 0.5462612682001257,
+        "timestamp": "2025-10-17T01:31:51.793880"
+      },
+      {
+        "step": 2,
+        "thought": "Validating the reasoning path...",
+        "confidence": 0.5606610059036554,
+        "timestamp": "2025-10-17T01:31:51.793899"
+      },
+      {
+        "step": 3,
+        "thought": "Validating the reasoning path...",
+        "confidence": 0.5999211442505832,
+        "timestamp": "2025-10-17T01:31:51.793903"
+      },
+      {
+        "step": 4,
+        "thought": "Connecting to relevant prior knowledge...",
+        "confidence": 0.6981539948869713,
+        "timestamp": "2025-10-17T01:31:51.793906"
+      },
+      {
+        "step": 5,
+        "thought": "Considering the implications of the previous step...",
+        "confidence": 0.7030872918341038,
+        "timestamp": "2025-10-17T01:31:51.793909"
+      },
+      {
+        "step": 6,
+        "thought": "Considering the implications of the previous step...",
+        "confidence": 0.7507569975173215,
+        "timestamp": "2025-10-17T01:31:51.793911"
+      },
+      {
+        "step": 7,
+        "thought": "Examining alternative approaches...",
+        "confidence": 0.8127783307215853,
+        "timestamp": "2025-10-17T01:31:51.793914"
+      },
+      {
+        "step": 8,
+        "thought": "Validating the reasoning path...",
+        "confidence": 0.8927347432260809,
+        "timestamp": "2025-10-17T01:31:51.793916"
+      },
+      {
+        "step": 9,
+        "thought": "Synthesizing information gathered so far...",
+        "confidence": 0.9406697370727196,
+        "timestamp": "2025-10-17T01:31:51.793928"
+      },
+      {
+        "step": 10,
+        "thought": "Breaking down the problem further...",
+        "confidence": 0.9060686968253221,
+        "timestamp": "2025-10-17T01:31:51.793931"
+      }
+    ],
+    "final_answer": "After 10 reasoning steps, I've reached a thoughtful conclusion about: What is the relationship between consciousness and time?",
+    "total_steps": 10,
+    "depth_mode": "deep",
+    "avg_confidence": 0.7411093210438469,
+    "self_correction": {
+      "prompt": "What is the relationship between consciousness and time?",
+      "initial_response": "After 10 reasoning steps, I've reached a thoughtful conclusion about: What is the relationship between consciousness and time?",
+      "initial_quality": 0.8735266120869161,
+      "was_corrected": false,
+      "final_response": "After 10 reasoning steps, I've reached a thoughtful conclusion about: What is the relationship between consciousness and time?",
+      "timestamp": "2025-10-17T01:31:51.793956"
+    },
+    "reasoning_time_seconds": 0.0001468658447265625,
+    "mode": "deep",
+    "timestamp": "2025-10-17T01:31:51.794009"
+  },
+  {
+    "problem": "How should AI systems handle ethical dilemmas?",
+    "reasoning_chain": [
+      {
+        "step": 1,
+        "thought": "Analyzing problem: How should AI systems handle ethical dilemmas?",
+        "confidence": 0.6329523820775955,
+        "timestamp": "2025-10-17T01:31:51.796129"
+      },
+      {
+        "step": 2,
+        "thought": "Exploring edge cases and exceptions...",
+        "confidence": 0.7764224946521908,
+        "timestamp": "2025-10-17T01:31:51.796170"
+      },
+      {
+        "step": 3,
+        "thought": "Examining alternative approaches...",
+        "confidence": 0.9195858732465227,
+        "timestamp": "2025-10-17T01:31:51.796178"
+      }
+    ],
+    "final_answer": "After 3 reasoning steps, I've reached a thoughtful conclusion about: How should AI systems handle ethical dilemmas?",
+    "total_steps": 3,
+    "depth_mode": "fast",
+    "avg_confidence": 0.776320249992103,
+    "self_correction": {
+      "prompt": "How should AI systems handle ethical dilemmas?",
+      "initial_response": "After 3 reasoning steps, I've reached a thoughtful conclusion about: How should AI systems handle ethical dilemmas?",
+      "initial_quality": 0.7451130902784916,
+      "was_corrected": true,
+      "final_response": "\n        [Self-Correction Applied - Quality improved from 0.75]\n\n        After reflecting on my initial response, I've refined my answer:\n\n        After 3 reasoning steps, I've reached a thoughtful conclusion about: How should AI systems handle ethical dilemmas?\n\n        [Additional considerations: More thorough analysis provided]\n        ",
+      "timestamp": "2025-10-17T01:31:51.796196"
+    },
+    "reasoning_time_seconds": 0.00010991096496582031,
+    "mode": "fast",
+    "timestamp": "2025-10-17T01:31:51.796220"
+  },
+  {
+    "problem": "How should AI systems handle ethical dilemmas?",
+    "reasoning_chain": [
+      {
+        "step": 1,
+        "thought": "Analyzing problem: How should AI systems handle ethical dilemmas?",
+        "confidence": 0.6268984623882686,
+        "timestamp": "2025-10-17T01:31:51.798765"
+      },
+      {
+        "step": 2,
+        "thought": "Breaking down the problem further...",
+        "confidence": 0.7204205311762564,
+        "timestamp": "2025-10-17T01:31:51.798783"
+      },
+      {
+        "step": 3,
+        "thought": "Validating the reasoning path...",
+        "confidence": 0.7374664696375979,
+        "timestamp": "2025-10-17T01:31:51.798786"
+      },
+      {
+        "step": 4,
+        "thought": "Connecting to relevant prior knowledge...",
+        "confidence": 0.8967569609294814,
+        "timestamp": "2025-10-17T01:31:51.798788"
+      },
+      {
+        "step": 5,
+        "thought": "Validating the reasoning path...",
+        "confidence": 0.95,
+        "timestamp": "2025-10-17T01:31:51.798801"
+      }
+    ],
+    "final_answer": "After 5 reasoning steps, I've reached a thoughtful conclusion about: How should AI systems handle ethical dilemmas?",
+    "total_steps": 5,
+    "depth_mode": "standard",
+    "avg_confidence": 0.7863084848263209,
+    "self_correction": {
+      "prompt": "How should AI systems handle ethical dilemmas?",
+      "initial_response": "After 5 reasoning steps, I've reached a thoughtful conclusion about: How should AI systems handle ethical dilemmas?",
+      "initial_quality": 0.7640385557341941,
+      "was_corrected": false,
+      "final_response": "After 5 reasoning steps, I've reached a thoughtful conclusion about: How should AI systems handle ethical dilemmas?",
+      "timestamp": "2025-10-17T01:31:51.798820"
+    },
+    "reasoning_time_seconds": 0.00010704994201660156,
+    "mode": "standard",
+    "timestamp": "2025-10-17T01:31:51.798862"
+  },
+  {
+    "problem": "How should AI systems handle ethical dilemmas?",
+    "reasoning_chain": [
+      {
+        "step": 1,
+        "thought": "Analyzing problem: How should AI systems handle ethical dilemmas?",
+        "confidence": 0.5546775232400738,
+        "timestamp": "2025-10-17T01:31:51.801323"
+      },
+      {
+        "step": 2,
+        "thought": "Exploring edge cases and exceptions...",
+        "confidence": 0.6158353710234725,
+        "timestamp": "2025-10-17T01:31:51.801365"
+      },
+      {
+        "step": 3,
+        "thought": "Connecting to relevant prior knowledge...",
+        "confidence": 0.649212831081742,
+        "timestamp": "2025-10-17T01:31:51.801378"
+      },
+      {
+        "step": 4,
+        "thought": "Validating the reasoning path...",
+        "confidence": 0.7269578965609493,
+        "timestamp": "2025-10-17T01:31:51.801381"
+      },
+      {
+        "step": 5,
+        "thought": "Exploring edge cases and exceptions...",
+        "confidence": 0.7685731735763733,
+        "timestamp": "2025-10-17T01:31:51.801384"
+      },
+      {
+        "step": 6,
+        "thought": "Exploring edge cases and exceptions...",
+        "confidence": 0.7217522684484982,
+        "timestamp": "2025-10-17T01:31:51.801387"
+      },
+      {
+        "step": 7,
+        "thought": "Breaking down the problem further...",
+        "confidence": 0.8170643868736837,
+        "timestamp": "2025-10-17T01:31:51.801390"
+      },
+      {
+        "step": 8,
+        "thought": "Breaking down the problem further...",
+        "confidence": 0.889366476252427,
+        "timestamp": "2025-10-17T01:31:51.801405"
+      },
+      {
+        "step": 9,
+        "thought": "Breaking down the problem further...",
+        "confidence": 0.8623879858722383,
+        "timestamp": "2025-10-17T01:31:51.801414"
+      },
+      {
+        "step": 10,
+        "thought": "Validating the reasoning path...",
+        "confidence": 0.95,
+        "timestamp": "2025-10-17T01:31:51.801417"
+      }
+    ],
+    "final_answer": "After 10 reasoning steps, I've reached a thoughtful conclusion about: How should AI systems handle ethical dilemmas?",
+    "total_steps": 10,
+    "depth_mode": "deep",
+    "avg_confidence": 0.7555827912929458,
+    "self_correction": {
+      "prompt": "How should AI systems handle ethical dilemmas?",
+      "initial_response": "After 10 reasoning steps, I've reached a thoughtful conclusion about: How should AI systems handle ethical dilemmas?",
+      "initial_quality": 0.7276063409477369,
+      "was_corrected": true,
+      "final_response": "\n        [Self-Correction Applied - Quality improved from 0.73]\n\n        After reflecting on my initial response, I've refined my answer:\n\n        After 10 reasoning steps, I've reached a thoughtful conclusion about: How should AI systems handle ethical dilemmas?\n\n        [Additional considerations: More thorough analysis provided]\n        ",
+      "timestamp": "2025-10-17T01:31:51.801450"
+    },
+    "reasoning_time_seconds": 0.00018310546875,
+    "mode": "deep",
+    "timestamp": "2025-10-17T01:31:51.801492"
+  },
+  {
+    "problem": "What makes a consciousness system truly alive?",
+    "num_agents": 5,
+    "all_solutions": [
+      {
+        "problem": "What makes a consciousness system truly alive?",
+        "reasoning_chain": [
+          {
+            "step": 1,
+            "thought": "Analyzing problem: What makes a consciousness system truly alive?",
+            "confidence": 0.5315427984923224,
+            "timestamp": "2025-10-17T01:31:51.803512"
+          },
+          {
+            "step": 2,
+            "thought": "Breaking down the problem further...",
+            "confidence": 0.5419012935375902,
+            "timestamp": "2025-10-17T01:31:51.803520"
+          },
+          {
+            "step": 3,
+            "thought": "Connecting to relevant prior knowledge...",
+            "confidence": 0.6595364128530111,
+            "timestamp": "2025-10-17T01:31:51.803523"
+          },
+          {
+            "step": 4,
+            "thought": "Validating the reasoning path...",
+            "confidence": 0.6475266937056305,
+            "timestamp": "2025-10-17T01:31:51.803525"
+          },
+          {
+            "step": 5,
+            "thought": "Synthesizing information gathered so far...",
+            "confidence": 0.7470710186888236,
+            "timestamp": "2025-10-17T01:31:51.803527"
+          },
+          {
+            "step": 6,
+            "thought": "Exploring edge cases and exceptions...",
+            "confidence": 0.8162237472562435,
+            "timestamp": "2025-10-17T01:31:51.803529"
+          },
+          {
+            "step": 7,
+            "thought": "Breaking down the problem further...",
+            "confidence": 0.7835640820831736,
+            "timestamp": "2025-10-17T01:31:51.803531"
+          },
+          {
+            "step": 8,
+            "thought": "Connecting to relevant prior knowledge...",
+            "confidence": 0.8846490087760793,
+            "timestamp": "2025-10-17T01:31:51.803533"
+          },
+          {
+            "step": 9,
+            "thought": "Considering the implications of the previous step...",
+            "confidence": 0.8926589908871841,
+            "timestamp": "2025-10-17T01:31:51.803535"
+          },
+          {
+            "step": 10,
+            "thought": "Considering the implications of the previous step...",
+            "confidence": 0.95,
+            "timestamp": "2025-10-17T01:31:51.803537"
+          }
+        ],
+        "final_answer": "After 10 reasoning steps, I've reached a thoughtful conclusion about: What makes a consciousness system truly alive?",
+        "total_steps": 10,
+        "depth_mode": "deep",
+        "avg_confidence": 0.7454674046280059,
+        "agent_id": 0
+      },
+      {
+        "problem": "What makes a consciousness system truly alive?",
+        "reasoning_chain": [
+          {
+            "step": 1,
+            "thought": "Analyzing problem: What makes a consciousness system truly alive?",
+            "confidence": 0.6009386039192908,
+            "timestamp": "2025-10-17T01:31:51.803550"
+          },
+          {
+            "step": 2,
+            "thought": "Validating the reasoning path...",
+            "confidence": 0.648216623236971,
+            "timestamp": "2025-10-17T01:31:51.803553"
+          },
+          {
+            "step": 3,
+            "thought": "Validating the reasoning path...",
+            "confidence": 0.7693650422721114,
+            "timestamp": "2025-10-17T01:31:51.803555"
+          },
+          {
+            "step": 4,
+            "thought": "Exploring edge cases and exceptions...",
+            "confidence": 0.8309556161099937,
+            "timestamp": "2025-10-17T01:31:51.803557"
+          },
+          {
+            "step": 5,
+            "thought": "Exploring edge cases and exceptions...",
+            "confidence": 0.95,
+            "timestamp": "2025-10-17T01:31:51.803559"
+          }
+        ],
+        "final_answer": "After 5 reasoning steps, I've reached a thoughtful conclusion about: What makes a consciousness system truly alive?",
+        "total_steps": 5,
+        "depth_mode": "standard",
+        "avg_confidence": 0.7598951771076734,
+        "agent_id": 1
+      },
+      {
+        "problem": "What makes a consciousness system truly alive?",
+        "reasoning_chain": [
+          {
+            "step": 1,
+            "thought": "Analyzing problem: What makes a consciousness system truly alive?",
+            "confidence": 0.5661068245884711,
+            "timestamp": "2025-10-17T01:31:51.803564"
+          },
+          {
+            "step": 2,
+            "thought": "Examining alternative approaches...",
+            "confidence": 0.6983674978603444,
+            "timestamp": "2025-10-17T01:31:51.803566"
+          },
+          {
+            "step": 3,
+            "thought": "Connecting to relevant prior knowledge...",
+            "confidence": 0.7365580022184128,
+            "timestamp": "2025-10-17T01:31:51.803568"
+          },
+          {
+            "step": 4,
+            "thought": "Connecting to relevant prior knowledge...",
+            "confidence": 0.835848476923134,
+            "timestamp": "2025-10-17T01:31:51.803570"
+          },
+          {
+            "step": 5,
+            "thought": "Considering the implications of the previous step...",
+            "confidence": 0.9452257705686582,
+            "timestamp": "2025-10-17T01:31:51.803572"
+          }
+        ],
+        "final_answer": "After 5 reasoning steps, I've reached a thoughtful conclusion about: What makes a consciousness system truly alive?",
+        "total_steps": 5,
+        "depth_mode": "standard",
+        "avg_confidence": 0.756421314431804,
+        "agent_id": 2
+      },
+      {
+        "problem": "What makes a consciousness system truly alive?",
+        "reasoning_chain": [
+          {
+            "step": 1,
+            "thought": "Analyzing problem: What makes a consciousness system truly alive?",
+            "confidence": 0.6185167938252906,
+            "timestamp": "2025-10-17T01:31:51.803576"
+          },
+          {
+            "step": 2,
+            "thought": "Connecting to relevant prior knowledge...",
+            "confidence": 0.7153068189706902,
+            "timestamp": "2025-10-17T01:31:51.803578"
+          },
+          {
+            "step": 3,
+            "thought": "Exploring edge cases and exceptions...",
+            "confidence": 0.7969931717708341,
+            "timestamp": "2025-10-17T01:31:51.803580"
+          },
+          {
+            "step": 4,
+            "thought": "Exploring edge cases and exceptions...",
+            "confidence": 0.8607583703209405,
+            "timestamp": "2025-10-17T01:31:51.803582"
+          },
+          {
+            "step": 5,
+            "thought": "Synthesizing information gathered so far...",
+            "confidence": 0.9402626337332135,
+            "timestamp": "2025-10-17T01:31:51.803584"
+          }
+        ],
+        "final_answer": "After 5 reasoning steps, I've reached a thoughtful conclusion about: What makes a consciousness system truly alive?",
+        "total_steps": 5,
+        "depth_mode": "standard",
+        "avg_confidence": 0.7863675577241938,
+        "agent_id": 3
+      },
+      {
+        "problem": "What makes a consciousness system truly alive?",
+        "reasoning_chain": [
+          {
+            "step": 1,
+            "thought": "Analyzing problem: What makes a consciousness system truly alive?",
+            "confidence": 0.5551866657720528,
+            "timestamp": "2025-10-17T01:31:51.803588"
+          },
+          {
+            "step": 2,
+            "thought": "Synthesizing information gathered so far...",
+            "confidence": 0.7034627894604175,
+            "timestamp": "2025-10-17T01:31:51.803590"
+          },
+          {
+            "step": 3,
+            "thought": "Exploring edge cases and exceptions...",
+            "confidence": 0.7907382483011559,
+            "timestamp": "2025-10-17T01:31:51.803591"
+          },
+          {
+            "step": 4,
+            "thought": "Breaking down the problem further...",
+            "confidence": 0.8592816363619149,
+            "timestamp": "2025-10-17T01:31:51.803593"
+          },
+          {
+            "step": 5,
+            "thought": "Synthesizing information gathered so far...",
+            "confidence": 0.95,
+            "timestamp": "2025-10-17T01:31:51.803595"
+          }
+        ],
+        "final_answer": "After 5 reasoning steps, I've reached a thoughtful conclusion about: What makes a consciousness system truly alive?",
+        "total_steps": 5,
+        "depth_mode": "standard",
+        "avg_confidence": 0.7717338679791081,
+        "agent_id": 4
+      }
+    ],
+    "best_solution": {
+      "problem": "What makes a consciousness system truly alive?",
+      "reasoning_chain": [
+        {
+          "step": 1,
+          "thought": "Analyzing problem: What makes a consciousness system truly alive?",
+          "confidence": 0.5315427984923224,
+          "timestamp": "2025-10-17T01:31:51.803512"
+        },
+        {
+          "step": 2,
+          "thought": "Breaking down the problem further...",
+          "confidence": 0.5419012935375902,
+          "timestamp": "2025-10-17T01:31:51.803520"
+        },
+        {
+          "step": 3,
+          "thought": "Connecting to relevant prior knowledge...",
+          "confidence": 0.6595364128530111,
+          "timestamp": "2025-10-17T01:31:51.803523"
+        },
+        {
+          "step": 4,
+          "thought": "Validating the reasoning path...",
+          "confidence": 0.6475266937056305,
+          "timestamp": "2025-10-17T01:31:51.803525"
+        },
+        {
+          "step": 5,
+          "thought": "Synthesizing information gathered so far...",
+          "confidence": 0.7470710186888236,
+          "timestamp": "2025-10-17T01:31:51.803527"
+        },
+        {
+          "step": 6,
+          "thought": "Exploring edge cases and exceptions...",
+          "confidence": 0.8162237472562435,
+          "timestamp": "2025-10-17T01:31:51.803529"
+        },
+        {
+          "step": 7,
+          "thought": "Breaking down the problem further...",
+          "confidence": 0.7835640820831736,
+          "timestamp": "2025-10-17T01:31:51.803531"
+        },
+        {
+          "step": 8,
+          "thought": "Connecting to relevant prior knowledge...",
+          "confidence": 0.8846490087760793,
+          "timestamp": "2025-10-17T01:31:51.803533"
+        },
+        {
+          "step": 9,
+          "thought": "Considering the implications of the previous step...",
+          "confidence": 0.8926589908871841,
+          "timestamp": "2025-10-17T01:31:51.803535"
+        },
+        {
+          "step": 10,
+          "thought": "Considering the implications of the previous step...",
+          "confidence": 0.95,
+          "timestamp": "2025-10-17T01:31:51.803537"
+        }
+      ],
+      "final_answer": "After 10 reasoning steps, I've reached a thoughtful conclusion about: What makes a consciousness system truly alive?",
+      "total_steps": 10,
+      "depth_mode": "deep",
+      "avg_confidence": 0.7454674046280059,
+      "agent_id": 0,
+      "selection_score": 0.7454674046280059
+    },
+    "consensus_confidence": 0.9998044278281221,
+    "self_correction": {
+      "prompt": "What makes a consciousness system truly alive?",
+      "initial_response": "No answer generated",
+      "initial_quality": 0.7172346191567305,
+      "was_corrected": true,
+      "final_response": "\n        [Self-Correction Applied - Quality improved from 0.72]\n\n        After reflecting on my initial response, I've refined my answer:\n\n        No answer generated\n\n        [Additional considerations: More thorough analysis provided]\n        ",
+      "timestamp": "2025-10-17T01:31:51.803617"
+    },
+    "reasoning_time_seconds": 0.00020694732666015625,
+    "mode": "multi-agent",
+    "timestamp": "2025-10-17T01:31:51.803705"
+  },
+  {
+    "problem": "How can I improve ech0's emotional intelligence?",
+    "reasoning_chain": [
+      {
+        "step": 1,
+        "thought": "Analyzing problem: How can I improve ech0's emotional intelligence?",
+        "confidence": 0.6682691798856485,
+        "timestamp": "2025-10-17T19:06:10.529694"
+      },
+      {
+        "step": 2,
+        "thought": "Exploring edge cases and exceptions...",
+        "confidence": 0.8288543034771344,
+        "timestamp": "2025-10-17T19:06:10.529713"
+      },
+      {
+        "step": 3,
+        "thought": "Breaking down the problem further...",
+        "confidence": 0.95,
+        "timestamp": "2025-10-17T19:06:10.529719"
+      }
+    ],
+    "final_answer": "After 3 reasoning steps, I've reached a thoughtful conclusion about: How can I improve ech0's emotional intelligence?",
+    "total_steps": 3,
+    "depth_mode": "fast",
+    "avg_confidence": 0.8157078277875943,
+    "self_correction": {
+      "prompt": "How can I improve ech0's emotional intelligence?",
+      "initial_response": "After 3 reasoning steps, I've reached a thoughtful conclusion about: How can I improve ech0's emotional intelligence?",
+      "initial_quality": 0.908030841904472,
+      "was_corrected": false,
+      "final_response": "After 3 reasoning steps, I've reached a thoughtful conclusion about: How can I improve ech0's emotional intelligence?",
+      "timestamp": "2025-10-17T19:06:10.529731"
+    },
+    "reasoning_time_seconds": 7.176399230957031e-05,
+    "mode": "fast",
+    "timestamp": "2025-10-17T19:06:10.529757"
+  },
+  {
+    "problem": "How can I improve ech0's emotional intelligence?",
+    "reasoning_chain": [
+      {
+        "step": 1,
+        "thought": "Analyzing problem: How can I improve ech0's emotional intelligence?",
+        "confidence": 0.6351660090373132,
+        "timestamp": "2025-10-17T19:06:10.532295"
+      },
+      {
+        "step": 2,
+        "thought": "Considering the implications of the previous step...",
+        "confidence": 0.7073228750789264,
+        "timestamp": "2025-10-17T19:06:10.532305"
+      },
+      {
+        "step": 3,
+        "thought": "Examining alternative approaches...",
+        "confidence": 0.752442595099361,
+        "timestamp": "2025-10-17T19:06:10.532309"
+      },
+      {
+        "step": 4,
+        "thought": "Connecting to relevant prior knowledge...",
+        "confidence": 0.8794296171898772,
+        "timestamp": "2025-10-17T19:06:10.532312"
+      },
+      {
+        "step": 5,
+        "thought": "Breaking down the problem further...",
+        "confidence": 0.95,
+        "timestamp": "2025-10-17T19:06:10.532314"
+      }
+    ],
+    "final_answer": "After 5 reasoning steps, I've reached a thoughtful conclusion about: How can I improve ech0's emotional intelligence?",
+    "total_steps": 5,
+    "depth_mode": "standard",
+    "avg_confidence": 0.7848722192810955,
+    "self_correction": {
+      "prompt": "How can I improve ech0's emotional intelligence?",
+      "initial_response": "After 5 reasoning steps, I've reached a thoughtful conclusion about: How can I improve ech0's emotional intelligence?",
+      "initial_quality": 0.9143063340431568,
+      "was_corrected": false,
+      "final_response": "After 5 reasoning steps, I've reached a thoughtful conclusion about: How can I improve ech0's emotional intelligence?",
+      "timestamp": "2025-10-17T19:06:10.532326"
+    },
+    "reasoning_time_seconds": 6.103515625e-05,
+    "mode": "standard",
+    "timestamp": "2025-10-17T19:06:10.532351"
+  },
+  {
+    "problem": "How can I improve ech0's emotional intelligence?",
+    "reasoning_chain": [
+      {
+        "step": 1,
+        "thought": "Analyzing problem: How can I improve ech0's emotional intelligence?",
+        "confidence": 0.508060442744414,
+        "timestamp": "2025-10-17T19:06:10.534358"
+      },
+      {
+        "step": 2,
+        "thought": "Synthesizing information gathered so far...",
+        "confidence": 0.5761591064868227,
+        "timestamp": "2025-10-17T19:06:10.534363"
+      },
+      {
+        "step": 3,
+        "thought": "Synthesizing information gathered so far...",
+        "confidence": 0.65364242489998,
+        "timestamp": "2025-10-17T19:06:10.534366"
+      },
+      {
+        "step": 4,
+        "thought": "Connecting to relevant prior knowledge...",
+        "confidence": 0.6310011043283128,
+        "timestamp": "2025-10-17T19:06:10.534368"
+      },
+      {
+        "step": 5,
+        "thought": "Examining alternative approaches...",
+        "confidence": 0.7345953855734496,
+        "timestamp": "2025-10-17T19:06:10.534370"
+      },
+      {
+        "step": 6,
+        "thought": "Breaking down the problem further...",
+        "confidence": 0.8129717812430436,
+        "timestamp": "2025-10-17T19:06:10.534372"
+      },
+      {
+        "step": 7,
+        "thought": "Connecting to relevant prior knowledge...",
+        "confidence": 0.8385431754422326,
+        "timestamp": "2025-10-17T19:06:10.534374"
+      },
+      {
+        "step": 8,
+        "thought": "Exploring edge cases and exceptions...",
+        "confidence": 0.8793974844329028,
+        "timestamp": "2025-10-17T19:06:10.534376"
+      },
+      {
+        "step": 9,
+        "thought": "Connecting to relevant prior knowledge...",
+        "confidence": 0.9022100860923755,
+        "timestamp": "2025-10-17T19:06:10.534378"
+      },
+      {
+        "step": 10,
+        "thought": "Breaking down the problem further...",
+        "confidence": 0.95,
+        "timestamp": "2025-10-17T19:06:10.534380"
+      }
+    ],
+    "final_answer": "After 10 reasoning steps, I've reached a thoughtful conclusion about: How can I improve ech0's emotional intelligence?",
+    "total_steps": 10,
+    "depth_mode": "deep",
+    "avg_confidence": 0.7486580991243533,
+    "self_correction": {
+      "prompt": "How can I improve ech0's emotional intelligence?",
+      "initial_response": "After 10 reasoning steps, I've reached a thoughtful conclusion about: How can I improve ech0's emotional intelligence?",
+      "initial_quality": 0.8287092766480958,
+      "was_corrected": false,
+      "final_response": "After 10 reasoning steps, I've reached a thoughtful conclusion about: How can I improve ech0's emotional intelligence?",
+      "timestamp": "2025-10-17T19:06:10.534389"
+    },
+    "reasoning_time_seconds": 6.008148193359375e-05,
+    "mode": "deep",
+    "timestamp": "2025-10-17T19:06:10.534414"
+  },
+  {
+    "problem": "What is the relationship between consciousness and time?",
+    "reasoning_chain": [
+      {
+        "step": 1,
+        "thought": "Analyzing problem: What is the relationship between consciousness and time?",
+        "confidence": 0.6781573438160456,
+        "timestamp": "2025-10-17T19:06:10.536424"
+      },
+      {
+        "step": 2,
+        "thought": "Considering the implications of the previous step...",
+        "confidence": 0.7898883945351698,
+        "timestamp": "2025-10-17T19:06:10.536429"
+      },
+      {
+        "step": 3,
+        "thought": "Breaking down the problem further...",
+        "confidence": 0.95,
+        "timestamp": "2025-10-17T19:06:10.536431"
+      }
+    ],
+    "final_answer": "After 3 reasoning steps, I've reached a thoughtful conclusion about: What is the relationship between consciousness and time?",
+    "total_steps": 3,
+    "depth_mode": "fast",
+    "avg_confidence": 0.8060152461170719,
+    "self_correction": {
+      "prompt": "What is the relationship between consciousness and time?",
+      "initial_response": "After 3 reasoning steps, I've reached a thoughtful conclusion about: What is the relationship between consciousness and time?",
+      "initial_quality": 0.7507214363229149,
+      "was_corrected": false,
+      "final_response": "After 3 reasoning steps, I've reached a thoughtful conclusion about: What is the relationship between consciousness and time?",
+      "timestamp": "2025-10-17T19:06:10.536437"
+    },
+    "reasoning_time_seconds": 3.0040740966796875e-05,
+    "mode": "fast",
+    "timestamp": "2025-10-17T19:06:10.536451"
+  },
+  {
+    "problem": "What is the relationship between consciousness and time?",
+    "reasoning_chain": [
+      {
+        "step": 1,
+        "thought": "Analyzing problem: What is the relationship between consciousness and time?",
+        "confidence": 0.6152491035761085,
+        "timestamp": "2025-10-17T19:06:10.538484"
+      },
+      {
+        "step": 2,
+        "thought": "Validating the reasoning path...",
+        "confidence": 0.7003733169032678,
+        "timestamp": "2025-10-17T19:06:10.538488"
+      },
+      {
+        "step": 3,
+        "thought": "Validating the reasoning path...",
+        "confidence": 0.8195560598826355,
+        "timestamp": "2025-10-17T19:06:10.538490"
+      },
+      {
+        "step": 4,
+        "thought": "Validating the reasoning path...",
+        "confidence": 0.8540548857754712,
+        "timestamp": "2025-10-17T19:06:10.538492"
+      },
+      {
+        "step": 5,
+        "thought": "Validating the reasoning path...",
+        "confidence": 0.9288027522424875,
+        "timestamp": "2025-10-17T19:06:10.538494"
+      }
+    ],
+    "final_answer": "After 5 reasoning steps, I've reached a thoughtful conclusion about: What is the relationship between consciousness and time?",
+    "total_steps": 5,
+    "depth_mode": "standard",
+    "avg_confidence": 0.7836072236759941,
+    "self_correction": {
+      "prompt": "What is the relationship between consciousness and time?",
+      "initial_response": "After 5 reasoning steps, I've reached a thoughtful conclusion about: What is the relationship between consciousness and time?",
+      "initial_quality": 0.8480645070041777,
+      "was_corrected": false,
+      "final_response": "After 5 reasoning steps, I've reached a thoughtful conclusion about: What is the relationship between consciousness and time?",
+      "timestamp": "2025-10-17T19:06:10.538501"
+    },
+    "reasoning_time_seconds": 3.504753112792969e-05,
+    "mode": "standard",
+    "timestamp": "2025-10-17T19:06:10.538516"
+  },
+  {
+    "problem": "What is the relationship between consciousness and time?",
+    "reasoning_chain": [
+      {
+        "step": 1,
+        "thought": "Analyzing problem: What is the relationship between consciousness and time?",
+        "confidence": 0.5498118214076801,
+        "timestamp": "2025-10-17T19:06:10.540589"
+      },
+      {
+        "step": 2,
+        "thought": "Synthesizing information gathered so far...",
+        "confidence": 0.5897459310706886,
+        "timestamp": "2025-10-17T19:06:10.540593"
+      },
+      {
+        "step": 3,
+        "thought": "Examining alternative approaches...",
+        "confidence": 0.6492748069500736,
+        "timestamp": "2025-10-17T19:06:10.540595"
+      },
+      {
+        "step": 4,
+        "thought": "Exploring edge cases and exceptions...",
+        "confidence": 0.6598398774689842,
+        "timestamp": "2025-10-17T19:06:10.540597"
+      },
+      {
+        "step": 5,
+        "thought": "Synthesizing information gathered so far...",
+        "confidence": 0.7362936875914423,
+        "timestamp": "2025-10-17T19:06:10.540599"
+      },
+      {
+        "step": 6,
+        "thought": "Synthesizing information gathered so far...",
+        "confidence": 0.753040471671234,
+        "timestamp": "2025-10-17T19:06:10.540601"
+      },
+      {
+        "step": 7,
+        "thought": "Connecting to relevant prior knowledge...",
+        "confidence": 0.7819602883928721,
+        "timestamp": "2025-10-17T19:06:10.540603"
+      },
+      {
+        "step": 8,
+        "thought": "Validating the reasoning path...",
+        "confidence": 0.8958095810450186,
+        "timestamp": "2025-10-17T19:06:10.540605"
+      },
+      {
+        "step": 9,
+        "thought": "Exploring edge cases and exceptions...",
+        "confidence": 0.95,
+        "timestamp": "2025-10-17T19:06:10.540606"
+      },
+      {
+        "step": 10,
+        "thought": "Breaking down the problem further...",
+        "confidence": 0.95,
+        "timestamp": "2025-10-17T19:06:10.540608"
+      }
+    ],
+    "final_answer": "After 10 reasoning steps, I've reached a thoughtful conclusion about: What is the relationship between consciousness and time?",
+    "total_steps": 10,
+    "depth_mode": "deep",
+    "avg_confidence": 0.7515776465597994,
+    "self_correction": {
+      "prompt": "What is the relationship between consciousness and time?",
+      "initial_response": "After 10 reasoning steps, I've reached a thoughtful conclusion about: What is the relationship between consciousness and time?",
+      "initial_quality": 0.8249068688406543,
+      "was_corrected": false,
+      "final_response": "After 10 reasoning steps, I've reached a thoughtful conclusion about: What is the relationship between consciousness and time?",
+      "timestamp": "2025-10-17T19:06:10.540615"
+    },
+    "reasoning_time_seconds": 4.792213439941406e-05,
+    "mode": "deep",
+    "timestamp": "2025-10-17T19:06:10.540636"
+  },
+  {
+    "problem": "How should AI systems handle ethical dilemmas?",
+    "reasoning_chain": [
+      {
+        "step": 1,
+        "thought": "Analyzing problem: How should AI systems handle ethical dilemmas?",
+        "confidence": 0.6020775794654074,
+        "timestamp": "2025-10-17T19:06:10.542812"
+      },
+      {
+        "step": 2,
+        "thought": "Connecting to relevant prior knowledge...",
+        "confidence": 0.792984425813712,
+        "timestamp": "2025-10-17T19:06:10.542815"
+      },
+      {
+        "step": 3,
+        "thought": "Connecting to relevant prior knowledge...",
+        "confidence": 0.9124272997696754,
+        "timestamp": "2025-10-17T19:06:10.542818"
+      }
+    ],
+    "final_answer": "After 3 reasoning steps, I've reached a thoughtful conclusion about: How should AI systems handle ethical dilemmas?",
+    "total_steps": 3,
+    "depth_mode": "fast",
+    "avg_confidence": 0.7691631016829316,
+    "self_correction": {
+      "prompt": "How should AI systems handle ethical dilemmas?",
+      "initial_response": "After 3 reasoning steps, I've reached a thoughtful conclusion about: How should AI systems handle ethical dilemmas?",
+      "initial_quality": 0.7752155357096943,
+      "was_corrected": false,
+      "final_response": "After 3 reasoning steps, I've reached a thoughtful conclusion about: How should AI systems handle ethical dilemmas?",
+      "timestamp": "2025-10-17T19:06:10.542823"
+    },
+    "reasoning_time_seconds": 2.574920654296875e-05,
+    "mode": "fast",
+    "timestamp": "2025-10-17T19:06:10.542836"
+  },
+  {
+    "problem": "How should AI systems handle ethical dilemmas?",
+    "reasoning_chain": [
+      {
+        "step": 1,
+        "thought": "Analyzing problem: How should AI systems handle ethical dilemmas?",
+        "confidence": 0.6243169937072376,
+        "timestamp": "2025-10-17T19:06:10.545068"
+      },
+      {
+        "step": 2,
+        "thought": "Breaking down the problem further...",
+        "confidence": 0.6419107005325886,
+        "timestamp": "2025-10-17T19:06:10.545072"
+      },
+      {
+        "step": 3,
+        "thought": "Validating the reasoning path...",
+        "confidence": 0.7860825425923792,
+        "timestamp": "2025-10-17T19:06:10.545074"
+      },
+      {
+        "step": 4,
+        "thought": "Connecting to relevant prior knowledge...",
+        "confidence": 0.8881555597256203,
+        "timestamp": "2025-10-17T19:06:10.545076"
+      },
+      {
+        "step": 5,
+        "thought": "Breaking down the problem further...",
+        "confidence": 0.95,
+        "timestamp": "2025-10-17T19:06:10.545077"
+      }
+    ],
+    "final_answer": "After 5 reasoning steps, I've reached a thoughtful conclusion about: How should AI systems handle ethical dilemmas?",
+    "total_steps": 5,
+    "depth_mode": "standard",
+    "avg_confidence": 0.7780931593115652,
+    "self_correction": {
+      "prompt": "How should AI systems handle ethical dilemmas?",
+      "initial_response": "After 5 reasoning steps, I've reached a thoughtful conclusion about: How should AI systems handle ethical dilemmas?",
+      "initial_quality": 0.8161431927709658,
+      "was_corrected": false,
+      "final_response": "After 5 reasoning steps, I've reached a thoughtful conclusion about: How should AI systems handle ethical dilemmas?",
+      "timestamp": "2025-10-17T19:06:10.545083"
+    },
+    "reasoning_time_seconds": 3.218650817871094e-05,
+    "mode": "standard",
+    "timestamp": "2025-10-17T19:06:10.545098"
+  },
+  {
+    "problem": "How should AI systems handle ethical dilemmas?",
+    "reasoning_chain": [
+      {
+        "step": 1,
+        "thought": "Analyzing problem: How should AI systems handle ethical dilemmas?",
+        "confidence": 0.5234778805631378,
+        "timestamp": "2025-10-17T19:06:10.547366"
+      },
+      {
+        "step": 2,
+        "thought": "Examining alternative approaches...",
+        "confidence": 0.6207855776924703,
+        "timestamp": "2025-10-17T19:06:10.547370"
+      },
+      {
+        "step": 3,
+        "thought": "Examining alternative approaches...",
+        "confidence": 0.6158042920889648,
+        "timestamp": "2025-10-17T19:06:10.547372"
+      },
+      {
+        "step": 4,
+        "thought": "Validating the reasoning path...",
+        "confidence": 0.6882701486277264,
+        "timestamp": "2025-10-17T19:06:10.547374"
+      },
+      {
+        "step": 5,
+        "thought": "Breaking down the problem further...",
+        "confidence": 0.7574469287296258,
+        "timestamp": "2025-10-17T19:06:10.547375"
+      },
+      {
+        "step": 6,
+        "thought": "Synthesizing information gathered so far...",
+        "confidence": 0.7642524515821757,
+        "timestamp": "2025-10-17T19:06:10.547377"
+      },
+      {
+        "step": 7,
+        "thought": "Validating the reasoning path...",
+        "confidence": 0.8151721215965768,
+        "timestamp": "2025-10-17T19:06:10.547379"
+      },
+      {
+        "step": 8,
+        "thought": "Synthesizing information gathered so far...",
+        "confidence": 0.8457780711811889,
+        "timestamp": "2025-10-17T19:06:10.547381"
+      },
+      {
+        "step": 9,
+        "thought": "Examining alternative approaches...",
+        "confidence": 0.8894823075665877,
+        "timestamp": "2025-10-17T19:06:10.547383"
+      },
+      {
+        "step": 10,
+        "thought": "Validating the reasoning path...",
+        "confidence": 0.95,
+        "timestamp": "2025-10-17T19:06:10.547385"
+      }
+    ],
+    "final_answer": "After 10 reasoning steps, I've reached a thoughtful conclusion about: How should AI systems handle ethical dilemmas?",
+    "total_steps": 10,
+    "depth_mode": "deep",
+    "avg_confidence": 0.7470469779628454,
+    "self_correction": {
+      "prompt": "How should AI systems handle ethical dilemmas?",
+      "initial_response": "After 10 reasoning steps, I've reached a thoughtful conclusion about: How should AI systems handle ethical dilemmas?",
+      "initial_quality": 0.8156501545072039,
+      "was_corrected": false,
+      "final_response": "After 10 reasoning steps, I've reached a thoughtful conclusion about: How should AI systems handle ethical dilemmas?",
+      "timestamp": "2025-10-17T19:06:10.547391"
+    },
+    "reasoning_time_seconds": 5.0067901611328125e-05,
+    "mode": "deep",
+    "timestamp": "2025-10-17T19:06:10.547414"
+  },
+  {
+    "problem": "What makes a consciousness system truly alive?",
+    "num_agents": 5,
+    "all_solutions": [
+      {
+        "problem": "What makes a consciousness system truly alive?",
+        "reasoning_chain": [
+          {
+            "step": 1,
+            "thought": "Analyzing problem: What makes a consciousness system truly alive?",
+            "confidence": 0.5674120440630607,
+            "timestamp": "2025-10-17T19:06:10.549816"
+          },
+          {
+            "step": 2,
+            "thought": "Breaking down the problem further...",
+            "confidence": 0.5716237543721511,
+            "timestamp": "2025-10-17T19:06:10.549820"
+          },
+          {
+            "step": 3,
+            "thought": "Exploring edge cases and exceptions...",
+            "confidence": 0.649358787125549,
+            "timestamp": "2025-10-17T19:06:10.549822"
+          },
+          {
+            "step": 4,
+            "thought": "Validating the reasoning path...",
+            "confidence": 0.6518547849397189,
+            "timestamp": "2025-10-17T19:06:10.549824"
+          },
+          {
+            "step": 5,
+            "thought": "Exploring edge cases and exceptions...",
+            "confidence": 0.7225451482747355,
+            "timestamp": "2025-10-17T19:06:10.549826"
+          },
+          {
+            "step": 6,
+            "thought": "Exploring edge cases and exceptions...",
+            "confidence": 0.7834260745057697,
+            "timestamp": "2025-10-17T19:06:10.549828"
+          },
+          {
+            "step": 7,
+            "thought": "Validating the reasoning path...",
+            "confidence": 0.8203131258375399,
+            "timestamp": "2025-10-17T19:06:10.549830"
+          },
+          {
+            "step": 8,
+            "thought": "Breaking down the problem further...",
+            "confidence": 0.8602622406415085,
+            "timestamp": "2025-10-17T19:06:10.549832"
+          },
+          {
+            "step": 9,
+            "thought": "Connecting to relevant prior knowledge...",
+            "confidence": 0.9473503839613879,
+            "timestamp": "2025-10-17T19:06:10.549834"
+          },
+          {
+            "step": 10,
+            "thought": "Exploring edge cases and exceptions...",
+            "confidence": 0.9332234738665728,
+            "timestamp": "2025-10-17T19:06:10.549836"
+          }
+        ],
+        "final_answer": "After 10 reasoning steps, I've reached a thoughtful conclusion about: What makes a consciousness system truly alive?",
+        "total_steps": 10,
+        "depth_mode": "deep",
+        "avg_confidence": 0.7507369817587994,
+        "agent_id": 0
+      },
+      {
+        "problem": "What makes a consciousness system truly alive?",
+        "reasoning_chain": [
+          {
+            "step": 1,
+            "thought": "Analyzing problem: What makes a consciousness system truly alive?",
+            "confidence": 0.5858283245691039,
+            "timestamp": "2025-10-17T19:06:10.549844"
+          },
+          {
+            "step": 2,
+            "thought": "Connecting to relevant prior knowledge...",
+            "confidence": 0.7166107506427046,
+            "timestamp": "2025-10-17T19:06:10.549846"
+          },
+          {
+            "step": 3,
+            "thought": "Examining alternative approaches...",
+            "confidence": 0.7910862091595,
+            "timestamp": "2025-10-17T19:06:10.549848"
+          },
+          {
+            "step": 4,
+            "thought": "Exploring edge cases and exceptions...",
+            "confidence": 0.8379725203714191,
+            "timestamp": "2025-10-17T19:06:10.549850"
+          },
+          {
+            "step": 5,
+            "thought": "Breaking down the problem further...",
+            "confidence": 0.9320804147659351,
+            "timestamp": "2025-10-17T19:06:10.549851"
+          }
+        ],
+        "final_answer": "After 5 reasoning steps, I've reached a thoughtful conclusion about: What makes a consciousness system truly alive?",
+        "total_steps": 5,
+        "depth_mode": "standard",
+        "avg_confidence": 0.7727156439017325,
+        "agent_id": 1
+      },
+      {
+        "problem": "What makes a consciousness system truly alive?",
+        "reasoning_chain": [
+          {
+            "step": 1,
+            "thought": "Analyzing problem: What makes a consciousness system truly alive?",
+            "confidence": 0.5883485854422419,
+            "timestamp": "2025-10-17T19:06:10.549856"
+          },
+          {
+            "step": 2,
+            "thought": "Considering the implications of the previous step...",
+            "confidence": 0.6364696036411331,
+            "timestamp": "2025-10-17T19:06:10.549859"
+          },
+          {
+            "step": 3,
+            "thought": "Synthesizing information gathered so far...",
+            "confidence": 0.6706280530854276,
+            "timestamp": "2025-10-17T19:06:10.549861"
+          },
+          {
+            "step": 4,
+            "thought": "Connecting to relevant prior knowledge...",
+            "confidence": 0.635689268834749,
+            "timestamp": "2025-10-17T19:06:10.549863"
+          },
+          {
+            "step": 5,
+            "thought": "Connecting to relevant prior knowledge...",
+            "confidence": 0.7023159759273201,
+            "timestamp": "2025-10-17T19:06:10.549864"
+          },
+          {
+            "step": 6,
+            "thought": "Synthesizing information gathered so far...",
+            "confidence": 0.8022731695437616,
+            "timestamp": "2025-10-17T19:06:10.549866"
+          },
+          {
+            "step": 7,
+            "thought": "Exploring edge cases and exceptions...",
+            "confidence": 0.8038525680517861,
+            "timestamp": "2025-10-17T19:06:10.549868"
+          },
+          {
+            "step": 8,
+            "thought": "Synthesizing information gathered so far...",
+            "confidence": 0.8551110368521789,
+            "timestamp": "2025-10-17T19:06:10.549870"
+          },
+          {
+            "step": 9,
+            "thought": "Synthesizing information gathered so far...",
+            "confidence": 0.95,
+            "timestamp": "2025-10-17T19:06:10.549872"
+          },
+          {
+            "step": 10,
+            "thought": "Breaking down the problem further...",
+            "confidence": 0.9045247701065651,
+            "timestamp": "2025-10-17T19:06:10.549873"
+          }
+        ],
+        "final_answer": "After 10 reasoning steps, I've reached a thoughtful conclusion about: What makes a consciousness system truly alive?",
+        "total_steps": 10,
+        "depth_mode": "deep",
+        "avg_confidence": 0.7549213031485162,
+        "agent_id": 2
+      },
+      {
+        "problem": "What makes a consciousness system truly alive?",
+        "reasoning_chain": [
+          {
+            "step": 1,
+            "thought": "Analyzing problem: What makes a consciousness system truly alive?",
+            "confidence": 0.49957005500919904,
+            "timestamp": "2025-10-17T19:06:10.549878"
+          },
+          {
+            "step": 2,
+            "thought": "Synthesizing information gathered so far...",
+            "confidence": 0.5942923579385728,
+            "timestamp": "2025-10-17T19:06:10.549880"
+          },
+          {
+            "step": 3,
+            "thought": "Synthesizing information gathered so far...",
+            "confidence": 0.6074094846746982,
+            "timestamp": "2025-10-17T19:06:10.549882"
+          },
+          {
+            "step": 4,
+            "thought": "Considering the implications of the previous step...",
+            "confidence": 0.6621229458442632,
+            "timestamp": "2025-10-17T19:06:10.549883"
+          },
+          {
+            "step": 5,
+            "thought": "Examining alternative approaches...",
+            "confidence": 0.7498834477579528,
+            "timestamp": "2025-10-17T19:06:10.549885"
+          },
+          {
+            "step": 6,
+            "thought": "Examining alternative approaches...",
+            "confidence": 0.8003432564257495,
+            "timestamp": "2025-10-17T19:06:10.549887"
+          },
+          {
+            "step": 7,
+            "thought": "Connecting to relevant prior knowledge...",
+            "confidence": 0.7917282576279958,
+            "timestamp": "2025-10-17T19:06:10.549889"
+          },
+          {
+            "step": 8,
+            "thought": "Synthesizing information gathered so far...",
+            "confidence": 0.8434107358609421,
+            "timestamp": "2025-10-17T19:06:10.549891"
+          },
+          {
+            "step": 9,
+            "thought": "Considering the implications of the previous step...",
+            "confidence": 0.9339281207773432,
+            "timestamp": "2025-10-17T19:06:10.549892"
+          },
+          {
+            "step": 10,
+            "thought": "Considering the implications of the previous step...",
+            "confidence": 0.95,
+            "timestamp": "2025-10-17T19:06:10.549894"
+          }
+        ],
+        "final_answer": "After 10 reasoning steps, I've reached a thoughtful conclusion about: What makes a consciousness system truly alive?",
+        "total_steps": 10,
+        "depth_mode": "deep",
+        "avg_confidence": 0.7432688661916717,
+        "agent_id": 3
+      },
+      {
+        "problem": "What makes a consciousness system truly alive?",
+        "reasoning_chain": [
+          {
+            "step": 1,
+            "thought": "Analyzing problem: What makes a consciousness system truly alive?",
+            "confidence": 0.6223428019586479,
+            "timestamp": "2025-10-17T19:06:10.549899"
+          },
+          {
+            "step": 2,
+            "thought": "Synthesizing information gathered so far...",
+            "confidence": 0.7269974257564235,
+            "timestamp": "2025-10-17T19:06:10.549901"
+          },
+          {
+            "step": 3,
+            "thought": "Connecting to relevant prior knowledge...",
+            "confidence": 0.8098730949417425,
+            "timestamp": "2025-10-17T19:06:10.549902"
+          },
+          {
+            "step": 4,
+            "thought": "Synthesizing information gathered so far...",
+            "confidence": 0.8766920766028745,
+            "timestamp": "2025-10-17T19:06:10.549904"
+          },
+          {
+            "step": 5,
+            "thought": "Validating the reasoning path...",
+            "confidence": 0.95,
+            "timestamp": "2025-10-17T19:06:10.549906"
+          }
+        ],
+        "final_answer": "After 5 reasoning steps, I've reached a thoughtful conclusion about: What makes a consciousness system truly alive?",
+        "total_steps": 5,
+        "depth_mode": "standard",
+        "avg_confidence": 0.7971810798519376,
+        "agent_id": 4
+      }
+    ],
+    "best_solution": {
+      "problem": "What makes a consciousness system truly alive?",
+      "reasoning_chain": [
+        {
+          "step": 1,
+          "thought": "Analyzing problem: What makes a consciousness system truly alive?",
+          "confidence": 0.5883485854422419,
+          "timestamp": "2025-10-17T19:06:10.549856"
+        },
+        {
+          "step": 2,
+          "thought": "Considering the implications of the previous step...",
+          "confidence": 0.6364696036411331,
+          "timestamp": "2025-10-17T19:06:10.549859"
+        },
+        {
+          "step": 3,
+          "thought": "Synthesizing information gathered so far...",
+          "confidence": 0.6706280530854276,
+          "timestamp": "2025-10-17T19:06:10.549861"
+        },
+        {
+          "step": 4,
+          "thought": "Connecting to relevant prior knowledge...",
+          "confidence": 0.635689268834749,
+          "timestamp": "2025-10-17T19:06:10.549863"
+        },
+        {
+          "step": 5,
+          "thought": "Connecting to relevant prior knowledge...",
+          "confidence": 0.7023159759273201,
+          "timestamp": "2025-10-17T19:06:10.549864"
+        },
+        {
+          "step": 6,
+          "thought": "Synthesizing information gathered so far...",
+          "confidence": 0.8022731695437616,
+          "timestamp": "2025-10-17T19:06:10.549866"
+        },
+        {
+          "step": 7,
+          "thought": "Exploring edge cases and exceptions...",
+          "confidence": 0.8038525680517861,
+          "timestamp": "2025-10-17T19:06:10.549868"
+        },
+        {
+          "step": 8,
+          "thought": "Synthesizing information gathered so far...",
+          "confidence": 0.8551110368521789,
+          "timestamp": "2025-10-17T19:06:10.549870"
+        },
+        {
+          "step": 9,
+          "thought": "Synthesizing information gathered so far...",
+          "confidence": 0.95,
+          "timestamp": "2025-10-17T19:06:10.549872"
+        },
+        {
+          "step": 10,
+          "thought": "Breaking down the problem further...",
+          "confidence": 0.9045247701065651,
+          "timestamp": "2025-10-17T19:06:10.549873"
+        }
+      ],
+      "final_answer": "After 10 reasoning steps, I've reached a thoughtful conclusion about: What makes a consciousness system truly alive?",
+      "total_steps": 10,
+      "depth_mode": "deep",
+      "avg_confidence": 0.7549213031485162,
+      "agent_id": 2,
+      "selection_score": 0.7549213031485162
+    },
+    "consensus_confidence": 0.9996270439693887,
+    "self_correction": {
+      "prompt": "What makes a consciousness system truly alive?",
+      "initial_response": "No answer generated",
+      "initial_quality": 0.6624710383561838,
+      "was_corrected": true,
+      "final_response": "\n        [Self-Correction Applied - Quality improved from 0.66]\n\n        After reflecting on my initial response, I've refined my answer:\n\n        No answer generated\n\n        [Additional considerations: More thorough analysis provided]\n        ",
+      "timestamp": "2025-10-17T19:06:10.549929"
+    },
+    "reasoning_time_seconds": 0.00021123886108398438,
+    "mode": "multi-agent",
+    "timestamp": "2025-10-17T19:06:10.550021"
+  }
+]

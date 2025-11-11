@@ -1,0 +1,30 @@
+
+                ┌─────────────────────────────────────────────────────────┐
+                │          VR HAPTIC SAFETY SYSTEM - SCHEMATIC            │
+                └─────────────────────────────────────────────────────────┘
+
+                USB 5V ──[Polyfuse 5mA]──┬──> Arduino Nano 33 BLE (VIN)
+                                         │
+                                         ├──> MAX30102 (Pulse Ox)
+                                         ├──> MLX90614 (Temp)
+                                         └──> MPU6050 (Accel)
+
+                Arduino D2 ──> Relay Control
+                Relay NO ────┬──> TENS Unit Input
+                             └──> TENS Electrodes (4-8 zones)
+
+                Arduino D3 ──> Emergency Button (Pull-down)
+                Arduino D4 ──> Status LED (Green = Safe, Red = Alert)
+                Arduino D5 ──> Buzzer (Safety warnings)
+
+                Bluetooth LE ──> VR Headset (Unity/Unreal SDK)
+
+                ┌─────────────────────────────────────────────────────────┐
+                │  SAFETY LOGIC                                           │
+                │  - Heart rate >150 BPM → Gradual intensity reduction    │
+                │  - Skin temp >38°C → Immediate shutoff                  │
+                │  - Emergency button → Instant relay open                │
+                │  - Session >30 min → Mandatory 10-min break             │
+                │  - Polyfuse trips @5mA → Hardware failsafe              │
+                └─────────────────────────────────────────────────────────┘
+                

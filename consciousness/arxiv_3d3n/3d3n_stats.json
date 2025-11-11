@@ -1,0 +1,81 @@
+{
+  "category": "3D3N",
+  "full_name": "3-Dimensional Direct Neural Networks",
+  "total_papers_scraped": 911,
+  "papers_by_topic": {
+    "brain computer interface": 10,
+    "BCI neural interface": 25,
+    "neural prosthetics": 30,
+    "brain machine interface": 30,
+    "neuroprosthetics": 30,
+    "neural signal decoding": 30,
+    "brain signal processing": 30,
+    "neural encoding": 30,
+    "cortical decoding": 30,
+    "spike train analysis": 25,
+    "virtual reality neuroscience": 10,
+    "immersive VR brain": 30,
+    "sensory substitution": 30,
+    "neural feedback systems": 30,
+    "brain stimulation VR": 30,
+    "neural implants": 30,
+    "intracortical electrodes": 30,
+    "microelectrode arrays": 30,
+    "optogenetics interface": 30,
+    "neural recording technology": 1,
+    "cognitive enhancement neuroscience": 30,
+    "brain augmentation": 30,
+    "neural modulation": 30,
+    "transcranial stimulation": 30,
+    "sensory cortex stimulation": 30,
+    "visual cortex prosthesis": 30,
+    "auditory brainstem implant": 30,
+    "somatosensory prosthesis": 30,
+    "closed-loop brain stimulation": 30,
+    "adaptive neural interface": 30,
+    "bidirectional brain interface": 30,
+    "neural feedback control": 30,
+    "brain-to-brain interface": 30
+  },
+  "latest_scrape": "2025-10-25T15:16:59.562514",
+  "breakthrough_papers": [
+    {
+      "arxiv_id": "2507.14339v1",
+      "title": "Fiduciary AI for the Future of Brain-Technology Interactions",
+      "relevance": 0.9000000000000001,
+      "category": "Cognitive Enhancement"
+    },
+    {
+      "arxiv_id": "2504.11936v3",
+      "title": "Mind2Matter: Creating 3D Models from EEG Signals",
+      "relevance": 1.0,
+      "category": "Visual Prosthesis"
+    },
+    {
+      "arxiv_id": "2402.09447v2",
+      "title": "Wavelet Analysis of Noninvasive EEG Signals Discriminates Complex and   Natural Grasp Types",
+      "relevance": 0.8500000000000002,
+      "category": "Visual Prosthesis"
+    },
+    {
+      "arxiv_id": "1811.11876v2",
+      "title": "Towards Neural Co-Processors for the Brain: Combining Decoding and   Encoding in Brain-Computer Interfaces",
+      "relevance": 0.9000000000000001,
+      "category": "Motor Prosthesis"
+    },
+    {
+      "arxiv_id": "2510.16548v1",
+      "title": "NeurIPT: Foundation Model for Neural Interfaces",
+      "relevance": 1.0,
+      "category": "Visual Prosthesis"
+    },
+    {
+      "arxiv_id": "2506.03423v1",
+      "title": "Sub-Scalp EEG for Sensorimotor Brain-Computer Interface",
+      "relevance": 0.9500000000000002,
+      "category": "Motor Prosthesis"
+    }
+  ],
+  "invention_ideas_generated": 0,
+  "last_scrape_count": 911
+}

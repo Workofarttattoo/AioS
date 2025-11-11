@@ -1,0 +1,1518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI:OS - Responsive Desktop</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: #000000;
+            color: #00ff88;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        /* Boot screen */
+        .boot-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 1s;
+        }
+
+        .boot-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .boot-logo {
+            width: 300px;
+            height: 300px;
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: logoFadeIn 1s forwards;
+            filter: drop-shadow(0 0 30px rgba(0, 255, 136, 0.7));
+        }
+
+        .boot-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        @keyframes logoFadeIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .boot-text {
+            font-size: 24px;
+            color: #00ff88;
+            margin: 10px 0;
+            opacity: 0;
+            animation: bootFadeIn 0.5s forwards;
+        }
+
+        @keyframes bootFadeIn {
+            to { opacity: 1; }
+        }
+
+        .boot-progress {
+            width: 400px;
+            height: 4px;
+            background: #001100;
+            border: 1px solid #00ff88;
+            margin-top: 30px;
+            overflow: hidden;
+        }
+
+        .boot-bar {
+            height: 100%;
+            background: #00ff88;
+            width: 0%;
+            transition: width 2s ease;
+        }
+
+        /* Main canvas */
+        #systemCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        /* App launcher */
+        .app-launcher {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.95);
+            border: 2px solid #00ff88;
+            border-radius: 10px;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .app-icon {
+            width: 120px;
+            height: 120px;
+            background: rgba(0, 255, 136, 0.1);
+            border: 2px solid #00ff88;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .app-icon:hover {
+            background: rgba(0, 255, 136, 0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.5);
+        }
+
+        .app-icon.active {
+            background: rgba(0, 255, 136, 0.5);
+            border-color: #00ff88;
+            box-shadow: 0 0 20px #00ff88;
+        }
+
+        .app-icon-symbol {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        .app-icon-name {
+            font-size: 12px;
+            text-align: center;
+        }
+
+        .app-status {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #444;
+        }
+
+        .app-status.active {
+            background: #00ff88;
+            box-shadow: 0 0 10px #00ff88;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Visualizer container */
+        .visualizer {
+            position: fixed;
+            background: rgba(0, 0, 0, 0.9);
+            border: 2px solid;
+            border-radius: 10px;
+            z-index: 50;
+            display: none;
+            overflow: hidden;
+            min-width: 300px;
+            min-height: 200px;
+        }
+
+        .visualizer.active {
+            display: flex;
+            flex-direction: column;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .visualizer-header {
+            font-weight: bold;
+            font-size: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            cursor: move;
+            user-select: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .visualizer-header:active {
+            cursor: grabbing;
+        }
+
+        .visualizer-controls {
+            display: flex;
+            gap: 5px;
+        }
+
+        .visualizer-close {
+            cursor: pointer;
+            padding: 2px 8px;
+            background: rgba(255, 0, 0, 0.3);
+            border-radius: 3px;
+            transition: background 0.2s;
+        }
+
+        .visualizer-close:hover {
+            background: rgba(255, 0, 0, 0.6);
+        }
+
+        .visualizer-content {
+            flex: 1;
+            overflow: auto;
+            padding: 15px;
+        }
+
+        .resize-handle {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            right: 0;
+            bottom: 0;
+            cursor: nwse-resize;
+            z-index: 100;
+        }
+
+        .resize-handle::after {
+            content: '';
+            position: absolute;
+            right: 3px;
+            bottom: 3px;
+            width: 10px;
+            height: 10px;
+            border-right: 2px solid rgba(0, 255, 136, 0.5);
+            border-bottom: 2px solid rgba(0, 255, 136, 0.5);
+        }
+
+        .data-line {
+            font-size: 10px;
+            margin: 3px 0;
+            opacity: 0;
+            animation: fadeIn 0.5s forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* File browser */
+        #fileBrowser {
+            border-color: #00d4ff;
+        }
+
+        /* Network monitor */
+        #networkMonitor {
+            border-color: #ff00ff;
+        }
+
+        /* Quantum lab */
+        #quantumLab {
+            border-color: #a855f7;
+        }
+
+        /* Process manager */
+        #processManager {
+            border-color: #ffaa00;
+        }
+
+        /* Code editor */
+        #codeEditor {
+            border-color: #00ff88;
+        }
+
+        /* ML Dashboard */
+        #mlDashboard {
+            border-color: #00ff88;
+        }
+
+        .ml-metric {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            border-bottom: 1px solid #003300;
+        }
+
+        /* Start menu button */
+        .start-menu-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 60px;
+            height: 60px;
+            background: rgba(0, 0, 0, 0.95);
+            border: 2px solid #00ff88;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            overflow: hidden;
+        }
+
+        .start-menu-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.8);
+            border-color: #00ff88;
+        }
+
+        .start-menu-btn img {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+        }
+
+        /* Start menu */
+        .start-menu {
+            position: fixed;
+            bottom: 90px;
+            left: 20px;
+            width: 400px;
+            max-height: 600px;
+            background: rgba(0, 0, 0, 0.95);
+            border: 2px solid #00ff88;
+            border-radius: 10px;
+            z-index: 199;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .start-menu.active {
+            display: flex;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .start-menu-header {
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.2), rgba(0, 212, 255, 0.2));
+            border-bottom: 1px solid #00ff88;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .start-menu-header img {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 10px rgba(0, 255, 136, 0.6));
+        }
+
+        .start-menu-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #00ff88;
+            letter-spacing: 2px;
+        }
+
+        .start-menu-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px;
+        }
+
+        .menu-category {
+            margin-bottom: 5px;
+        }
+
+        .category-header {
+            padding: 12px 15px;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s;
+            user-select: none;
+        }
+
+        .category-header:hover {
+            background: rgba(0, 255, 136, 0.2);
+            border-color: #00ff88;
+        }
+
+        .category-name {
+            font-size: 14px;
+            font-weight: bold;
+            color: #00ff88;
+        }
+
+        .category-icon {
+            font-size: 18px;
+        }
+
+        .category-items {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .category-items.expanded {
+            max-height: 500px;
+        }
+
+        .menu-item {
+            padding: 10px 20px;
+            margin: 5px 0;
+            background: rgba(0, 0, 0, 0.5);
+            border-left: 3px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .menu-item:hover {
+            background: rgba(0, 255, 136, 0.2);
+            border-left-color: #00ff88;
+            transform: translateX(5px);
+        }
+
+        .menu-item-icon {
+            font-size: 20px;
+        }
+
+        .menu-item-name {
+            font-size: 13px;
+            color: #00d4ff;
+        }
+
+        /* System stats - always visible */
+        .system-stats {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.95);
+            border: 2px solid #00ff88;
+            border-radius: 10px;
+            padding: 15px 25px;
+            z-index: 10;
+            display: flex;
+            gap: 30px;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .stat-value-large {
+            font-size: 20px;
+            font-weight: bold;
+            color: #00ff88;
+        }
+
+        .stat-label-small {
+            font-size: 10px;
+            color: #00d4ff;
+            margin-top: 3px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Boot Screen -->
+    <div class="boot-screen" id="bootScreen">
+        <div class="boot-logo">
+            <img src="file:///Users/noone/Downloads/N3PH1L1M-Album/cropped_wolf_300x300.jpeg" alt="AI:OS">
+        </div>
+        <div class="boot-text" style="animation-delay: 0.5s;">AI:OS Kernel v2.0</div>
+        <div class="boot-text" style="animation-delay: 1s;">Initializing quantum subsystems...</div>
+        <div class="boot-text" style="animation-delay: 1.5s;">Loading neural network...</div>
+        <div class="boot-text" style="animation-delay: 2s;">Ready.</div>
+        <div class="boot-progress">
+            <div class="boot-bar" id="bootBar"></div>
+        </div>
+    </div>
+
+    <!-- Canvas -->
+    <canvas id="systemCanvas"></canvas>
+
+    <!-- App Launcher -->
+    <div class="app-launcher">
+        <div class="app-icon" data-app="fileBrowser">
+            <div class="app-status"></div>
+            <div class="app-icon-symbol">📁</div>
+            <div class="app-icon-name">File System</div>
+        </div>
+        <div class="app-icon" data-app="networkMonitor">
+            <div class="app-status"></div>
+            <div class="app-icon-symbol">🌐</div>
+            <div class="app-icon-name">Network</div>
+        </div>
+        <div class="app-icon" data-app="quantumLab">
+            <div class="app-status"></div>
+            <div class="app-icon-symbol">⚛️</div>
+            <div class="app-icon-name">Quantum Lab</div>
+        </div>
+        <div class="app-icon" data-app="processManager">
+            <div class="app-status"></div>
+            <div class="app-icon-symbol">⚙️</div>
+            <div class="app-icon-name">Processes</div>
+        </div>
+        <div class="app-icon" data-app="codeEditor">
+            <div class="app-status"></div>
+            <div class="app-icon-symbol">💻</div>
+            <div class="app-icon-name">Code Editor</div>
+        </div>
+        <div class="app-icon" data-app="mlDashboard">
+            <div class="app-status"></div>
+            <div class="app-icon-symbol">🧠</div>
+            <div class="app-icon-name">ML Dashboard</div>
+        </div>
+    </div>
+
+    <!-- Visualizers -->
+    <div class="visualizer" id="fileBrowser">
+        <div class="visualizer-header" style="color: #00d4ff;">
+            <span>📁 FILE SYSTEM BROWSER</span>
+            <div class="visualizer-controls">
+                <span class="visualizer-close" data-app="fileBrowser">×</span>
+            </div>
+        </div>
+        <div class="visualizer-content" id="fileContent"></div>
+        <div class="resize-handle"></div>
+    </div>
+
+    <div class="visualizer" id="networkMonitor">
+        <div class="visualizer-header" style="color: #ff00ff;">
+            <span>🌐 NETWORK MONITOR</span>
+            <div class="visualizer-controls">
+                <span class="visualizer-close" data-app="networkMonitor">×</span>
+            </div>
+        </div>
+        <div class="visualizer-content" id="networkContent"></div>
+        <div class="resize-handle"></div>
+    </div>
+
+    <div class="visualizer" id="quantumLab">
+        <div class="visualizer-header" style="color: #a855f7;">
+            <span>⚛️ QUANTUM LAB</span>
+            <div class="visualizer-controls">
+                <span class="visualizer-close" data-app="quantumLab">×</span>
+            </div>
+        </div>
+        <div class="visualizer-content" id="quantumContent" style="padding: 0; overflow: hidden;">
+            <iframe src="quantum_lab_app.html" style="width: 100%; height: 100%; border: none; background: #000;"></iframe>
+        </div>
+        <div class="resize-handle"></div>
+    </div>
+
+    <div class="visualizer" id="processManager">
+        <div class="visualizer-header" style="color: #ffaa00;">
+            <span>⚙️ PROCESS MANAGER</span>
+            <div class="visualizer-controls">
+                <span class="visualizer-close" data-app="processManager">×</span>
+            </div>
+        </div>
+        <div class="visualizer-content" id="processContent"></div>
+        <div class="resize-handle"></div>
+    </div>
+
+    <div class="visualizer" id="codeEditor">
+        <div class="visualizer-header" style="color: #00ff88;">
+            <span>💻 CODE EDITOR</span>
+            <div class="visualizer-controls">
+                <span class="visualizer-close" data-app="codeEditor">×</span>
+            </div>
+        </div>
+        <div class="visualizer-content" id="codeContent"></div>
+        <div class="resize-handle"></div>
+    </div>
+
+    <div class="visualizer" id="mlDashboard">
+        <div class="visualizer-header" style="color: #00ff88;">
+            <span>🧠 ML TRAINING DASHBOARD</span>
+            <div class="visualizer-controls">
+                <span class="visualizer-close" data-app="mlDashboard">×</span>
+            </div>
+        </div>
+        <div class="visualizer-content" id="mlContent"></div>
+        <div class="resize-handle"></div>
+    </div>
+
+    <!-- Start Menu Button -->
+    <div class="start-menu-btn" id="startMenuBtn">
+        <img src="file:///Users/noone/Downloads/N3PH1L1M-Album/cropped_wolf_300x300.jpeg" alt="Menu">
+    </div>
+
+    <!-- Start Menu -->
+    <div class="start-menu" id="startMenu">
+        <div class="start-menu-header">
+            <img src="file:///Users/noone/Downloads/N3PH1L1M-Album/cropped_wolf_300x300.jpeg" alt="AI:OS">
+            <div class="start-menu-title">AI:OS</div>
+        </div>
+        <div class="start-menu-content">
+            <!-- System Tools -->
+            <div class="menu-category">
+                <div class="category-header" data-category="system">
+                    <span class="category-name">⚙️ System Tools</span>
+                    <span class="category-icon">▼</span>
+                </div>
+                <div class="category-items">
+                    <div class="menu-item" data-app="fileBrowser">
+                        <span class="menu-item-icon">📁</span>
+                        <span class="menu-item-name">File System Browser</span>
+                    </div>
+                    <div class="menu-item" data-app="processManager">
+                        <span class="menu-item-icon">⚙️</span>
+                        <span class="menu-item-name">Process Manager</span>
+                    </div>
+                    <div class="menu-item" data-tool="virtualization">
+                        <span class="menu-item-icon">🖥️</span>
+                        <span class="menu-item-name">Virtualization Manager</span>
+                    </div>
+                    <div class="menu-item" data-tool="wizard">
+                        <span class="menu-item-icon">🧙</span>
+                        <span class="menu-item-name">Setup Wizard</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Security Suite -->
+            <div class="menu-category">
+                <div class="category-header" data-category="security">
+                    <span class="category-name">🔒 Security Suite</span>
+                    <span class="category-icon">▼</span>
+                </div>
+                <div class="category-items">
+                    <div class="menu-item" data-tool="aurorascan">
+                        <span class="menu-item-icon">🔍</span>
+                        <span class="menu-item-name">AuroraScan - Network Mapper</span>
+                    </div>
+                    <div class="menu-item" data-tool="cipherspear">
+                        <span class="menu-item-icon">🔐</span>
+                        <span class="menu-item-name">CipherSpear - Crypto Analyzer</span>
+                    </div>
+                    <div class="menu-item" data-tool="skybreaker">
+                        <span class="menu-item-icon">☁️</span>
+                        <span class="menu-item-name">SkyBreaker - Cloud Security</span>
+                    </div>
+                    <div class="menu-item" data-tool="mythickey">
+                        <span class="menu-item-icon">🔑</span>
+                        <span class="menu-item-name">MythicKey - Key Management</span>
+                    </div>
+                    <div class="menu-item" data-tool="nemesishydra">
+                        <span class="menu-item-icon">🐍</span>
+                        <span class="menu-item-name">NemesisHydra - Threat Hunter</span>
+                    </div>
+                    <div class="menu-item" data-tool="obsidianhunt">
+                        <span class="menu-item-icon">🎯</span>
+                        <span class="menu-item-name">ObsidianHunt - Vuln Scanner</span>
+                    </div>
+                    <div class="menu-item" data-tool="vectorflux">
+                        <span class="menu-item-icon">📡</span>
+                        <span class="menu-item-name">VectorFlux - Attack Surface</span>
+                    </div>
+                    <div class="menu-item" data-tool="spectratrace">
+                        <span class="menu-item-icon">👁️</span>
+                        <span class="menu-item-name">SpectraTrace - Packet Analyzer</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Network -->
+            <div class="menu-category">
+                <div class="category-header" data-category="network">
+                    <span class="category-name">🌐 Network</span>
+                    <span class="category-icon">▼</span>
+                </div>
+                <div class="category-items">
+                    <div class="menu-item" data-app="networkMonitor">
+                        <span class="menu-item-icon">🌐</span>
+                        <span class="menu-item-name">Network Monitor</span>
+                    </div>
+                    <div class="menu-item" data-tool="aurorascan">
+                        <span class="menu-item-icon">🔍</span>
+                        <span class="menu-item-name">Port Scanner</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quantum Computing -->
+            <div class="menu-category">
+                <div class="category-header" data-category="quantum">
+                    <span class="category-name">⚛️ Quantum Computing</span>
+                    <span class="category-icon">▼</span>
+                </div>
+                <div class="category-items">
+                    <div class="menu-item" data-app="quantumLab">
+                        <span class="menu-item-icon">⚛️</span>
+                        <span class="menu-item-name">Quantum Lab</span>
+                    </div>
+                    <div class="menu-item" data-tool="quantum_engine">
+                        <span class="menu-item-icon">🔬</span>
+                        <span class="menu-item-name">Quantum Engine</span>
+                    </div>
+                    <div class="menu-item" data-tool="quantum_ml">
+                        <span class="menu-item-icon">🧬</span>
+                        <span class="menu-item-name">Quantum ML Algorithms</span>
+                    </div>
+                    <div class="menu-item" data-tool="quantum_connectors">
+                        <span class="menu-item-icon">🔗</span>
+                        <span class="menu-item-name">Quantum Connectors</span>
+                    </div>
+                    <div class="menu-item" data-tool="patent_discovery">
+                        <span class="menu-item-icon">💡</span>
+                        <span class="menu-item-name">Patent Discovery</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Development -->
+            <div class="menu-category">
+                <div class="category-header" data-category="development">
+                    <span class="category-name">💻 Development</span>
+                    <span class="category-icon">▼</span>
+                </div>
+                <div class="category-items">
+                    <div class="menu-item" data-app="codeEditor">
+                        <span class="menu-item-icon">💻</span>
+                        <span class="menu-item-name">Code Editor</span>
+                    </div>
+                    <div class="menu-item" data-tool="compositor">
+                        <span class="menu-item-icon">🎨</span>
+                        <span class="menu-item-name">GUI Compositor</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI & Machine Learning -->
+            <div class="menu-category">
+                <div class="category-header" data-category="ai">
+                    <span class="category-name">🧠 AI & Machine Learning</span>
+                    <span class="category-icon">▼</span>
+                </div>
+                <div class="category-items">
+                    <div class="menu-item" data-app="mlDashboard">
+                        <span class="menu-item-icon">🧠</span>
+                        <span class="menu-item-name">ML Training Dashboard</span>
+                    </div>
+                    <div class="menu-item" data-tool="ml_algorithms">
+                        <span class="menu-item-icon">📊</span>
+                        <span class="menu-item-name">ML Algorithms Suite</span>
+                    </div>
+                    <div class="menu-item" data-tool="probabilistic_core">
+                        <span class="menu-item-icon">🎲</span>
+                        <span class="menu-item-name">Probabilistic Core</span>
+                    </div>
+                    <div class="menu-item" data-tool="autonomous_discovery">
+                        <span class="menu-item-icon">🤖</span>
+                        <span class="menu-item-name">Autonomous Discovery</span>
+                    </div>
+                    <div class="menu-item" data-tool="ultrafast_discovery">
+                        <span class="menu-item-icon">⚡</span>
+                        <span class="menu-item-name">Ultrafast Discovery</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Agent System -->
+            <div class="menu-category">
+                <div class="category-header" data-category="agents">
+                    <span class="category-name">🤖 Agent System</span>
+                    <span class="category-icon">▼</span>
+                </div>
+                <div class="category-items">
+                    <div class="menu-item" data-tool="ai_os_agent">
+                        <span class="menu-item-icon">🤖</span>
+                        <span class="menu-item-name">AI OS Agent</span>
+                    </div>
+                    <div class="menu-item" data-tool="supervisor">
+                        <span class="menu-item-icon">👁️</span>
+                        <span class="menu-item-name">Supervisor Agent</span>
+                    </div>
+                    <div class="menu-item" data-tool="oracle">
+                        <span class="menu-item-icon">🔮</span>
+                        <span class="menu-item-name">Oracle Agent</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings -->
+            <div class="menu-category">
+                <div class="category-header" data-category="settings">
+                    <span class="category-name">⚙️ Settings & Config</span>
+                    <span class="category-icon">▼</span>
+                </div>
+                <div class="category-items">
+                    <div class="menu-item" data-tool="config">
+                        <span class="menu-item-icon">⚙️</span>
+                        <span class="menu-item-name">Configuration</span>
+                    </div>
+                    <div class="menu-item" data-tool="settings">
+                        <span class="menu-item-icon">🔧</span>
+                        <span class="menu-item-name">System Settings</span>
+                    </div>
+                    <div class="menu-item" data-tool="self_update">
+                        <span class="menu-item-icon">🔄</span>
+                        <span class="menu-item-name">Self Update</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- System Stats -->
+    <div class="system-stats">
+        <div class="stat-item">
+            <div class="stat-value-large" id="activeApps">0</div>
+            <div class="stat-label-small">ACTIVE APPS</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value-large" id="cpuLoad">0%</div>
+            <div class="stat-label-small">CPU</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value-large" id="memLoad">0MB</div>
+            <div class="stat-label-small">MEMORY</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value-large" id="uptime">0:00</div>
+            <div class="stat-label-small">UPTIME</div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================================
+        // BOOT SEQUENCE
+        // ============================================================
+
+        const bootScreen = document.getElementById('bootScreen');
+        const bootBar = document.getElementById('bootBar');
+
+        setTimeout(() => {
+            bootBar.style.width = '100%';
+        }, 100);
+
+        setTimeout(() => {
+            bootScreen.classList.add('hidden');
+            setTimeout(() => {
+                bootScreen.style.display = 'none';
+            }, 1000);
+        }, 3000);
+
+        // ============================================================
+        // CANVAS SETUP
+        // ============================================================
+
+        const canvas = document.getElementById('systemCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let particles = [];
+        let activeApps = new Set();
+        let startTime = Date.now();
+
+        // ============================================================
+        // PARTICLE SYSTEM (responds to active apps)
+        // ============================================================
+
+        class Particle {
+            constructor(mode = 'default') {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 2;
+                this.vy = (Math.random() - 0.5) * 2;
+                this.size = Math.random() * 3 + 1;
+                this.mode = mode;
+                this.color = this.getColorForMode(mode);
+                this.life = 1;
+            }
+
+            getColorForMode(mode) {
+                const colors = {
+                    'fileBrowser': '#00d4ff',
+                    'networkMonitor': '#ff00ff',
+                    'quantumLab': '#a855f7',
+                    'processManager': '#ffaa00',
+                    'codeEditor': '#00ff88',
+                    'mlDashboard': '#00ff88',
+                    'default': '#00ff88'
+                };
+                return colors[mode] || colors.default;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+
+                this.x = Math.max(0, Math.min(canvas.width, this.x));
+                this.y = Math.max(0, Math.min(canvas.height, this.y));
+
+                this.life -= 0.001;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.globalAlpha = this.life;
+                ctx.fill();
+                ctx.globalAlpha = 1;
+            }
+        }
+
+        // ============================================================
+        // APP MANAGEMENT
+        // ============================================================
+
+        const fileStructure = [
+            '/AgentaOS/quantum_ml_algorithms.py',
+            '/AgentaOS/adaptive_desktop.html',
+            '/AgentaOS/responsive_desktop.html',
+            '/AgentaOS/tools/network_analyzer.py',
+            '/AgentaOS/agents/forecaster.py',
+            '/AgentaOS/.claude.json',
+            '/AgentaOS/AGENTS.md',
+            '/AgentaOS/src/kernel/process_manager.py'
+        ];
+
+        const processes = [
+            'quantum_engine', 'network_monitor', 'file_indexer',
+            'agent_orchestrator', 'memory_manager', 'ml_trainer'
+        ];
+
+        const protocols = ['TCP', 'UDP', 'HTTP', 'HTTPS', 'DNS', 'SSH'];
+
+        function toggleApp(appName) {
+            const visualizer = document.getElementById(appName);
+            const icon = document.querySelector(`[data-app="${appName}"]`);
+            const status = icon.querySelector('.app-status');
+
+            if (activeApps.has(appName)) {
+                // Close app
+                activeApps.delete(appName);
+                visualizer.classList.remove('active');
+                icon.classList.remove('active');
+                status.classList.remove('active');
+
+                // Remove particles for this app
+                particles = particles.filter(p => p.mode !== appName);
+            } else {
+                // Open app
+                activeApps.add(appName);
+                visualizer.classList.add('active');
+                icon.classList.add('active');
+                status.classList.add('active');
+
+                // Add particles for this app
+                for (let i = 0; i < 30; i++) {
+                    particles.push(new Particle(appName));
+                }
+
+                // Start app-specific data feeds
+                startAppDataFeed(appName);
+            }
+
+            document.getElementById('activeApps').textContent = activeApps.size;
+        }
+
+        function startAppDataFeed(appName) {
+            const intervals = {
+                fileBrowser: 1000,
+                networkMonitor: 800,
+                quantumLab: 1500,
+                processManager: 700,
+                codeEditor: 2000,
+                mlDashboard: 2000
+            };
+
+            const interval = setInterval(() => {
+                if (!activeApps.has(appName)) {
+                    clearInterval(interval);
+                    return;
+                }
+
+                switch(appName) {
+                    case 'fileBrowser':
+                        addFileLine();
+                        break;
+                    case 'networkMonitor':
+                        addNetworkLine();
+                        break;
+                    case 'quantumLab':
+                        addQuantumLine();
+                        break;
+                    case 'processManager':
+                        addProcessLine();
+                        break;
+                    case 'codeEditor':
+                        addCodeLine();
+                        break;
+                    case 'mlDashboard':
+                        addMLMetric();
+                        break;
+                }
+            }, intervals[appName]);
+        }
+
+        function addFileLine() {
+            const container = document.getElementById('fileContent');
+            const line = document.createElement('div');
+            line.className = 'data-line';
+            line.style.color = '#00d4ff';
+
+            const file = fileStructure[Math.floor(Math.random() * fileStructure.length)];
+            const operation = ['READ', 'WRITE', 'SCAN', 'INDEX'][Math.floor(Math.random() * 4)];
+            const time = new Date().toLocaleTimeString();
+
+            line.textContent = `[${time}] ${operation} ${file}`;
+            container.appendChild(line);
+
+            while (container.children.length > 30) {
+                container.removeChild(container.firstChild);
+            }
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function addNetworkLine() {
+            const container = document.getElementById('networkContent');
+            const line = document.createElement('div');
+            line.className = 'data-line';
+            line.style.color = '#ff00ff';
+
+            const protocol = protocols[Math.floor(Math.random() * protocols.length)];
+            const srcIP = `192.168.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}`;
+            const dstIP = `10.0.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}`;
+            const bytes = Math.floor(Math.random() * 10000) + 64;
+            const time = new Date().toLocaleTimeString();
+
+            line.textContent = `[${time}] ${protocol} ${srcIP} → ${dstIP} (${bytes}B)`;
+            container.appendChild(line);
+
+            while (container.children.length > 30) {
+                container.removeChild(container.firstChild);
+            }
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function addQuantumLine() {
+            const container = document.getElementById('quantumContent');
+            const line = document.createElement('div');
+            line.className = 'data-line';
+            line.style.color = '#a855f7';
+
+            const operations = ['HADAMARD', 'CNOT', 'PHASE', 'MEASURE', 'ENTANGLE'];
+            const op = operations[Math.floor(Math.random() * operations.length)];
+            const qubits = `Q${Math.floor(Math.random() * 45)}`;
+            const state = Math.random().toFixed(6);
+            const time = new Date().toLocaleTimeString();
+
+            line.textContent = `[${time}] ${op} ${qubits} |ψ⟩=${state}`;
+            container.appendChild(line);
+
+            while (container.children.length > 30) {
+                container.removeChild(container.firstChild);
+            }
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function addProcessLine() {
+            const container = document.getElementById('processContent');
+            const line = document.createElement('div');
+            line.className = 'data-line';
+            line.style.color = '#ffaa00';
+
+            const process = processes[Math.floor(Math.random() * processes.length)];
+            const pid = Math.floor(Math.random() * 9000) + 1000;
+            const cpu = (Math.random() * 100).toFixed(1);
+            const mem = (Math.random() * 512).toFixed(0);
+            const state = ['RUN', 'SLEEP', 'WAIT'][Math.floor(Math.random() * 3)];
+
+            line.textContent = `PID:${pid} ${process.padEnd(18)} CPU:${cpu}% MEM:${mem}MB [${state}]`;
+            container.appendChild(line);
+
+            while (container.children.length > 30) {
+                container.removeChild(container.firstChild);
+            }
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function addCodeLine() {
+            const container = document.getElementById('codeContent');
+            const line = document.createElement('div');
+            line.className = 'data-line';
+            line.style.color = '#00ff88';
+
+            const codeSnippets = [
+                'def quantum_circuit(qubits: int) -> Circuit:',
+                '    state = QuantumStateEngine(qubits, "statevector")',
+                '    for i in range(qubits):',
+                '        state.hadamard(i)',
+                '    return state.measure_all()',
+                '',
+                'class NeuralNetwork(nn.Module):',
+                '    def forward(self, x):',
+                '        return self.layers(x)',
+                '',
+                'async def process_data(stream):',
+                '    async for item in stream:',
+                '        await analyze(item)',
+            ];
+
+            const code = codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
+            line.textContent = code;
+            container.appendChild(line);
+
+            while (container.children.length > 50) {
+                container.removeChild(container.firstChild);
+            }
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function addMLMetric() {
+            const container = document.getElementById('mlContent');
+            const metric = document.createElement('div');
+            metric.className = 'ml-metric';
+
+            const metrics = [
+                { name: 'Training Loss', value: (Math.random() * 0.5).toFixed(4) },
+                { name: 'Validation Accuracy', value: (85 + Math.random() * 15).toFixed(2) + '%' },
+                { name: 'Learning Rate', value: (0.001 * Math.random()).toFixed(6) },
+                { name: 'Epoch', value: Math.floor(Math.random() * 100) },
+                { name: 'Batch Size', value: [32, 64, 128][Math.floor(Math.random() * 3)] }
+            ];
+
+            const m = metrics[Math.floor(Math.random() * metrics.length)];
+            metric.innerHTML = `<span style="color: #00ff88;">${m.name}:</span><span style="color: #00d4ff;">${m.value}</span>`;
+            container.appendChild(metric);
+
+            while (container.children.length > 20) {
+                container.removeChild(container.firstChild);
+            }
+        }
+
+        // ============================================================
+        // WINDOW DRAG AND RESIZE
+        // ============================================================
+
+        const windowPositions = {
+            fileBrowser: { x: 20, y: 180, width: 450, height: 400 },
+            networkMonitor: { x: window.innerWidth - 520, y: 180, width: 500, height: 400 },
+            quantumLab: { x: 20, y: window.innerHeight - 520, width: 550, height: 500 },
+            processManager: { x: window.innerWidth - 470, y: window.innerHeight - 520, width: 450, height: 500 },
+            codeEditor: { x: window.innerWidth / 2 - 350, y: window.innerHeight / 2 - 300, width: 700, height: 600 },
+            mlDashboard: { x: window.innerWidth / 2 - 300, y: 200, width: 600, height: 400 }
+        };
+
+        let dragState = {
+            isDragging: false,
+            isResizing: false,
+            currentWindow: null,
+            startX: 0,
+            startY: 0,
+            startLeft: 0,
+            startTop: 0,
+            startWidth: 0,
+            startHeight: 0
+        };
+
+        function initializeWindowPosition(windowId) {
+            const window = document.getElementById(windowId);
+            const pos = windowPositions[windowId];
+
+            window.style.left = pos.x + 'px';
+            window.style.top = pos.y + 'px';
+            window.style.width = pos.width + 'px';
+            window.style.height = pos.height + 'px';
+        }
+
+        // Drag functionality
+        document.querySelectorAll('.visualizer-header').forEach(header => {
+            header.addEventListener('mousedown', (e) => {
+                const window = header.parentElement;
+                dragState.isDragging = true;
+                dragState.currentWindow = window;
+                dragState.startX = e.clientX;
+                dragState.startY = e.clientY;
+                dragState.startLeft = parseInt(window.style.left) || 0;
+                dragState.startTop = parseInt(window.style.top) || 0;
+
+                window.style.zIndex = 100;
+                e.preventDefault();
+            });
+        });
+
+        // Resize functionality
+        document.querySelectorAll('.resize-handle').forEach(handle => {
+            handle.addEventListener('mousedown', (e) => {
+                const window = handle.parentElement;
+                dragState.isResizing = true;
+                dragState.currentWindow = window;
+                dragState.startX = e.clientX;
+                dragState.startY = e.clientY;
+                dragState.startWidth = parseInt(window.offsetWidth);
+                dragState.startHeight = parseInt(window.offsetHeight);
+
+                window.style.zIndex = 100;
+                e.preventDefault();
+                e.stopPropagation();
+            });
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (dragState.isDragging) {
+                const deltaX = e.clientX - dragState.startX;
+                const deltaY = e.clientY - dragState.startY;
+
+                const newLeft = dragState.startLeft + deltaX;
+                const newTop = dragState.startTop + deltaY;
+
+                // Keep window on screen
+                const maxLeft = window.innerWidth - 100;
+                const maxTop = window.innerHeight - 50;
+
+                dragState.currentWindow.style.left = Math.max(0, Math.min(newLeft, maxLeft)) + 'px';
+                dragState.currentWindow.style.top = Math.max(0, Math.min(newTop, maxTop)) + 'px';
+            } else if (dragState.isResizing) {
+                const deltaX = e.clientX - dragState.startX;
+                const deltaY = e.clientY - dragState.startY;
+
+                const newWidth = Math.max(300, dragState.startWidth + deltaX);
+                const newHeight = Math.max(200, dragState.startHeight + deltaY);
+
+                dragState.currentWindow.style.width = newWidth + 'px';
+                dragState.currentWindow.style.height = newHeight + 'px';
+            }
+        });
+
+        document.addEventListener('mouseup', () => {
+            if (dragState.currentWindow) {
+                dragState.currentWindow.style.zIndex = 50;
+            }
+            dragState.isDragging = false;
+            dragState.isResizing = false;
+            dragState.currentWindow = null;
+        });
+
+        // ============================================================
+        // EVENT LISTENERS
+        // ============================================================
+
+        document.querySelectorAll('.app-icon').forEach(icon => {
+            icon.addEventListener('click', () => {
+                const appName = icon.dataset.app;
+                toggleApp(appName);
+
+                // Initialize position when window is opened
+                if (activeApps.has(appName)) {
+                    initializeWindowPosition(appName);
+                }
+            });
+        });
+
+        document.querySelectorAll('.visualizer-close').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const appName = btn.dataset.app;
+                toggleApp(appName);
+            });
+        });
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // ============================================================
+        // ANIMATION LOOP
+        // ============================================================
+
+        function animate() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Update and draw particles
+            particles = particles.filter(p => p.life > 0);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+
+            // Draw connections for quantum lab
+            if (activeApps.has('quantumLab')) {
+                const quantumParticles = particles.filter(p => p.mode === 'quantumLab');
+                for (let i = 0; i < quantumParticles.length; i++) {
+                    for (let j = i + 1; j < quantumParticles.length; j++) {
+                        const dx = quantumParticles[i].x - quantumParticles[j].x;
+                        const dy = quantumParticles[i].y - quantumParticles[j].y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+
+                        if (dist < 150) {
+                            ctx.beginPath();
+                            ctx.moveTo(quantumParticles[i].x, quantumParticles[i].y);
+                            ctx.lineTo(quantumParticles[j].x, quantumParticles[j].y);
+                            ctx.strokeStyle = `rgba(168, 85, 247, ${0.3 * (1 - dist / 150)})`;
+                            ctx.lineWidth = 1;
+                            ctx.stroke();
+                        }
+                    }
+                }
+            }
+
+            // Continuously spawn particles when apps are active
+            if (activeApps.size > 0 && particles.length < 200) {
+                const apps = Array.from(activeApps);
+                const randomApp = apps[Math.floor(Math.random() * apps.length)];
+                particles.push(new Particle(randomApp));
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        // ============================================================
+        // SYSTEM STATS
+        // ============================================================
+
+        setInterval(() => {
+            const elapsed = Math.floor((Date.now() - startTime) / 1000);
+            const minutes = Math.floor(elapsed / 60);
+            const seconds = elapsed % 60;
+            document.getElementById('uptime').textContent =
+                `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+            document.getElementById('cpuLoad').textContent =
+                (20 + activeApps.size * 15 + Math.random() * 10).toFixed(0) + '%';
+
+            document.getElementById('memLoad').textContent =
+                (256 + activeApps.size * 128 + Math.random() * 50).toFixed(0) + 'MB';
+        }, 1000);
+
+        // ============================================================
+        // START MENU
+        // ============================================================
+
+        const startMenuBtn = document.getElementById('startMenuBtn');
+        const startMenu = document.getElementById('startMenu');
+
+        startMenuBtn.addEventListener('click', (e) => {
+            startMenu.classList.toggle('active');
+            e.stopPropagation();
+        });
+
+        // Close start menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!startMenu.contains(e.target) && e.target !== startMenuBtn) {
+                startMenu.classList.remove('active');
+            }
+        });
+
+        // Category expand/collapse
+        document.querySelectorAll('.category-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const items = header.nextElementSibling;
+                const icon = header.querySelector('.category-icon');
+
+                items.classList.toggle('expanded');
+                icon.textContent = items.classList.contains('expanded') ? '▲' : '▼';
+            });
+        });
+
+        // Menu item clicks
+        document.querySelectorAll('.menu-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const appName = item.dataset.app;
+                const toolName = item.dataset.tool;
+
+                if (appName) {
+                    // Open existing visualizer app
+                    toggleApp(appName);
+                    if (activeApps.has(appName)) {
+                        initializeWindowPosition(appName);
+                    }
+                    startMenu.classList.remove('active');
+                } else if (toolName) {
+                    // Show info about tool (placeholder for future implementation)
+                    showToolInfo(toolName);
+                    startMenu.classList.remove('active');
+                }
+            });
+        });
+
+        function showToolInfo(toolName) {
+            // Create a simple notification/info window
+            const infoWindow = document.createElement('div');
+            infoWindow.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: rgba(0, 0, 0, 0.95);
+                border: 2px solid #00ff88;
+                border-radius: 10px;
+                padding: 30px;
+                z-index: 1000;
+                min-width: 400px;
+                text-align: center;
+            `;
+
+            const toolNames = {
+                'aurorascan': 'AuroraScan - Network Mapper',
+                'cipherspear': 'CipherSpear - Crypto Analyzer',
+                'skybreaker': 'SkyBreaker - Cloud Security',
+                'mythickey': 'MythicKey - Key Management',
+                'nemesishydra': 'NemesisHydra - Threat Hunter',
+                'obsidianhunt': 'ObsidianHunt - Vulnerability Scanner',
+                'vectorflux': 'VectorFlux - Attack Surface Analyzer',
+                'spectratrace': 'SpectraTrace - Packet Analyzer',
+                'quantum_engine': 'Quantum Engine',
+                'quantum_ml': 'Quantum ML Algorithms',
+                'quantum_connectors': 'Quantum Connectors',
+                'patent_discovery': 'Patent Discovery System',
+                'ml_algorithms': 'ML Algorithms Suite',
+                'probabilistic_core': 'Probabilistic Core',
+                'autonomous_discovery': 'Autonomous Discovery',
+                'ultrafast_discovery': 'Ultrafast Discovery',
+                'virtualization': 'Virtualization Manager',
+                'wizard': 'Setup Wizard',
+                'compositor': 'GUI Compositor',
+                'ai_os_agent': 'AI OS Agent',
+                'supervisor': 'Supervisor Agent',
+                'oracle': 'Oracle Agent',
+                'config': 'Configuration Manager',
+                'settings': 'System Settings',
+                'self_update': 'Self Update System'
+            };
+
+            infoWindow.innerHTML = `
+                <div style="font-size: 24px; color: #00ff88; margin-bottom: 20px;">${toolNames[toolName] || toolName}</div>
+                <div style="font-size: 14px; color: #00d4ff; margin-bottom: 20px;">
+                    Tool available in AgentaOS<br>
+                    Python module: tools/${toolName}.py
+                </div>
+                <button style="
+                    padding: 10px 30px;
+                    background: rgba(0, 255, 136, 0.3);
+                    border: 1px solid #00ff88;
+                    border-radius: 5px;
+                    color: #00ff88;
+                    cursor: pointer;
+                    font-family: 'Courier New', monospace;
+                " onclick="this.parentElement.remove()">Close</button>
+            `;
+
+            document.body.appendChild(infoWindow);
+
+            // Auto-remove after 5 seconds
+            setTimeout(() => {
+                if (infoWindow.parentElement) {
+                    infoWindow.remove();
+                }
+            }, 5000);
+        }
+
+        // ============================================================
+        // INITIALIZE
+        // ============================================================
+
+        animate();
+    </script>
+</body>
+</html>

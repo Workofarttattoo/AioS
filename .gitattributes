@@ -1,0 +1,94 @@
+# Git-Crypt Encryption Configuration for Ai|oS
+# Proprietary and patent-pending components are encrypted
+
+# Sovereign Security Toolkit - Proprietary Tools (encrypt all)
+tools/sovereign_suite.py filter=git-crypt diff=git-crypt
+tools/sovereign_suite_gui.html filter=git-crypt diff=git-crypt
+tools/sovereign_suite_gui.py filter=git-crypt diff=git-crypt
+tools/scribe.py filter=git-crypt diff=git-crypt
+tools/scribe_gui.html filter=git-crypt diff=git-crypt
+tools/scribe_gui.py filter=git-crypt diff=git-crypt
+tools/nmappro.py filter=git-crypt diff=git-crypt
+
+# Other proprietary security tools
+tools/aurorascan.py filter=git-crypt diff=git-crypt
+tools/aurorascan_gui.py filter=git-crypt diff=git-crypt
+tools/cipherspear.py filter=git-crypt diff=git-crypt
+tools/cipherspear_gui.py filter=git-crypt diff=git-crypt
+tools/skybreaker.py filter=git-crypt diff=git-crypt
+tools/skybreaker_gui.py filter=git-crypt diff=git-crypt
+tools/mythickey.py filter=git-crypt diff=git-crypt
+tools/mythickey_gui.py filter=git-crypt diff=git-crypt
+tools/spectratrace.py filter=git-crypt diff=git-crypt
+tools/spectratrace_gui.py filter=git-crypt diff=git-crypt
+tools/nemesishydra.py filter=git-crypt diff=git-crypt
+tools/nemesishydra_gui.py filter=git-crypt diff=git-crypt
+tools/obsidianhunt.py filter=git-crypt diff=git-crypt
+tools/obsidianhunt_gui.py filter=git-crypt diff=git-crypt
+tools/vectorflux.py filter=git-crypt diff=git-crypt
+tools/osint_workflows.py filter=git-crypt diff=git-crypt
+
+# Red Team Tools Suite - Entire directory encrypted (proprietary)
+red-team-tools/*.py filter=git-crypt diff=git-crypt
+red-team-tools/README.md filter=git-crypt diff=git-crypt
+
+# Advanced ML algorithms (proprietary implementations)
+ml_algorithms.py filter=git-crypt diff=git-crypt
+quantum_ml_algorithms.py filter=git-crypt diff=git-crypt
+autonomous_discovery.py filter=git-crypt diff=git-crypt
+
+# Quantum-Enhanced Algorithms (PATENT PENDING - highly proprietary)
+quantum_enhanced_runtime.py filter=git-crypt diff=git-crypt
+quantum_enhanced_ml_algorithms.py filter=git-crypt diff=git-crypt
+quantum_hhl_algorithm.py filter=git-crypt diff=git-crypt
+quantum_schrodinger_dynamics.py filter=git-crypt diff=git-crypt
+quantum_advanced_synthesis.py filter=git-crypt diff=git-crypt
+quantum_connectors.py filter=git-crypt diff=git-crypt
+quantum_extended.py filter=git-crypt diff=git-crypt
+quantum_teleportation_agent.py filter=git-crypt diff=git-crypt
+quantum_vqe_forecaster.py filter=git-crypt diff=git-crypt
+quantum/**.py filter=git-crypt diff=git-crypt
+
+# Oracle and forecasting engine
+oracle.py filter=git-crypt diff=git-crypt
+oracle_vqe_integration.py filter=git-crypt diff=git-crypt
+
+# Configuration files with sensitive data
+examples/apps-sample.json filter=git-crypt diff=git-crypt
+
+# Documentation with proprietary architecture details
+SOVEREIGN_SECURITY_TOOLKIT.md filter=git-crypt diff=git-crypt
+PRODUCTION_READINESS_ANALYSIS.md filter=git-crypt diff=git-crypt
+
+# Public files (not encrypted)
+*.md !filter !diff
+LICENSE !filter !diff
+README.md !filter !diff
+.gitignore !filter !diff
+requirements.txt !filter !diff
+requirements-dev.txt !filter !diff
+setup.py !filter !diff
+pyproject.toml !filter !diff
+
+# Public core files (coordination logic, not proprietary algorithms)
+runtime.py !filter !diff
+config.py !filter !diff
+wizard.py !filter !diff
+prompt.py !filter !diff
+supervisor.py !filter !diff
+providers.py !filter !diff
+virtualization.py !filter !diff
+
+# Public agent coordination (not proprietary)
+agents/__init__.py !filter !diff
+agents/system.py !filter !diff
+
+# Tool registry (public interface)
+tools/__init__.py !filter !diff
+tools/_toolkit.py !filter !diff
+tools/_stubs.py !filter !diff
+
+# Tests and examples (public)
+tests/** !filter !diff
+examples/manifest-*.json !filter !diff
+scripts/** !filter !diff

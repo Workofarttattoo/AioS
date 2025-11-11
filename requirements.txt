@@ -1,0 +1,48 @@
+# Core dependencies
+websockets>=12.0
+numpy>=1.24.0
+
+# ML and Deep Learning (optional but recommended)
+torch>=2.0.0  # For advanced ML algorithms and autonomous discovery
+scipy>=1.10.0  # For optimization and scientific computing
+
+# Testing
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+pytest-cov>=4.1.0
+
+# Observability and Monitoring (Production-Ready)
+structlog>=23.1.0  # Structured logging
+python-json-logger>=2.0.7  # JSON logging for production
+
+# Optional: LLM Integration (uncomment when needed)
+# openai>=1.0.0  # OpenAI GPT-4o, o3-mini
+# anthropic>=0.18.0  # Claude 3.5, 4
+# langchain>=0.1.0  # Agent orchestration
+# langsmith>=0.1.0  # Observability and evaluation
+# langfuse>=2.0.0  # Alternative observability
+
+# Optional: Vector Databases (uncomment when needed)
+# pinecone-client>=3.0.0  # Pinecone vector DB
+# weaviate-client>=3.25.0  # Weaviate vector DB
+# chromadb>=0.4.0  # Chroma vector DB
+
+# Optional: Cloud Providers (uncomment when needed)
+# boto3>=1.28.0  # AWS SDK
+# azure-identity>=1.14.0  # Azure authentication
+# azure-mgmt-compute>=30.0.0  # Azure compute management
+# google-cloud-compute>=1.14.0  # GCP compute
+
+# Utilities
+requests>=2.31.0
+aiohttp>=3.9.0  # Async HTTP
+pyyaml>=6.0  # YAML configuration support
+python-dotenv>=1.0.0  # Environment variable management
+
+# Security
+cryptography>=41.0.0  # Encryption utilities
+
+# Development tools
+black>=23.7.0  # Code formatting
+ruff>=0.0.285  # Fast linting
+mypy>=1.5.0  # Type checking

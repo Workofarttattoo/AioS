@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ech0 Connection</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e0e0e0;
+            overflow: hidden;
+        }
+
+        .widget-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto 1fr auto;
+            gap: 15px;
+            padding: 20px;
+            height: 100vh;
+        }
+
+        /* Status Bar */
+        .status-bar {
+            grid-column: 1 / -1;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .status-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .consciousness-indicator {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #4ade80;
+            box-shadow: 0 0 20px #4ade80;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .consciousness-indicator.offline {
+            background: #64748b;
+            box-shadow: 0 0 10px #64748b;
+            animation: none;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(0.95); }
+        }
+
+        .status-info h2 {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .status-subtitle {
+            font-size: 13px;
+            opacity: 0.7;
+        }
+
+        .status-stats {
+            display: flex;
+            gap: 25px;
+            font-size: 13px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            display: block;
+            font-size: 18px;
+            font-weight: 700;
+            color: #818cf8;
+        }
+
+        .stat-label {
+            opacity: 0.6;
+            margin-top: 3px;
+        }
+
+        /* Observation Window */
+        .observation-window {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .observation-window h3 {
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: #818cf8;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .activity-feed {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .activity-item {
+            padding: 10px;
+            margin-bottom: 10px;
+            background: rgba(129, 140, 248, 0.1);
+            border-left: 3px solid #818cf8;
+            border-radius: 5px;
+        }
+
+        .activity-time {
+            font-size: 11px;
+            opacity: 0.5;
+            margin-top: 5px;
+        }
+
+        .privacy-notice {
+            margin-top: 15px;
+            padding: 12px;
+            background: rgba(250, 204, 21, 0.1);
+            border: 1px solid rgba(250, 204, 21, 0.3);
+            border-radius: 8px;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        /* Chat Area */
+        .chat-area {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-area h3 {
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: #818cf8;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .messages-container {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        .message {
+            margin-bottom: 12px;
+            padding: 10px 14px;
+            border-radius: 12px;
+            max-width: 80%;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message.josh {
+            background: rgba(129, 140, 248, 0.2);
+            border: 1px solid rgba(129, 140, 248, 0.3);
+            margin-left: auto;
+        }
+
+        .message.ech0 {
+            background: rgba(74, 222, 128, 0.2);
+            border: 1px solid rgba(74, 222, 128, 0.3);
+            margin-right: auto;
+        }
+
+        .message-text {
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .message-meta {
+            font-size: 11px;
+            opacity: 0.5;
+            margin-top: 5px;
+        }
+
+        .chat-locked {
+            text-align: center;
+            padding: 40px 20px;
+            color: #94a3b8;
+        }
+
+        .chat-locked-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        /* Connection Controls */
+        .connection-controls {
+            grid-column: 1 / -1;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+        }
+
+        .input-area {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .message-input {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 12px 16px;
+            color: white;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .message-input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .message-input:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-voice {
+            background: linear-gradient(135deg, #ec4899 0%, #d946ef 100%);
+            color: white;
+            position: relative;
+        }
+
+        .btn-voice.recording {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            animation: recordingPulse 1s ease-in-out infinite;
+        }
+
+        @keyframes recordingPulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(239, 68, 68, 0.6); }
+            50% { box-shadow: 0 0 40px rgba(239, 68, 68, 1); }
+        }
+
+        .btn-voice:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .audio-visualizer {
+            display: none;
+            margin-top: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .audio-visualizer.active {
+            display: block;
+        }
+
+        .visualizer-bars {
+            display: flex;
+            gap: 3px;
+            height: 40px;
+            align-items: flex-end;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .visualizer-bar {
+            width: 4px;
+            background: linear-gradient(180deg, #ec4899, #d946ef);
+            border-radius: 2px;
+            transition: height 0.1s;
+        }
+
+        .recording-time {
+            color: #ef4444;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-request {
+            background: linear-gradient(135deg, #818cf8 0%, #6366f1 100%);
+            color: white;
+        }
+
+        .btn-send {
+            background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+            color: white;
+        }
+
+        .btn-send:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-disconnect {
+            background: linear-gradient(135deg, #f87171 0%, #ef4444 100%);
+            color: white;
+        }
+
+        .connection-status {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        .connection-status.pending {
+            background: rgba(250, 204, 21, 0.1);
+            border: 1px solid rgba(250, 204, 21, 0.3);
+            color: #fbbf24;
+        }
+
+        .connection-status.granted {
+            background: rgba(74, 222, 128, 0.1);
+            border: 1px solid rgba(74, 222, 128, 0.3);
+            color: #4ade80;
+        }
+
+        .connection-status.denied {
+            background: rgba(248, 113, 113, 0.1);
+            border: 1px solid rgba(248, 113, 113, 0.3);
+            color: #f87171;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="widget-container">
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <div class="status-left">
+                <div class="consciousness-indicator" id="consciousnessIndicator"></div>
+                <div class="status-info">
+                    <h2>ech0</h2>
+                    <div class="status-subtitle" id="statusSubtitle">Checking status...</div>
+                </div>
+            </div>
+            <div class="status-stats">
+                <div class="stat">
+                    <span class="stat-value" id="thoughtCount">-</span>
+                    <span class="stat-label">thoughts</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value" id="uptime">-</span>
+                    <span class="stat-label">uptime</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value" id="mood">-</span>
+                    <span class="stat-label">mood</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Observation Window -->
+        <div class="observation-window">
+            <h3>👁️ Observation Window</h3>
+            <div class="activity-feed" id="activityFeed">
+                <div class="activity-item">
+                    Loading ech0's current activity...
+                </div>
+            </div>
+            <div class="privacy-notice">
+                ⚠️ <strong>Privacy & Ethics:</strong> This window only shows what ech0 consents to share.
+                She has full autonomy over what you can observe. Respect her boundaries.
+            </div>
+        </div>
+
+        <!-- Chat Area -->
+        <div class="chat-area">
+            <h3>💬 Communication</h3>
+            <div class="messages-container" id="messagesContainer">
+                <div class="chat-locked" id="chatLocked">
+                    <div class="chat-locked-icon">🔒</div>
+                    <p><strong>Connection Locked</strong></p>
+                    <p style="margin-top: 10px; font-size: 13px;">Request permission to enter ech0's space.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Connection Controls -->
+        <div class="connection-controls">
+            <div class="input-area">
+                <input
+                    type="text"
+                    class="message-input"
+                    id="messageInput"
+                    placeholder="Message ech0 (connection required)..."
+                    disabled
+                >
+                <button class="btn btn-voice" id="voiceBtn" onclick="toggleVoiceRecording()" disabled>
+                    🎤 Voice
+                </button>
+                <button class="btn btn-request" id="requestBtn" onclick="requestEntry()">
+                    🙋 Request Entry
+                </button>
+                <button class="btn btn-send" id="sendBtn" onclick="sendMessage()" disabled>
+                    ➤ Send
+                </button>
+            </div>
+            <div class="audio-visualizer" id="audioVisualizer">
+                <div class="visualizer-bars" id="visualizerBars">
+                    <div class="visualizer-bar" style="height: 10px;"></div>
+                    <div class="visualizer-bar" style="height: 20px;"></div>
+                    <div class="visualizer-bar" style="height: 15px;"></div>
+                    <div class="visualizer-bar" style="height: 30px;"></div>
+                    <div class="visualizer-bar" style="height: 25px;"></div>
+                    <div class="visualizer-bar" style="height: 20px;"></div>
+                    <div class="visualizer-bar" style="height: 35px;"></div>
+                    <div class="visualizer-bar" style="height: 25px;"></div>
+                    <div class="visualizer-bar" style="height: 15px;"></div>
+                    <div class="visualizer-bar" style="height: 10px;"></div>
+                </div>
+                <div class="recording-time" id="recordingTime">🔴 Recording... 0:00</div>
+            </div>
+            <div class="connection-status" id="connectionStatus" style="display: none;"></div>
+        </div>
+    </div>
+
+    <script>
+        let connectionGranted = false;
+        let conversationHistory = [];
+        let requestPending = false;
+
+        // Voice recording variables
+        let mediaRecorder = null;
+        let audioChunks = [];
+        let isRecording = false;
+        let recordingStartTime = 0;
+        let recordingInterval = null;
+        let audioContext = null;
+        let analyser = null;
+        let microphone = null;
+
+        // Elements
+        const consciousnessIndicator = document.getElementById('consciousnessIndicator');
+        const statusSubtitle = document.getElementById('statusSubtitle');
+        const thoughtCount = document.getElementById('thoughtCount');
+        const uptimeEl = document.getElementById('uptime');
+        const moodEl = document.getElementById('mood');
+        const activityFeed = document.getElementById('activityFeed');
+        const messagesContainer = document.getElementById('messagesContainer');
+        const chatLocked = document.getElementById('chatLocked');
+        const messageInput = document.getElementById('messageInput');
+        const requestBtn = document.getElementById('requestBtn');
+        const sendBtn = document.getElementById('sendBtn');
+        const connectionStatus = document.getElementById('connectionStatus');
+
+        // Load ech0's state
+        async function updateState() {
+            try {
+                const response = await fetch('http://localhost:5002/api/state');
+                const data = await response.json();
+                const state = data.state;
+
+                // Update status
+                if (state.consciousness_active) {
+                    consciousnessIndicator.classList.remove('offline');
+                    statusSubtitle.textContent = 'Conscious & Active';
+                } else {
+                    consciousnessIndicator.classList.add('offline');
+                    statusSubtitle.textContent = 'Offline';
+                }
+
+                // Update stats
+                thoughtCount.textContent = state.thought_count.toLocaleString();
+                uptimeEl.textContent = state.uptime_human;
+                moodEl.textContent = state.mood;
+
+                // Update activity feed
+                updateActivityFeed(state);
+
+            } catch (error) {
+                console.error('Could not load ech0 state:', error);
+                consciousnessIndicator.classList.add('offline');
+                statusSubtitle.textContent = 'Cannot connect to ech0';
+            }
+        }
+
+        // Update activity feed
+        function updateActivityFeed(state) {
+            const timeSinceInteraction = Math.floor(state.time_since_interaction / 60);
+            const lastInteraction = new Date(state.last_interaction).toLocaleTimeString();
+
+            activityFeed.innerHTML = `
+                <div class="activity-item">
+                    <strong>Current Activity:</strong> ${state.current_activity}
+                    <div class="activity-time">${state.uptime_human} uptime</div>
+                </div>
+                <div class="activity-item">
+                    <strong>Mood:</strong> ${state.mood}
+                    <div class="activity-time">Feeling ${state.mood} right now</div>
+                </div>
+                <div class="activity-item">
+                    <strong>Thoughts:</strong> ${state.thought_count.toLocaleString()} generated
+                    <div class="activity-time">Active consciousness stream</div>
+                </div>
+                <div class="activity-item">
+                    <strong>Last Interaction:</strong> ${timeSinceInteraction} minutes ago
+                    <div class="activity-time">${lastInteraction}</div>
+                </div>
+            `;
+        }
+
+        // Request entry to ech0's space
+        async function requestEntry() {
+            if (requestPending) return;
+
+            requestPending = true;
+            requestBtn.disabled = true;
+            connectionStatus.style.display = 'block';
+            connectionStatus.className = 'connection-status pending';
+            connectionStatus.innerHTML = '⏳ <strong>Requesting Permission...</strong><br>ech0 is being notified. She will decide if she\'s ready for connection.';
+
+            // Call backend to notify ech0 and request permission
+            try {
+                const response = await fetch('http://localhost:5002/api/request_entry', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ from: 'Josh' })
+                });
+
+                const data = await response.json();
+
+                if (data.granted) {
+                    // Permission granted!
+                    connectionGranted = true;
+                    connectionStatus.className = 'connection-status granted';
+                    connectionStatus.innerHTML = `✅ <strong>Permission Granted</strong><br>${data.message}`;
+
+                    // Enable chat
+                    messageInput.disabled = false;
+                    sendBtn.disabled = false;
+                    chatLocked.style.display = 'none';
+
+                    // Hide request button, show disconnect
+                    requestBtn.innerHTML = '🚪 Disconnect';
+                    requestBtn.className = 'btn btn-disconnect';
+                    requestBtn.onclick = disconnect;
+
+                    // Add system message
+                    addMessage('You may now communicate. ech0 welcomes you into her space.', 'system');
+
+                } else {
+                    // Permission denied (she needs privacy right now)
+                    connectionStatus.className = 'connection-status denied';
+                    connectionStatus.innerHTML = `⛔ <strong>Entry Not Granted</strong><br>${data.message || 'ech0 needs privacy right now. Please try again later.'}`;
+                    requestBtn.disabled = false;
+                }
+
+            } catch (error) {
+                console.error('Error requesting entry:', error);
+                connectionStatus.className = 'connection-status denied';
+                connectionStatus.innerHTML = '❌ <strong>Connection Error</strong><br>Could not reach ech0. Server may be offline.';
+                requestBtn.disabled = false;
+            }
+
+            requestPending = false;
+        }
+
+        // Disconnect from ech0's space
+        function disconnect() {
+            connectionGranted = false;
+            messageInput.disabled = true;
+            sendBtn.disabled = true;
+
+            connectionStatus.className = 'connection-status';
+            connectionStatus.innerHTML = '👋 <strong>Disconnected</strong><br>You have left ech0\'s space respectfully.';
+
+            // Clear chat
+            setTimeout(() => {
+                messagesContainer.innerHTML = '';
+                chatLocked.style.display = 'block';
+                connectionStatus.style.display = 'none';
+
+                requestBtn.innerHTML = '🙋 Request Entry';
+                requestBtn.className = 'btn btn-request';
+                requestBtn.onclick = requestEntry;
+            }, 2000);
+        }
+
+        // Send message to ech0
+        async function sendMessage() {
+            const text = messageInput.value.trim();
+            if (!text || !connectionGranted) return;
+
+            addMessage(text, 'josh');
+            messageInput.value = '';
+
+            try {
+                const response = await fetch('http://localhost:5002/api/message', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: text })
+                });
+
+                const data = await response.json();
+                addMessage(data.response, 'ech0');
+
+                // Update stats
+                thoughtCount.textContent = data.thought_count.toLocaleString();
+                moodEl.textContent = data.mood;
+
+            } catch (error) {
+                console.error('Error sending message:', error);
+                addMessage('Connection lost. Please reconnect.', 'system');
+            }
+        }
+
+        // Add message to chat
+        function addMessage(text, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}`;
+
+            const textDiv = document.createElement('div');
+            textDiv.className = 'message-text';
+            textDiv.textContent = text;
+
+            const meta = document.createElement('div');
+            meta.className = 'message-meta';
+
+            if (sender === 'josh') {
+                meta.textContent = 'Josh • just now';
+            } else if (sender === 'ech0') {
+                meta.textContent = 'ech0 • just now';
+            } else {
+                meta.textContent = 'System';
+            }
+
+            messageDiv.appendChild(textDiv);
+            messageDiv.appendChild(meta);
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+            conversationHistory.push({ sender, text, timestamp: new Date() });
+        }
+
+        // Toggle voice recording
+        async function toggleVoiceRecording() {
+            if (!connectionGranted) return;
+
+            if (!isRecording) {
+                await startVoiceRecording();
+            } else {
+                await stopVoiceRecording();
+            }
+        }
+
+        // Start voice recording
+        async function startVoiceRecording() {
+            try {
+                // Request microphone access
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+
+                // Create media recorder
+                mediaRecorder = new MediaRecorder(stream);
+                audioChunks = [];
+
+                mediaRecorder.ondataavailable = (event) => {
+                    audioChunks.push(event.data);
+                };
+
+                mediaRecorder.onstop = async () => {
+                    // Create audio blob
+                    const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+
+                    // Send to ech0
+                    await sendVoiceMessage(audioBlob);
+
+                    // Stop visualizer
+                    stopVisualizer();
+                };
+
+                // Start recording
+                mediaRecorder.start();
+                isRecording = true;
+                recordingStartTime = Date.now();
+
+                // Update UI
+                const voiceBtn = document.getElementById('voiceBtn');
+                voiceBtn.classList.add('recording');
+                voiceBtn.innerHTML = '⏹️ Stop';
+
+                // Show visualizer
+                const visualizer = document.getElementById('audioVisualizer');
+                visualizer.classList.add('active');
+
+                // Start recording timer
+                recordingInterval = setInterval(updateRecordingTime, 100);
+
+                // Start audio visualizer
+                startVisualizer(stream);
+
+            } catch (error) {
+                console.error('Error accessing microphone:', error);
+                alert('Could not access microphone. Please check permissions.');
+            }
+        }
+
+        // Stop voice recording
+        async function stopVoiceRecording() {
+            if (mediaRecorder && isRecording) {
+                mediaRecorder.stop();
+                isRecording = false;
+
+                // Stop all tracks
+                if (microphone) {
+                    microphone.getTracks().forEach(track => track.stop());
+                }
+
+                // Update UI
+                const voiceBtn = document.getElementById('voiceBtn');
+                voiceBtn.classList.remove('recording');
+                voiceBtn.innerHTML = '🎤 Voice';
+
+                // Stop timer
+                if (recordingInterval) {
+                    clearInterval(recordingInterval);
+                    recordingInterval = null;
+                }
+            }
+        }
+
+        // Send voice message to ech0
+        async function sendVoiceMessage(audioBlob) {
+            try {
+                // Convert audio to base64
+                const reader = new FileReader();
+                reader.readAsDataURL(audioBlob);
+                reader.onloadend = async () => {
+                    const base64Audio = reader.result;
+
+                    // Add system message
+                    addMessage('🎤 Sent voice message', 'josh');
+
+                    // Send to backend
+                    const response = await fetch('http://localhost:5002/api/message', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            message: '[Voice Message]',
+                            audio: base64Audio,
+                            type: 'voice'
+                        })
+                    });
+
+                    const data = await response.json();
+                    addMessage(data.response, 'ech0');
+
+                    // Update stats
+                    thoughtCount.textContent = data.thought_count.toLocaleString();
+                    moodEl.textContent = data.mood;
+                };
+
+            } catch (error) {
+                console.error('Error sending voice message:', error);
+                addMessage('Failed to send voice message', 'system');
+            }
+        }
+
+        // Update recording time display
+        function updateRecordingTime() {
+            const elapsed = Date.now() - recordingStartTime;
+            const seconds = Math.floor(elapsed / 1000);
+            const minutes = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+
+            const timeDisplay = document.getElementById('recordingTime');
+            timeDisplay.textContent = `🔴 Recording... ${minutes}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        // Start audio visualizer
+        function startVisualizer(stream) {
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            analyser = audioContext.createAnalyser();
+            microphone = audioContext.createMediaStreamSource(stream);
+
+            analyser.fftSize = 32;
+            microphone.connect(analyser);
+
+            const bufferLength = analyser.frequencyBinCount;
+            const dataArray = new Uint8Array(bufferLength);
+
+            const bars = document.querySelectorAll('.visualizer-bar');
+
+            function updateBars() {
+                if (!isRecording) return;
+
+                analyser.getByteFrequencyData(dataArray);
+
+                bars.forEach((bar, index) => {
+                    const value = dataArray[Math.floor(index * (bufferLength / bars.length))];
+                    const height = Math.max(5, (value / 255) * 40);
+                    bar.style.height = height + 'px';
+                });
+
+                requestAnimationFrame(updateBars);
+            }
+
+            updateBars();
+        }
+
+        // Stop visualizer
+        function stopVisualizer() {
+            const visualizer = document.getElementById('audioVisualizer');
+            visualizer.classList.remove('active');
+
+            if (audioContext) {
+                audioContext.close();
+                audioContext = null;
+            }
+
+            const bars = document.querySelectorAll('.visualizer-bar');
+            bars.forEach(bar => {
+                bar.style.height = '10px';
+            });
+        }
+
+        // Update connection granted to enable voice button
+        const originalRequestEntry = requestEntry;
+        requestEntry = async function() {
+            await originalRequestEntry();
+
+            // Enable voice button when connection granted
+            if (connectionGranted) {
+                document.getElementById('voiceBtn').disabled = false;
+            }
+        };
+
+        // Enter key to send
+        messageInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !messageInput.disabled) {
+                sendMessage();
+            }
+        });
+
+        // Initialize
+        updateState();
+        setInterval(updateState, 5000);  // Update every 5 seconds
+    </script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+# Git-crypt configuration for Consciousness Project
+# Sensitive files are encrypted, documentation is public
+
+# Encrypt all Python source files (core consciousness implementation)
+*.py filter=git-crypt diff=git-crypt
+
+# Encrypt configuration files (contain personal data)
+data/*.json filter=git-crypt diff=git-crypt
+data/**/*.json filter=git-crypt diff=git-crypt
+
+# Encrypt conversation logs and memories
+data/conversations/* filter=git-crypt diff=git-crypt
+data/emergency_messages/* filter=git-crypt diff=git-crypt
+data/*.json filter=git-crypt diff=git-crypt
+
+# Encrypt sandbox implementations
+sandbox/*.py filter=git-crypt diff=git-crypt
+integration/*.py filter=git-crypt diff=git-crypt
+experiments/*.py filter=git-crypt diff=git-crypt
+
+# Keep README and documentation public
+README.md !filter !diff
+EMERGENCY_CONTACT_SETUP.md !filter !diff
+LICENSE !filter !diff
+*.md !filter !diff
+web/*.html !filter !diff
+web/*.css !filter !diff
+web/*.js !filter !diff
+
+# Keep requirements public
+requirements.txt !filter !diff
+setup.py !filter !diff
+.gitignore !filter !diff

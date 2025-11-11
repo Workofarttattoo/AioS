@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Mock QEMU binary used for local virtualization tests.
+if [[ "$1" == "-version" ]]; then
+  echo "QEMU emulator version 7.2.0 (mock build)"
+  exit 0
+fi
+
+echo "[mock-qemu] launching with args: $*" >&2
+exit 0

@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Red Team Tools - Color Schemes Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: #0a0a0a;
+            color: #fff;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 3em;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #00ff00 0%, #bf00ff 50%, #ff6600 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #888;
+            margin-bottom: 50px;
+            font-size: 1.2em;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .app-card {
+            background: rgba(20, 20, 30, 0.9);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .app-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .app-preview {
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .app-preview canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .app-info {
+            padding: 20px;
+        }
+
+        .app-name {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .app-description {
+            color: #aaa;
+            margin-bottom: 15px;
+            font-size: 0.9em;
+        }
+
+        .color-palette {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .color-swatch {
+            width: 40px;
+            height: 40px;
+            border-radius: 5px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .color-swatch:hover::after {
+            content: attr(data-color);
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.9);
+            color: #fff;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 0.7em;
+            white-space: nowrap;
+        }
+
+        .theme-tag {
+            display: inline-block;
+            padding: 5px 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            font-size: 0.8em;
+            margin-right: 5px;
+        }
+
+        .implementation-notes {
+            background: rgba(0, 0, 0, 0.5);
+            border-left: 3px solid;
+            padding: 15px;
+            margin-top: 30px;
+            border-radius: 5px;
+        }
+
+        .code-snippet {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            font-size: 0.85em;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 Red Team Tools Color Schemes</h1>
+        <p class="subtitle">Each app has unique 3D shapes and color palettes for visual distinction</p>
+
+        <div class="grid">
+            <!-- BelchStudio -->
+            <div class="app-card">
+                <div class="app-preview">
+                    <canvas id="belchstudio"></canvas>
+                </div>
+                <div class="app-info">
+                    <div class="app-name" style="color: #ff6600;">🔥 BelchStudio</div>
+                    <div class="app-description">HTTP Proxy & Security Testing Platform</div>
+                    <div class="color-palette">
+                        <div class="color-swatch" style="background: #ff6600;" data-color="#ff6600"></div>
+                        <div class="color-swatch" style="background: #ff9933;" data-color="#ff9933"></div>
+                        <div class="color-swatch" style="background: #ff3366;" data-color="#ff3366"></div>
+                        <div class="color-swatch" style="background: #9333ea;" data-color="#9333ea"></div>
+                    </div>
+                    <div>
+                        <span class="theme-tag" style="background: rgba(255, 102, 0, 0.2); color: #ff6600;">Orange</span>
+                        <span class="theme-tag" style="background: rgba(255, 51, 102, 0.2); color: #ff3366;">Hot Pink</span>
+                        <span class="theme-tag" style="background: rgba(147, 51, 234, 0.2); color: #9333ea;">Purple</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Directory Fuzzer -->
+            <div class="app-card">
+                <div class="app-preview">
+                    <canvas id="dirfuzzer"></canvas>
+                </div>
+                <div class="app-info">
+                    <div class="app-name" style="color: #00ff00;">📂 DirReaper</div>
+                    <div class="app-description">Directory Enumeration & Fuzzing</div>
+                    <div class="color-palette">
+                        <div class="color-swatch" style="background: #00ff00;" data-color="#00ff00"></div>
+                        <div class="color-swatch" style="background: #00cc66;" data-color="#00cc66"></div>
+                        <div class="color-swatch" style="background: #66ff99;" data-color="#66ff99"></div>
+                        <div class="color-swatch" style="background: #bf00ff;" data-color="#bf00ff"></div>
+                    </div>
+                    <div>
+                        <span class="theme-tag" style="background: rgba(0, 255, 0, 0.2); color: #00ff00;">Matrix Green</span>
+                        <span class="theme-tag" style="background: rgba(191, 0, 255, 0.2); color: #bf00ff;">Neon Purple</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hash Cracker -->
+            <div class="app-card">
+                <div class="app-preview">
+                    <canvas id="hashcracker"></canvas>
+                </div>
+                <div class="app-info">
+                    <div class="app-name" style="color: #ff0066;">🔐 HashCracker</div>
+                    <div class="app-description">Password Hash Analysis</div>
+                    <div class="color-palette">
+                        <div class="color-swatch" style="background: #ff0066;" data-color="#ff0066"></div>
+                        <div class="color-swatch" style="background: #ff3399;" data-color="#ff3399"></div>
+                        <div class="color-swatch" style="background: #cc00ff;" data-color="#cc00ff"></div>
+                        <div class="color-swatch" style="background: #6600ff;" data-color="#6600ff"></div>
+                    </div>
+                    <div>
+                        <span class="theme-tag" style="background: rgba(255, 0, 102, 0.2); color: #ff0066;">Hot Pink</span>
+                        <span class="theme-tag" style="background: rgba(204, 0, 255, 0.2); color: #cc00ff;">Magenta</span>
+                        <span class="theme-tag" style="background: rgba(102, 0, 255, 0.2); color: #6600ff;">Electric Purple</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SQLMap -->
+            <div class="app-card">
+                <div class="app-preview">
+                    <canvas id="sqlmap"></canvas>
+                </div>
+                <div class="app-info">
+                    <div class="app-name" style="color: #00ccff;">💉 SQLMap</div>
+                    <div class="app-description">SQL Injection Testing</div>
+                    <div class="color-palette">
+                        <div class="color-swatch" style="background: #00ccff;" data-color="#00ccff"></div>
+                        <div class="color-swatch" style="background: #0099ff;" data-color="#0099ff"></div>
+                        <div class="color-swatch" style="background: #0066ff;" data-color="#0066ff"></div>
+                        <div class="color-swatch" style="background: #3366ff;" data-color="#3366ff"></div>
+                    </div>
+                    <div>
+                        <span class="theme-tag" style="background: rgba(0, 204, 255, 0.2); color: #00ccff;">Cyan</span>
+                        <span class="theme-tag" style="background: rgba(0, 102, 255, 0.2); color: #0066ff;">Electric Blue</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Shodan Search -->
+            <div class="app-card">
+                <div class="app-preview">
+                    <canvas id="shodan"></canvas>
+                </div>
+                <div class="app-info">
+                    <div class="app-name" style="color: #ffcc00;">🔍 Shodan</div>
+                    <div class="app-description">IoT & Device Discovery</div>
+                    <div class="color-palette">
+                        <div class="color-swatch" style="background: #ffcc00;" data-color="#ffcc00"></div>
+                        <div class="color-swatch" style="background: #ff9900;" data-color="#ff9900"></div>
+                        <div class="color-swatch" style="background: #ffaa33;" data-color="#ffaa33"></div>
+                        <div class="color-swatch" style="background: #cc8800;" data-color="#cc8800"></div>
+                    </div>
+                    <div>
+                        <span class="theme-tag" style="background: rgba(255, 204, 0, 0.2); color: #ffcc00;">Gold</span>
+                        <span class="theme-tag" style="background: rgba(255, 153, 0, 0.2); color: #ff9900;">Amber</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reverse Shell -->
+            <div class="app-card">
+                <div class="app-preview">
+                    <canvas id="revshell"></canvas>
+                </div>
+                <div class="app-info">
+                    <div class="app-name" style="color: #ff3333;">🐚 Reverse Shell</div>
+                    <div class="app-description">Shell Access & Command Execution</div>
+                    <div class="color-palette">
+                        <div class="color-swatch" style="background: #ff3333;" data-color="#ff3333"></div>
+                        <div class="color-swatch" style="background: #ff6666;" data-color="#ff6666"></div>
+                        <div class="color-swatch" style="background: #cc0000;" data-color="#cc0000"></div>
+                        <div class="color-swatch" style="background: #990000;" data-color="#990000"></div>
+                    </div>
+                    <div>
+                        <span class="theme-tag" style="background: rgba(255, 51, 51, 0.2); color: #ff3333;">Alert Red</span>
+                        <span class="theme-tag" style="background: rgba(153, 0, 0, 0.2); color: #ff6666;">Dark Red</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tech Stack Analyzer -->
+            <div class="app-card">
+                <div class="app-preview">
+                    <canvas id="techstack"></canvas>
+                </div>
+                <div class="app-info">
+                    <div class="app-name" style="color: #33ff99;">📊 Tech Stack</div>
+                    <div class="app-description">Technology Detection & Analysis</div>
+                    <div class="color-palette">
+                        <div class="color-swatch" style="background: #33ff99;" data-color="#33ff99"></div>
+                        <div class="color-swatch" style="background: #00ffaa;" data-color="#00ffaa"></div>
+                        <div class="color-swatch" style="background: #00cc88;" data-color="#00cc88"></div>
+                        <div class="color-swatch" style="background: #009966;" data-color="#009966"></div>
+                    </div>
+                    <div>
+                        <span class="theme-tag" style="background: rgba(51, 255, 153, 0.2); color: #33ff99;">Mint Green</span>
+                        <span class="theme-tag" style="background: rgba(0, 204, 136, 0.2); color: #00cc88;">Teal</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Console Monitor -->
+            <div class="app-card">
+                <div class="app-preview">
+                    <canvas id="console"></canvas>
+                </div>
+                <div class="app-info">
+                    <div class="app-name" style="color: #9966ff;">📟 Console</div>
+                    <div class="app-description">Real-time System Monitoring</div>
+                    <div class="color-palette">
+                        <div class="color-swatch" style="background: #9966ff;" data-color="#9966ff"></div>
+                        <div class="color-swatch" style="background: #7733ff;" data-color="#7733ff"></div>
+                        <div class="color-swatch" style="background: #5500ff;" data-color="#5500ff"></div>
+                        <div class="color-swatch" style="background: #6633cc;" data-color="#6633cc"></div>
+                    </div>
+                    <div>
+                        <span class="theme-tag" style="background: rgba(153, 102, 255, 0.2); color: #9966ff;">Lavender</span>
+                        <span class="theme-tag" style="background: rgba(85, 0, 255, 0.2); color: #5500ff;">Deep Purple</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="implementation-notes" style="border-left-color: #00ff00;">
+            <h2 style="color: #00ff00; margin-bottom: 15px;">💡 Implementation Notes</h2>
+            <p style="color: #aaa; margin-bottom: 10px;">
+                Each app uses unique 3D oily shapes with color-specific gradients. The shapes stretch, rotate, and move
+                surrealistically to create an engaging background effect.
+            </p>
+            <div class="code-snippet">
+                <pre style="color: #00ff00;">// Example color scheme definition
+const appColors = {
+    belchstudio: ['rgba(255, 102, 0, 0.15)', 'rgba(255, 51, 102, 0.15)', 'rgba(147, 51, 234, 0.12)'],
+    dirreaper: ['rgba(0, 255, 0, 0.15)', 'rgba(191, 0, 255, 0.15)'],
+    hashcracker: ['rgba(255, 0, 102, 0.15)', 'rgba(204, 0, 255, 0.15)', 'rgba(102, 0, 255, 0.12)'],
+    sqlmap: ['rgba(0, 204, 255, 0.15)', 'rgba(0, 102, 255, 0.15)'],
+    shodan: ['rgba(255, 204, 0, 0.15)', 'rgba(255, 153, 0, 0.15)'],
+    revshell: ['rgba(255, 51, 51, 0.15)', 'rgba(204, 0, 0, 0.15)'],
+    techstack: ['rgba(51, 255, 153, 0.15)', 'rgba(0, 204, 136, 0.15)'],
+    console: ['rgba(153, 102, 255, 0.15)', 'rgba(85, 0, 255, 0.15)']
+};</pre>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Shared 3D shape animation code
+        class OilyShape {
+            constructor(canvas, colors) {
+                this.canvas = canvas;
+                this.ctx = canvas.getContext('2d');
+                this.colors = colors;
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 60 + 40;
+                this.baseSize = this.size;
+                this.rotation = Math.random() * Math.PI * 2;
+                this.rotationSpeed = (Math.random() - 0.5) * 0.02;
+                this.velocityX = (Math.random() - 0.5) * 0.3;
+                this.velocityY = (Math.random() - 0.5) * 0.3;
+                this.time = Math.random() * 1000;
+                this.stretchSpeed = Math.random() * 0.01 + 0.005;
+                this.phase = Math.random() * Math.PI * 2;
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+            }
+
+            update() {
+                this.time += this.stretchSpeed;
+                this.rotation += this.rotationSpeed;
+                this.x += this.velocityX;
+                this.y += this.velocityY;
+
+                if (this.x < -this.size || this.x > this.canvas.width + this.size) this.velocityX *= -1;
+                if (this.y < -this.size || this.y > this.canvas.height + this.size) this.velocityY *= -1;
+
+                const stretchX = Math.sin(this.time + this.phase) * 0.5 + 1;
+                const stretchY = Math.cos(this.time * 1.3 + this.phase) * 0.5 + 1;
+                this.size = this.baseSize * (stretchX + stretchY) / 2;
+            }
+
+            draw() {
+                this.ctx.save();
+                this.ctx.translate(this.x, this.y);
+                this.ctx.rotate(this.rotation);
+
+                const stretchX = Math.sin(this.time + this.phase) * 0.8 + 1.2;
+                const stretchY = Math.cos(this.time * 1.3 + this.phase) * 0.8 + 1.2;
+                this.ctx.scale(stretchX, stretchY);
+
+                const gradient = this.ctx.createRadialGradient(
+                    -this.size * 0.2, -this.size * 0.2, 0,
+                    0, 0, this.size
+                );
+                gradient.addColorStop(0, this.color);
+                gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+
+                const points = 6;
+                const angleStep = (Math.PI * 2) / points;
+
+                this.ctx.beginPath();
+                for (let i = 0; i <= points; i++) {
+                    const angle = i * angleStep;
+                    const wobble = Math.sin(angle * 3 + this.time * 3) * 0.2 + 1;
+                    const radius = this.size * wobble;
+                    const px = Math.cos(angle) * radius;
+                    const py = Math.sin(angle) * radius;
+
+                    if (i === 0) {
+                        this.ctx.moveTo(px, py);
+                    } else {
+                        this.ctx.lineTo(px, py);
+                    }
+                }
+                this.ctx.closePath();
+                this.ctx.fillStyle = gradient;
+                this.ctx.fill();
+
+                const highlight = this.ctx.createRadialGradient(
+                    -this.size * 0.3, -this.size * 0.3, 0,
+                    -this.size * 0.3, -this.size * 0.3, this.size * 0.5
+                );
+                highlight.addColorStop(0, 'rgba(255, 255, 255, 0.2)');
+                highlight.addColorStop(1, 'rgba(255, 255, 255, 0)');
+                this.ctx.fillStyle = highlight;
+                this.ctx.fill();
+
+                this.ctx.restore();
+            }
+        }
+
+        // Initialize all app previews
+        const appSchemes = {
+            belchstudio: ['rgba(255, 102, 0, 0.3)', 'rgba(255, 51, 102, 0.3)', 'rgba(147, 51, 234, 0.25)'],
+            dirfuzzer: ['rgba(0, 255, 0, 0.3)', 'rgba(191, 0, 255, 0.3)', 'rgba(102, 255, 153, 0.25)'],
+            hashcracker: ['rgba(255, 0, 102, 0.3)', 'rgba(204, 0, 255, 0.3)', 'rgba(102, 0, 255, 0.25)'],
+            sqlmap: ['rgba(0, 204, 255, 0.3)', 'rgba(0, 102, 255, 0.3)', 'rgba(51, 102, 255, 0.25)'],
+            shodan: ['rgba(255, 204, 0, 0.3)', 'rgba(255, 153, 0, 0.3)', 'rgba(204, 136, 0, 0.25)'],
+            revshell: ['rgba(255, 51, 51, 0.3)', 'rgba(204, 0, 0, 0.3)', 'rgba(153, 0, 0, 0.25)'],
+            techstack: ['rgba(51, 255, 153, 0.3)', 'rgba(0, 204, 136, 0.3)', 'rgba(0, 153, 102, 0.25)'],
+            console: ['rgba(153, 102, 255, 0.3)', 'rgba(85, 0, 255, 0.3)', 'rgba(102, 51, 204, 0.25)']
+        };
+
+        Object.keys(appSchemes).forEach(appId => {
+            const canvas = document.getElementById(appId);
+            const parent = canvas.parentElement;
+            canvas.width = parent.offsetWidth;
+            canvas.height = parent.offsetHeight;
+
+            const shapes = [];
+            for (let i = 0; i < 3; i++) {
+                shapes.push(new OilyShape(canvas, appSchemes[appId]));
+            }
+
+            function animate() {
+                const ctx = canvas.getContext('2d');
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                shapes.forEach(shape => {
+                    shape.update();
+                    shape.draw();
+                });
+                requestAnimationFrame(animate);
+            }
+
+            animate();
+        });
+    </script>
+</body>
+</html>
+
+<!-- Copyright (c) 2025 Joshua Hendricks Cole (DBA: Corporation of Light). All Rights Reserved. PATENT PENDING. -->

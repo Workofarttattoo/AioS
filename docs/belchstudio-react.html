@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BelchStudio - HTTP Proxy & Web Security Sandbox</title>
+    <!-- Copyright (c) 2025 Joshua Hendricks Cole (DBA: Corporation of Light). All Rights Reserved. PATENT PENDING. -->
+    <meta name="robots" content="noindex, nofollow">
+
+    <!-- React and Babel -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+            color: #fff;
+            min-height: 100vh;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid rgba(255, 51, 51, 0.5);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(255, 51, 51, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar-brand {
+            font-size: 1.5em;
+            color: #ff6666;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(255, 51, 51, 0.5);
+        }
+
+        .btn-back {
+            padding: 10px 25px;
+            background: linear-gradient(135deg, rgba(255, 51, 51, 0.7), rgba(255, 102, 102, 0.7));
+            color: #fff;
+            border: 1px solid rgba(255, 51, 51, 0.5);
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            font-size: 1em;
+            font-weight: bold;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-back:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 51, 51, 0.4);
+            background: linear-gradient(135deg, rgba(255, 51, 51, 0.9), rgba(255, 102, 102, 0.9));
+        }
+
+        .warning-banner {
+            background: #ff0000;
+            color: #fff;
+            text-align: center;
+            padding: 15px;
+            font-weight: bold;
+            font-size: 1.1em;
+            box-shadow: 0 4px 20px rgba(255, 0, 0, 0.5);
+        }
+
+        #root {
+            padding: 20px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 60px;
+            border-top: 1px solid rgba(255, 51, 51, 0.3);
+            color: #ffcccc;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <div class="navbar">
+        <div class="navbar-brand">🛡️ TheGAVL Red Team Tools</div>
+        <a href="index.html" class="btn-back">← Back to Tools</a>
+    </div>
+
+    <!-- Warning Banner -->
+    <div class="warning-banner">
+        ⚠️ AUTHORIZED USE ONLY - This is a security testing sandbox. Unauthorized use is illegal (CFAA 18 U.S.C. § 1030)
+    </div>
+
+    <!-- React App Root -->
+    <div id="root"></div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>© 2025 Joshua Hendricks Cole (DBA: Corporation of Light). All Rights Reserved. PATENT PENDING.</p>
+        <p style="margin-top: 10px; font-size: 0.85em; color: #ff9999;">
+            For authorized security testing only. See <a href="acceptable-use-policy.html" style="color: #ff9999;">Acceptable Use Policy</a>.
+        </p>
+    </div>
+
+    <!-- Load React Component -->
+    <script type="text/babel" src="js/BelchStudio.jsx"></script>
+    <script type="text/babel">
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<BelchStudio />);
+    </script>
+</body>
+</html>

@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ai|oS - Sovereign Desktop</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: #000000;
+            color: #00ff88;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        /* Background Animation */
+        #macroCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        /* Stats HUD (Top Right) */
+        .stats-hud {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.9);
+            border: 2px solid #00ff88;
+            border-radius: 10px;
+            padding: 15px;
+            min-width: 280px;
+            z-index: 10;
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.5);
+        }
+
+        .hud-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #00ff88;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 11px;
+        }
+
+        .stat-label {
+            color: #00d4ff;
+        }
+
+        .stat-value {
+            color: #00ff88;
+            font-weight: bold;
+        }
+
+        /* Taskbar (Bottom) */
+        .taskbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background: rgba(0, 0, 0, 0.95);
+            border-top: 2px solid #00ff88;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            box-shadow: 0 -5px 30px rgba(0, 255, 136, 0.3);
+        }
+
+        /* Start Button */
+        .start-button {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #00ff88, #00d4ff, #a855f7);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.6);
+            position: relative;
+        }
+
+        .start-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 40px rgba(0, 255, 136, 1);
+        }
+
+        .start-button svg {
+            width: 30px;
+            height: 30px;
+        }
+
+        /* Start Menu */
+        .start-menu {
+            position: fixed;
+            bottom: 70px;
+            left: 10px;
+            width: 450px;
+            max-height: 70vh;
+            background: rgba(5, 5, 5, 0.98);
+            border: 2px solid #00ff88;
+            border-radius: 15px;
+            padding: 20px;
+            z-index: 200;
+            display: none;
+            box-shadow: 0 0 50px rgba(0, 255, 136, 0.7);
+            overflow-y: auto;
+        }
+
+        .start-menu.show {
+            display: block;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .menu-header {
+            font-size: 24px;
+            font-weight: bold;
+            color: #00ff88;
+            margin-bottom: 20px;
+            text-align: center;
+            letter-spacing: 3px;
+            text-shadow: 0 0 15px #00ff88;
+        }
+
+        .menu-category {
+            margin-bottom: 20px;
+        }
+
+        .category-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #ff00ff;
+            margin-bottom: 10px;
+            padding: 8px;
+            background: rgba(255, 0, 255, 0.1);
+            border-left: 3px solid #ff00ff;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .category-title:hover {
+            background: rgba(255, 0, 255, 0.2);
+            padding-left: 15px;
+        }
+
+        .category-apps {
+            padding-left: 15px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .category-apps.expanded {
+            max-height: 500px;
+        }
+
+        .app-item {
+            padding: 10px;
+            margin: 5px 0;
+            background: rgba(0, 255, 136, 0.05);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .app-item:hover {
+            background: rgba(0, 255, 136, 0.15);
+            border-color: #00ff88;
+            transform: translateX(5px);
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.4);
+        }
+
+        .app-icon {
+            width: 24px;
+            height: 24px;
+            font-size: 18px;
+        }
+
+        .app-name {
+            font-size: 13px;
+            color: #00ff88;
+            flex: 1;
+        }
+
+        .app-description {
+            font-size: 10px;
+            color: #666;
+            margin-top: 3px;
+        }
+
+        /* Taskbar Apps */
+        .taskbar-apps {
+            flex: 1;
+            display: flex;
+            gap: 10px;
+            margin-left: 20px;
+        }
+
+        .taskbar-app {
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 20px;
+        }
+
+        .taskbar-app:hover {
+            background: rgba(0, 255, 136, 0.2);
+            border-color: #00ff88;
+            transform: translateY(-5px);
+        }
+
+        /* System Tray */
+        .system-tray {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            margin-left: auto;
+            padding-right: 10px;
+        }
+
+        .tray-item {
+            font-size: 12px;
+            color: #00d4ff;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #00ff88;
+            border-radius: 4px;
+        }
+
+        /* Clock */
+        .clock {
+            font-size: 14px;
+            color: #00ff88;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Canvas -->
+    <canvas id="macroCanvas"></canvas>
+
+    <!-- Stats HUD -->
+    <div class="stats-hud">
+        <div class="hud-title">Ai|oS SYSTEM</div>
+        <div class="stat-row">
+            <span class="stat-label">Volume Alerts:</span>
+            <span class="stat-value" id="volumeValue">0</span>
+        </div>
+        <div class="stat-row">
+            <span class="stat-label">Processes:</span>
+            <span class="stat-value" id="processValue">760</span>
+        </div>
+        <div class="stat-row">
+            <span class="stat-label">Quantum Qubits:</span>
+            <span class="stat-value" id="qubitValue">50</span>
+        </div>
+        <div class="stat-row">
+            <span class="stat-label">Forecast:</span>
+            <span class="stat-value" id="forecastValue">66.45%</span>
+        </div>
+        <div class="stat-row">
+            <span class="stat-label">Uptime:</span>
+            <span class="stat-value" id="uptimeValue">0s</span>
+        </div>
+    </div>
+
+    <!-- Start Menu -->
+    <div class="start-menu" id="startMenu">
+        <div class="menu-header">Ai|oS APPS</div>
+
+        <!-- Network Security -->
+        <div class="menu-category">
+            <div class="category-title" onclick="toggleCategory(this)">
+                🌐 Network Security
+            </div>
+            <div class="category-apps">
+                <div class="app-item" onclick="launchApp('AuroraScan')">
+                    <div class="app-icon">🔍</div>
+                    <div>
+                        <div class="app-name">AuroraScan</div>
+                        <div class="app-description">Network reconnaissance & mapping</div>
+                    </div>
+                </div>
+                <div class="app-item" onclick="launchApp('SkyBreaker')">
+                    <div class="app-icon">📡</div>
+                    <div>
+                        <div class="app-name">SkyBreaker</div>
+                        <div class="app-description">Wireless security auditing</div>
+                    </div>
+                </div>
+                <div class="app-item" onclick="launchApp('SpectraTrace')">
+                    <div class="app-icon">📊</div>
+                    <div>
+                        <div class="app-name">SpectraTrace</div>
+                        <div class="app-description">Packet inspection & analysis</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Application Security -->
+        <div class="menu-category">
+            <div class="category-title" onclick="toggleCategory(this)">
+                🛡️ Application Security
+            </div>
+            <div class="category-apps">
+                <div class="app-item" onclick="launchApp('CipherSpear')">
+                    <div class="app-icon">💉</div>
+                    <div>
+                        <div class="app-name">CipherSpear</div>
+                        <div class="app-description">Database injection analysis</div>
+                    </div>
+                </div>
+                <div class="app-item" onclick="launchApp('NemesisHydra')">
+                    <div class="app-icon">🔐</div>
+                    <div>
+                        <div class="app-name">NemesisHydra</div>
+                        <div class="app-description">Authentication testing</div>
+                    </div>
+                </div>
+                <div class="app-item" onclick="launchApp('MythicKey')">
+                    <div class="app-icon">🔑</div>
+                    <div>
+                        <div class="app-name">MythicKey</div>
+                        <div class="app-description">Credential analysis</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- System Security -->
+        <div class="menu-category">
+            <div class="category-title" onclick="toggleCategory(this)">
+                🔒 System Security
+            </div>
+            <div class="category-apps">
+                <div class="app-item" onclick="launchApp('ObsidianHunt')">
+                    <div class="app-icon">🏰</div>
+                    <div>
+                        <div class="app-name">ObsidianHunt</div>
+                        <div class="app-description">Host hardening audit</div>
+                    </div>
+                </div>
+                <div class="app-item" onclick="launchApp('VectorFlux')">
+                    <div class="app-icon">⚔️</div>
+                    <div>
+                        <div class="app-name">VectorFlux</div>
+                        <div class="app-description">Payload staging & delivery</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Intelligence -->
+        <div class="menu-category">
+            <div class="category-title" onclick="toggleCategory(this)">
+                🧠 Intelligence & OSINT
+            </div>
+            <div class="category-apps">
+                <div class="app-item" onclick="launchApp('OSINTWorkflows')">
+                    <div class="app-icon">🕵️</div>
+                    <div>
+                        <div class="app-name">OSINT Workflows</div>
+                        <div class="app-description">Open-source intelligence gathering</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quantum Tools -->
+        <div class="menu-category">
+            <div class="category-title" onclick="toggleCategory(this)">
+                ⚛️ Quantum Computing
+            </div>
+            <div class="category-apps">
+                <div class="app-item" onclick="launchApp('QuantumLab')">
+                    <div class="app-icon">🔮</div>
+                    <div>
+                        <div class="app-name">Quantum Lab</div>
+                        <div class="app-description">50-qubit simulation & VQE</div>
+                    </div>
+                </div>
+                <div class="app-item" onclick="launchApp('Oracle')">
+                    <div class="app-icon">🌟</div>
+                    <div>
+                        <div class="app-name">Probabilistic Oracle</div>
+                        <div class="app-description">Quantum forecasting & risk analysis</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- System Tools -->
+        <div class="menu-category">
+            <div class="category-title" onclick="toggleCategory(this)">
+                ⚙️ System Management
+            </div>
+            <div class="category-apps">
+                <div class="app-item" onclick="launchApp('Terminal')">
+                    <div class="app-icon">💻</div>
+                    <div>
+                        <div class="app-name">Terminal</div>
+                        <div class="app-description">Command line interface</div>
+                    </div>
+                </div>
+                <div class="app-item" onclick="launchApp('Dashboard')">
+                    <div class="app-icon">📈</div>
+                    <div>
+                        <div class="app-name">System Dashboard</div>
+                        <div class="app-description">Real-time telemetry & monitoring</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Taskbar -->
+    <div class="taskbar">
+        <!-- Start Button -->
+        <div class="start-button" id="startButton" onclick="toggleStartMenu()">
+            <svg viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="45" fill="none" stroke="#fff" stroke-width="2" opacity="0.8"/>
+                <circle cx="50" cy="50" r="30" fill="none" stroke="#fff" stroke-width="1.5" opacity="0.6"/>
+                <circle cx="50" cy="50" r="15" fill="#fff" opacity="0.8"/>
+                <text x="50" y="58" text-anchor="middle" font-size="18" font-weight="bold" fill="#000">Ai</text>
+            </svg>
+        </div>
+
+        <!-- Taskbar Apps -->
+        <div class="taskbar-apps">
+            <div class="taskbar-app" title="Terminal">💻</div>
+            <div class="taskbar-app" title="Quantum Lab">🔮</div>
+            <div class="taskbar-app" title="Security Suite">🛡️</div>
+        </div>
+
+        <!-- System Tray -->
+        <div class="system-tray">
+            <div class="tray-item">📶 CONNECTED</div>
+            <div class="tray-item">🔋 100%</div>
+            <div class="clock" id="clock">00:00:00</div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================================
+        // BACKGROUND ANIMATION
+        // ============================================================
+        const canvas = document.getElementById('macroCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const particles = [];
+        for (let i = 0; i < 80; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                vx: (Math.random() - 0.5) * 2,
+                vy: (Math.random() - 0.5) * 2,
+                size: Math.random() * 2 + 1
+            });
+        }
+
+        function animate() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            particles.forEach(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+                if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fillStyle = '#00ff88';
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = '#00ff88';
+                ctx.fill();
+                ctx.shadowBlur = 0;
+            });
+
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // ============================================================
+        // START MENU
+        // ============================================================
+        function toggleStartMenu() {
+            const menu = document.getElementById('startMenu');
+            menu.classList.toggle('show');
+        }
+
+        function toggleCategory(element) {
+            const apps = element.nextElementSibling;
+            apps.classList.toggle('expanded');
+        }
+
+        function launchApp(appName) {
+            alert(`Launching ${appName}...\n\nIn production, this would execute:\npython -m tools.${appName.toLowerCase()} --gui`);
+            // In production: window.open(`/launch/${appName}`, '_blank');
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            const menu = document.getElementById('startMenu');
+            const startBtn = document.getElementById('startButton');
+            if (!menu.contains(e.target) && !startBtn.contains(e.target)) {
+                menu.classList.remove('show');
+            }
+        });
+
+        // ============================================================
+        // CLOCK
+        // ============================================================
+        function updateClock() {
+            const now = new Date();
+            const time = now.toTimeString().slice(0, 8);
+            document.getElementById('clock').textContent = time;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // ============================================================
+        // STATS
+        // ============================================================
+        let startTime = Date.now();
+        function updateStats() {
+            const uptime = Math.floor((Date.now() - startTime) / 1000);
+            document.getElementById('uptimeValue').textContent = `${uptime}s`;
+        }
+        setInterval(updateStats, 1000);
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>

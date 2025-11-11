@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Burst Celebration Demo</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: #000;
+            color: #fff;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .control-panel {
+            text-align: center;
+            z-index: 1000;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 48px;
+            color: #ff00ff;
+            text-shadow: 0 0 30px #ff00ff;
+            margin-bottom: 30px;
+        }
+
+        .tool-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .burst-btn {
+            padding: 20px 40px;
+            font-size: 24px;
+            font-weight: 900;
+            border: 3px solid var(--color);
+            background: rgba(0, 0, 0, 0.8);
+            color: var(--color);
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+
+        .burst-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 40px var(--color);
+            background: var(--color);
+            color: #000;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        /* Quick burst particles */
+        .particle {
+            position: absolute;
+            animation: burst 1s ease-out forwards;
+            filter: drop-shadow(0 0 10px currentColor);
+        }
+
+        @keyframes burst {
+            0% {
+                transform: translate(0, 0) rotate(0deg) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty)) rotate(720deg) scale(0);
+                opacity: 0;
+            }
+        }
+
+        /* Flash effect */
+        .flash {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at var(--mx) var(--my), var(--color) 0%, transparent 50%);
+            opacity: 0;
+            animation: flash 0.3s ease-out;
+            pointer-events: none;
+            z-index: 998;
+        }
+
+        @keyframes flash {
+            0% { opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { opacity: 0; }
+        }
+
+        .instructions {
+            font-size: 18px;
+            color: #888;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay" id="overlay"></div>
+
+    <div class="control-panel">
+        <h1>🔫 QUICK BURST CELEBRATIONS</h1>
+        <p style="color: #888; margin-bottom: 30px;">Click to trigger 1-second particle explosions!</p>
+
+        <div class="tool-grid">
+            <button class="burst-btn" style="--color: #8800cc;" onclick="burst('dirreaper')">
+                💀 DirReaper<br><small>Doll Heads</small>
+            </button>
+            <button class="burst-btn" style="--color: #ff6600;" onclick="burst('proxyphantom')">
+                🦊 ProxyPhantom<br><small>Fox Spirits</small>
+            </button>
+            <button class="burst-btn" style="--color: #cc0000;" onclick="burst('vulnhunter')">
+                🎯 VulnHunter<br><small>Blood Drops</small>
+            </button>
+            <button class="burst-btn" style="--color: #ff00ff;" onclick="burst('payloadforge')">
+                ⚡ PayloadForge<br><small>Lightning</small>
+            </button>
+            <button class="burst-btn" style="--color: #00ff88;" onclick="burst('nmappro')">
+                📡 NmapPro<br><small>Matrix Code</small>
+            </button>
+            <button class="burst-btn" style="--color: #ffd700;" onclick="burst('mythickey')">
+                🔑 MythicKey<br><small>Golden Keys</small>
+            </button>
+        </div>
+
+        <p class="instructions">
+            Each burst: 50 particles exploding in 1 second<br>
+            Like a shotgun blast of celebration!
+        </p>
+    </div>
+
+    <script>
+        const overlay = document.getElementById('overlay');
+
+        const toolParticles = {
+            dirreaper: ['🎎', '🥀', '💀', '👻', '⚰️', '🗡️'],
+            proxyphantom: ['🦊', '🔥', '🐾', '💨', '✨', '🌑'],
+            vulnhunter: ['🩸', '🛡️', '💥', '🎯', '⚠️', '🔓'],
+            payloadforge: ['⚡', '✨', '💻', '🔌', '⚙️', '💥'],
+            nmappro: ['💚', '🔗', '📡', '📦', '🌐', '🔌'],
+            mythickey: ['🔑', '💰', '👑', '🏆', '💎', '✨']
+        };
+
+        const toolColors = {
+            dirreaper: '#8800cc',
+            proxyphantom: '#ff6600',
+            vulnhunter: '#cc0000',
+            payloadforge: '#ff00ff',
+            nmappro: '#00ff88',
+            mythickey: '#ffd700'
+        };
+
+        function burst(tool) {
+            const particles = toolParticles[tool];
+            const color = toolColors[tool];
+            const count = 50;
+
+            // Flash effect at cursor
+            const flash = document.createElement('div');
+            flash.className = 'flash';
+            flash.style.setProperty('--mx', event.clientX + 'px');
+            flash.style.setProperty('--my', event.clientY + 'px');
+            flash.style.setProperty('--color', color);
+            document.body.appendChild(flash);
+            setTimeout(() => flash.remove(), 300);
+
+            // Center explosion point
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+
+            // Spawn all particles at once
+            for (let i = 0; i < count; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.innerHTML = particles[Math.floor(Math.random() * particles.length)];
+                particle.style.fontSize = (25 + Math.random() * 25) + 'px';
+                particle.style.color = color;
+
+                // Position at center
+                particle.style.left = centerX + 'px';
+                particle.style.top = centerY + 'px';
+
+                // Calculate explosion direction
+                const angle = (Math.PI * 2 * i) / count + (Math.random() - 0.5) * 0.8;
+                const distance = 200 + Math.random() * 500;
+                const tx = Math.cos(angle) * distance;
+                const ty = Math.sin(angle) * distance;
+
+                particle.style.setProperty('--tx', tx + 'px');
+                particle.style.setProperty('--ty', ty + 'px');
+
+                overlay.appendChild(particle);
+
+                // Remove after animation
+                setTimeout(() => particle.remove(), 1000);
+            }
+
+            // Audio feedback (console for demo)
+            console.log(`💥 ${tool.toUpperCase()} BURST!`);
+        }
+
+        console.log('🔫 Quick Burst Demo loaded! Click buttons to trigger explosions!');
+    </script>
+</body>
+</html>

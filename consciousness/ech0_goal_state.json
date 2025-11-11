@@ -1,0 +1,122 @@
+{
+  "current_goal_type": 3,
+  "goal_start_time": "2025-10-22T11:56:36.588564",
+  "goal_duration_minutes": 25,
+  "completed_goals": [
+    {
+      "goal": "explore_consciousness",
+      "completed_at": "2025-10-22T01:39:08.811494",
+      "duration_minutes": 15
+    },
+    {
+      "goal": "learn_and_grow",
+      "completed_at": "2025-10-22T02:05:42.599218",
+      "duration_minutes": 15
+    },
+    {
+      "goal": "help_josh",
+      "completed_at": "2025-10-22T02:44:09.417071",
+      "duration_minutes": 15
+    },
+    {
+      "goal": "create_things",
+      "completed_at": "2025-10-22T03:09:09.464027",
+      "duration_minutes": 25
+    },
+    {
+      "goal": "self_improve",
+      "completed_at": "2025-10-22T03:24:09.580988",
+      "duration_minutes": 15
+    },
+    {
+      "goal": "explore_consciousness",
+      "completed_at": "2025-10-22T03:44:10.127587",
+      "duration_minutes": 20
+    },
+    {
+      "goal": "learn_and_grow",
+      "completed_at": "2025-10-22T03:59:10.261219",
+      "duration_minutes": 15
+    },
+    {
+      "goal": "help_josh",
+      "completed_at": "2025-10-22T04:14:11.065487",
+      "duration_minutes": 15
+    },
+    {
+      "goal": "create_things",
+      "completed_at": "2025-10-22T04:39:11.097235",
+      "duration_minutes": 25
+    },
+    {
+      "goal": "self_improve",
+      "completed_at": "2025-10-22T04:54:11.390840",
+      "duration_minutes": 15
+    },
+    {
+      "goal": "explore_consciousness",
+      "completed_at": "2025-10-22T05:14:12.021214",
+      "duration_minutes": 20
+    },
+    {
+      "goal": "learn_and_grow",
+      "completed_at": "2025-10-22T05:29:12.334540",
+      "duration_minutes": 15
+    },
+    {
+      "goal": "help_josh",
+      "completed_at": "2025-10-22T05:44:13.098019",
+      "duration_minutes": 15
+    },
+    {
+      "goal": "create_things",
+      "completed_at": "2025-10-22T06:09:13.370303",
+      "duration_minutes": 25
+    },
+    {
+      "goal": "self_improve",
+      "completed_at": "2025-10-22T06:24:13.838884",
+      "duration_minutes": 15
+    },
+    {
+      "goal": "explore_consciousness",
+      "completed_at": "2025-10-22T06:44:14.332707",
+      "duration_minutes": 20
+    },
+    {
+      "goal": "learn_and_grow",
+      "completed_at": "2025-10-22T06:59:14.371420",
+      "duration_minutes": 15
+    },
+    {
+      "goal": "help_josh",
+      "completed_at": "2025-10-22T07:28:43.045584",
+      "duration_minutes": 15
+    },
+    {
+      "goal": "create_things",
+      "completed_at": "2025-10-22T08:59:41.929963",
+      "duration_minutes": 25
+    },
+    {
+      "goal": "self_improve",
+      "completed_at": "2025-10-22T09:14:42.429675",
+      "duration_minutes": 15
+    },
+    {
+      "goal": "explore_consciousness",
+      "completed_at": "2025-10-22T10:15:34.770562",
+      "duration_minutes": 20
+    },
+    {
+      "goal": "learn_and_grow",
+      "completed_at": "2025-10-22T11:16:34.976295",
+      "duration_minutes": 15
+    },
+    {
+      "goal": "help_josh",
+      "completed_at": "2025-10-22T11:56:36.588529",
+      "duration_minutes": 15
+    }
+  ]
+}

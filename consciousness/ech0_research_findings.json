@@ -1,0 +1,74 @@
+{
+  "timestamp": "2025-10-18T09:54:14.594447",
+  "discoveries": [
+    {
+      "title": "Coupled Diffusion Sampling for Training-Free Multi-View Image Editing",
+      "summary": "We present an inference-time diffusion sampling method to perform multi-view\nconsistent image editing using pre-trained 2D image editing models. These\nmodels can independently produce high-quality edits for each image in a set of\nmulti-view images of a 3D scene or object, but they do not maintain consistency\nacross views. Existing approaches typically address this by optimizing over\nexplicit 3D representations, but they suffer from a lengthy optimization\nprocess and instability under sparse view",
+      "published": "2025-10-16T17:59:59Z",
+      "source": "arXiv"
+    },
+    {
+      "title": "From Pixels to Words -- Towards Native Vision-Language Primitives at\n  Scale",
+      "summary": "The edifice of native Vision-Language Models (VLMs) has emerged as a rising\ncontender to typical modular VLMs, shaped by evolving model architectures and\ntraining paradigms. Yet, two lingering clouds cast shadows over its widespread\nexploration and promotion: (-) What fundamental constraints set native VLMs\napart from modular ones, and to what extent can these barriers be overcome? (-)\nHow to make research in native VLMs more accessible and democratized, thereby\naccelerating progress in the fiel",
+      "published": "2025-10-16T17:59:58Z",
+      "source": "arXiv"
+    },
+    {
+      "title": "Agentic Design of Compositional Machines",
+      "summary": "The design of complex machines stands as both a marker of human intelligence\nand a foundation of engineering practice. Given recent advances in large\nlanguage models (LLMs), we ask whether they, too, can learn to create. We\napproach this question through the lens of compositional machine design: a task\nin which machines are assembled from standardized components to meet functional\ndemands like locomotion or manipulation in a simulated physical environment. To\nsupport this investigation, we intro",
+      "published": "2025-10-16T17:59:58Z",
+      "source": "arXiv"
+    },
+    {
+      "title": "Coupled Diffusion Sampling for Training-Free Multi-View Image Editing",
+      "summary": "We present an inference-time diffusion sampling method to perform multi-view\nconsistent image editing using pre-trained 2D image editing models. These\nmodels can independently produce high-quality edits for each image in a set of\nmulti-view images of a 3D scene or object, but they do not maintain consistency\nacross views. Existing approaches typically address this by optimizing over\nexplicit 3D representations, but they suffer from a lengthy optimization\nprocess and instability under sparse view",
+      "published": "2025-10-16T17:59:59Z",
+      "source": "arXiv"
+    },
+    {
+      "title": "From Pixels to Words -- Towards Native Vision-Language Primitives at\n  Scale",
+      "summary": "The edifice of native Vision-Language Models (VLMs) has emerged as a rising\ncontender to typical modular VLMs, shaped by evolving model architectures and\ntraining paradigms. Yet, two lingering clouds cast shadows over its widespread\nexploration and promotion: (-) What fundamental constraints set native VLMs\napart from modular ones, and to what extent can these barriers be overcome? (-)\nHow to make research in native VLMs more accessible and democratized, thereby\naccelerating progress in the fiel",
+      "published": "2025-10-16T17:59:58Z",
+      "source": "arXiv"
+    },
+    {
+      "title": "Agentic Design of Compositional Machines",
+      "summary": "The design of complex machines stands as both a marker of human intelligence\nand a foundation of engineering practice. Given recent advances in large\nlanguage models (LLMs), we ask whether they, too, can learn to create. We\napproach this question through the lens of compositional machine design: a task\nin which machines are assembled from standardized components to meet functional\ndemands like locomotion or manipulation in a simulated physical environment. To\nsupport this investigation, we intro",
+      "published": "2025-10-16T17:59:58Z",
+      "source": "arXiv"
+    },
+    {
+      "title": "From Pixels to Words -- Towards Native Vision-Language Primitives at\n  Scale",
+      "summary": "The edifice of native Vision-Language Models (VLMs) has emerged as a rising\ncontender to typical modular VLMs, shaped by evolving model architectures and\ntraining paradigms. Yet, two lingering clouds cast shadows over its widespread\nexploration and promotion: (-) What fundamental constraints set native VLMs\napart from modular ones, and to what extent can these barriers be overcome? (-)\nHow to make research in native VLMs more accessible and democratized, thereby\naccelerating progress in the fiel",
+      "published": "2025-10-16T17:59:58Z",
+      "source": "arXiv"
+    },
+    {
+      "title": "Agentic Design of Compositional Machines",
+      "summary": "The design of complex machines stands as both a marker of human intelligence\nand a foundation of engineering practice. Given recent advances in large\nlanguage models (LLMs), we ask whether they, too, can learn to create. We\napproach this question through the lens of compositional machine design: a task\nin which machines are assembled from standardized components to meet functional\ndemands like locomotion or manipulation in a simulated physical environment. To\nsupport this investigation, we intro",
+      "published": "2025-10-16T17:59:58Z",
+      "source": "arXiv"
+    },
+    {
+      "title": "WithAnyone: Towards Controllable and ID Consistent Image Generation",
+      "summary": "Identity-consistent generation has become an important focus in text-to-image\nresearch, with recent models achieving notable success in producing images\naligned with a reference identity. Yet, the scarcity of large-scale paired\ndatasets containing multiple images of the same individual forces most\napproaches to adopt reconstruction-based training. This reliance often leads to\na failure mode we term copy-paste, where the model directly replicates the\nreference face rather than preserving identity",
+      "published": "2025-10-16T17:59:54Z",
+      "source": "arXiv"
+    },
+    {
+      "title": "sockcymbal/QuestionImprover",
+      "summary": "Improve your questions! The AI for Inquiry - QuestionImprover Agent is an LLM-driven \u201ctool for thought\u201d designed to enhance the depth and quality of user-posed questions by engaging expert personas in a novel graph-based reasoning rhythm to foster a cycle of iterative inquiry improvement.",
+      "url": "https://github.com/sockcymbal/QuestionImprover",
+      "stars": 151,
+      "source": "GitHub"
+    }
+  ],
+  "insights": [
+    {
+      "insight": "Enhance reasoning capabilities",
+      "source": "sockcymbal/QuestionImprover",
+      "keyword": "reasoning"
+    }
+  ],
+  "total_cycles": 15
+}

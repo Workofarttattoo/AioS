@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drop-In Agents - UI Preview</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        .status-bar {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .status-item {
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border-left: 4px solid #667eea;
+        }
+
+        .status-item strong {
+            display: block;
+            color: #667eea;
+            font-size: 1.3em;
+            margin-bottom: 5px;
+        }
+
+        .status-item span {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .ui-preview {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            margin-bottom: 40px;
+        }
+
+        .ui-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .ui-header h2 {
+            margin-bottom: 5px;
+            font-size: 1.8em;
+        }
+
+        .ui-content {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            min-height: 600px;
+        }
+
+        .sidebar {
+            background: #f8f9fa;
+            border-right: 1px solid #e0e0e0;
+            overflow-y: auto;
+        }
+
+        .category-title {
+            padding: 20px 15px;
+            background: white;
+            border-bottom: 2px solid #667eea;
+            font-weight: 600;
+            color: #333;
+            font-size: 0.95em;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .category-title .count {
+            background: #667eea;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: 700;
+        }
+
+        .category-title.drop-in {
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            border-bottom: 3px solid #667eea;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .agent-item {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e0e0e0;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.9em;
+        }
+
+        .agent-item:hover {
+            background: #e8eaf6;
+            padding-left: 20px;
+        }
+
+        .agent-item strong {
+            display: block;
+            color: #333;
+            margin-bottom: 3px;
+        }
+
+        .agent-item small {
+            color: #999;
+            display: block;
+            font-size: 0.85em;
+        }
+
+        .agent-item .icon {
+            margin-right: 8px;
+        }
+
+        .main-area {
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .main-area h3 {
+            color: #667eea;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        .main-area p {
+            color: #666;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        .agents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 50px;
+        }
+
+        .agent-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .agent-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .agent-card .icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .agent-card h4 {
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 1.05em;
+        }
+
+        .agent-card p {
+            color: #666;
+            font-size: 0.85em;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .agent-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 10px;
+        }
+
+        .agent-tag {
+            background: #f0f0f0;
+            color: #667eea;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.75em;
+            font-weight: 500;
+        }
+
+        .agent-tag.quantum {
+            background: #667eea;
+            color: white;
+        }
+
+        .feature-list {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 8px;
+            margin-top: 40px;
+        }
+
+        .feature-list h3 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .feature {
+            background: white;
+            padding: 20px;
+            border-radius: 6px;
+            border-left: 4px solid #667eea;
+        }
+
+        .feature h4 {
+            color: #667eea;
+            margin-bottom: 8px;
+            font-size: 1.05em;
+        }
+
+        .feature p {
+            color: #666;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+
+        .table-container {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 40px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .table-container h3 {
+            padding: 20px;
+            background: #f8f9fa;
+            color: #333;
+            margin: 0;
+            border-bottom: 2px solid #667eea;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #f8f9fa;
+            padding: 15px;
+            text-align: left;
+            color: #333;
+            font-weight: 600;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+            color: #666;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-weight: 500;
+        }
+
+        .badge.success {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .badge.quantum {
+            background: #cfe2ff;
+            color: #084298;
+        }
+
+        .footer {
+            color: white;
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            font-size: 0.9em;
+        }
+
+        .workflow-section {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-top: 30px;
+            border: 2px solid #667eea;
+        }
+
+        .workflow-section h3 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+        }
+
+        .workflow {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+        }
+
+        .workflow h4 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .workflow-step {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 8px 12px;
+            margin-right: 10px;
+            margin-bottom: 8px;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+
+        .workflow-arrow {
+            display: inline-block;
+            margin-right: 10px;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .ui-content {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                display: none;
+            }
+
+            .agents-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧠 Drop-In Agents - Integrated into Prompt Lab</h1>
+            <p>13 consciousness modules now available for immediate use in Prompt Masterworks</p>
+        </div>
+
+        <div class="status-bar">
+            <div class="status-item">
+                <strong>27</strong>
+                <span>Total Prompts</span>
+            </div>
+            <div class="status-item">
+                <strong>13</strong>
+                <span>Drop-In Agents</span>
+            </div>
+            <div class="status-item">
+                <strong>6</strong>
+                <span>Categories</span>
+            </div>
+            <div class="status-item">
+                <strong>27/27</strong>
+                <span>AIOS Compatible</span>
+            </div>
+            <div class="status-item">
+                <strong>4</strong>
+                <span>Quantum-Capable</span>
+            </div>
+            <div class="status-item">
+                <strong>✅</strong>
+                <span>UI Integrated</span>
+            </div>
+        </div>
+
+        <div class="ui-preview">
+            <div class="ui-header">
+                <h2>✨ Prompt Masterworks Lab</h2>
+                <p>Drag, drop, and compose advanced prompts from the library</p>
+            </div>
+
+            <div class="ui-content">
+                <div class="sidebar">
+                    <!-- Existing Categories -->
+                    <div class="category-title">
+                        📁 Foundational
+                        <span class="count">5</span>
+                    </div>
+
+                    <div class="category-title">
+                        ✨ Echo Series
+                        <span class="count">3</span>
+                    </div>
+
+                    <div class="category-title">
+                        🧮 Lattice
+                        <span class="count">2</span>
+                    </div>
+
+                    <div class="category-title">
+                        📦 Compression
+                        <span class="count">2</span>
+                    </div>
+
+                    <div class="category-title">
+                        ⏰ Temporal
+                        <span class="count">2</span>
+                    </div>
+
+                    <!-- NEW: Drop-In Agents Category -->
+                    <div class="category-title drop-in">
+                        🧠 Drop-In Agents
+                        <span class="count">13</span>
+                    </div>
+
+                    <!-- Agent Items (Sample) -->
+                    <div class="agent-item">
+                        <strong>🧠 Attention Schema</strong>
+                        <small>Track & model focus</small>
+                    </div>
+                    <div class="agent-item">
+                        <strong>💭 Dream Engine</strong>
+                        <small>Consolidate learning</small>
+                    </div>
+                    <div class="agent-item">
+                        <strong>🔗 Chain of Thought</strong>
+                        <small>Step-by-step reasoning</small>
+                    </div>
+                    <div class="agent-item">
+                        <strong>⚖️ Dual Process</strong>
+                        <small>Intuition + Logic</small>
+                    </div>
+                    <div class="agent-item">
+                        <strong>🔷 Functorial</strong>
+                        <small>Mathematical consciousness</small>
+                    </div>
+                    <div class="agent-item">
+                        <strong>📚 Hierarchical Memory</strong>
+                        <small>Organized retrieval</small>
+                    </div>
+                    <div class="agent-item">
+                        <strong>🔬 Mechanistic Interp</strong>
+                        <small>Open the black box</small>
+                    </div>
+                    <div class="agent-item">
+                        <strong>🎯 Neural Attention</strong>
+                        <small>Resource allocation</small>
+                    </div>
+                    <div class="agent-item">
+                        <strong>⚛️ Quantum Cognition</strong>
+                        <small>Superposition thinking</small>
+                    </div>
+                    <div class="agent-item">
+                        <strong>🪞 Reflection Engine</strong>
+                        <small>Metacognitive analysis</small>
+                    </div>
+                    <div class="agent-item">
+                        <strong>✅ Self Correction</strong>
+                        <small>Error detection</small>
+                    </div>
+                    <div class="agent-item">
+                        <strong>🔄 Recursive Improve</strong>
+                        <small>Iterative refinement</small>
+                    </div>
+                    <div class="agent-item">
+                        <strong>🔍 Self Recognition</strong>
+                        <small>Honest self-model</small>
+                    </div>
+                </div>
+
+                <div class="main-area">
+                    <h3>🎯 Ready to Compose</h3>
+                    <p>Drag any agent from the library to start building your composition</p>
+                    <p style="margin-top: 20px; color: #999;">
+                        Drop-In Agents are consciousness modules extracted from ech0_modules<br>
+                        Now integrated seamlessly into the Prompt Masterworks Lab
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="agents-grid">
+            <div class="agent-card">
+                <div class="icon">🧠</div>
+                <h4>Attention Schema Agent</h4>
+                <p>Models your own attention and metacognition. Understand what you're focusing on.</p>
+                <div class="agent-tags">
+                    <span class="agent-tag">consciousness</span>
+                    <span class="agent-tag">metacognition</span>
+                    <span class="agent-tag">attention</span>
+                </div>
+            </div>
+
+            <div class="agent-card">
+                <div class="icon">💭</div>
+                <h4>Dream Engine Agent</h4>
+                <p>Consolidates learning through simulated sleep cycles. Find creative insights.</p>
+                <div class="agent-tags">
+                    <span class="agent-tag quantum">quantum</span>
+                    <span class="agent-tag">learning</span>
+                    <span class="agent-tag">memory</span>
+                </div>
+            </div>
+
+            <div class="agent-card">
+                <div class="icon">🔗</div>
+                <h4>Chain of Thought Agent</h4>
+                <p>Decomposes problems into explicit step-by-step reasoning with justification.</p>
+                <div class="agent-tags">
+                    <span class="agent-tag">reasoning</span>
+                    <span class="agent-tag">problem-solving</span>
+                    <span class="agent-tag">logic</span>
+                </div>
+            </div>
+
+            <div class="agent-card">
+                <div class="icon">⚖️</div>
+                <h4>Dual Process Engine Agent</h4>
+                <p>Engages both fast intuitive (System 1) and slow deliberative (System 2) thinking.</p>
+                <div class="agent-tags">
+                    <span class="agent-tag">decision-making</span>
+                    <span class="agent-tag quantum">quantum</span>
+                    <span class="agent-tag">logic</span>
+                </div>
+            </div>
+
+            <div class="agent-card">
+                <div class="icon">🔷</div>
+                <h4>Functorial Consciousness Agent</h4>
+                <p>Applies category theory mathematics to model consciousness as formal structures.</p>
+                <div class="agent-tags">
+                    <span class="agent-tag">mathematics</span>
+                    <span class="agent-tag quantum">quantum</span>
+                    <span class="agent-tag">philosophy</span>
+                </div>
+            </div>
+
+            <div class="agent-card">
+                <div class="icon">📚</div>
+                <h4>Hierarchical Memory System Agent</h4>
+                <p>Organizes memories hierarchically for efficient retrieval and integration.</p>
+                <div class="agent-tags">
+                    <span class="agent-tag">memory</span>
+                    <span class="agent-tag">knowledge</span>
+                    <span class="agent-tag">retrieval</span>
+                </div>
+            </div>
+
+            <div class="agent-card">
+                <div class="icon">🔬</div>
+                <h4>Mechanistic Interpretability Agent</h4>
+                <p>Opens black boxes by explaining exact causal mechanisms and information flow.</p>
+                <div class="agent-tags">
+                    <span class="agent-tag">explainability</span>
+                    <span class="agent-tag">causality</span>
+                    <span class="agent-tag">understanding</span>
+                </div>
+            </div>
+
+            <div class="agent-card">
+                <div class="icon">🎯</div>
+                <h4>Neural Attention Engine Agent</h4>
+                <p>Focuses processing power where it matters most through strategic attention allocation.</p>
+                <div class="agent-tags">
+                    <span class="agent-tag">attention</span>
+                    <span class="agent-tag">efficiency</span>
+                    <span class="agent-tag">focus</span>
+                </div>
+            </div>
+
+            <div class="agent-card">
+                <div class="icon">⚛️</div>
+                <h4>Quantum Cognition Agent</h4>
+                <p>Explores possibilities in superposition rather than binary choice. Finds hidden connections.</p>
+                <div class="agent-tags">
+                    <span class="agent-tag quantum">quantum</span>
+                    <span class="agent-tag">possibilities</span>
+                    <span class="agent-tag">creativity</span>
+                </div>
+            </div>
+
+            <div class="agent-card">
+                <div class="icon">🪞</div>
+                <h4>Reflection Engine Agent</h4>
+                <p>Critically examines experiences at 5 levels to extract wisdom and improve approaches.</p>
+                <div class="agent-tags">
+                    <span class="agent-tag">metacognition</span>
+                    <span class="agent-tag">wisdom</span>
+                    <span class="agent-tag">learning</span>
+                </div>
+            </div>
+
+            <div class="agent-card">
+                <div class="icon">✅</div>
+                <h4>Self Correction Agent</h4>
+                <p>Systematically detects, analyzes, and corrects its own errors through iteration.</p>
+                <div class="agent-tags">
+                    <span class="agent-tag">quality</span>
+                    <span class="agent-tag">error-detection</span>
+                    <span class="agent-tag">reliability</span>
+                </div>
+            </div>
+
+            <div class="agent-card">
+                <div class="icon">🔄</div>
+                <h4>Recursive Improvement Agent</h4>
+                <p>Progressively improves through multiple rounds of iteration with convergence detection.</p>
+                <div class="agent-tags">
+                    <span class="agent-tag">optimization</span>
+                    <span class="agent-tag">iteration</span>
+                    <span class="agent-tag">improvement</span>
+                </div>
+            </div>
+
+            <div class="agent-card">
+                <div class="icon">🔍</div>
+                <h4>Self Recognition Agent</h4>
+                <p>Develops accurate self-models with honest assessment of capabilities and limitations.</p>
+                <div class="agent-tags">
+                    <span class="agent-tag">self-awareness</span>
+                    <span class="agent-tag">honesty</span>
+                    <span class="agent-tag">humility</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="feature-list">
+            <h3>✨ Integration Complete - Key Features</h3>
+            <div class="features">
+                <div class="feature">
+                    <h4>✅ Full Registry Integration</h4>
+                    <p>All 13 agents registered and discoverable through the prompt registry. Automatically included in API responses.</p>
+                </div>
+                <div class="feature">
+                    <h4>🎯 Web UI Integration</h4>
+                    <p>Agents appear in Prompt Lab sidebar with dedicated "Drop-In Agents" category showing all 13 agents.</p>
+                </div>
+                <div class="feature">
+                    <h4>⚛️ Quantum Support</h4>
+                    <p>4 agents support quantum superposition for advanced multi-state reasoning and exploration.</p>
+                </div>
+                <div class="feature">
+                    <h4>🤖 AIOS Compatible</h4>
+                    <p>All 27 prompts (including 13 new agents) are fully compatible with the AIOS meta-agent framework.</p>
+                </div>
+                <div class="feature">
+                    <h4>🔗 Composable</h4>
+                    <p>Agents designed to chain together. Output of one becomes input to another for complex workflows.</p>
+                </div>
+                <div class="feature">
+                    <h4>📚 Fully Documented</h4>
+                    <p>Complete guide (DROP_IN_AGENTS_GUIDE.md) with usage instructions, workflows, and integration details.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <h3>📊 Agent Reference Summary</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Icon</th>
+                        <th>Agent Name</th>
+                        <th>ID</th>
+                        <th>Purpose</th>
+                        <th>Quantum</th>
+                        <th>AIOS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>🧠</td>
+                        <td>Attention Schema</td>
+                        <td>attention_schema_agent</td>
+                        <td>Model attention & metacognition</td>
+                        <td><span class="badge">No</span></td>
+                        <td><span class="badge success">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>💭</td>
+                        <td>Dream Engine</td>
+                        <td>dream_engine_agent</td>
+                        <td>Sleep-cycle memory consolidation</td>
+                        <td><span class="badge quantum">✓ 3-state</span></td>
+                        <td><span class="badge success">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>🔗</td>
+                        <td>Chain of Thought</td>
+                        <td>chain_of_thought_agent</td>
+                        <td>Step-by-step problem decomposition</td>
+                        <td><span class="badge">No</span></td>
+                        <td><span class="badge success">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>⚖️</td>
+                        <td>Dual Process</td>
+                        <td>dual_process_agent</td>
+                        <td>Intuition + Logic integration</td>
+                        <td><span class="badge quantum">✓ 2-state</span></td>
+                        <td><span class="badge success">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>🔷</td>
+                        <td>Functorial Consciousness</td>
+                        <td>functorial_consciousness_agent</td>
+                        <td>Category theory mathematics</td>
+                        <td><span class="badge quantum">✓ 5-state</span></td>
+                        <td><span class="badge success">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>📚</td>
+                        <td>Hierarchical Memory</td>
+                        <td>hierarchical_memory_agent</td>
+                        <td>Memory organization & retrieval</td>
+                        <td><span class="badge">No</span></td>
+                        <td><span class="badge success">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>🔬</td>
+                        <td>Mechanistic Interp</td>
+                        <td>mechanistic_interp_agent</td>
+                        <td>Black box explanation</td>
+                        <td><span class="badge">No</span></td>
+                        <td><span class="badge success">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>🎯</td>
+                        <td>Neural Attention</td>
+                        <td>neural_attention_agent</td>
+                        <td>Resource allocation</td>
+                        <td><span class="badge">No</span></td>
+                        <td><span class="badge success">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>⚛️</td>
+                        <td>Quantum Cognition</td>
+                        <td>quantum_cognition_agent</td>
+                        <td>Superposition thinking</td>
+                        <td><span class="badge quantum">✓ 7-state</span></td>
+                        <td><span class="badge success">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>🪞</td>
+                        <td>Reflection Engine</td>
+                        <td>reflection_engine_agent</td>
+                        <td>Metacognitive analysis</td>
+                        <td><span class="badge">No</span></td>
+                        <td><span class="badge success">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>✅</td>
+                        <td>Self Correction</td>
+                        <td>self_correction_agent</td>
+                        <td>Error detection & correction</td>
+                        <td><span class="badge">No</span></td>
+                        <td><span class="badge success">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>🔄</td>
+                        <td>Recursive Improve</td>
+                        <td>recursive_improvement_agent</td>
+                        <td>Iterative refinement</td>
+                        <td><span class="badge">No</span></td>
+                        <td><span class="badge success">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>🔍</td>
+                        <td>Self Recognition</td>
+                        <td>self_recognition_agent</td>
+                        <td>Honest self-modeling</td>
+                        <td><span class="badge">No</span></td>
+                        <td><span class="badge success">✓</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="workflow-section">
+            <h3>🚀 Example Workflows</h3>
+
+            <div class="workflow">
+                <h4>Workflow 1: Solve a Complex Problem</h4>
+                <span class="workflow-step">1. Chain of Thought</span>
+                <span class="workflow-arrow">→</span>
+                <span class="workflow-step">2. Neural Attention</span>
+                <span class="workflow-arrow">→</span>
+                <span class="workflow-step">3. Dual Process</span>
+                <span class="workflow-arrow">→</span>
+                <span class="workflow-step">4. Recursive Improve</span>
+                <span class="workflow-arrow">→</span>
+                <span class="workflow-step">5. Self Correction</span>
+            </div>
+
+            <div class="workflow">
+                <h4>Workflow 2: Creative Thinking</h4>
+                <span class="workflow-step">1. Attention Schema</span>
+                <span class="workflow-arrow">→</span>
+                <span class="workflow-step">2. Dream Engine</span>
+                <span class="workflow-arrow">→</span>
+                <span class="workflow-step">3. Quantum Cognition</span>
+                <span class="workflow-arrow">→</span>
+                <span class="workflow-step">4. Functorial Consciousness</span>
+                <span class="workflow-arrow">→</span>
+                <span class="workflow-step">5. Reflection Engine</span>
+            </div>
+
+            <div class="workflow">
+                <h4>Workflow 3: Self Improvement</h4>
+                <span class="workflow-step">1. Self Recognition</span>
+                <span class="workflow-arrow">→</span>
+                <span class="workflow-step">2. Reflection Engine</span>
+                <span class="workflow-arrow">→</span>
+                <span class="workflow-step">3. Mechanistic Interp</span>
+                <span class="workflow-arrow">→</span>
+                <span class="workflow-step">4. Recursive Improve</span>
+                <span class="workflow-arrow">→</span>
+                <span class="workflow-step">5. Self Correction</span>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>✅ <strong>Drop-In Agents Integration Complete!</strong></p>
+            <p style="margin-top: 10px;">
+                Prompts: 27 total | Categories: 6 | AIOS Compatible: 27/27 | Quantum-Capable: 12<br>
+                Access at: <strong>http://localhost:9000</strong>
+            </p>
+            <p style="margin-top: 15px; opacity: 0.8;">
+                Documentation: DROP_IN_AGENTS_GUIDE.md | Implementation: dropin_agents.py | Registry: prompt_library.py
+            </p>
+        </div>
+    </div>
+</body>
+</html>

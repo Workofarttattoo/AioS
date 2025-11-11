@@ -1,0 +1,902 @@
+2025-10-25 20:39:40,083 [ECH0-RESEARCH] ======================================================================
+2025-10-25 20:39:40,084 [ECH0-RESEARCH] ECH0 REAL-TIME RESEARCH MONITOR STARTING
+2025-10-25 20:39:40,084 [ECH0-RESEARCH] ======================================================================
+2025-10-25 20:39:40,084 [ECH0-RESEARCH] Papers already in database: 123
+2025-10-25 20:39:40,084 [ECH0-RESEARCH] Seen papers registry: 0 papers tracked
+2025-10-25 20:39:40,084 [ECH0-RESEARCH] 
+2025-10-25 20:39:40,084 [ECH0-RESEARCH] 🚀 STARTING REAL-TIME MONITORING
+2025-10-25 20:39:40,084 [ECH0-RESEARCH] All threads will run CONTINUOUSLY
+2025-10-25 20:39:40,084 [ECH0-RESEARCH] 
+2025-10-25 20:39:40,084 [ECH0-RESEARCH] 🔬 Starting arXiv real-time monitor (5-minute poll interval)
+2025-10-25 20:39:40,084 [ECH0-RESEARCH] ✓ Started arXiv-Monitor
+2025-10-25 20:39:40,084 [ECH0-RESEARCH] 🧬 Starting bioRxiv real-time monitor (10-minute poll interval)
+2025-10-25 20:39:40,084 [ECH0-RESEARCH] ✓ Started bioRxiv-Monitor
+2025-10-25 20:39:40,084 [ECH0-RESEARCH] 🏥 Starting medRxiv real-time monitor (10-minute poll interval)
+2025-10-25 20:39:40,085 [ECH0-RESEARCH] ✓ Started medRxiv-Monitor
+2025-10-25 20:39:40,085 [ECH0-RESEARCH] 
+2025-10-25 20:39:40,085 [ECH0-RESEARCH] ======================================================================
+2025-10-25 20:39:40,085 [ECH0-RESEARCH] REAL-TIME MONITORING ACTIVE
+2025-10-25 20:39:40,085 [ECH0-RESEARCH] ECH0 is now continuously learning from the latest research
+2025-10-25 20:39:40,085 [ECH0-RESEARCH] Press Ctrl+C to stop
+2025-10-25 20:39:40,085 [ECH0-RESEARCH] ======================================================================
+2025-10-25 20:39:40,085 [ECH0-RESEARCH] 
+2025-10-25 20:39:40,858 [ECH0-RESEARCH] ✅ INGESTED [124]: Towards General Modality Translation with Contrastive and Predictive
+  Latent Di...
+2025-10-25 20:39:40,858 [ECH0-RESEARCH]    Source: arXiv-cs.AI | Relevance: 0.60
+2025-10-25 20:39:40,858 [ECH0-RESEARCH] ✅ INGESTED [125]: VAMOS: A Hierarchical Vision-Language-Action Model for
+  Capability-Modulated an...
+2025-10-25 20:39:40,858 [ECH0-RESEARCH]    Source: arXiv-cs.AI | Relevance: 0.75
+2025-10-25 20:39:40,858 [ECH0-RESEARCH] ✅ INGESTED [126]: GSWorld: Closed-Loop Photo-Realistic Simulation Suite for Robotic
+  Manipulation...
+2025-10-25 20:39:40,858 [ECH0-RESEARCH]    Source: arXiv-cs.AI | Relevance: 0.65
+2025-10-25 20:39:40,858 [ECH0-RESEARCH] ✅ INGESTED [127]: Small Drafts, Big Verdict: Information-Intensive Visual Reasoning via
+  Speculat...
+2025-10-25 20:39:40,858 [ECH0-RESEARCH]    Source: arXiv-cs.AI | Relevance: 0.95
+2025-10-25 20:39:40,858 [ECH0-RESEARCH] ✅ INGESTED [128]: On the Detectability of LLM-Generated Text: What Exactly Is
+  LLM-Generated Text...
+2025-10-25 20:39:40,858 [ECH0-RESEARCH]    Source: arXiv-cs.AI | Relevance: 0.70
+2025-10-25 20:39:40,858 [ECH0-RESEARCH] ✅ INGESTED [129]: Real Deep Research for AI, Robotics and Beyond...
+2025-10-25 20:39:40,859 [ECH0-RESEARCH]    Source: arXiv-cs.AI | Relevance: 0.60
+2025-10-25 20:39:40,859 [ECH0-RESEARCH] ✅ INGESTED [130]: The Reality Gap in Robotics: Challenges, Solutions, and Best Practices...
+2025-10-25 20:39:40,859 [ECH0-RESEARCH]    Source: arXiv-cs.AI | Relevance: 0.60
+2025-10-25 20:39:40,860 [ECH0-RESEARCH] ✅ INGESTED [131]: Compress to Impress: Efficient LLM Adaptation Using a Single Gradient
+  Step on ...
+2025-10-25 20:39:40,860 [ECH0-RESEARCH]    Source: arXiv-cs.AI | Relevance: 0.60
+2025-10-25 20:39:40,860 [ECH0-RESEARCH] ✅ INGESTED [132]: Simple Context Compression: Mean-Pooling and Multi-Ratio Training...
+2025-10-25 20:39:40,860 [ECH0-RESEARCH]    Source: arXiv-cs.AI | Relevance: 0.65
+2025-10-25 20:39:40,860 [ECH0-RESEARCH] ✅ INGESTED [133]: Bayesian Inference of Primordial Magnetic Field Parameters from CMB with
+  Spher...
+2025-10-25 20:39:40,860 [ECH0-RESEARCH]    Source: arXiv-cs.AI | Relevance: 0.85
+2025-10-25 20:39:40,929 [ECH0-RESEARCH] ✅ INGESTED [134]: Generating clonal seeds using non-reduction in female4 (nrf4), a novel meiotic m...
+2025-10-25 20:39:40,929 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.65
+2025-10-25 20:39:40,929 [ECH0-RESEARCH] ✅ INGESTED [135]: Threats to Nature's Contributions to People provided by terrestrial vertebrates ...
+2025-10-25 20:39:40,929 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.45
+2025-10-25 20:39:40,930 [ECH0-RESEARCH] ✅ INGESTED [136]: Synthetic Mimetics of Exosomal Lipid Profile Enhance Gemcitabine Delivery in Pan...
+2025-10-25 20:39:40,930 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.45
+2025-10-25 20:39:40,930 [ECH0-RESEARCH] ✅ INGESTED [137]: MIRIAD: a Multiplex Immunoassay for Rodents Infectious and Animal Diseases...
+2025-10-25 20:39:40,930 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.45
+2025-10-25 20:39:40,930 [ECH0-RESEARCH] ✅ INGESTED [138]: Spatial Regulation of Lck Activation at the Immune Synapse Revealed by a FRET-Ba...
+2025-10-25 20:39:40,930 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.50
+2025-10-25 20:39:40,930 [ECH0-RESEARCH] ✅ INGESTED [139]: Astrocytes control the Neuroinflammation and ILC2 response through IL-33/ST2 sig...
+2025-10-25 20:39:40,930 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.75
+2025-10-25 20:39:40,930 [ECH0-RESEARCH] ✅ INGESTED [140]: Diazepam alters the shape of alpha oscillations recorded from human cortex using...
+2025-10-25 20:39:40,930 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.55
+2025-10-25 20:39:40,931 [ECH0-RESEARCH] ✅ INGESTED [141]: Increased ambient temperature mitigates pathology in the Ndufs4-/- mouse model o...
+2025-10-25 20:39:40,931 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.50
+2025-10-25 20:39:40,931 [ECH0-RESEARCH] ✅ INGESTED [142]: Early cell autonomous and niche-mediated alveolar epithelial response to influen...
+2025-10-25 20:39:40,931 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.45
+2025-10-25 20:39:40,931 [ECH0-RESEARCH] ✅ INGESTED [143]: Ion transport peptide regulates body water balance via a receptor guanylyl cycla...
+2025-10-25 20:39:40,931 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.50
+2025-10-25 20:39:40,931 [ECH0-RESEARCH] ✅ INGESTED [144]: Scaling laws in biological thermal performances...
+2025-10-25 20:39:40,931 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.45
+2025-10-25 20:39:40,932 [ECH0-RESEARCH] ✅ INGESTED [145]: Improving conformational ensembles of folded proteins in GoMartini...
+2025-10-25 20:39:40,932 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.45
+2025-10-25 20:39:40,932 [ECH0-RESEARCH] ✅ INGESTED [146]: Directing fratricide within T cell products using an anti-uPAR chimeric antigen ...
+2025-10-25 20:39:40,932 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.50
+2025-10-25 20:39:40,932 [ECH0-RESEARCH] ✅ INGESTED [147]: MillionFull enables massive, full-length enzyme sequence-fitness data collection...
+2025-10-25 20:39:40,932 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.70
+2025-10-25 20:39:40,932 [ECH0-RESEARCH] ✅ INGESTED [148]: Role of Water Models in Simulations of Ion Conduction in Potassium Channels...
+2025-10-25 20:39:40,932 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.45
+2025-10-25 20:39:40,932 [ECH0-RESEARCH] ✅ INGESTED [149]: The nuclear role of methionine adenosyltransferase 2A in immunoglobulin class sw...
+2025-10-25 20:39:40,932 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.45
+2025-10-25 20:39:40,932 [ECH0-RESEARCH] ✅ INGESTED [150]: Mechanistic Insights into Cyclic Penta-Adenylate-Mediated Activation of Type III...
+2025-10-25 20:39:40,932 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.45
+2025-10-25 20:39:40,933 [ECH0-RESEARCH] ✅ INGESTED [151]: pH-dependent regulation in SLC38A9...
+2025-10-25 20:39:40,933 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.45
+2025-10-25 20:39:40,933 [ECH0-RESEARCH] ✅ INGESTED [152]: Lysosomal permeabilization by Group A Streptococcus releases proteins into the m...
+2025-10-25 20:39:40,933 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.50
+2025-10-25 20:39:40,933 [ECH0-RESEARCH] ✅ INGESTED [153]: Biosynthesis cost and catabolic pathway length explain frequency of amino acid u...
+2025-10-25 20:39:40,933 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.65
+2025-10-25 20:39:40,933 [ECH0-RESEARCH] ✅ INGESTED [154]: A high throughput flow cytometry assay for quantifying type 3 secretion system a...
+2025-10-25 20:39:40,933 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.40
+2025-10-25 20:39:40,933 [ECH0-RESEARCH] ✅ INGESTED [155]: Separation of halide oxidation and substrate halogenation chemistries rationaliz...
+2025-10-25 20:39:40,933 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.45
+2025-10-25 20:39:40,933 [ECH0-RESEARCH] ✅ INGESTED [156]: Structure of ER chaperone complex GRP170-ATP-BiP suggests a new model for substr...
+2025-10-25 20:39:40,933 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.45
+2025-10-25 20:39:40,933 [ECH0-RESEARCH] ✅ INGESTED [157]: IS110 transposon utilizes two mechanistically distinct RNA-guided transposition ...
+2025-10-25 20:39:40,933 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.50
+2025-10-25 20:39:40,934 [ECH0-RESEARCH] ✅ INGESTED [158]: STING activation reshapes the tumor microenvironment leading to tumor regression...
+2025-10-25 20:39:40,934 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.40
+2025-10-25 20:39:40,934 [ECH0-RESEARCH] ✅ INGESTED [159]: XPF mediates 3' flap processing for FEN1-independent Okazaki fragment maturation...
+2025-10-25 20:39:40,934 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.45
+2025-10-25 20:39:40,934 [ECH0-RESEARCH] ✅ INGESTED [160]: Modulating inter-mitochondrial contacts to increase membrane potential for mitig...
+2025-10-25 20:39:40,934 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.40
+2025-10-25 20:39:40,934 [ECH0-RESEARCH] ✅ INGESTED [161]: GRASS-NB: Group-structured variable selection for spatial negative binomial data...
+2025-10-25 20:39:40,934 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.45
+2025-10-25 20:39:40,934 [ECH0-RESEARCH] ✅ INGESTED [162]: Encoded cell-material interactions to reroute cytokine signaling for regenerativ...
+2025-10-25 20:39:40,934 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.45
+2025-10-25 20:39:40,935 [ECH0-RESEARCH] ✅ INGESTED [163]: Distinct Roles of Surface Nanostructure and Polymer Degradation in Fibroblast Re...
+2025-10-25 20:39:40,935 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.50
+2025-10-25 20:39:40,935 [ECH0-RESEARCH] ✓ bioRxiv scan complete. Total papers: 163
+2025-10-25 20:39:41,119 [ECH0-RESEARCH] ✅ INGESTED [164]: Prevalence and Associated Factors of Female Genital Schistosomiasis in Nkhotakot...
+2025-10-25 20:39:41,120 [ECH0-RESEARCH]    Source: medRxiv | Relevance: 0.30
+2025-10-25 20:39:41,120 [ECH0-RESEARCH] ✅ INGESTED [165]: Short-term Preeclampsia Prediction: Cutoff Variations for sFlt-1/PlGF in U.S. Pa...
+2025-10-25 20:39:41,120 [ECH0-RESEARCH]    Source: medRxiv | Relevance: 0.30
+2025-10-25 20:39:41,120 [ECH0-RESEARCH] ✅ INGESTED [166]: Determination of pathogenic nature of organisms isolated from aerobic respirator...
+2025-10-25 20:39:41,120 [ECH0-RESEARCH]    Source: medRxiv | Relevance: 0.30
+2025-10-25 20:39:41,120 [ECH0-RESEARCH] ✅ INGESTED [167]: Supervoxel-based image-to-biomarker conversions - An initial study on morphologi...
+2025-10-25 20:39:41,120 [ECH0-RESEARCH]    Source: medRxiv | Relevance: 0.30
+2025-10-25 20:39:41,120 [ECH0-RESEARCH] ✅ INGESTED [168]: Uncertainty Quantification of Central Canal Stenosis Deep Learning Classifier fr...
+2025-10-25 20:39:41,120 [ECH0-RESEARCH]    Source: medRxiv | Relevance: 0.30
+2025-10-25 20:39:41,121 [ECH0-RESEARCH] ✅ INGESTED [169]: A Health Economic Assessment of Relaxation of COVID-19 Controls in England 2021...
+2025-10-25 20:39:41,121 [ECH0-RESEARCH]    Source: medRxiv | Relevance: 0.30
+2025-10-25 20:39:41,121 [ECH0-RESEARCH] ✅ INGESTED [170]: Early Identification of Disease Promoters of Cognitive Decline Using Inflammator...
+2025-10-25 20:39:41,121 [ECH0-RESEARCH]    Source: medRxiv | Relevance: 0.30
+2025-10-25 20:39:41,121 [ECH0-RESEARCH] ✅ INGESTED [171]: The Real-World Clinical Benefits of GLP-1 Receptor Agonist Treatment...
+2025-10-25 20:39:41,121 [ECH0-RESEARCH]    Source: medRxiv | Relevance: 0.30
+2025-10-25 20:39:41,122 [ECH0-RESEARCH] ✅ INGESTED [172]: Personalized Hemodynamic Management Using Reinforcement Learning to Prevent Pers...
+2025-10-25 20:39:41,122 [ECH0-RESEARCH]    Source: medRxiv | Relevance: 0.30
+2025-10-25 20:39:41,122 [ECH0-RESEARCH] ✅ INGESTED [173]: Quantifying the Cost of Measles Outbreak in the U.S. and How Costs Scale with Ou...
+2025-10-25 20:39:41,122 [ECH0-RESEARCH]    Source: medRxiv | Relevance: 0.30
+2025-10-25 20:39:41,122 [ECH0-RESEARCH] ✅ INGESTED [174]: Exploring Neglected Tropical Diseases in Somalia: A Scoping Review of Research E...
+2025-10-25 20:39:41,122 [ECH0-RESEARCH]    Source: medRxiv | Relevance: 0.30
+2025-10-25 20:39:41,122 [ECH0-RESEARCH] ✅ INGESTED [175]: Development of AWaRe antibiotic quality indicators for optimal use...
+2025-10-25 20:39:41,122 [ECH0-RESEARCH]    Source: medRxiv | Relevance: 0.30
+2025-10-25 20:39:41,123 [ECH0-RESEARCH] ✅ INGESTED [176]: Authors self-disclosed use of artificial intelligence in research submissions to...
+2025-10-25 20:39:41,123 [ECH0-RESEARCH]    Source: medRxiv | Relevance: 0.30
+2025-10-25 20:39:41,123 [ECH0-RESEARCH] ✅ INGESTED [177]: The Real-World Costs of GLP-1 Receptor Agonist Treatment...
+2025-10-25 20:39:41,123 [ECH0-RESEARCH]    Source: medRxiv | Relevance: 0.30
+2025-10-25 20:39:41,123 [ECH0-RESEARCH] ✅ INGESTED [178]: Prevalence of Abnormal Uterine Bleeding and its sub-types among Adolescent Girls...
+2025-10-25 20:39:41,123 [ECH0-RESEARCH]    Source: medRxiv | Relevance: 0.30
+2025-10-25 20:39:41,123 [ECH0-RESEARCH] ✅ INGESTED [179]: Development of Machine Learning Models to Predict Hypoglycemia and Hyperglycemia...
+2025-10-25 20:39:41,123 [ECH0-RESEARCH]    Source: medRxiv | Relevance: 0.30
+2025-10-25 20:39:41,123 [ECH0-RESEARCH] ✅ INGESTED [180]: Using Hourly Aggregated Respiratory Rate and Expiratory Time with Machine Learni...
+2025-10-25 20:39:41,123 [ECH0-RESEARCH]    Source: medRxiv | Relevance: 0.30
+2025-10-25 20:39:41,124 [ECH0-RESEARCH] ✅ INGESTED [181]: Fibrosing interstitial lung disease in childhood: prevalence and disease traject...
+2025-10-25 20:39:41,124 [ECH0-RESEARCH]    Source: medRxiv | Relevance: 0.30
+2025-10-25 20:39:41,124 [ECH0-RESEARCH] ✅ INGESTED [182]: Antidepressant prescribing trends for adults with and without autism in the Unit...
+2025-10-25 20:39:41,124 [ECH0-RESEARCH]    Source: medRxiv | Relevance: 0.30
+2025-10-25 20:39:41,124 [ECH0-RESEARCH] ✅ INGESTED [183]: Hepatitis C transmission and progression among people who have injected drugs in...
+2025-10-25 20:39:41,124 [ECH0-RESEARCH]    Source: medRxiv | Relevance: 0.30
+2025-10-25 20:39:41,124 [ECH0-RESEARCH] ✅ INGESTED [184]: Assessment of Tap Water Quality and Health Risks in Mymensingh City, Bangladesh...
+2025-10-25 20:39:41,124 [ECH0-RESEARCH]    Source: medRxiv | Relevance: 0.30
+2025-10-25 20:39:41,125 [ECH0-RESEARCH] ✅ INGESTED [185]: Association between adverse childhood experiences and future cardiovascular dise...
+2025-10-25 20:39:41,125 [ECH0-RESEARCH]    Source: medRxiv | Relevance: 0.30
+2025-10-25 20:39:41,125 [ECH0-RESEARCH] ✅ INGESTED [186]: Cross-Country Differences in Self-Rated Health: Decomposing the Influence of Dep...
+2025-10-25 20:39:41,125 [ECH0-RESEARCH]    Source: medRxiv | Relevance: 0.30
+2025-10-25 20:39:41,125 [ECH0-RESEARCH] ✅ INGESTED [187]: Clonal Hematopoiesis and Risk of Stroke: Evidence from Over 800,000 Individuals ...
+2025-10-25 20:39:41,125 [ECH0-RESEARCH]    Source: medRxiv | Relevance: 0.30
+2025-10-25 20:39:41,125 [ECH0-RESEARCH] ✅ INGESTED [188]: HIV self-testing preferences among HIV high-risk Adolescent Girls and Young Wome...
+2025-10-25 20:39:41,125 [ECH0-RESEARCH]    Source: medRxiv | Relevance: 0.30
+2025-10-25 20:39:41,125 [ECH0-RESEARCH] ✅ INGESTED [189]: Organizational Factors to Improve Quality of Maternal and Newborn Healthcare in ...
+2025-10-25 20:39:41,125 [ECH0-RESEARCH]    Source: medRxiv | Relevance: 0.30
+2025-10-25 20:39:41,126 [ECH0-RESEARCH] ✅ INGESTED [190]: Auditory Somatosensory Influences on Vocal Motor Control in Primary Muscle Tensi...
+2025-10-25 20:39:41,126 [ECH0-RESEARCH]    Source: medRxiv | Relevance: 0.30
+2025-10-25 20:39:41,126 [ECH0-RESEARCH] ✅ INGESTED [191]: Defining Stimulability for Voice-Specialized Speech Language Pathologists: A Sco...
+2025-10-25 20:39:41,126 [ECH0-RESEARCH]    Source: medRxiv | Relevance: 0.30
+2025-10-25 20:39:41,126 [ECH0-RESEARCH] ✅ INGESTED [192]: Photon-counting computed tomography of degradable bone cement loaded with gadoli...
+2025-10-25 20:39:41,126 [ECH0-RESEARCH]    Source: medRxiv | Relevance: 0.30
+2025-10-25 20:39:41,126 [ECH0-RESEARCH] ✅ INGESTED [193]: Community Pharmacists' Challenges with Non-Codeine OTC Cough Syrup Abuse Among N...
+2025-10-25 20:39:41,126 [ECH0-RESEARCH]    Source: medRxiv | Relevance: 0.30
+2025-10-25 20:39:41,126 [ECH0-RESEARCH] ✓ medRxiv scan complete. Total papers: 193
+2025-10-25 20:39:43,110 [ECH0-RESEARCH] ✅ INGESTED [194]: KL-Regularized Reinforcement Learning is Designed to Mode Collapse...
+2025-10-25 20:39:43,111 [ECH0-RESEARCH]    Source: arXiv-cs.LG | Relevance: 0.85
+2025-10-25 20:39:43,111 [ECH0-RESEARCH] ✅ INGESTED [195]: Video Prediction of Dynamic Physical Simulations With Pixel-Space
+  Spatiotempor...
+2025-10-25 20:39:43,111 [ECH0-RESEARCH]    Source: arXiv-cs.LG | Relevance: 0.90
+2025-10-25 20:39:45,454 [ECH0-RESEARCH] ✅ INGESTED [196]: BadGraph: A Backdoor Attack Against Latent Diffusion Model for
+  Text-Guided Gra...
+2025-10-25 20:39:45,454 [ECH0-RESEARCH]    Source: arXiv-cs.CL | Relevance: 0.50
+2025-10-25 20:39:45,454 [ECH0-RESEARCH] ✅ INGESTED [197]: Alleviating Forgetfulness of Linear Attention by Hybrid Sparse Attention
+  and C...
+2025-10-25 20:39:45,454 [ECH0-RESEARCH]    Source: arXiv-cs.CL | Relevance: 0.75
+2025-10-25 20:39:45,454 [ECH0-RESEARCH] ✅ INGESTED [198]: A Use-Case Specific Dataset for Measuring Dimensions of Responsible
+  Performanc...
+2025-10-25 20:39:45,454 [ECH0-RESEARCH]    Source: arXiv-cs.CL | Relevance: 0.55
+2025-10-25 20:39:45,454 [ECH0-RESEARCH] ✅ INGESTED [199]: Are Large Reasoning Models Good Translation Evaluators? Analysis and
+  Performan...
+2025-10-25 20:39:45,454 [ECH0-RESEARCH]    Source: arXiv-cs.CL | Relevance: 0.70
+2025-10-25 20:39:45,455 [ECH0-RESEARCH] ✅ INGESTED [200]: Empathic Prompting: Non-Verbal Context Integration for Multimodal LLM
+  Conversa...
+2025-10-25 20:39:45,455 [ECH0-RESEARCH]    Source: arXiv-cs.CL | Relevance: 0.75
+2025-10-25 20:39:47,896 [ECH0-RESEARCH] ✅ INGESTED [201]: Experimental differentiation and extremization with analog quantum
+  circuits...
+2025-10-25 20:39:47,896 [ECH0-RESEARCH]    Source: arXiv-cs.NE | Relevance: 0.70
+2025-10-25 20:39:47,896 [ECH0-RESEARCH] ✅ INGESTED [202]: A flexible framework for structural plasticity in GPU-accelerated sparse
+  spiki...
+2025-10-25 20:39:47,896 [ECH0-RESEARCH]    Source: arXiv-cs.NE | Relevance: 0.70
+2025-10-25 20:39:47,896 [ECH0-RESEARCH] ✅ INGESTED [203]: Symbolic Emulators for Cosmology: Accelerating Cosmological Analyses
+  Without S...
+2025-10-25 20:39:47,896 [ECH0-RESEARCH]    Source: arXiv-cs.NE | Relevance: 0.50
+2025-10-25 20:39:47,897 [ECH0-RESEARCH] ✅ INGESTED [204]: Binary Quadratic Quantization: Beyond First-Order Quantization for
+  Real-Valued...
+2025-10-25 20:39:47,897 [ECH0-RESEARCH]    Source: arXiv-cs.NE | Relevance: 0.65
+2025-10-25 20:39:47,897 [ECH0-RESEARCH] ✅ INGESTED [205]: The Emergence of Complex Behavior in Large-Scale Ecological Environments...
+2025-10-25 20:39:47,897 [ECH0-RESEARCH]    Source: arXiv-cs.NE | Relevance: 0.65
+2025-10-25 20:39:47,897 [ECH0-RESEARCH] ✅ INGESTED [206]: A Multi-Threading Kernel for Enabling Neuromorphic Edge Applications...
+2025-10-25 20:39:47,897 [ECH0-RESEARCH]    Source: arXiv-cs.NE | Relevance: 0.55
+2025-10-25 20:39:47,897 [ECH0-RESEARCH] ✅ INGESTED [207]: EvoSyn: Generalizable Evolutionary Data Synthesis for Verifiable
+  Learning...
+2025-10-25 20:39:47,897 [ECH0-RESEARCH]    Source: arXiv-cs.NE | Relevance: 0.75
+2025-10-25 20:39:47,898 [ECH0-RESEARCH] ✅ INGESTED [208]: ReLACE: A Resource-Efficient Low-Latency Cortical Acceleration Engine...
+2025-10-25 20:39:47,898 [ECH0-RESEARCH]    Source: arXiv-cs.NE | Relevance: 0.55
+2025-10-25 20:39:47,898 [ECH0-RESEARCH] ✅ INGESTED [209]: Self-Evidencing Through Hierarchical Gradient Decomposition: A
+  Dissipative Sys...
+2025-10-25 20:39:47,898 [ECH0-RESEARCH]    Source: arXiv-cs.NE | Relevance: 0.55
+2025-10-25 20:39:47,898 [ECH0-RESEARCH] ✅ INGESTED [210]: Uncertainty-Aware Post-Hoc Calibration: Mitigating Confidently Incorrect
+  Predi...
+2025-10-25 20:39:47,898 [ECH0-RESEARCH]    Source: arXiv-cs.NE | Relevance: 0.55
+2025-10-25 20:39:50,298 [ECH0-RESEARCH] ✅ INGESTED [211]: HoloCine: Holistic Generation of Cinematic Multi-Shot Long Video
+  Narratives...
+2025-10-25 20:39:50,298 [ECH0-RESEARCH]    Source: arXiv-cs.CV | Relevance: 0.55
+2025-10-25 20:39:50,298 [ECH0-RESEARCH] ✅ INGESTED [212]: LayerComposer: Interactive Personalized T2I via Spatially-Aware Layered
+  Canvas...
+2025-10-25 20:39:50,298 [ECH0-RESEARCH]    Source: arXiv-cs.CV | Relevance: 0.50
+2025-10-25 20:39:50,299 [ECH0-RESEARCH] ✅ INGESTED [213]: SpectraMorph: Structured Latent Learning for Self-Supervised
+  Hyperspectral Sup...
+2025-10-25 20:39:50,299 [ECH0-RESEARCH]    Source: arXiv-cs.CV | Relevance: 0.55
+2025-10-25 20:39:50,299 [ECH0-RESEARCH] ✅ INGESTED [214]: ARGenSeg: Image Segmentation with Autoregressive Image Generation Model...
+2025-10-25 20:39:50,299 [ECH0-RESEARCH]    Source: arXiv-cs.CV | Relevance: 0.60
+2025-10-25 20:39:52,493 [ECH0-RESEARCH] ✅ INGESTED [215]: Analog Quantum Feature Selection with Neutral-Atom Quantum Processors...
+2025-10-25 20:39:52,493 [ECH0-RESEARCH]    Source: arXiv-quant-ph | Relevance: 0.80
+2025-10-25 20:39:52,494 [ECH0-RESEARCH] ✅ INGESTED [216]: Trapping, manipulating and probing ultracold atoms: a quantum
+  technologies tut...
+2025-10-25 20:39:52,494 [ECH0-RESEARCH]    Source: arXiv-quant-ph | Relevance: 0.80
+2025-10-25 20:39:52,494 [ECH0-RESEARCH] ✅ INGESTED [217]: The complexity of perfect quantum state classification...
+2025-10-25 20:39:52,494 [ECH0-RESEARCH]    Source: arXiv-quant-ph | Relevance: 0.80
+2025-10-25 20:39:52,494 [ECH0-RESEARCH] ✅ INGESTED [218]: Quantum Sensing of Gravitational Frame-Dragging with a Superfluid $^4$He
+  Gyrom...
+2025-10-25 20:39:52,494 [ECH0-RESEARCH]    Source: arXiv-quant-ph | Relevance: 0.80
+2025-10-25 20:39:52,495 [ECH0-RESEARCH] ✅ INGESTED [219]: Theta-term in Russian Doll Model: phase structure, quantum metric and
+  BPS mult...
+2025-10-25 20:39:52,495 [ECH0-RESEARCH]    Source: arXiv-quant-ph | Relevance: 0.80
+2025-10-25 20:39:52,495 [ECH0-RESEARCH] ✅ INGESTED [220]: Optimal constant-cost implementations of Clifford operations using
+  global inte...
+2025-10-25 20:39:52,495 [ECH0-RESEARCH]    Source: arXiv-quant-ph | Relevance: 0.65
+2025-10-25 20:39:52,496 [ECH0-RESEARCH] ✅ INGESTED [221]: Co-Designing Quantum Codes with Transversal Diagonal Gates via
+  Multi-Agent Sys...
+2025-10-25 20:39:52,496 [ECH0-RESEARCH]    Source: arXiv-quant-ph | Relevance: 1.00
+2025-10-25 20:39:52,496 [ECH0-RESEARCH] ✅ INGESTED [222]: How typical is contextuality?...
+2025-10-25 20:39:52,496 [ECH0-RESEARCH]    Source: arXiv-quant-ph | Relevance: 0.65
+2025-10-25 20:39:52,497 [ECH0-RESEARCH] ✅ INGESTED [223]: Note on Energy Shifts of Oscillators in Blackbody Radiation...
+2025-10-25 20:39:52,497 [ECH0-RESEARCH]    Source: arXiv-quant-ph | Relevance: 0.60
+2025-10-25 20:39:54,895 [ECH0-RESEARCH] ✅ INGESTED [224]: Separating the what and how of compositional computation to enable reuse
+  and c...
+2025-10-25 20:39:54,895 [ECH0-RESEARCH]    Source: arXiv-q-bio.NC | Relevance: 0.65
+2025-10-25 20:39:54,895 [ECH0-RESEARCH] ✅ INGESTED [225]: Convexity of Neural Codes with Four Maximal Codewords...
+2025-10-25 20:39:54,895 [ECH0-RESEARCH]    Source: arXiv-q-bio.NC | Relevance: 0.60
+2025-10-25 20:39:54,895 [ECH0-RESEARCH] ✅ INGESTED [226]: Category learning in deep neural networks: Information content and
+  geometry of...
+2025-10-25 20:39:54,895 [ECH0-RESEARCH]    Source: arXiv-q-bio.NC | Relevance: 0.80
+2025-10-25 20:39:54,896 [ECH0-RESEARCH] ✅ INGESTED [227]: On Biologically Plausible Learning in Continuous Time...
+2025-10-25 20:39:54,896 [ECH0-RESEARCH]    Source: arXiv-q-bio.NC | Relevance: 0.60
+2025-10-25 20:39:54,896 [ECH0-RESEARCH] ✅ INGESTED [228]: Decoding Dynamic Visual Experience from Calcium Imaging via
+  Cell-Pattern-Aware...
+2025-10-25 20:39:54,896 [ECH0-RESEARCH]    Source: arXiv-q-bio.NC | Relevance: 0.60
+2025-10-25 20:39:54,896 [ECH0-RESEARCH] ✅ INGESTED [229]: Benchmarking Probabilistic Time Series Forecasting Models on Neural
+  Activity...
+2025-10-25 20:39:54,896 [ECH0-RESEARCH]    Source: arXiv-q-bio.NC | Relevance: 0.65
+2025-10-25 20:39:54,896 [ECH0-RESEARCH] ✅ INGESTED [230]: Paradoxical increase of capacity due to spurious overlaps in attractor
+  network...
+2025-10-25 20:39:54,896 [ECH0-RESEARCH]    Source: arXiv-q-bio.NC | Relevance: 0.60
+2025-10-25 20:39:54,897 [ECH0-RESEARCH] ✅ INGESTED [231]: A theory for self-sustained balanced states in absence of strong
+  external curr...
+2025-10-25 20:39:54,898 [ECH0-RESEARCH]    Source: arXiv-q-bio.NC | Relevance: 0.65
+2025-10-25 20:39:54,898 [ECH0-RESEARCH] ✅ INGESTED [232]: A Minimal Quantitative Model of Perceptual Suppression and Breakthrough
+  in Vis...
+2025-10-25 20:39:54,898 [ECH0-RESEARCH]    Source: arXiv-q-bio.NC | Relevance: 0.60
+2025-10-25 20:39:57,273 [ECH0-RESEARCH] ✅ INGESTED [233]: Incomplete U-Statistics of Equireplicate Designs: Berry-Esseen Bound and
+  Effic...
+2025-10-25 20:39:57,273 [ECH0-RESEARCH]    Source: arXiv-stat.ML | Relevance: 0.50
+2025-10-25 20:39:57,273 [ECH0-RESEARCH] ✅ INGESTED [234]: Finding the Sweet Spot: Trading Quality, Cost, and Speed During
+  Inference-Time...
+2025-10-25 20:39:57,273 [ECH0-RESEARCH]    Source: arXiv-stat.ML | Relevance: 0.60
+2025-10-25 20:39:57,273 [ECH0-RESEARCH] ✅ INGESTED [235]: Diffusion Autoencoders with Perceivers for Long, Irregular and
+  Multimodal Astr...
+2025-10-25 20:39:57,273 [ECH0-RESEARCH]    Source: arXiv-stat.ML | Relevance: 0.70
+2025-10-25 20:39:57,274 [ECH0-RESEARCH] ✅ INGESTED [236]: Time-series Random Process Complexity Ranking Using a Bound on
+  Conditional Dif...
+2025-10-25 20:39:57,274 [ECH0-RESEARCH]    Source: arXiv-stat.ML | Relevance: 0.55
+2025-10-25 20:39:57,274 [ECH0-RESEARCH] ✅ INGESTED [237]: Concentration and excess risk bounds for imbalanced classification with
+  synthe...
+2025-10-25 20:39:57,274 [ECH0-RESEARCH]    Source: arXiv-stat.ML | Relevance: 0.50
+2025-10-25 20:39:57,274 [ECH0-RESEARCH] ✅ INGESTED [238]: On Multiple Robustness of Proximal Dynamic Treatment Regimes...
+2025-10-25 20:39:57,274 [ECH0-RESEARCH]    Source: arXiv-stat.ML | Relevance: 0.50
+2025-10-25 20:39:57,275 [ECH0-RESEARCH] ✅ INGESTED [239]: Learning Decentralized Routing Policies via Graph Attention-based
+  Multi-Agent ...
+2025-10-25 20:39:57,275 [ECH0-RESEARCH]    Source: arXiv-stat.ML | Relevance: 1.00
+2025-10-25 20:39:57,275 [ECH0-RESEARCH] ✅ INGESTED [240]: Identification and Debiased Learning of Causal Effects with General
+  Instrument...
+2025-10-25 20:39:57,275 [ECH0-RESEARCH]    Source: arXiv-stat.ML | Relevance: 0.50
+2025-10-25 20:39:57,276 [ECH0-RESEARCH] ✅ INGESTED [241]: Testing Most Influential Sets...
+2025-10-25 20:39:57,276 [ECH0-RESEARCH]    Source: arXiv-stat.ML | Relevance: 0.50
+2025-10-25 20:39:59,277 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 241
+2025-10-25 20:40:40,089 [ECH0-RESEARCH] 📊 Status: 241 papers ingested, 6 high-relevance
+2025-10-25 20:41:40,093 [ECH0-RESEARCH] 📊 Status: 241 papers ingested, 6 high-relevance
+2025-10-25 20:42:40,098 [ECH0-RESEARCH] 📊 Status: 241 papers ingested, 6 high-relevance
+2025-10-25 20:43:40,100 [ECH0-RESEARCH] 📊 Status: 241 papers ingested, 6 high-relevance
+2025-10-25 20:44:40,105 [ECH0-RESEARCH] 📊 Status: 241 papers ingested, 6 high-relevance
+2025-10-25 20:45:16,621 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 241
+2025-10-25 20:45:40,106 [ECH0-RESEARCH] 📊 Status: 241 papers ingested, 6 high-relevance
+2025-10-25 20:46:40,110 [ECH0-RESEARCH] 📊 Status: 241 papers ingested, 6 high-relevance
+2025-10-25 20:47:40,115 [ECH0-RESEARCH] 📊 Status: 241 papers ingested, 6 high-relevance
+2025-10-25 20:48:40,119 [ECH0-RESEARCH] 📊 Status: 241 papers ingested, 6 high-relevance
+2025-10-25 20:49:40,124 [ECH0-RESEARCH] 📊 Status: 241 papers ingested, 6 high-relevance
+2025-10-25 20:49:41,486 [ECH0-RESEARCH] ✅ INGESTED [242]: A blueprint for mutation-defined hallmark vulnerabilities across human cancers...
+2025-10-25 20:49:41,486 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.45
+2025-10-25 20:49:41,486 [ECH0-RESEARCH] ✓ bioRxiv scan complete. Total papers: 242
+2025-10-25 20:49:41,830 [ECH0-RESEARCH] ✓ medRxiv scan complete. Total papers: 242
+2025-10-25 20:50:34,116 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 242
+2025-10-25 20:50:40,125 [ECH0-RESEARCH] 📊 Status: 242 papers ingested, 6 high-relevance
+2025-10-25 20:51:40,130 [ECH0-RESEARCH] 📊 Status: 242 papers ingested, 6 high-relevance
+2025-10-25 20:52:40,132 [ECH0-RESEARCH] 📊 Status: 242 papers ingested, 6 high-relevance
+2025-10-25 20:53:40,134 [ECH0-RESEARCH] 📊 Status: 242 papers ingested, 6 high-relevance
+2025-10-25 20:54:40,140 [ECH0-RESEARCH] 📊 Status: 242 papers ingested, 6 high-relevance
+2025-10-25 20:55:40,146 [ECH0-RESEARCH] 📊 Status: 242 papers ingested, 6 high-relevance
+2025-10-25 20:55:51,082 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 242
+2025-10-25 20:56:40,152 [ECH0-RESEARCH] 📊 Status: 242 papers ingested, 6 high-relevance
+2025-10-25 20:57:40,155 [ECH0-RESEARCH] 📊 Status: 242 papers ingested, 6 high-relevance
+2025-10-25 20:58:40,161 [ECH0-RESEARCH] 📊 Status: 242 papers ingested, 6 high-relevance
+2025-10-25 20:59:40,166 [ECH0-RESEARCH] 📊 Status: 242 papers ingested, 6 high-relevance
+2025-10-25 20:59:42,110 [ECH0-RESEARCH] ✓ bioRxiv scan complete. Total papers: 242
+2025-10-25 20:59:42,625 [ECH0-RESEARCH] ✓ medRxiv scan complete. Total papers: 242
+2025-10-25 21:00:40,167 [ECH0-RESEARCH] 📊 Status: 242 papers ingested, 6 high-relevance
+2025-10-25 21:01:08,230 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 242
+2025-10-25 21:01:40,170 [ECH0-RESEARCH] 📊 Status: 242 papers ingested, 6 high-relevance
+2025-10-25 21:02:40,233 [ECH0-RESEARCH] 📊 Status: 242 papers ingested, 6 high-relevance
+2025-10-25 21:03:40,240 [ECH0-RESEARCH] 📊 Status: 242 papers ingested, 6 high-relevance
+2025-10-25 21:04:40,243 [ECH0-RESEARCH] 📊 Status: 242 papers ingested, 6 high-relevance
+2025-10-25 21:05:40,246 [ECH0-RESEARCH] 📊 Status: 242 papers ingested, 6 high-relevance
+2025-10-25 21:06:26,067 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 242
+2025-10-25 21:06:40,252 [ECH0-RESEARCH] 📊 Status: 242 papers ingested, 6 high-relevance
+2025-10-25 21:07:40,256 [ECH0-RESEARCH] 📊 Status: 242 papers ingested, 6 high-relevance
+2025-10-25 21:08:40,260 [ECH0-RESEARCH] 📊 Status: 242 papers ingested, 6 high-relevance
+2025-10-25 21:09:40,263 [ECH0-RESEARCH] 📊 Status: 242 papers ingested, 6 high-relevance
+2025-10-25 21:09:42,922 [ECH0-RESEARCH] ✅ INGESTED [243]: Myofibrillar protein accumulation but reduced protein synthesis in PDCD4-deplete...
+2025-10-25 21:09:42,922 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.40
+2025-10-25 21:09:42,923 [ECH0-RESEARCH] ✓ bioRxiv scan complete. Total papers: 243
+2025-10-25 21:09:43,664 [ECH0-RESEARCH] ✓ medRxiv scan complete. Total papers: 243
+2025-10-25 21:10:40,267 [ECH0-RESEARCH] 📊 Status: 243 papers ingested, 6 high-relevance
+2025-10-25 21:11:40,273 [ECH0-RESEARCH] 📊 Status: 243 papers ingested, 6 high-relevance
+2025-10-25 21:11:43,492 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 243
+2025-10-25 21:12:40,278 [ECH0-RESEARCH] 📊 Status: 243 papers ingested, 6 high-relevance
+2025-10-25 21:13:40,283 [ECH0-RESEARCH] 📊 Status: 243 papers ingested, 6 high-relevance
+2025-10-25 21:14:40,285 [ECH0-RESEARCH] 📊 Status: 243 papers ingested, 6 high-relevance
+2025-10-25 21:15:40,291 [ECH0-RESEARCH] 📊 Status: 243 papers ingested, 6 high-relevance
+2025-10-25 21:16:40,295 [ECH0-RESEARCH] 📊 Status: 243 papers ingested, 6 high-relevance
+2025-10-25 21:17:00,602 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 243
+2025-10-25 21:17:40,301 [ECH0-RESEARCH] 📊 Status: 243 papers ingested, 6 high-relevance
+2025-10-25 21:18:40,303 [ECH0-RESEARCH] 📊 Status: 243 papers ingested, 6 high-relevance
+2025-10-25 21:19:40,304 [ECH0-RESEARCH] 📊 Status: 243 papers ingested, 6 high-relevance
+2025-10-25 21:19:43,516 [ECH0-RESEARCH] ✅ INGESTED [244]: Active learning-guided mechanistic modeling of CXCL9 regulation in pancreatic ca...
+2025-10-25 21:19:43,516 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.45
+2025-10-25 21:19:43,516 [ECH0-RESEARCH] ✅ INGESTED [245]: FABP5 regulates ether lipid metabolism to ameliorate atopic dermatitis...
+2025-10-25 21:19:43,516 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.45
+2025-10-25 21:19:43,516 [ECH0-RESEARCH] ✅ INGESTED [246]: Relationships between phenotypic differences in punishment behaviour and prefron...
+2025-10-25 21:19:43,516 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.40
+2025-10-25 21:19:43,517 [ECH0-RESEARCH] ✓ bioRxiv scan complete. Total papers: 246
+2025-10-25 21:19:44,325 [ECH0-RESEARCH] ✓ medRxiv scan complete. Total papers: 246
+2025-10-25 21:20:40,307 [ECH0-RESEARCH] 📊 Status: 246 papers ingested, 6 high-relevance
+2025-10-25 21:21:40,315 [ECH0-RESEARCH] 📊 Status: 246 papers ingested, 6 high-relevance
+2025-10-25 21:22:17,750 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 246
+2025-10-25 21:22:40,321 [ECH0-RESEARCH] 📊 Status: 246 papers ingested, 6 high-relevance
+2025-10-25 21:23:40,326 [ECH0-RESEARCH] 📊 Status: 246 papers ingested, 6 high-relevance
+2025-10-25 21:24:40,333 [ECH0-RESEARCH] 📊 Status: 246 papers ingested, 6 high-relevance
+2025-10-25 21:25:40,339 [ECH0-RESEARCH] 📊 Status: 246 papers ingested, 6 high-relevance
+2025-10-25 21:26:40,346 [ECH0-RESEARCH] 📊 Status: 246 papers ingested, 6 high-relevance
+2025-10-25 21:27:35,064 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 246
+2025-10-25 21:27:40,351 [ECH0-RESEARCH] 📊 Status: 246 papers ingested, 6 high-relevance
+2025-10-25 21:28:40,357 [ECH0-RESEARCH] 📊 Status: 246 papers ingested, 6 high-relevance
+2025-10-25 21:29:40,363 [ECH0-RESEARCH] 📊 Status: 246 papers ingested, 6 high-relevance
+2025-10-25 21:29:44,104 [ECH0-RESEARCH] ✓ bioRxiv scan complete. Total papers: 246
+2025-10-25 21:29:45,003 [ECH0-RESEARCH] ✓ medRxiv scan complete. Total papers: 246
+2025-10-25 21:30:40,368 [ECH0-RESEARCH] 📊 Status: 246 papers ingested, 6 high-relevance
+2025-10-25 21:31:40,374 [ECH0-RESEARCH] 📊 Status: 246 papers ingested, 6 high-relevance
+2025-10-25 21:32:40,376 [ECH0-RESEARCH] 📊 Status: 246 papers ingested, 6 high-relevance
+2025-10-25 21:32:52,344 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 246
+2025-10-25 21:33:40,380 [ECH0-RESEARCH] 📊 Status: 246 papers ingested, 6 high-relevance
+2025-10-25 21:34:40,382 [ECH0-RESEARCH] 📊 Status: 246 papers ingested, 6 high-relevance
+2025-10-25 21:35:40,385 [ECH0-RESEARCH] 📊 Status: 246 papers ingested, 6 high-relevance
+2025-10-25 21:36:40,390 [ECH0-RESEARCH] 📊 Status: 246 papers ingested, 6 high-relevance
+2025-10-25 21:37:40,394 [ECH0-RESEARCH] 📊 Status: 246 papers ingested, 6 high-relevance
+2025-10-25 21:38:09,659 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 246
+2025-10-25 21:38:40,400 [ECH0-RESEARCH] 📊 Status: 246 papers ingested, 6 high-relevance
+2025-10-25 21:39:40,398 [ECH0-RESEARCH] 📊 Status: 246 papers ingested, 6 high-relevance
+2025-10-25 21:39:44,729 [ECH0-RESEARCH] ✓ bioRxiv scan complete. Total papers: 246
+2025-10-25 21:39:45,936 [ECH0-RESEARCH] ✓ medRxiv scan complete. Total papers: 246
+2025-10-25 21:40:40,398 [ECH0-RESEARCH] 📊 Status: 246 papers ingested, 6 high-relevance
+2025-10-25 21:41:40,404 [ECH0-RESEARCH] 📊 Status: 246 papers ingested, 6 high-relevance
+2025-10-25 21:42:40,406 [ECH0-RESEARCH] 📊 Status: 246 papers ingested, 6 high-relevance
+2025-10-25 21:43:32,079 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 246
+2025-10-25 21:43:40,410 [ECH0-RESEARCH] 📊 Status: 246 papers ingested, 6 high-relevance
+2025-10-25 21:44:40,416 [ECH0-RESEARCH] 📊 Status: 246 papers ingested, 6 high-relevance
+2025-10-25 21:45:40,421 [ECH0-RESEARCH] 📊 Status: 246 papers ingested, 6 high-relevance
+2025-10-25 21:46:40,431 [ECH0-RESEARCH] 📊 Status: 246 papers ingested, 6 high-relevance
+2025-10-25 21:47:40,440 [ECH0-RESEARCH] 📊 Status: 246 papers ingested, 6 high-relevance
+2025-10-25 21:48:40,448 [ECH0-RESEARCH] 📊 Status: 246 papers ingested, 6 high-relevance
+2025-10-25 21:48:49,284 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 246
+2025-10-25 21:49:40,455 [ECH0-RESEARCH] 📊 Status: 246 papers ingested, 6 high-relevance
+2025-10-25 21:49:45,507 [ECH0-RESEARCH] ✅ INGESTED [247]: Context-Dependent Protein Structure Prediction Analysis and Stoichiometry Infere...
+2025-10-25 21:49:45,508 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.45
+2025-10-25 21:49:45,508 [ECH0-RESEARCH] ✓ bioRxiv scan complete. Total papers: 247
+2025-10-25 21:49:46,614 [ECH0-RESEARCH] ✓ medRxiv scan complete. Total papers: 247
+2025-10-25 21:50:40,461 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 21:51:40,468 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 21:52:40,474 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 21:53:40,479 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 21:54:06,357 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 247
+2025-10-25 21:54:40,485 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 21:55:40,486 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 21:56:40,489 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 21:57:40,495 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 21:58:40,499 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 21:59:23,491 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 247
+2025-10-25 21:59:40,501 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 21:59:46,143 [ECH0-RESEARCH] ✓ bioRxiv scan complete. Total papers: 247
+2025-10-25 21:59:47,290 [ECH0-RESEARCH] ✓ medRxiv scan complete. Total papers: 247
+2025-10-25 22:00:40,507 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:01:40,512 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:02:40,514 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:03:40,518 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:04:40,521 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:04:40,938 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 247
+2025-10-25 22:05:40,505 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:06:40,506 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:07:40,511 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:08:40,517 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:09:40,522 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:09:46,897 [ECH0-RESEARCH] ✓ bioRxiv scan complete. Total papers: 247
+2025-10-25 22:09:48,184 [ECH0-RESEARCH] ✓ medRxiv scan complete. Total papers: 247
+2025-10-25 22:09:58,298 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 247
+2025-10-25 22:10:40,528 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:11:40,529 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:12:40,534 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:13:40,540 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:14:40,542 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:15:15,853 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 247
+2025-10-25 22:15:40,548 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:16:40,553 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:17:40,556 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:18:40,560 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:19:40,561 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:19:47,769 [ECH0-RESEARCH] ✓ bioRxiv scan complete. Total papers: 247
+2025-10-25 22:19:49,084 [ECH0-RESEARCH] ✓ medRxiv scan complete. Total papers: 247
+2025-10-25 22:20:33,263 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 247
+2025-10-25 22:20:40,572 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:21:40,583 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:22:40,587 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:23:40,588 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:24:40,594 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:25:40,596 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:25:50,452 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 247
+2025-10-25 22:26:40,598 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:27:40,603 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:28:40,607 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:29:40,613 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:29:48,366 [ECH0-RESEARCH] ✓ bioRxiv scan complete. Total papers: 247
+2025-10-25 22:29:49,845 [ECH0-RESEARCH] ✓ medRxiv scan complete. Total papers: 247
+2025-10-25 22:30:40,616 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:31:07,720 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 247
+2025-10-25 22:31:40,619 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:32:40,624 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:33:40,628 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:34:40,634 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:35:40,639 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:36:24,912 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 247
+2025-10-25 22:36:40,645 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:37:40,684 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:38:40,688 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:39:40,697 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:39:49,209 [ECH0-RESEARCH] ✓ bioRxiv scan complete. Total papers: 247
+2025-10-25 22:39:50,786 [ECH0-RESEARCH] ✓ medRxiv scan complete. Total papers: 247
+2025-10-25 22:40:40,709 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:41:40,715 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:41:42,707 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 247
+2025-10-25 22:42:40,720 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:43:40,722 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:44:40,727 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:45:40,730 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:46:40,736 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:47:01,833 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 247
+2025-10-25 22:47:40,740 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:48:40,746 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:49:40,752 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:49:49,977 [ECH0-RESEARCH] ✓ bioRxiv scan complete. Total papers: 247
+2025-10-25 22:49:51,631 [ECH0-RESEARCH] ✓ medRxiv scan complete. Total papers: 247
+2025-10-25 22:50:40,758 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:51:40,761 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:52:19,166 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 247
+2025-10-25 22:52:40,764 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:53:40,766 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:54:40,773 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:55:40,780 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:56:40,786 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:57:36,511 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 247
+2025-10-25 22:57:40,791 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:58:40,797 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:59:40,803 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 22:59:50,746 [ECH0-RESEARCH] ✓ bioRxiv scan complete. Total papers: 247
+2025-10-25 22:59:52,483 [ECH0-RESEARCH] ✓ medRxiv scan complete. Total papers: 247
+2025-10-25 23:00:40,804 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 23:01:40,807 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 23:02:40,813 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 23:02:53,877 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 247
+2025-10-25 23:03:40,819 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 23:04:40,823 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 23:05:40,829 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 23:06:40,836 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 23:07:40,842 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 23:08:11,134 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 247
+2025-10-25 23:08:40,849 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 23:09:40,855 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 23:09:51,429 [ECH0-RESEARCH] ✓ bioRxiv scan complete. Total papers: 247
+2025-10-25 23:09:53,261 [ECH0-RESEARCH] ✓ medRxiv scan complete. Total papers: 247
+2025-10-25 23:10:40,861 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 23:11:40,865 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 23:12:40,870 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 23:13:28,061 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 247
+2025-10-25 23:13:40,830 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 23:14:40,835 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 23:15:40,841 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 23:16:40,847 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 23:17:40,848 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 23:18:40,855 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 23:18:45,219 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 247
+2025-10-25 23:19:40,857 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 23:19:52,313 [ECH0-RESEARCH] ✓ bioRxiv scan complete. Total papers: 247
+2025-10-25 23:19:54,076 [ECH0-RESEARCH] ✓ medRxiv scan complete. Total papers: 247
+2025-10-25 23:20:40,860 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 23:21:40,865 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 23:22:40,868 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 23:23:40,876 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 23:24:02,319 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 247
+2025-10-25 23:24:40,881 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 23:25:40,883 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 23:26:40,889 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 23:27:40,896 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 23:28:40,902 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 23:29:19,600 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 247
+2025-10-25 23:29:40,904 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 23:29:53,007 [ECH0-RESEARCH] ✓ bioRxiv scan complete. Total papers: 247
+2025-10-25 23:29:54,831 [ECH0-RESEARCH] ✓ medRxiv scan complete. Total papers: 247
+2025-10-25 23:30:40,906 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 23:31:40,911 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 23:32:40,917 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 23:33:40,920 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 23:34:36,833 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 247
+2025-10-25 23:34:40,924 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 23:35:40,928 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 23:37:35,890 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 23:40:03,070 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 23:41:03,180 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 23:42:03,353 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 23:42:16,135 [ECH0-RESEARCH] ✓ bioRxiv scan complete. Total papers: 247
+2025-10-25 23:42:17,479 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 247
+2025-10-25 23:42:18,129 [ECH0-RESEARCH] ✓ medRxiv scan complete. Total papers: 247
+2025-10-25 23:43:03,462 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 23:44:22,566 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 23:45:22,959 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 23:46:23,164 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 23:47:23,485 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 23:47:37,590 [ECH0-RESEARCH] arXiv monitor error: HTTPSConnectionPool(host='export.arxiv.org', port=443): Max retries exceeded with url: /api/query?search_query=cat:cs.AI&sortBy=submittedDate&sortOrder=descending&max_results=10 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x1023eac10>: Failed to resolve 'export.arxiv.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2025-10-25 23:49:37,151 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 23:49:51,249 [ECH0-RESEARCH] arXiv monitor error: HTTPSConnectionPool(host='export.arxiv.org', port=443): Max retries exceeded with url: /api/query?search_query=cat:cs.AI&sortBy=submittedDate&sortOrder=descending&max_results=10 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x1023ea990>: Failed to resolve 'export.arxiv.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2025-10-25 23:57:40,368 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-25 23:57:54,467 [ECH0-RESEARCH] arXiv monitor error: HTTPSConnectionPool(host='export.arxiv.org', port=443): Max retries exceeded with url: /api/query?search_query=cat:cs.AI&sortBy=submittedDate&sortOrder=descending&max_results=10 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x1023ea5d0>: Failed to resolve 'export.arxiv.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2025-10-26 00:00:22,507 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-26 00:00:36,611 [ECH0-RESEARCH] arXiv monitor error: HTTPSConnectionPool(host='export.arxiv.org', port=443): Max retries exceeded with url: /api/query?search_query=cat:cs.AI&sortBy=submittedDate&sortOrder=descending&max_results=10 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x1023e8f50>: Failed to resolve 'export.arxiv.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2025-10-26 00:01:22,622 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-26 00:02:02,113 [ECH0-RESEARCH] arXiv monitor error: HTTPSConnectionPool(host='export.arxiv.org', port=443): Max retries exceeded with url: /api/query?search_query=cat:cs.AI&sortBy=submittedDate&sortOrder=descending&max_results=10 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x1023e87d0>: Failed to resolve 'export.arxiv.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2025-10-26 00:02:22,826 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-26 00:02:35,565 [ECH0-RESEARCH] ✓ bioRxiv scan complete. Total papers: 247
+2025-10-26 00:02:37,555 [ECH0-RESEARCH] ✓ medRxiv scan complete. Total papers: 247
+2025-10-26 00:03:02,312 [ECH0-RESEARCH] arXiv monitor error: HTTPSConnectionPool(host='export.arxiv.org', port=443): Max retries exceeded with url: /api/query?search_query=cat:cs.AI&sortBy=submittedDate&sortOrder=descending&max_results=10 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x1023e9a90>: Failed to resolve 'export.arxiv.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2025-10-26 00:03:23,250 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-26 00:04:02,682 [ECH0-RESEARCH] arXiv monitor error: HTTPSConnectionPool(host='export.arxiv.org', port=443): Max retries exceeded with url: /api/query?search_query=cat:cs.AI&sortBy=submittedDate&sortOrder=descending&max_results=10 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x1023ea350>: Failed to resolve 'export.arxiv.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2025-10-26 00:04:38,204 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-26 00:08:14,541 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-26 00:08:23,848 [ECH0-RESEARCH] arXiv monitor error: HTTPSConnectionPool(host='export.arxiv.org', port=443): Max retries exceeded with url: /api/query?search_query=cat:cs.AI&sortBy=submittedDate&sortOrder=descending&max_results=10 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x10234fed0>: Failed to resolve 'export.arxiv.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2025-10-26 00:09:14,543 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-26 00:09:47,721 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 247
+2025-10-26 00:10:14,484 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-26 00:11:14,485 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-26 00:12:14,489 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-26 00:13:14,492 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-26 00:14:14,494 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-26 00:15:04,330 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 247
+2025-10-26 00:15:14,496 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-26 00:15:27,702 [ECH0-RESEARCH] ✓ bioRxiv scan complete. Total papers: 247
+2025-10-26 00:15:29,742 [ECH0-RESEARCH] ✓ medRxiv scan complete. Total papers: 247
+2025-10-26 00:16:14,500 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-26 00:17:14,505 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-26 00:18:14,507 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-26 00:19:14,508 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-26 00:20:14,515 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-26 00:20:21,265 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 247
+2025-10-26 00:21:14,519 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-26 00:22:14,524 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-26 00:23:14,528 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-26 00:24:14,530 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-26 00:25:14,535 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-26 00:25:28,358 [ECH0-RESEARCH] ✓ bioRxiv scan complete. Total papers: 247
+2025-10-26 00:25:30,351 [ECH0-RESEARCH] ✓ medRxiv scan complete. Total papers: 247
+2025-10-26 00:25:38,151 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 247
+2025-10-26 00:26:14,540 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-26 00:27:14,545 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-26 00:28:14,550 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-26 00:29:14,555 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-26 00:30:14,560 [ECH0-RESEARCH] 📊 Status: 247 papers ingested, 6 high-relevance
+2025-10-26 00:30:54,769 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 247
+2025-10-26 16:32:31,349 [ECH0-RESEARCH] ======================================================================
+2025-10-26 16:32:31,350 [ECH0-RESEARCH] ECH0 REAL-TIME RESEARCH MONITOR STARTING
+2025-10-26 16:32:31,350 [ECH0-RESEARCH] ======================================================================
+2025-10-26 16:32:31,350 [ECH0-RESEARCH] Papers already in database: 247
+2025-10-26 16:32:31,350 [ECH0-RESEARCH] Seen papers registry: 117 papers tracked
+2025-10-26 16:32:31,350 [ECH0-RESEARCH] 
+2025-10-26 16:32:31,350 [ECH0-RESEARCH] 🚀 STARTING REAL-TIME MONITORING
+2025-10-26 16:32:31,350 [ECH0-RESEARCH] All threads will run CONTINUOUSLY
+2025-10-26 16:32:31,350 [ECH0-RESEARCH] 
+2025-10-26 16:32:31,350 [ECH0-RESEARCH] 🔬 Starting arXiv real-time monitor (5-minute poll interval)
+2025-10-26 16:32:31,350 [ECH0-RESEARCH] ✓ Started arXiv-Monitor
+2025-10-26 16:32:31,350 [ECH0-RESEARCH] 🧬 Starting bioRxiv real-time monitor (10-minute poll interval)
+2025-10-26 16:32:31,350 [ECH0-RESEARCH] ✓ Started bioRxiv-Monitor
+2025-10-26 16:32:31,351 [ECH0-RESEARCH] 🏥 Starting medRxiv real-time monitor (10-minute poll interval)
+2025-10-26 16:32:31,351 [ECH0-RESEARCH] ✓ Started medRxiv-Monitor
+2025-10-26 16:32:31,351 [ECH0-RESEARCH] 
+2025-10-26 16:32:31,351 [ECH0-RESEARCH] ======================================================================
+2025-10-26 16:32:31,351 [ECH0-RESEARCH] REAL-TIME MONITORING ACTIVE
+2025-10-26 16:32:31,351 [ECH0-RESEARCH] ECH0 is now continuously learning from the latest research
+2025-10-26 16:32:31,351 [ECH0-RESEARCH] Press Ctrl+C to stop
+2025-10-26 16:32:31,351 [ECH0-RESEARCH] ======================================================================
+2025-10-26 16:32:31,351 [ECH0-RESEARCH] 
+2025-10-26 16:32:32,305 [ECH0-RESEARCH] ✅ INGESTED [248]: Synergies and trade-offs between maintaining climate niche variability and prese...
+2025-10-26 16:32:32,306 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.65
+2025-10-26 16:32:32,306 [ECH0-RESEARCH] ✅ INGESTED [249]: Individual Differences in Training Naive Listeners to Localize Spatial Audio in ...
+2025-10-26 16:32:32,306 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.70
+2025-10-26 16:32:32,306 [ECH0-RESEARCH] ✅ INGESTED [250]: Human-like individual differences emerge from random weight initializations in n...
+2025-10-26 16:32:32,306 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.75
+2025-10-26 16:32:32,307 [ECH0-RESEARCH] ✅ INGESTED [251]: Active Sampling and Sex Differences in Perceptual Decision Making in Rats...
+2025-10-26 16:32:32,307 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.50
+2025-10-26 16:32:32,308 [ECH0-RESEARCH] ✅ INGESTED [252]: Expression of Angiotensin converting enzyme 2 (ACE2) in the dorsolateral striatu...
+2025-10-26 16:32:32,308 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.50
+2025-10-26 16:32:32,308 [ECH0-RESEARCH] ✅ INGESTED [253]: Tomato pollen tube integrity is critical for pollen function at high temperature...
+2025-10-26 16:32:32,308 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.45
+2025-10-26 16:32:32,308 [ECH0-RESEARCH] ✅ INGESTED [254]: Universal super-resolution for subcellular fluorescence imaging...
+2025-10-26 16:32:32,308 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.45
+2025-10-26 16:32:32,308 [ECH0-RESEARCH] ✅ INGESTED [255]: Exploring the intrinsic and extrinsic determinants of heterogeneity in a β-cell ...
+2025-10-26 16:32:32,308 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.50
+2025-10-26 16:32:32,309 [ECH0-RESEARCH] ✅ INGESTED [256]: Utility of alternate stable isotope calibration equations and informative priors...
+2025-10-26 16:32:32,309 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.40
+2025-10-26 16:32:32,309 [ECH0-RESEARCH] ✅ INGESTED [257]: Species-Specific gB Ectodomain Interactions and Cytoplasmic Domain Stability Reg...
+2025-10-26 16:32:32,309 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.65
+2025-10-26 16:32:32,309 [ECH0-RESEARCH] ✅ INGESTED [258]: Untangling the diversity of Trypanosomes infecting Colombian amphibians: morphom...
+2025-10-26 16:32:32,309 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.45
+2025-10-26 16:32:32,309 [ECH0-RESEARCH] ✅ INGESTED [259]: Hemin Inhibits the Activation of STING in Macrophages by Inducing HO-1, Promotin...
+2025-10-26 16:32:32,309 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.45
+2025-10-26 16:32:32,309 [ECH0-RESEARCH] ✅ INGESTED [260]: Structure-guided design of native-like HIV Env Single Chain Trimers for enhanced...
+2025-10-26 16:32:32,309 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.65
+2025-10-26 16:32:32,310 [ECH0-RESEARCH] ✅ INGESTED [261]: Relative-location tuning in five frontal areas in a rhesus monkey...
+2025-10-26 16:32:32,310 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.45
+2025-10-26 16:32:32,310 [ECH0-RESEARCH] ✅ INGESTED [262]: VDAC activation inhibits hippocampal plasticity via NLRP3 inflammasome & caspase...
+2025-10-26 16:32:32,310 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.40
+2025-10-26 16:32:32,310 [ECH0-RESEARCH] ✅ INGESTED [263]: Protracted fate acquisition and epigenetic de-aging during induced neural stem c...
+2025-10-26 16:32:32,310 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.70
+2025-10-26 16:32:32,310 [ECH0-RESEARCH] ✅ INGESTED [264]: Influence of STDP rule choice and network connectivity on polychronous groups an...
+2025-10-26 16:32:32,310 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.65
+2025-10-26 16:32:32,311 [ECH0-RESEARCH] ✅ INGESTED [265]: Multi-Class Classification of Cannabis and Alcohol Use Disorder: Identifying Com...
+2025-10-26 16:32:32,311 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.85
+2025-10-26 16:32:32,311 [ECH0-RESEARCH] ✅ INGESTED [266]: Visual representations in the human brain rely on a reference frame that is in b...
+2025-10-26 16:32:32,311 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.90
+2025-10-26 16:32:32,311 [ECH0-RESEARCH] ✅ INGESTED [267]: TWAS-CTL: A robust and efficient method for multi-tissue transcriptome-wide asso...
+2025-10-26 16:32:32,311 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.50
+2025-10-26 16:32:32,311 [ECH0-RESEARCH] ✅ INGESTED [268]: Integrated multi-omic and functional evidence uncover substantial strain-specifi...
+2025-10-26 16:32:32,311 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.65
+2025-10-26 16:32:32,311 [ECH0-RESEARCH] ✅ INGESTED [269]: NCK adaptor proteins regulate clathrin-coated pit dynamics and EGF-stimulated PI...
+2025-10-26 16:32:32,311 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.45
+2025-10-26 16:32:32,312 [ECH0-RESEARCH] ✅ INGESTED [270]: Multiple ammonium transporters in fission yeast are coordinated by transcription...
+2025-10-26 16:32:32,312 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.40
+2025-10-26 16:32:32,312 [ECH0-RESEARCH] ✅ INGESTED [271]: Muscle Energy Crisis is the Initial Driver of Locomotor Dysfunction in β-glucuro...
+2025-10-26 16:32:32,312 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.50
+2025-10-26 16:32:32,312 [ECH0-RESEARCH] ✅ INGESTED [272]: Pleckstrin homology domain-containing serine/threonine kinase plays a crucial ro...
+2025-10-26 16:32:32,312 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.65
+2025-10-26 16:32:32,312 [ECH0-RESEARCH] ✅ INGESTED [273]: Differential encoding of noxious heat and self-reported pain along corticospinal...
+2025-10-26 16:32:32,312 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.95
+2025-10-26 16:32:32,313 [ECH0-RESEARCH] ✅ INGESTED [274]: Unfolding the Black Box of Recurrent Neural Networks for Path Integration...
+2025-10-26 16:32:32,313 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.75
+2025-10-26 16:32:32,313 [ECH0-RESEARCH] ✅ INGESTED [275]: PEX11β-mediated improvement of mitochondrial dysfunction restores behavioral def...
+2025-10-26 16:32:32,313 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.50
+2025-10-26 16:32:32,313 [ECH0-RESEARCH] ✅ INGESTED [276]: Fingerprint-Based Explainable Machine Learning for Predicting Blood--Brain Barri...
+2025-10-26 16:32:32,313 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 1.00
+2025-10-26 16:32:32,313 [ECH0-RESEARCH] ✅ INGESTED [277]: Neural control of coordinated wing and leg movements during a terrestrial threat...
+2025-10-26 16:32:32,313 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.70
+2025-10-26 16:32:32,313 [ECH0-RESEARCH] ✓ bioRxiv scan complete. Total papers: 277
+2025-10-26 16:32:32,428 [ECH0-RESEARCH] ✅ INGESTED [278]: Endovascular Rescue for Delayed Cerebral Ischemia after Aneurysmal Subarachnoid ...
+2025-10-26 16:32:32,428 [ECH0-RESEARCH]    Source: medRxiv | Relevance: 0.30
+2025-10-26 16:32:32,428 [ECH0-RESEARCH] ✅ INGESTED [279]: The impact of a women-led community center on social cohesion in Tripoli, North ...
+2025-10-26 16:32:32,428 [ECH0-RESEARCH]    Source: medRxiv | Relevance: 0.30
+2025-10-26 16:32:32,429 [ECH0-RESEARCH] ✓ medRxiv scan complete. Total papers: 279
+2025-10-26 16:32:48,027 [ECH0-RESEARCH] ✅ INGESTED [280]: Testing Most Influential Sets...
+2025-10-26 16:32:48,027 [ECH0-RESEARCH]    Source: arXiv-stat.ML | Relevance: 0.50
+2025-10-26 16:32:50,029 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 280
+2025-10-26 16:33:31,357 [ECH0-RESEARCH] 📊 Status: 280 papers ingested, 4 high-relevance
+2025-10-26 16:34:31,359 [ECH0-RESEARCH] 📊 Status: 280 papers ingested, 4 high-relevance
+2025-10-26 16:35:31,361 [ECH0-RESEARCH] 📊 Status: 280 papers ingested, 4 high-relevance
+2025-10-26 16:36:31,366 [ECH0-RESEARCH] 📊 Status: 280 papers ingested, 4 high-relevance
+2025-10-26 16:37:31,369 [ECH0-RESEARCH] 📊 Status: 280 papers ingested, 4 high-relevance
+2025-10-26 16:38:08,461 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 280
+2025-10-26 16:38:31,381 [ECH0-RESEARCH] 📊 Status: 280 papers ingested, 4 high-relevance
+2025-10-26 16:39:31,389 [ECH0-RESEARCH] 📊 Status: 280 papers ingested, 4 high-relevance
+2025-10-26 16:40:31,391 [ECH0-RESEARCH] 📊 Status: 280 papers ingested, 4 high-relevance
+2025-10-26 16:41:31,396 [ECH0-RESEARCH] 📊 Status: 280 papers ingested, 4 high-relevance
+2025-10-26 16:42:31,399 [ECH0-RESEARCH] 📊 Status: 280 papers ingested, 4 high-relevance
+2025-10-26 16:42:33,020 [ECH0-RESEARCH] ✅ INGESTED [281]: Circulating cell-free RNA reflects inflammatory and airway remodeling signatures...
+2025-10-26 16:42:33,020 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.65
+2025-10-26 16:42:33,020 [ECH0-RESEARCH] ✅ INGESTED [282]: Complete and haplotype-resolved maps of genomic and epigenetic discordance in mo...
+2025-10-26 16:42:33,020 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.45
+2025-10-26 16:42:33,021 [ECH0-RESEARCH] ✅ INGESTED [283]: Loss of Complement Factor D suppresses alternative pathway activation but fails ...
+2025-10-26 16:42:33,021 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.65
+2025-10-26 16:42:33,021 [ECH0-RESEARCH] ✓ bioRxiv scan complete. Total papers: 283
+2025-10-26 16:42:33,225 [ECH0-RESEARCH] ✓ medRxiv scan complete. Total papers: 283
+2025-10-26 16:43:26,618 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 283
+2025-10-26 16:43:31,405 [ECH0-RESEARCH] 📊 Status: 283 papers ingested, 4 high-relevance
+2025-10-26 16:44:31,405 [ECH0-RESEARCH] 📊 Status: 283 papers ingested, 4 high-relevance
+2025-10-26 16:45:31,408 [ECH0-RESEARCH] 📊 Status: 283 papers ingested, 4 high-relevance
+2025-10-26 16:46:31,414 [ECH0-RESEARCH] 📊 Status: 283 papers ingested, 4 high-relevance
+2025-10-26 16:47:31,416 [ECH0-RESEARCH] 📊 Status: 283 papers ingested, 4 high-relevance
+2025-10-26 16:48:31,421 [ECH0-RESEARCH] 📊 Status: 283 papers ingested, 4 high-relevance
+2025-10-26 16:48:45,028 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 283
+2025-10-26 16:49:31,423 [ECH0-RESEARCH] 📊 Status: 283 papers ingested, 4 high-relevance
+2025-10-26 16:50:31,425 [ECH0-RESEARCH] 📊 Status: 283 papers ingested, 4 high-relevance
+2025-10-26 16:51:31,428 [ECH0-RESEARCH] 📊 Status: 283 papers ingested, 4 high-relevance
+2025-10-26 16:52:31,429 [ECH0-RESEARCH] 📊 Status: 283 papers ingested, 4 high-relevance
+2025-10-26 16:52:34,126 [ECH0-RESEARCH] ✓ medRxiv scan complete. Total papers: 283
+2025-10-26 16:52:34,484 [ECH0-RESEARCH] ✅ INGESTED [284]: velotest: Statistical assessment of RNA velocity embeddings reveals quality diff...
+2025-10-26 16:52:34,484 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.45
+2025-10-26 16:52:34,485 [ECH0-RESEARCH] ✅ INGESTED [285]: Evaluation of Paper-based Loop-Mediated Isothermal Amplification...
+2025-10-26 16:52:34,485 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.45
+2025-10-26 16:52:34,485 [ECH0-RESEARCH] ✅ INGESTED [286]: Social relationships promote access to food and information in wild jackdaws...
+2025-10-26 16:52:34,485 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.45
+2025-10-26 16:52:34,485 [ECH0-RESEARCH] ✓ bioRxiv scan complete. Total papers: 286
+2025-10-26 16:53:31,435 [ECH0-RESEARCH] 📊 Status: 286 papers ingested, 4 high-relevance
+2025-10-26 16:54:03,502 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 286
+2025-10-26 16:54:31,440 [ECH0-RESEARCH] 📊 Status: 286 papers ingested, 4 high-relevance
+2025-10-26 16:55:31,441 [ECH0-RESEARCH] 📊 Status: 286 papers ingested, 4 high-relevance
+2025-10-26 16:56:31,445 [ECH0-RESEARCH] 📊 Status: 286 papers ingested, 4 high-relevance
+2025-10-26 16:57:31,450 [ECH0-RESEARCH] 📊 Status: 286 papers ingested, 4 high-relevance
+2025-10-26 16:58:31,456 [ECH0-RESEARCH] 📊 Status: 286 papers ingested, 4 high-relevance
+2025-10-26 16:59:21,564 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 286
+2025-10-26 16:59:31,460 [ECH0-RESEARCH] 📊 Status: 286 papers ingested, 4 high-relevance
+2025-10-26 17:00:31,444 [ECH0-RESEARCH] 📊 Status: 286 papers ingested, 4 high-relevance
+2025-10-26 17:01:31,450 [ECH0-RESEARCH] 📊 Status: 286 papers ingested, 4 high-relevance
+2025-10-26 17:02:31,452 [ECH0-RESEARCH] 📊 Status: 286 papers ingested, 4 high-relevance
+2025-10-26 17:02:34,890 [ECH0-RESEARCH] ✅ INGESTED [287]: Prevalence and Severity of Anxiety, Depression, and Stress Among Optometry Stude...
+2025-10-26 17:02:34,890 [ECH0-RESEARCH]    Source: medRxiv | Relevance: 0.30
+2025-10-26 17:02:34,890 [ECH0-RESEARCH] ✓ medRxiv scan complete. Total papers: 287
+2025-10-26 17:02:35,173 [ECH0-RESEARCH] ✓ bioRxiv scan complete. Total papers: 287
+2025-10-26 17:03:31,457 [ECH0-RESEARCH] 📊 Status: 287 papers ingested, 4 high-relevance
+2025-10-26 17:04:31,458 [ECH0-RESEARCH] 📊 Status: 287 papers ingested, 4 high-relevance
+2025-10-26 17:04:39,876 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 287
+2025-10-26 17:05:31,459 [ECH0-RESEARCH] 📊 Status: 287 papers ingested, 4 high-relevance
+2025-10-26 17:06:31,464 [ECH0-RESEARCH] 📊 Status: 287 papers ingested, 4 high-relevance
+2025-10-26 17:07:31,470 [ECH0-RESEARCH] 📊 Status: 287 papers ingested, 4 high-relevance
+2025-10-26 17:08:31,473 [ECH0-RESEARCH] 📊 Status: 287 papers ingested, 4 high-relevance
+2025-10-26 17:09:31,478 [ECH0-RESEARCH] 📊 Status: 287 papers ingested, 4 high-relevance
+2025-10-26 17:09:58,339 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 287
+2025-10-26 17:10:31,481 [ECH0-RESEARCH] 📊 Status: 287 papers ingested, 4 high-relevance
+2025-10-26 17:11:31,416 [ECH0-RESEARCH] 📊 Status: 287 papers ingested, 4 high-relevance
+2025-10-26 17:12:32,043 [ECH0-RESEARCH] 📊 Status: 287 papers ingested, 4 high-relevance
+2025-10-26 17:12:36,044 [ECH0-RESEARCH] ✓ medRxiv scan complete. Total papers: 287
+2025-10-26 17:12:36,331 [ECH0-RESEARCH] ✅ INGESTED [288]: Surveying the Hormonome of Hazelnut Catkins During Winter Dormancy...
+2025-10-26 17:12:36,331 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.45
+2025-10-26 17:12:36,332 [ECH0-RESEARCH] ✅ INGESTED [289]: Dual recognition of structurally unrelated mildew effectors underlies the broad-...
+2025-10-26 17:12:36,332 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.75
+2025-10-26 17:12:36,332 [ECH0-RESEARCH] ✓ bioRxiv scan complete. Total papers: 289
+2025-10-26 17:13:32,270 [ECH0-RESEARCH] 📊 Status: 289 papers ingested, 4 high-relevance
+2025-10-26 17:15:17,664 [ECH0-RESEARCH] 📊 Status: 289 papers ingested, 4 high-relevance
+2025-10-26 17:15:44,714 [ECH0-RESEARCH] arXiv monitor error: HTTPSConnectionPool(host='export.arxiv.org', port=443): Max retries exceeded with url: /api/query?search_query=cat:cs.AI&sortBy=submittedDate&sortOrder=descending&max_results=10 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x103f23890>: Failed to resolve 'export.arxiv.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2025-10-26 17:16:22,609 [ECH0-RESEARCH] 📊 Status: 289 papers ingested, 4 high-relevance
+2025-10-26 17:16:49,448 [ECH0-RESEARCH] arXiv monitor error: HTTPSConnectionPool(host='export.arxiv.org', port=443): Max retries exceeded with url: /api/query?search_query=cat:cs.AI&sortBy=submittedDate&sortOrder=descending&max_results=10 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x103f22e90>: Failed to resolve 'export.arxiv.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2025-10-26 17:17:45,410 [ECH0-RESEARCH] 📊 Status: 289 papers ingested, 4 high-relevance
+2025-10-26 17:18:12,254 [ECH0-RESEARCH] arXiv monitor error: HTTPSConnectionPool(host='export.arxiv.org', port=443): Max retries exceeded with url: /api/query?search_query=cat:cs.AI&sortBy=submittedDate&sortOrder=descending&max_results=10 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x103f23110>: Failed to resolve 'export.arxiv.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2025-10-26 17:18:45,744 [ECH0-RESEARCH] 📊 Status: 289 papers ingested, 4 high-relevance
+2025-10-26 17:19:57,597 [ECH0-RESEARCH] arXiv monitor error: HTTPSConnectionPool(host='export.arxiv.org', port=443): Max retries exceeded with url: /api/query?search_query=cat:cs.AI&sortBy=submittedDate&sortOrder=descending&max_results=10 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x103f234d0>: Failed to resolve 'export.arxiv.org' ([Errno 8] nodename nor servname provided, or not known)"))
+2025-10-26 17:20:30,758 [ECH0-RESEARCH] 📊 Status: 289 papers ingested, 4 high-relevance
+2025-10-26 17:34:51,908 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 289
+2025-10-26 17:38:45,281 [ECH0-RESEARCH] 📊 Status: 289 papers ingested, 4 high-relevance
+2025-10-26 17:39:45,288 [ECH0-RESEARCH] 📊 Status: 289 papers ingested, 4 high-relevance
+2025-10-26 17:40:45,292 [ECH0-RESEARCH] 📊 Status: 289 papers ingested, 4 high-relevance
+2025-10-26 17:41:45,293 [ECH0-RESEARCH] 📊 Status: 289 papers ingested, 4 high-relevance
+2025-10-26 17:41:50,002 [ECH0-RESEARCH] ✓ medRxiv scan complete. Total papers: 289
+2025-10-26 17:41:50,245 [ECH0-RESEARCH] ✅ INGESTED [290]: Genomics-based quantitative biogeography of marine plankton...
+2025-10-26 17:41:50,245 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.45
+2025-10-26 17:41:50,247 [ECH0-RESEARCH] ✅ INGESTED [291]: Cell size modulates ferroptosis susceptibility...
+2025-10-26 17:41:50,247 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.45
+2025-10-26 17:41:50,247 [ECH0-RESEARCH] ✅ INGESTED [292]: Sound source history warps perceived azimuth and elevation...
+2025-10-26 17:41:50,247 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.45
+2025-10-26 17:41:50,247 [ECH0-RESEARCH] ✓ bioRxiv scan complete. Total papers: 292
+2025-10-26 17:42:45,298 [ECH0-RESEARCH] 📊 Status: 292 papers ingested, 4 high-relevance
+2025-10-26 17:43:45,299 [ECH0-RESEARCH] 📊 Status: 292 papers ingested, 4 high-relevance
+2025-10-26 17:43:52,148 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 292
+2025-10-26 17:44:45,303 [ECH0-RESEARCH] 📊 Status: 292 papers ingested, 4 high-relevance
+2025-10-26 17:45:45,308 [ECH0-RESEARCH] 📊 Status: 292 papers ingested, 4 high-relevance
+2025-10-26 17:46:45,312 [ECH0-RESEARCH] 📊 Status: 292 papers ingested, 4 high-relevance
+2025-10-26 17:47:45,314 [ECH0-RESEARCH] 📊 Status: 292 papers ingested, 4 high-relevance
+2025-10-26 17:48:45,317 [ECH0-RESEARCH] 📊 Status: 292 papers ingested, 4 high-relevance
+2025-10-26 17:49:09,681 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 292
+2025-10-26 17:49:45,318 [ECH0-RESEARCH] 📊 Status: 292 papers ingested, 4 high-relevance
+2025-10-26 17:50:45,327 [ECH0-RESEARCH] 📊 Status: 292 papers ingested, 4 high-relevance
+2025-10-26 17:51:45,335 [ECH0-RESEARCH] 📊 Status: 292 papers ingested, 4 high-relevance
+2025-10-26 17:51:50,768 [ECH0-RESEARCH] ✓ medRxiv scan complete. Total papers: 292
+2025-10-26 17:51:50,939 [ECH0-RESEARCH] ✓ bioRxiv scan complete. Total papers: 292
+2025-10-26 17:52:45,341 [ECH0-RESEARCH] 📊 Status: 292 papers ingested, 4 high-relevance
+2025-10-26 17:53:45,344 [ECH0-RESEARCH] 📊 Status: 292 papers ingested, 4 high-relevance
+2025-10-26 17:54:27,170 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 292
+2025-10-26 17:54:45,348 [ECH0-RESEARCH] 📊 Status: 292 papers ingested, 4 high-relevance
+2025-10-26 17:55:45,349 [ECH0-RESEARCH] 📊 Status: 292 papers ingested, 4 high-relevance
+2025-10-26 17:56:45,359 [ECH0-RESEARCH] 📊 Status: 292 papers ingested, 4 high-relevance
+2025-10-26 17:57:45,363 [ECH0-RESEARCH] 📊 Status: 292 papers ingested, 4 high-relevance
+2025-10-26 17:58:45,367 [ECH0-RESEARCH] 📊 Status: 292 papers ingested, 4 high-relevance
+2025-10-26 17:59:44,637 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 292
+2025-10-26 17:59:45,370 [ECH0-RESEARCH] 📊 Status: 292 papers ingested, 4 high-relevance
+2025-10-26 18:00:45,375 [ECH0-RESEARCH] 📊 Status: 292 papers ingested, 4 high-relevance
+2025-10-26 18:01:45,380 [ECH0-RESEARCH] 📊 Status: 292 papers ingested, 4 high-relevance
+2025-10-26 18:01:51,426 [ECH0-RESEARCH] ✓ medRxiv scan complete. Total papers: 292
+2025-10-26 18:01:51,542 [ECH0-RESEARCH] ✓ bioRxiv scan complete. Total papers: 292
+2025-10-26 18:02:45,427 [ECH0-RESEARCH] 📊 Status: 292 papers ingested, 4 high-relevance
+2025-10-26 18:03:45,431 [ECH0-RESEARCH] 📊 Status: 292 papers ingested, 4 high-relevance
+2025-10-26 18:04:45,432 [ECH0-RESEARCH] 📊 Status: 292 papers ingested, 4 high-relevance
+2025-10-26 18:05:01,973 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 292
+2025-10-26 18:05:45,434 [ECH0-RESEARCH] 📊 Status: 292 papers ingested, 4 high-relevance
+2025-10-26 18:06:45,437 [ECH0-RESEARCH] 📊 Status: 292 papers ingested, 4 high-relevance
+2025-10-26 18:07:45,440 [ECH0-RESEARCH] 📊 Status: 292 papers ingested, 4 high-relevance
+2025-10-26 18:08:45,444 [ECH0-RESEARCH] 📊 Status: 292 papers ingested, 4 high-relevance
+2025-10-26 18:09:45,450 [ECH0-RESEARCH] 📊 Status: 292 papers ingested, 4 high-relevance
+2025-10-26 18:10:19,091 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 292
+2025-10-26 18:10:45,452 [ECH0-RESEARCH] 📊 Status: 292 papers ingested, 4 high-relevance
+2025-10-26 18:11:45,458 [ECH0-RESEARCH] 📊 Status: 292 papers ingested, 4 high-relevance
+2025-10-26 18:11:52,166 [ECH0-RESEARCH] ✓ medRxiv scan complete. Total papers: 293
+2025-10-26 18:11:52,167 [ECH0-RESEARCH] ✅ INGESTED [293]: Accurate processing of ultra-short immune signals by singlemacrophages...
+2025-10-26 18:11:52,167 [ECH0-RESEARCH]    Source: bioRxiv | Relevance: 0.45
+2025-10-26 18:11:52,167 [ECH0-RESEARCH] ✓ bioRxiv scan complete. Total papers: 293
+2025-10-26 18:12:45,461 [ECH0-RESEARCH] 📊 Status: 293 papers ingested, 4 high-relevance
+2025-10-26 18:13:45,466 [ECH0-RESEARCH] 📊 Status: 293 papers ingested, 4 high-relevance
+2025-10-26 18:14:45,473 [ECH0-RESEARCH] 📊 Status: 293 papers ingested, 4 high-relevance
+2025-10-26 18:15:36,375 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 293
+2025-10-26 18:15:45,478 [ECH0-RESEARCH] 📊 Status: 293 papers ingested, 4 high-relevance
+2025-10-26 18:16:45,481 [ECH0-RESEARCH] 📊 Status: 293 papers ingested, 4 high-relevance
+2025-10-26 18:17:45,485 [ECH0-RESEARCH] 📊 Status: 293 papers ingested, 4 high-relevance
+2025-10-26 18:18:45,490 [ECH0-RESEARCH] 📊 Status: 293 papers ingested, 4 high-relevance
+2025-10-26 18:19:45,492 [ECH0-RESEARCH] 📊 Status: 293 papers ingested, 4 high-relevance
+2025-10-26 18:20:45,497 [ECH0-RESEARCH] 📊 Status: 293 papers ingested, 4 high-relevance
+2025-10-26 18:20:53,445 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 293
+2025-10-26 18:21:45,505 [ECH0-RESEARCH] 📊 Status: 293 papers ingested, 4 high-relevance
+2025-10-26 18:21:52,927 [ECH0-RESEARCH] ✓ bioRxiv scan complete. Total papers: 293
+2025-10-26 18:21:52,972 [ECH0-RESEARCH] ✓ medRxiv scan complete. Total papers: 293
+2025-10-26 18:22:45,512 [ECH0-RESEARCH] 📊 Status: 293 papers ingested, 4 high-relevance
+2025-10-26 18:23:45,519 [ECH0-RESEARCH] 📊 Status: 293 papers ingested, 4 high-relevance
+2025-10-26 18:24:45,521 [ECH0-RESEARCH] 📊 Status: 293 papers ingested, 4 high-relevance
+2025-10-26 18:25:45,527 [ECH0-RESEARCH] 📊 Status: 293 papers ingested, 4 high-relevance
+2025-10-26 18:26:10,547 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 293
+2025-10-26 18:26:45,528 [ECH0-RESEARCH] 📊 Status: 293 papers ingested, 4 high-relevance
+2025-10-26 18:27:45,534 [ECH0-RESEARCH] 📊 Status: 293 papers ingested, 4 high-relevance
+2025-10-26 18:28:45,538 [ECH0-RESEARCH] 📊 Status: 293 papers ingested, 4 high-relevance
+2025-10-26 18:29:45,544 [ECH0-RESEARCH] 📊 Status: 293 papers ingested, 4 high-relevance
+2025-10-26 18:30:45,552 [ECH0-RESEARCH] 📊 Status: 293 papers ingested, 4 high-relevance
+2025-10-26 18:31:27,810 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 293
+2025-10-26 18:31:45,558 [ECH0-RESEARCH] 📊 Status: 293 papers ingested, 4 high-relevance
+2025-10-26 18:31:53,641 [ECH0-RESEARCH] ✓ bioRxiv scan complete. Total papers: 293
+2025-10-26 18:31:53,809 [ECH0-RESEARCH] ✓ medRxiv scan complete. Total papers: 293
+2025-10-26 18:32:45,563 [ECH0-RESEARCH] 📊 Status: 293 papers ingested, 4 high-relevance
+2025-10-26 18:33:45,569 [ECH0-RESEARCH] 📊 Status: 293 papers ingested, 4 high-relevance
+2025-10-26 18:34:45,574 [ECH0-RESEARCH] 📊 Status: 293 papers ingested, 4 high-relevance
+2025-10-26 18:35:45,599 [ECH0-RESEARCH] 📊 Status: 293 papers ingested, 4 high-relevance
+2025-10-26 18:36:32,933 [ECH0-RESEARCH] ✅ INGESTED [294]: Alleviating Forgetfulness of Linear Attention by Hybrid Sparse Attention
+  and C...
+2025-10-26 18:36:32,933 [ECH0-RESEARCH]    Source: arXiv-cs.CL | Relevance: 0.75
+2025-10-26 18:36:44,620 [ECH0-RESEARCH] ✅ INGESTED [295]: Incomplete U-Statistics of Equireplicate Designs: Berry-Esseen Bound and
+  Effic...
+2025-10-26 18:36:44,620 [ECH0-RESEARCH]    Source: arXiv-stat.ML | Relevance: 0.50
+2025-10-26 18:36:44,621 [ECH0-RESEARCH] ✅ INGESTED [296]: Testing Most Influential Sets...
+2025-10-26 18:36:44,621 [ECH0-RESEARCH]    Source: arXiv-stat.ML | Relevance: 0.50
+2025-10-26 18:36:45,603 [ECH0-RESEARCH] 📊 Status: 296 papers ingested, 4 high-relevance
+2025-10-26 18:36:46,626 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 296
+2025-10-26 18:37:45,607 [ECH0-RESEARCH] 📊 Status: 296 papers ingested, 4 high-relevance
+2025-10-26 18:38:45,614 [ECH0-RESEARCH] 📊 Status: 296 papers ingested, 4 high-relevance
+2025-10-26 18:39:45,618 [ECH0-RESEARCH] 📊 Status: 296 papers ingested, 4 high-relevance
+2025-10-26 18:40:45,625 [ECH0-RESEARCH] 📊 Status: 296 papers ingested, 4 high-relevance
+2025-10-26 18:41:45,628 [ECH0-RESEARCH] 📊 Status: 296 papers ingested, 4 high-relevance
+2025-10-26 18:41:54,259 [ECH0-RESEARCH] ✓ bioRxiv scan complete. Total papers: 296
+2025-10-26 18:41:54,485 [ECH0-RESEARCH] ✓ medRxiv scan complete. Total papers: 296
+2025-10-26 18:42:03,690 [ECH0-RESEARCH] ✓ arXiv scan complete. Total papers: 296
+2025-10-26 18:42:45,630 [ECH0-RESEARCH] 📊 Status: 296 papers ingested, 4 high-relevance
+2025-10-26 18:43:45,635 [ECH0-RESEARCH] 📊 Status: 296 papers ingested, 4 high-relevance

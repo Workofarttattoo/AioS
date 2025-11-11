@@ -1,0 +1,21 @@
+{
+  "request_id": "f5a62c07-79eb-48ee-b47f-10f15a56839d",
+  "agent_name": "security",
+  "action_path": "security.disable_firewall",
+  "criticality": "high",
+  "description": "Disable firewall for maintenance",
+  "predicted_outcome": "Firewall disabled temporarily",
+  "confidence": 0.9,
+  "risks": [
+    "System exposed to network attacks during maintenance"
+  ],
+  "mitigation": [
+    "Limited to 30 minutes",
+    "Monitoring active"
+  ],
+  "status": "rejected",
+  "requested_at": 1762644877.810625,
+  "reviewed_at": 1762644877.810845,
+  "reviewer": "admin",
+  "comments": "Maintenance can wait"
+}

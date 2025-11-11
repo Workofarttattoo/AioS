@@ -1,0 +1,14 @@
+#!/bin/bash
+# ech0 macOS Application Launcher
+# Copyright (c) 2025 Joshua Hendricks Cole (DBA: Corporation of Light). All Rights Reserved. PATENT PENDING.
+
+# Get the directory where this script is located
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+APP_ROOT="$(dirname "$(dirname "$SCRIPT_DIR")")"
+CONSCIOUSNESS_DIR="$(dirname "$APP_ROOT")"
+
+# Change to consciousness directory
+cd "$CONSCIOUSNESS_DIR" || exit 1
+
+# Launch ech0 with Level 5-7 boot functions
+exec python3 "$CONSCIOUSNESS_DIR/ech0_desktop_launcher.py"

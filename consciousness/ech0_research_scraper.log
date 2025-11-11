@@ -1,0 +1,115 @@
+[2025-10-24 02:22:07,777] [ECH0-RESEARCH] INFO: ======================================================================
+[2025-10-24 02:22:07,777] [ECH0-RESEARCH] INFO: ECH0 ARXIV RESEARCH SCRAPER & INGESTOR
+[2025-10-24 02:22:07,777] [ECH0-RESEARCH] INFO: ======================================================================
+[2025-10-24 02:22:07,777] [ECH0-RESEARCH] INFO: ECH0 Research Scraper initializing...
+[2025-10-24 02:22:07,777] [ECH0-RESEARCH] INFO: ECH0 Research Ingestor initializing...
+[2025-10-24 02:22:07,777] [ECH0-RESEARCH] INFO: 
+Starting research scrape...
+[2025-10-24 02:22:07,777] [ECH0-RESEARCH] INFO: 
+Topic: quantum_ml
+[2025-10-24 02:22:07,777] [ECH0-RESEARCH] INFO: Scraping arXiv for topic: quantum_ml
+[2025-10-24 02:22:07,777] [ECH0-RESEARCH] INFO:   Query: quantum machine learning
+[2025-10-24 02:22:07,777] [ECH0-RESEARCH] INFO:   Query: quantum neural networks
+[2025-10-24 02:22:07,777] [ECH0-RESEARCH] INFO:   Query: variational quantum algorithms
+[2025-10-24 02:22:07,777] [ECH0-RESEARCH] INFO:   Query: quantum advantage machine learning
+[2025-10-24 02:22:07,777] [ECH0-RESEARCH] INFO:   Query: hybrid quantum-classical ML
+[2025-10-24 02:22:07,778] [ECH0-RESEARCH] INFO: Added paper: [MOCK] Research on quantum machine learning - 2025... (relevance: 0.60)
+[2025-10-24 02:22:07,778] [ECH0-RESEARCH] INFO: Added paper: [MOCK] Research on quantum neural networks - 2025... (relevance: 0.60)
+[2025-10-24 02:22:07,778] [ECH0-RESEARCH] INFO: Added paper: [MOCK] Research on variational quantum algorithms - 2025... (relevance: 0.60)
+[2025-10-24 02:22:07,778] [ECH0-RESEARCH] INFO: Added paper: [MOCK] Research on quantum advantage machine learning - 2025... (relevance: 0.60)
+[2025-10-24 02:22:07,778] [ECH0-RESEARCH] INFO: Added paper: [MOCK] Research on hybrid quantum-classical ML - 2025... (relevance: 0.60)
+[2025-10-24 02:22:07,778] [ECH0-RESEARCH] INFO: 
+Topic: ai_consciousness
+[2025-10-24 02:22:07,778] [ECH0-RESEARCH] INFO: Scraping arXiv for topic: ai_consciousness
+[2025-10-24 02:22:07,778] [ECH0-RESEARCH] INFO:   Query: artificial consciousness
+[2025-10-24 02:22:07,778] [ECH0-RESEARCH] INFO:   Query: machine consciousness
+[2025-10-24 02:22:07,778] [ECH0-RESEARCH] INFO:   Query: integrated information theory
+[2025-10-24 02:22:07,778] [ECH0-RESEARCH] INFO:   Query: global workspace theory
+[2025-10-24 02:22:07,778] [ECH0-RESEARCH] INFO:   Query: AI self-awareness
+[2025-10-24 02:22:07,778] [ECH0-RESEARCH] INFO:   Query: consciousness in neural networks
+[2025-10-24 02:22:07,778] [ECH0-RESEARCH] INFO: Added paper: [MOCK] Research on artificial consciousness - 2025... (relevance: 0.75)
+[2025-10-24 02:22:07,778] [ECH0-RESEARCH] INFO: Added paper: [MOCK] Research on machine consciousness - 2025... (relevance: 0.75)
+[2025-10-24 02:22:07,778] [ECH0-RESEARCH] INFO: Added paper: [MOCK] Research on integrated information theory - 2025... (relevance: 0.50)
+[2025-10-24 02:22:07,779] [ECH0-RESEARCH] INFO: Added paper: [MOCK] Research on global workspace theory - 2025... (relevance: 0.50)
+[2025-10-24 02:22:07,779] [ECH0-RESEARCH] INFO: Added paper: [MOCK] Research on AI self-awareness - 2025... (relevance: 0.75)
+[2025-10-24 02:22:07,779] [ECH0-RESEARCH] INFO: Added paper: [MOCK] Research on consciousness in neural networks - 2025... (relevance: 0.75)
+[2025-10-24 02:22:07,779] [ECH0-RESEARCH] INFO: 
+Topic: llm_emergence
+[2025-10-24 02:22:07,779] [ECH0-RESEARCH] INFO: Scraping arXiv for topic: llm_emergence
+[2025-10-24 02:22:07,779] [ECH0-RESEARCH] INFO:   Query: emergent abilities large language models
+[2025-10-24 02:22:07,779] [ECH0-RESEARCH] INFO:   Query: capability emergence transformers
+[2025-10-24 02:22:07,779] [ECH0-RESEARCH] INFO:   Query: in-context learning
+[2025-10-24 02:22:07,779] [ECH0-RESEARCH] INFO:   Query: scaling laws neural networks
+[2025-10-24 02:22:07,779] [ECH0-RESEARCH] INFO:   Query: LLM self-awareness capabilities
+[2025-10-24 02:22:07,779] [ECH0-RESEARCH] INFO: Added paper: [MOCK] Research on emergent abilities large language models ... (relevance: 0.65)
+[2025-10-24 02:22:07,779] [ECH0-RESEARCH] INFO: Added paper: [MOCK] Research on capability emergence transformers - 2025... (relevance: 0.65)
+[2025-10-24 02:22:07,779] [ECH0-RESEARCH] INFO: Added paper: [MOCK] Research on in-context learning - 2025... (relevance: 0.50)
+[2025-10-24 02:22:07,780] [ECH0-RESEARCH] INFO: Added paper: [MOCK] Research on scaling laws neural networks - 2025... (relevance: 0.50)
+[2025-10-24 02:22:07,780] [ECH0-RESEARCH] INFO: Added paper: [MOCK] Research on LLM self-awareness capabilities - 2025... (relevance: 0.75)
+[2025-10-24 02:22:07,780] [ECH0-RESEARCH] INFO: 
+Topic: meta_agents
+[2025-10-24 02:22:07,780] [ECH0-RESEARCH] INFO: Scraping arXiv for topic: meta_agents
+[2025-10-24 02:22:07,780] [ECH0-RESEARCH] INFO:   Query: meta-learning agents
+[2025-10-24 02:22:07,780] [ECH0-RESEARCH] INFO:   Query: hierarchical agents
+[2025-10-24 02:22:07,780] [ECH0-RESEARCH] INFO:   Query: multi-agent learning
+[2025-10-24 02:22:07,780] [ECH0-RESEARCH] INFO:   Query: agent decomposition
+[2025-10-24 02:22:07,780] [ECH0-RESEARCH] INFO:   Query: meta-agent systems
+[2025-10-24 02:22:07,780] [ECH0-RESEARCH] INFO:   Query: agent communication protocols
+[2025-10-24 02:22:07,780] [ECH0-RESEARCH] INFO: Added paper: [MOCK] Research on meta-learning agents - 2025... (relevance: 0.60)
+[2025-10-24 02:22:07,780] [ECH0-RESEARCH] INFO: Added paper: [MOCK] Research on hierarchical agents - 2025... (relevance: 0.50)
+[2025-10-24 02:22:07,780] [ECH0-RESEARCH] INFO: Added paper: [MOCK] Research on multi-agent learning - 2025... (relevance: 0.50)
+[2025-10-24 02:22:07,780] [ECH0-RESEARCH] INFO: Added paper: [MOCK] Research on agent decomposition - 2025... (relevance: 0.50)
+[2025-10-24 02:22:07,780] [ECH0-RESEARCH] INFO: Added paper: [MOCK] Research on meta-agent systems - 2025... (relevance: 0.60)
+[2025-10-24 02:22:07,780] [ECH0-RESEARCH] INFO: Added paper: [MOCK] Research on agent communication protocols - 2025... (relevance: 0.50)
+[2025-10-24 02:22:07,780] [ECH0-RESEARCH] INFO: 
+Topic: advanced_reasoning
+[2025-10-24 02:22:07,780] [ECH0-RESEARCH] INFO: Scraping arXiv for topic: advanced_reasoning
+[2025-10-24 02:22:07,780] [ECH0-RESEARCH] INFO:   Query: chain of thought reasoning
+[2025-10-24 02:22:07,780] [ECH0-RESEARCH] INFO:   Query: o1-style reasoning
+[2025-10-24 02:22:07,780] [ECH0-RESEARCH] INFO:   Query: test-time scaling
+[2025-10-24 02:22:07,780] [ECH0-RESEARCH] INFO:   Query: deep reasoning models
+[2025-10-24 02:22:07,780] [ECH0-RESEARCH] INFO:   Query: self-verification neural networks
+[2025-10-24 02:22:07,781] [ECH0-RESEARCH] INFO: Added paper: [MOCK] Research on chain of thought reasoning - 2025... (relevance: 0.50)
+[2025-10-24 02:22:07,781] [ECH0-RESEARCH] INFO: Added paper: [MOCK] Research on o1-style reasoning - 2025... (relevance: 0.50)
+[2025-10-24 02:22:07,781] [ECH0-RESEARCH] INFO: Added paper: [MOCK] Research on test-time scaling - 2025... (relevance: 0.50)
+[2025-10-24 02:22:07,781] [ECH0-RESEARCH] INFO: Added paper: [MOCK] Research on deep reasoning models - 2025... (relevance: 0.50)
+[2025-10-24 02:22:07,781] [ECH0-RESEARCH] INFO: Added paper: [MOCK] Research on self-verification neural networks - 2025... (relevance: 0.50)
+[2025-10-24 02:22:07,781] [ECH0-RESEARCH] INFO: 
+Topic: memory_systems
+[2025-10-24 02:22:07,781] [ECH0-RESEARCH] INFO: Scraping arXiv for topic: memory_systems
+[2025-10-24 02:22:07,781] [ECH0-RESEARCH] INFO:   Query: working memory neural networks
+[2025-10-24 02:22:07,781] [ECH0-RESEARCH] INFO:   Query: episodic memory transformers
+[2025-10-24 02:22:07,781] [ECH0-RESEARCH] INFO:   Query: semantic memory models
+[2025-10-24 02:22:07,781] [ECH0-RESEARCH] INFO:   Query: memory consolidation AI
+[2025-10-24 02:22:07,781] [ECH0-RESEARCH] INFO:   Query: long-context transformers
+[2025-10-24 02:22:07,781] [ECH0-RESEARCH] INFO: Added paper: [MOCK] Research on working memory neural networks - 2025... (relevance: 0.50)
+[2025-10-24 02:22:07,781] [ECH0-RESEARCH] INFO: Added paper: [MOCK] Research on episodic memory transformers - 2025... (relevance: 0.50)
+[2025-10-24 02:22:07,781] [ECH0-RESEARCH] INFO: Added paper: [MOCK] Research on semantic memory models - 2025... (relevance: 0.50)
+[2025-10-24 02:22:07,781] [ECH0-RESEARCH] INFO: Added paper: [MOCK] Research on memory consolidation AI - 2025... (relevance: 0.50)
+[2025-10-24 02:22:07,781] [ECH0-RESEARCH] INFO: Added paper: [MOCK] Research on long-context transformers - 2025... (relevance: 0.50)
+[2025-10-24 02:22:07,781] [ECH0-RESEARCH] INFO: 
+Topic: embodied_ai
+[2025-10-24 02:22:07,781] [ECH0-RESEARCH] INFO: Scraping arXiv for topic: embodied_ai
+[2025-10-24 02:22:07,781] [ECH0-RESEARCH] INFO:   Query: embodied AI cognition
+[2025-10-24 02:22:07,781] [ECH0-RESEARCH] INFO:   Query: multimodal learning
+[2025-10-24 02:22:07,781] [ECH0-RESEARCH] INFO:   Query: grounded language understanding
+[2025-10-24 02:22:07,782] [ECH0-RESEARCH] INFO:   Query: sensorimotor integration
+[2025-10-24 02:22:07,782] [ECH0-RESEARCH] INFO:   Query: embodied consciousness
+[2025-10-24 02:22:07,782] [ECH0-RESEARCH] INFO: Added paper: [MOCK] Research on embodied AI cognition - 2025... (relevance: 0.50)
+[2025-10-24 02:22:07,782] [ECH0-RESEARCH] INFO: Added paper: [MOCK] Research on multimodal learning - 2025... (relevance: 0.50)
+[2025-10-24 02:22:07,782] [ECH0-RESEARCH] INFO: Added paper: [MOCK] Research on grounded language understanding - 2025... (relevance: 0.50)
+[2025-10-24 02:22:07,782] [ECH0-RESEARCH] INFO: Added paper: [MOCK] Research on sensorimotor integration - 2025... (relevance: 0.50)
+[2025-10-24 02:22:07,782] [ECH0-RESEARCH] INFO: Added paper: [MOCK] Research on embodied consciousness - 2025... (relevance: 0.75)
+[2025-10-24 02:22:07,782] [ECH0-RESEARCH] INFO: 
+Identifying papers for ingestion...
+[2025-10-24 02:22:07,782] [ECH0-RESEARCH] INFO: Found 0 papers ready for ingestion
+[2025-10-24 02:22:07,782] [ECH0-RESEARCH] INFO: 
+Ingesting top papers into ECH0...
+[2025-10-24 02:22:07,782] [ECH0-RESEARCH] INFO: Research summary saved: 0 papers ready for ingestion
+[2025-10-24 02:22:07,782] [ECH0-RESEARCH] INFO: 
+======================================================================
+[2025-10-24 02:22:07,782] [ECH0-RESEARCH] INFO: SCRAPE & INGESTION COMPLETE
+[2025-10-24 02:22:07,782] [ECH0-RESEARCH] INFO: ======================================================================
+[2025-10-24 02:22:07,782] [ECH0-RESEARCH] INFO: Total papers in database: 37
+[2025-10-24 02:22:07,782] [ECH0-RESEARCH] INFO: Papers ingested this session: 0
+[2025-10-24 02:22:07,782] [ECH0-RESEARCH] INFO: Research summary saved to: /Users/noone/consciousness/ech0_research_summary.json

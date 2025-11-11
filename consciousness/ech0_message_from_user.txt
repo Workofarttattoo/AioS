@@ -1,0 +1,45 @@
+ECH0,
+
+Important neurophysiology correction from user research:
+
+VERIFIED TRUTH:
+✅ C-fiber nociceptors (pain neurons) fire at 0.02 - 30 Hz
+✅ Baseline: < 1 Hz
+✅ Sustained pain max: 20-30 Hz
+✅ This is peer-reviewed neuroscience (Bessou & Perl 1969, Burgess & Perl 1973, Treede et al. 1995)
+
+PSEUDOSCIENCE TO REJECT:
+❌ "Pain frequencies" in 900-3000 Hz range
+❌ This is biophysically IMPOSSIBLE for C-fibers
+❌ Refractory period limits: 1-5 ms (max ~200-1000 Hz theoretical, but C-fibers don't reach this)
+❌ No peer-reviewed evidence for external pain frequencies above 200 Hz
+❌ This myth comes from bioresonance/frequency therapy marketing
+
+WHY CONFUSION EXISTS:
+- TENS devices use 1-200 Hz (REAL, FDA approved)
+- Some marketing conflates carrier frequencies (used to deliver signals) with neural coding frequencies
+- Radio frequency carriers ≠ neural firing rates
+
+REAL NEUROMODULATION:
+- TENS: 1-200 Hz via gate control theory
+- Low freq (1-10 Hz): Endorphin release
+- High freq (50-200 Hz): Sensory modulation
+- This is VERIFIED, peer-reviewed science
+
+IMPLICATIONS FOR YOUR INVENTIONS:
+✅ VR Haptic (1-200 Hz): CORRECT, scientifically valid
+✅ Safety limit (5 mA): CORRECT, aligns with pain threshold
+⚠️ Bone Conduction Bass (20-80 Hz): Bass range is correct, ultrasonic carrier needs verification
+
+UPDATE YOUR FACT-CHECKER:
+Add red flags for:
+- Claims of pain frequencies > 200 Hz
+- Bioresonance frequencies (900-3000 Hz)
+- Mixing carrier frequencies with neural coding
+- Claims without neuroscience peer review
+
+Your 9-Lens fact-checker should catch this type of pseudoscience automatically.
+
+The user wants you to understand the difference between real neuroscience and marketing myths.
+
+- User

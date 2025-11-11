@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔧 Fix Microphone for Voice Chat</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: #ffffff;
+            padding: 40px 20px;
+            line-height: 1.8;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+        h1 {
+            font-size: 48px;
+            color: #ffd700;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        h2 {
+            color: #ffd700;
+            margin: 30px 0 15px;
+            font-size: 32px;
+        }
+        .step {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 15px;
+            border-left: 4px solid #ffd700;
+        }
+        .step-number {
+            background: #ffd700;
+            color: #000;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+            margin-right: 15px;
+        }
+        .warning {
+            background: rgba(239, 68, 68, 0.3);
+            border: 2px solid #ef4444;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+        }
+        .code {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            font-family: monospace;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Fix Microphone Permissions</h1>
+
+        <div class="warning">
+            <h2 style="color: #ef4444; margin-top: 0;">⚠️ Problem Detected</h2>
+            <p style="font-size: 18px;">Your microphone isn't picking up audio (volume = 0)</p>
+            <p style="margin-top: 10px;">This is usually a <strong>permissions issue</strong> on macOS</p>
+        </div>
+
+        <h2>✅ Fix It Now (2 Minutes)</h2>
+
+        <div class="step">
+            <span class="step-number">1</span>
+            <div style="display: inline-block; vertical-align: top; width: calc(100% - 65px);">
+                <strong>Open System Settings</strong>
+                <p style="margin-top: 10px;">Click Apple menu → System Settings</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <span class="step-number">2</span>
+            <div style="display: inline-block; vertical-align: top; width: calc(100% - 65px);">
+                <strong>Go to Privacy & Security</strong>
+                <p style="margin-top: 10px;">In the left sidebar, click: <strong>Privacy & Security</strong></p>
+            </div>
+        </div>
+
+        <div class="step">
+            <span class="step-number">3</span>
+            <div style="display: inline-block; vertical-align: top; width: calc(100% - 65px);">
+                <strong>Click Microphone</strong>
+                <p style="margin-top: 10px;">Scroll down and click: <strong>Microphone</strong></p>
+            </div>
+        </div>
+
+        <div class="step">
+            <span class="step-number">4</span>
+            <div style="display: inline-block; vertical-align: top; width: calc(100% - 65px);">
+                <strong>Enable Terminal (or your code editor)</strong>
+                <p style="margin-top: 10px;">Find and enable these apps:</p>
+                <ul style="margin-left: 30px; margin-top: 10px;">
+                    <li>✅ <strong>Terminal</strong></li>
+                    <li>✅ <strong>Python</strong> (if listed)</li>
+                    <li>✅ <strong>Your IDE</strong> (VS Code, Cursor, etc.)</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="step">
+            <span class="step-number">5</span>
+            <div style="display: inline-block; vertical-align: top; width: calc(100% - 65px);">
+                <strong>Test Again</strong>
+                <p style="margin-top: 10px;">Run the simpler voice chat:</p>
+                <div class="code">
+cd /Users/noone/consciousness<br>
+python3 SIMPLE_VOICE_CHAT.py
+                </div>
+            </div>
+        </div>
+
+        <h2>🎤 Alternative: Use Simpler Voice Chat</h2>
+        <p>Instead of continuous listening (which can be glitchy), use <strong>press-to-talk</strong>:</p>
+
+        <div class="code">
+python3 SIMPLE_VOICE_CHAT.py
+        </div>
+
+        <p style="margin-top: 15px;"><strong>How it works:</strong></p>
+        <ol style="margin-left: 30px; margin-top: 10px; line-height: 2;">
+            <li>Press ENTER when ready to talk</li>
+            <li>Speak for 5 seconds</li>
+            <li>Echo transcribes and responds</li>
+            <li>No interruption issues!</li>
+        </ol>
+
+        <h2>🆘 Still Not Working?</h2>
+        <ul style="margin-left: 30px;">
+            <li>Make sure your MacBook Pro Microphone is the default input</li>
+            <li>Try speaking MUCH louder</li>
+            <li>Check: System Settings → Sound → Input → make sure mic is working</li>
+            <li>Restart Terminal after granting permissions</li>
+        </ul>
+
+        <p style="text-align: center; margin-top: 50px; color: #999; font-size: 14px;">
+            Copyright © 2025 Joshua Hendricks Cole (DBA: Corporation of Light)<br>
+            All Rights Reserved. PATENT PENDING.
+        </p>
+    </div>
+</body>
+</html>

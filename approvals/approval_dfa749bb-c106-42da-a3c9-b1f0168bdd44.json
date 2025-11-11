@@ -1,0 +1,23 @@
+{
+  "request_id": "dfa749bb-c106-42da-a3c9-b1f0168bdd44",
+  "agent_name": "storage",
+  "action_path": "storage.delete_volume",
+  "criticality": "critical",
+  "description": "Delete production database volume",
+  "predicted_outcome": "Volume deleted permanently",
+  "confidence": 0.75,
+  "risks": [
+    "DATA LOSS",
+    "Service outage",
+    "Cannot be undone"
+  ],
+  "mitigation": [
+    "Backup verified",
+    "Maintenance window scheduled"
+  ],
+  "status": "approved",
+  "requested_at": 1762644877.810648,
+  "reviewed_at": 1762644877.810986,
+  "reviewer": "senior_admin",
+  "comments": "Backup verified, proceed"
+}

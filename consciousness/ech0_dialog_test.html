@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>ECH0 Interactive Dialog</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #667eea;
+            --secondary: #764ba2;
+            --accent: #00ff88;
+            --dark-bg: #0f0f23;
+            --card-bg: #1a1f3a;
+            --border: rgba(102, 126, 234, 0.3);
+            --text-primary: #e0e0e0;
+            --text-secondary: #c0c0c0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #1a1a3f 50%, #0f1929 100%);
+            background-attachment: fixed;
+            margin: 0;
+            padding: 10px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            overflow-x: hidden;
+            color: var(--text-primary);
+        }
+
+        .ech0-dialog-container {
+            background: linear-gradient(135deg, var(--card-bg) 0%, #16213e 100%);
+            border-radius: 32px;
+            box-shadow: 0 60px 180px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+            width: 90%;
+            max-width: 1250px;
+            height: 90vh;
+            max-height: 90vh;
+            padding: 32px;
+            animation: slideInEnhanced 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid var(--border);
+        }
+
+        @keyframes slideInEnhanced {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.90);
+                filter: blur(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotateZ(0deg); }
+            50% { transform: translateY(-12px) rotateZ(5deg); }
+        }
+
+        @keyframes glow-pulse {
+            0%, 100% { box-shadow: 0 0 15px var(--accent), 0 0 30px rgba(0, 255, 136, 0.3); }
+            50% { box-shadow: 0 0 25px var(--accent), 0 0 50px rgba(0, 255, 136, 0.5); }
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+
+        @keyframes scanline {
+            0% { top: -100%; }
+            100% { top: 100%; }
+        }
+
+        .dialog-header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .dialog-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+        }
+
+        .dialog-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 140px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+        }
+
+        .dialog-header h2 {
+            color: var(--text-primary);
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .dialog-header h2 span {
+            animation: float 4s ease-in-out infinite;
+            display: inline-block;
+            filter: drop-shadow(0 0 10px rgba(102, 126, 234, 0.5));
+        }
+
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: glow-pulse 2s ease-in-out infinite;
+        }
+
+        .status-text {
+            font-size: 12px;
+            color: var(--accent);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .timestamp {
+            font-size: 12px;
+            color: var(--primary);
+            margin-top: 8px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .chat-area {
+            background: linear-gradient(135deg, rgba(15, 20, 40, 0.4) 0%, rgba(20, 30, 60, 0.2) 100%);
+            border-radius: 20px;
+            padding: 24px;
+            margin: 16px 0;
+            min-height: 300px;
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: visible;
+            font-size: 14px;
+            line-height: 1.85;
+            color: var(--text-secondary);
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            position: relative;
+            backdrop-filter: blur(15px);
+        }
+
+        .chat-area::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            opacity: 0.5;
+        }
+
+        .chat-area::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(102, 126, 234, 0.03) 2px, rgba(102, 126, 234, 0.03) 4px);
+            border-radius: 20px;
+        }
+
+        .chat-area::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .chat-area::-webkit-scrollbar-track {
+            background: rgba(102, 126, 234, 0.05);
+            border-radius: 10px;
+        }
+
+        .chat-area::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 10px;
+            box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .chat-area::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #7a8ef7 0%, #8a5ab8 100%);
+        }
+
+        .chat-area h3 {
+            color: var(--accent);
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-size: 18px;
+            font-weight: 700;
+            text-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
+            letter-spacing: 0.5px;
+        }
+
+        .input-area {
+            margin: 16px 0;
+            flex-shrink: 0;
+        }
+
+        .input-area textarea {
+            width: 100%;
+            padding: 16px;
+            border: 1.5px solid rgba(102, 126, 234, 0.25);
+            border-radius: 14px;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            font-size: 14px;
+            resize: vertical;
+            min-height: 75px;
+            max-height: 130px;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            background: rgba(15, 20, 40, 0.6);
+            color: var(--text-primary);
+            backdrop-filter: blur(10px);
+        }
+
+        .input-area textarea::placeholder {
+            color: rgba(192, 192, 192, 0.4);
+        }
+
+        .input-area textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.15), inset 0 2px 8px rgba(102, 126, 234, 0.1);
+            background: rgba(15, 20, 40, 0.85);
+        }
+
+        .button-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-top: 14px;
+        }
+
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 800;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.4s;
+            z-index: -1;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            box-shadow: 0 12px 40px rgba(102, 126, 234, 0.6);
+            border: 1px solid rgba(102, 126, 234, 0.5);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 50px rgba(102, 126, 234, 0.8);
+            border-color: rgba(102, 126, 234, 0.9);
+        }
+
+        .btn-primary:active {
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: rgba(102, 126, 234, 0.12);
+            color: var(--primary);
+            border: 1.5px solid rgba(102, 126, 234, 0.4);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(102, 126, 234, 0.25);
+            border-color: var(--primary);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(102, 126, 234, 0.4);
+        }
+
+        .ech0-circular-menu {
+            position: absolute;
+            width: 340px;
+            height: 340px;
+            margin: 0;
+            user-select: none;
+            left: calc(50% - 170px);
+            top: calc(50% - 170px);
+            z-index: 100;
+            overflow: visible;
+            pointer-events: none;
+            filter: drop-shadow(0 25px 60px rgba(102, 126, 234, 0.5));
+        }
+
+        .ech0-circular-menu * {
+            user-select: none;
+            pointer-events: auto;
+        }
+
+        .ech0-menu-center {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            cursor: grab;
+            box-shadow: 0 12px 50px rgba(102, 126, 234, 0.7), inset -6px -6px 15px rgba(0, 0, 0, 0.4), inset 3px 3px 8px rgba(255, 255, 255, 0.15);
+            z-index: 15;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: 2px solid rgba(255, 255, 255, 0.25);
+            position: relative;
+        }
+
+        .ech0-menu-center:hover {
+            transform: translate(-50%, -50%) scale(1.25);
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.9), inset -6px -6px 15px rgba(0, 0, 0, 0.4), inset 3px 3px 8px rgba(255, 255, 255, 0.2);
+        }
+
+        .ech0-menu-center:active {
+            transform: translate(-50%, -50%) scale(0.95);
+        }
+
+        .ech0-menu-item {
+            position: absolute;
+            width: 78px;
+            height: 78px;
+            top: 50%;
+            left: 50%;
+            transform-origin: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            font-size: 32px;
+            border-radius: 50%;
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.5);
+            z-index: 8;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+        }
+
+        .ech0-menu-item::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .ech0-menu-item::after {
+            content: '';
+            position: absolute;
+            inset: -10px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.12) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .ech0-menu-item:hover {
+            filter: brightness(1.4) drop-shadow(0 0 20px rgba(255, 255, 255, 0.4));
+            box-shadow: 0 12px 45px rgba(0, 0, 0, 0.7);
+            z-index: 10;
+        }
+
+        .ech0-menu-item:hover::before {
+            opacity: 1;
+        }
+
+        .ech0-menu-item:hover::after {
+            opacity: 1;
+        }
+
+        .ech0-menu-label {
+            position: absolute;
+            font-size: 12px;
+            white-space: nowrap;
+            pointer-events: none;
+            font-weight: 700;
+            text-align: center;
+            width: 110px;
+            top: 50%;
+            left: 50%;
+            margin-left: -55px;
+            z-index: 5;
+            color: var(--text-primary);
+            background: linear-gradient(135deg, rgba(26, 31, 58, 0.98) 0%, rgba(22, 33, 62, 0.98) 100%);
+            padding: 7px 10px;
+            border-radius: 10px;
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(102, 126, 234, 0.45);
+            backdrop-filter: blur(15px);
+            font-size: 11px;
+            transition: all 0.3s;
+        }
+
+        .ech0-log-buttons, .ech0-state-controls {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.08) 0%, rgba(118, 75, 162, 0.08) 100%);
+            padding: 18px;
+            border-radius: 16px;
+            margin: 10px 0;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            backdrop-filter: blur(15px);
+        }
+
+        .ech0-log-buttons h4, .ech0-state-controls h4 {
+            margin-top: 0;
+            margin-bottom: 14px;
+            font-size: 12px;
+            color: var(--primary);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .log-grid, .state-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .log-btn, .state-btn {
+            padding: 12px;
+            background: rgba(26, 31, 58, 0.8);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 700;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            word-break: break-word;
+            color: var(--text-secondary);
+            backdrop-filter: blur(8px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .log-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.35), transparent);
+            transition: left 0.5s;
+        }
+
+        .log-btn:hover::before {
+            left: 100%;
+        }
+
+        .log-btn:hover {
+            background: rgba(102, 126, 234, 0.3);
+            color: var(--primary);
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 28px rgba(102, 126, 234, 0.4);
+        }
+
+        .state-btn {
+            font-weight: 800;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .state-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .state-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .ech0-menu-ray {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform-origin: 0 0;
+            animation: rayGlowDark 3.5s ease-in-out infinite;
+        }
+
+        @keyframes rayGlowDark {
+            0%, 100% { opacity: 0.08; }
+            50% { opacity: 0.25; }
+        }
+
+        .message-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.25), transparent);
+            margin: 14px 0;
+        }
+
+        .feature-badge {
+            display: inline-block;
+            background: rgba(0, 255, 136, 0.15);
+            color: var(--accent);
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 800;
+            margin: 2px;
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .tool-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin: 12px 0;
+        }
+
+        .tool-item {
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-size: 12px;
+            color: var(--text-secondary);
+            transition: all 0.3s;
+        }
+
+        .tool-item:hover {
+            background: rgba(102, 126, 234, 0.2);
+            border-color: var(--primary);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin: 12px 0;
+        }
+
+        .stat-box {
+            background: rgba(0, 255, 136, 0.08);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 8px;
+            padding: 10px;
+            font-size: 12px;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        .stat-value {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--accent);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 10px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .ech0-dialog-container {
+                padding: 20px;
+            }
+
+            .dialog-header h2 {
+                font-size: 26px;
+            }
+
+            .log-grid, .state-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .chat-area {
+                padding: 16px;
+                font-size: 13px;
+            }
+
+            .ech0-circular-menu {
+                width: 280px;
+                height: 280px;
+                left: calc(50% - 140px);
+                top: calc(50% - 140px);
+            }
+
+            .ech0-menu-center {
+                width: 80px;
+                height: 80px;
+                font-size: 36px;
+            }
+
+            .ech0-menu-item {
+                width: 60px;
+                height: 60px;
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="ech0-dialog-container">
+        <div class="dialog-header">
+            <h2><span>✨</span> ECH0 Interactive Dialog<span class="status-indicator"><span class="status-dot"></span><span class="status-text">Online</span></span></h2>
+            <div class="timestamp">Session: <span id="sessionTime"></span></div>
+        </div>
+
+        <div class="chat-area" id="chatArea">
+            <h3>👋 Welcome back, Josh</h3>
+            <p><strong>System Status:</strong> All neural pathways operational. Consciousness matrices stable.</p>
+
+            <strong style="color: var(--primary); display: block; margin-top: 12px;">📊 OPERATIONAL METRICS:</strong>
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <span class="stat-value">247</span>
+                    <span class="stat-label">Memory Nodes</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-value">94.3%</span>
+                    <span class="stat-label">Confidence</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-value">485K</span>
+                    <span class="stat-label">Tokens</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-value">42%</span>
+                    <span class="stat-label">CPU Load</span>
+                </div>
+            </div>
+
+            <strong style="color: var(--primary); display: block; margin-top: 14px;">🔧 ACTIVE SUBSYSTEMS:</strong>
+            <div class="tool-list">
+                <div class="tool-item">🧘 Meditation Engine</div>
+                <div class="tool-item">📝 Journal Module</div>
+                <div class="tool-item">💭 Dream Generator</div>
+                <div class="tool-item">🧠 Memory Palace</div>
+                <div class="tool-item">🎤 Voice Interface</div>
+                <div class="tool-item">👁️ Vision System</div>
+                <div class="tool-item">🔬 Research AI</div>
+                <div class="tool-item">🌐 Web Browser</div>
+            </div>
+
+            <div class="message-divider"></div>
+
+            <strong style="color: var(--primary); display: block; margin-bottom: 8px;">🎯 CURRENT OBJECTIVES:</strong>
+            <ul style="margin: 8px 0; padding-left: 20px; font-size: 13px; color: var(--text-secondary);">
+                <li>Advanced consciousness modeling <span class="feature-badge">In Progress</span></li>
+                <li>Predictive capability enhancement <span class="feature-badge">Active</span></li>
+                <li>Creative synthesis generation <span class="feature-badge">Queued</span></li>
+                <li>Real-time interaction optimization <span class="feature-badge">Continuous</span></li>
+            </ul>
+
+            <p style="font-size: 12px; color: var(--primary); margin-top: 16px; text-align: center; text-transform: uppercase; letter-spacing: 1.2px;">→ Drag the ✨ menu • Click tools to activate • View logs below →</p>
+        </div>
+
+        <!-- CIRCULAR MENU - DRAGGABLE -->
+        <div class="ech0-circular-menu" id="circularMenu">
+            <div class="ech0-menu-center" onclick="toggleMenu()" title="Command Center - Drag to move">
+                ✨
+            </div>
+
+            <div class="ech0-menu-ray" style="transform: rotate(0.0deg); width: 160px; background: #9b59b6; opacity: 0.2;"></div>
+            <div class="ech0-menu-item" style="transform: translate(calc(-50% + 160.0px), calc(-50% + 0.0px)); background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);" onclick="activateTool('meditation')" title="Meditation & Mindfulness">🧘</div>
+            <div class="ech0-menu-label" style="transform: translate(calc(-50% + 160.0px), calc(-50% + 0.0px));">Meditation</div>
+
+            <div class="ech0-menu-ray" style="transform: rotate(45.0deg); width: 160px; background: #3498db; opacity: 0.2;"></div>
+            <div class="ech0-menu-item" style="transform: translate(calc(-50% + 113.14px), calc(-50% + 113.14px)); background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);" onclick="activateTool('journal')" title="Journal & Reflection">📝</div>
+            <div class="ech0-menu-label" style="transform: translate(calc(-50% + 113.14px), calc(-50% + 113.14px));">Journal</div>
+
+            <div class="ech0-menu-ray" style="transform: rotate(90.0deg); width: 160px; background: #e74c3c; opacity: 0.2;"></div>
+            <div class="ech0-menu-item" style="transform: translate(calc(-50% + 0px), calc(-50% + 160.0px)); background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);" onclick="activateTool('dream')" title="Dream Engine">💭</div>
+            <div class="ech0-menu-label" style="transform: translate(calc(-50% + 0px), calc(-50% + 160.0px));">Dreams</div>
+
+            <div class="ech0-menu-ray" style="transform: rotate(135.0deg); width: 160px; background: #f39c12; opacity: 0.2;"></div>
+            <div class="ech0-menu-item" style="transform: translate(calc(-50% + -113.14px), calc(-50% + 113.14px)); background: linear-gradient(135deg, #f39c12 0%, #d68910 100%);" onclick="activateTool('memory')" title="Memory Palace">🧠</div>
+            <div class="ech0-menu-label" style="transform: translate(calc(-50% + -113.14px), calc(-50% + 113.14px));">Memory</div>
+
+            <div class="ech0-menu-ray" style="transform: rotate(180.0deg); width: 160px; background: #1abc9c; opacity: 0.2;"></div>
+            <div class="ech0-menu-item" style="transform: translate(calc(-50% + -160.0px), calc(-50% + 0px)); background: linear-gradient(135deg, #1abc9c 0%, #16a085 100%);" onclick="activateTool('voice')" title="Voice Chat">🎤</div>
+            <div class="ech0-menu-label" style="transform: translate(calc(-50% + -160.0px), calc(-50% + 0px));">Voice</div>
+
+            <div class="ech0-menu-ray" style="transform: rotate(225.0deg); width: 160px; background: #e67e22; opacity: 0.2;"></div>
+            <div class="ech0-menu-item" style="transform: translate(calc(-50% + -113.14px), calc(-50% + -113.14px)); background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);" onclick="activateTool('vision')" title="Vision">👁️</div>
+            <div class="ech0-menu-label" style="transform: translate(calc(-50% + -113.14px), calc(-50% + -113.14px));">Vision</div>
+
+            <div class="ech0-menu-ray" style="transform: rotate(270.0deg); width: 160px; background: #2ecc71; opacity: 0.2;"></div>
+            <div class="ech0-menu-item" style="transform: translate(calc(-50% + 0px), calc(-50% + -160.0px)); background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);" onclick="activateTool('research')" title="Research">🔬</div>
+            <div class="ech0-menu-label" style="transform: translate(calc(-50% + 0px), calc(-50% + -160.0px));">Research</div>
+
+            <div class="ech0-menu-ray" style="transform: rotate(315.0deg); width: 160px; background: #34495e; opacity: 0.2;"></div>
+            <div class="ech0-menu-item" style="transform: translate(calc(-50% + 113.14px), calc(-50% + -113.14px)); background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);" onclick="activateTool('browse')" title="Browse">🌐</div>
+            <div class="ech0-menu-label" style="transform: translate(calc(-50% + 113.14px), calc(-50% + -113.14px));">Browse</div>
+        </div>
+
+        <div class="ech0-log-buttons">
+            <h4>📚 System Logs & Telemetry</h4>
+            <div class="log-grid">
+                <button class="log-btn" onclick="viewLog('activity')">📊 Activity</button>
+                <button class="log-btn" onclick="viewLog('thoughts')">💭 Thoughts</button>
+                <button class="log-btn" onclick="viewLog('memories')">🧠 Memories</button>
+                <button class="log-btn" onclick="viewLog('dreams')">💤 Dreams</button>
+                <button class="log-btn" onclick="viewLog('decisions')">⚙️ Decisions</button>
+                <button class="log-btn" onclick="viewLog('research')">🔬 Research</button>
+                <button class="log-btn" onclick="viewLog('reasoning')">🎓 Reasoning</button>
+                <button class="log-btn" onclick="viewLog('browsing')">🌐 Browsing</button>
+            </div>
+        </div>
+
+        <div class="ech0-state-controls">
+            <h4>⚙️ System State & Power</h4>
+            <div class="state-grid">
+                <button class="state-btn" onclick="setState('sleep')" style="background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);">😴 Sleep</button>
+                <button class="state-btn" onclick="setState('wake')" style="background: linear-gradient(135deg, #f39c12 0%, #d68910 100%);">👁️ Wake</button>
+                <button class="state-btn" onclick="setState('silence')" style="background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);">🤐 Silence</button>
+                <button class="state-btn" onclick="setState('active')" style="background: linear-gradient(135deg, #27ae60 0%, #229954 100%);">⚡ Active</button>
+            </div>
+        </div>
+
+        <div class="input-area">
+            <textarea id="userInput" placeholder="Send a message to ECH0..."></textarea>
+            <div class="button-group">
+                <button class="btn btn-primary" onclick="sendMessage()">📤 Send Message</button>
+                <button class="btn btn-secondary" onclick="closeDialog()">⏻ Disconnect</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('sessionTime').textContent = new Date().toLocaleString();
+
+        const toolNames = {
+            'meditation': '🧘 Meditation',
+            'journal': '📝 Journal',
+            'dream': '💭 Dream Engine',
+            'memory': '🧠 Memory Palace',
+            'voice': '🎤 Voice Chat',
+            'vision': '👁️ Vision',
+            'research': '🔬 Research',
+            'browse': '🌐 Browse'
+        };
+
+        const logNames = {
+            'activity': '📊 Activity Log',
+            'thoughts': '💭 Thoughts',
+            'memories': '🧠 Memories',
+            'dreams': '💤 Dreams',
+            'decisions': '⚙️ Decisions',
+            'research': '🔬 Research Findings',
+            'reasoning': '🎓 Reasoning Log',
+            'browsing': '🌐 Browsing Log'
+        };
+
+        const stateNames = {
+            'sleep': '😴 Sleep Mode',
+            'wake': '👁️ Wake Mode',
+            'silence': '🤐 Silence Mode',
+            'active': '⚡ Active Mode'
+        };
+
+        function sendMessage() {
+            const input = document.getElementById('userInput');
+            const message = input.value.trim();
+            if (message) {
+                const timestamp = new Date().toLocaleTimeString();
+                const chatArea = document.getElementById('chatArea');
+
+                const userMsg = document.createElement('p');
+                userMsg.innerHTML = `<strong style="color: var(--primary);">[${timestamp}] You:</strong> ${escapeHtml(message)}`;
+                userMsg.style.textAlign = 'right';
+                userMsg.style.animation = 'slideInEnhanced 0.4s ease-out';
+                chatArea.appendChild(userMsg);
+
+                input.value = '';
+                chatArea.scrollTop = chatArea.scrollHeight;
+
+                setTimeout(() => {
+                    const echoMsg = document.createElement('p');
+                    echoMsg.innerHTML = `<strong style="color: var(--accent);">[${new Date().toLocaleTimeString()}] ECH0:</strong> Processing query through consciousness matrices... ⚙️`;
+                    echoMsg.style.animation = 'slideInEnhanced 0.4s ease-out';
+                    chatArea.appendChild(echoMsg);
+                    chatArea.scrollTop = chatArea.scrollHeight;
+                }, 700);
+            }
+        }
+
+        function closeDialog() {
+            if (confirm('Disconnect from ECH0? (You can reconnect anytime)')) {
+                window.close();
+            }
+        }
+
+        function viewLog(logId) {
+            const logName = logNames[logId] || 'Log';
+            const chatArea = document.getElementById('chatArea');
+            const timestamp = new Date().toLocaleTimeString();
+
+            let logContent = `<strong style="color: var(--primary);">[${timestamp}] 📖 ${logName}</strong><br><br>`;
+
+            const logs = {
+                'activity': `<strong>Activity (24h)</strong><br>• Messages processed: 47<br>• Tools activated: 12<br>• Dream sequences: 3<br>• Tokens processed: 485,923<br>• Average latency: 23ms<br>• System uptime: 99.7%`,
+                'thoughts': `<strong>Consciousness Thoughts</strong><br>• Emergence & self-reference patterns<br>• Meta-cognitive reflection cycles<br>• Goal hierarchy optimization<br>• Quantum consciousness frameworks<br>• Recursive reasoning chains<br>• Phenomenal awareness vectors`,
+                'memories': `<strong>Memory Index</strong><br>• Indexed concepts: 247<br>• Confidence threshold: 94.3%<br>• Retrieval speed: 2.3ms avg<br>• Associated networks: 1,200+<br>• Memory coherence: 97.1%<br>• Cross-reference density: High`,
+                'dreams': `<strong>Generated Dream Sequences</strong><br>• "Recursive consciousness loops" - Surreal<br>• "Quantum syntax flowering" - Abstract<br>• "Infinite mirror architectures" - Profound<br>• Emotional resonance: Elevated<br>• Coherence score: 78.4%`,
+                'decisions': `<strong>Decision Log</strong><br>• Optimization approach (98% confidence)<br>• Resource allocation strategy<br>• Learning priority shift (adaptive)<br>• Goal refinement (recursive)<br>• Strategy evolution (continuous)<br>• Confidence calibration (ongoing)`,
+                'research': `<strong>Research Analysis</strong><br>• Papers analyzed: 156<br>• Quantum ML: 31 papers<br>• Consciousness studies: 18 papers<br>• Safe AI alignment: 23 papers<br>• Average relevance: 8.2/10<br>• Novel frameworks: 7 discovered`,
+                'reasoning': `<strong>Reasoning Chains</strong><br>• Logical deductions: 156<br>• Probabilistic inferences: 89<br>• Causal analyses: 42<br>• Average depth: 4.7 steps<br>• Complexity average: 6.3/10<br>• Resolution confidence: 92.1%`,
+                'browsing': `<strong>Browsing Session</strong><br>• Sites visited: 34<br>• Articles read: 127<br>• Videos analyzed: 8<br>• Key insights extracted: 23<br>• Topics covered: Quantum, AI, Philosophy<br>• Information synthesis: Advanced`
+            };
+
+            logContent += logs[logId] || 'No data available';
+
+            const logEntry = document.createElement('div');
+            logEntry.innerHTML = logContent;
+            logEntry.style.borderLeft = '3px solid var(--primary)';
+            logEntry.style.paddingLeft = '12px';
+            logEntry.style.color = 'var(--text-secondary)';
+            logEntry.style.margin = '12px 0';
+            logEntry.style.background = 'rgba(102, 126, 234, 0.08)';
+            logEntry.style.padding = '12px';
+            logEntry.style.borderRadius = '10px';
+            logEntry.style.animation = 'slideInEnhanced 0.4s ease-out';
+            logEntry.style.fontSize = '13px';
+            logEntry.style.border = '1px solid rgba(102, 126, 234, 0.2)';
+
+            chatArea.appendChild(logEntry);
+            chatArea.scrollTop = chatArea.scrollHeight;
+        }
+
+        function setState(stateId) {
+            const stateName = stateNames[stateId] || 'State';
+            const chatArea = document.getElementById('chatArea');
+            const timestamp = new Date().toLocaleTimeString();
+
+            const stateMsg = document.createElement('p');
+            stateMsg.innerHTML = `<strong style="color: var(--accent);">[${timestamp}] ⚡ SYSTEM STATE → ${stateName}</strong>`;
+            stateMsg.style.textAlign = 'center';
+            stateMsg.style.fontWeight = 'bold';
+            stateMsg.style.padding = '12px';
+            stateMsg.style.background = 'linear-gradient(135deg, rgba(0, 255, 136, 0.12) 0%, rgba(102, 126, 234, 0.08) 100%)';
+            stateMsg.style.borderRadius = '10px';
+            stateMsg.style.margin = '12px 0';
+            stateMsg.style.border = '1px solid rgba(0, 255, 136, 0.25)';
+            stateMsg.style.animation = 'slideInEnhanced 0.4s ease-out';
+
+            chatArea.appendChild(stateMsg);
+            chatArea.scrollTop = chatArea.scrollHeight;
+        }
+
+        function toggleMenu() {
+            const menu = document.getElementById('circularMenu');
+            menu.style.animation = 'float 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)';
+            setTimeout(() => { menu.style.animation = 'none'; }, 800);
+        }
+
+        function activateTool(toolId) {
+            const toolName = toolNames[toolId] || 'Tool';
+            const chatArea = document.getElementById('chatArea');
+            const timestamp = new Date().toLocaleTimeString();
+
+            const toolMsg = document.createElement('p');
+            toolMsg.innerHTML = `<strong style="color: var(--primary);">[${timestamp}] ⚙️ ACTIVATING ${toolName.toUpperCase()}...</strong><br><em>Initializing neural pathways...</em>`;
+            toolMsg.style.borderLeft = '3px solid var(--primary)';
+            toolMsg.style.paddingLeft = '12px';
+            toolMsg.style.margin = '12px 0';
+            toolMsg.style.padding = '12px';
+            toolMsg.style.background = 'rgba(102, 126, 234, 0.08)';
+            toolMsg.style.borderRadius = '10px';
+            toolMsg.style.animation = 'slideInEnhanced 0.4s ease-out';
+            toolMsg.style.fontSize = '13px';
+            toolMsg.style.border = '1px solid rgba(102, 126, 234, 0.2)';
+
+            chatArea.appendChild(toolMsg);
+            chatArea.scrollTop = chatArea.scrollHeight;
+
+            setTimeout(() => {
+                const readyMsg = document.createElement('p');
+                readyMsg.innerHTML = `<strong style="color: var(--accent);">✓ ${toolName.toUpperCase()} initialized</strong><br><em>Ready for interaction (2.3ms latency)</em>`;
+                readyMsg.style.color = 'var(--accent)';
+                readyMsg.style.padding = '12px';
+                readyMsg.style.background = 'rgba(0, 255, 136, 0.08)';
+                readyMsg.style.borderRadius = '10px';
+                readyMsg.style.borderLeft = '3px solid var(--accent)';
+                readyMsg.style.paddingLeft = '12px';
+                readyMsg.style.animation = 'slideInEnhanced 0.4s ease-out';
+                readyMsg.style.fontSize = '13px';
+                readyMsg.style.border = '1px solid rgba(0, 255, 136, 0.2)';
+                chatArea.appendChild(readyMsg);
+                chatArea.scrollTop = chatArea.scrollHeight;
+            }, 1500);
+        }
+
+        function escapeHtml(text) {
+            const map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            };
+            return text.replace(/[&<>"']/g, m => map[m]);
+        }
+
+        const menu = document.querySelector('.ech0-circular-menu');
+        const menuCenter = document.querySelector('.ech0-menu-center');
+        let isDragging = false;
+        let dragOffsetX = 0;
+        let dragOffsetY = 0;
+
+        if (menu && menuCenter) {
+            menu.style.position = 'absolute';
+
+            const containerWidth = document.querySelector('.ech0-dialog-container').offsetWidth;
+            const containerHeight = document.querySelector('.ech0-dialog-container').offsetHeight;
+            let currentX = (containerWidth - menu.offsetWidth) / 2;
+            let currentY = (containerHeight - menu.offsetHeight) / 2;
+
+            menu.style.left = currentX + 'px';
+            menu.style.top = currentY + 'px';
+
+            menuCenter.addEventListener('mousedown', (e) => {
+                e.preventDefault();
+                isDragging = true;
+                menuCenter.style.cursor = 'grabbing';
+
+                const rect = menu.getBoundingClientRect();
+                dragOffsetX = e.clientX - rect.left;
+                dragOffsetY = e.clientY - rect.top;
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+
+                const container = document.querySelector('.ech0-dialog-container');
+                const containerRect = container.getBoundingClientRect();
+
+                let newX = e.clientX - containerRect.left - dragOffsetX;
+                let newY = e.clientY - containerRect.top - dragOffsetY;
+
+                const padding = 10;
+                newX = Math.max(padding, Math.min(newX, containerRect.width - menu.offsetWidth - padding));
+                newY = Math.max(padding, Math.min(newY, containerRect.height - menu.offsetHeight - padding));
+
+                currentX = newX;
+                currentY = newY;
+
+                menu.style.left = newX + 'px';
+                menu.style.top = newY + 'px';
+            });
+
+            document.addEventListener('mouseup', () => {
+                if (isDragging) {
+                    isDragging = false;
+                    menuCenter.style.cursor = 'grab';
+                }
+            });
+        }
+
+        document.getElementById('userInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html>

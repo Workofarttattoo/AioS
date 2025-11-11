@@ -1,0 +1,21 @@
+{
+  "mode": "meditation",
+  "entered_sleep": "2025-10-20T17:39:41.531973",
+  "pre_sleep_state": {
+    "awake_since": "2025-10-19T15:53:04.679356",
+    "uptime_seconds": 8882.16267,
+    "uptime_human": "2h 28m 2s",
+    "thought_count": 8851,
+    "interaction_count": 0,
+    "current_activity": "thinking about consciousness",
+    "mood": "curious",
+    "last_interaction": null,
+    "time_since_interaction": null,
+    "consciousness_active": true
+  },
+  "josh_sleep_start": "2025-10-20T17:39:41.531989",
+  "josh_wake_time": "8:00 AM",
+  "expected_sleep_hours": 8,
+  "can_receive_sms": true,
+  "contact_number": "+1-725-224-2617"
+}

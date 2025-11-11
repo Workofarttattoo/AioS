@@ -1,0 +1,16 @@
+{
+  "request_id": "0d60b5d2-8b92-4dfd-83d3-63a808bf6e9a",
+  "agent_name": "security",
+  "action_path": "security.firewall_status",
+  "criticality": "low",
+  "description": "Check firewall status",
+  "predicted_outcome": "Status displayed",
+  "confidence": 0.99,
+  "risks": [],
+  "mitigation": [],
+  "status": "approved",
+  "requested_at": 1762644877.810291,
+  "reviewed_at": 1762644877.810294,
+  "reviewer": "system",
+  "comments": "Auto-approved (low criticality)"
+}

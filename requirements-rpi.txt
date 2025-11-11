@@ -1,0 +1,15 @@
+# Raspberry Pi friendly dependency set for Ai:oS.
+# This keeps to packages with prebuilt aarch64 wheels.
+numpy<2.0
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+cryptography>=41.0.0
+scapy>=2.5.0
+mitmproxy>=10.2.0
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+pydantic>=1.10.0
+rich>=13.7.0
+tqdm>=4.66.0
+sounddevice>=0.4.6
+orjson>=3.9.10

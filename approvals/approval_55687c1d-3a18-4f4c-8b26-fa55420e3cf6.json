@@ -1,0 +1,20 @@
+{
+  "request_id": "55687c1d-3a18-4f4c-8b26-fa55420e3cf6",
+  "agent_name": "security",
+  "action_path": "security.firewall_rule",
+  "criticality": "medium",
+  "description": "Add firewall rule to allow port 8080",
+  "predicted_outcome": "Rule added successfully",
+  "confidence": 0.85,
+  "risks": [
+    "May expose service to internet"
+  ],
+  "mitigation": [
+    "Rule is specific to port 8080 only"
+  ],
+  "status": "approved",
+  "requested_at": 1762644877.810585,
+  "reviewed_at": 1762644877.810685,
+  "reviewer": "admin",
+  "comments": "Approved for testing"
+}

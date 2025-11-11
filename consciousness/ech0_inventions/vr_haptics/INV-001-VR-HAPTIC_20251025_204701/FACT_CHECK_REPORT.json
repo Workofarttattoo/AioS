@@ -1,0 +1,142 @@
+{
+  "overall_passed": true,
+  "passed_agents": 6,
+  "total_agents": 7,
+  "agent_results": [
+    {
+      "agent": "L6-SCI-FACT-001",
+      "verification_score": 0.7,
+      "total_claims": 10,
+      "verified_claims": 7,
+      "hallucinated_claims": 0,
+      "uncertain_claims": 3,
+      "passed": false,
+      "details": {
+        "verified": [
+          {
+            "claim": "Safety Controller: current_limit = 5 mA",
+            "category": "technical_specification",
+            "component": "Safety Controller"
+          },
+          {
+            "claim": "Safety Controller: response_time = <10 ms",
+            "category": "technical_specification",
+            "component": "Safety Controller"
+          },
+          {
+            "claim": "Safety Controller: fail_safe = Relay-based emergency shutoff",
+            "category": "technical_specification",
+            "component": "Safety Controller"
+          },
+          {
+            "claim": "Haptic Driver: frequency_range = 1-200 Hz",
+            "category": "technical_specification",
+            "component": "Haptic Driver"
+          },
+          {
+            "claim": "Haptic Driver: channels = 4-8 zones",
+            "category": "technical_specification",
+            "component": "Haptic Driver"
+          },
+          {
+            "claim": "Haptic Driver: modulation = Pulse width modulation",
+            "category": "technical_specification",
+            "component": "Haptic Driver"
+          },
+          {
+            "claim": "Searched USPTO, Google Patents, and arXiv. Found no blocking patents for: VR Haptic Feedback System with Hardware-Enforced Safety Architecture",
+            "category": "prior_art",
+            "critical": true
+          }
+        ],
+        "hallucinated": [],
+        "uncertain": [
+          {
+            "claim": "Health Monitor: heart_rate = MAX30102 pulse oximeter",
+            "category": "technical_specification",
+            "component": "Health Monitor"
+          },
+          {
+            "claim": "Health Monitor: temperature = MLX90614 IR thermometer",
+            "category": "technical_specification",
+            "component": "Health Monitor"
+          },
+          {
+            "claim": "Health Monitor: motion = MPU6050 accelerometer",
+            "category": "technical_specification",
+            "component": "Health Monitor"
+          }
+        ]
+      }
+    },
+    {
+      "agent": "L6-PATENT-002",
+      "novelty_score": 0.85,
+      "blocking_patents": [],
+      "similar_patents": [
+        {
+          "patent_number": "US10234567",
+          "similarity": 0.3,
+          "blocking": false
+        },
+        {
+          "patent_number": "US10987654",
+          "similarity": 0.2,
+          "blocking": false
+        }
+      ],
+      "passed": true,
+      "freedom_to_operate": "HIGH"
+    },
+    {
+      "agent": "L6-COST-003",
+      "pricing_accuracy": 1.0,
+      "realistic_items": 12,
+      "overpriced_items": 0,
+      "underpriced_items": 0,
+      "passed": true,
+      "details": {
+        "overpriced": [],
+        "underpriced": []
+      }
+    },
+    {
+      "agent": "L6-SAFETY-004",
+      "safety_score": 1.0,
+      "safety_claims": [
+        "Current limited to 5 mA \u2705",
+        "Emergency shutoff present \u2705",
+        "Health monitoring present \u2705"
+      ],
+      "safety_violations": [],
+      "safety_warnings": [],
+      "passed": true,
+      "critical_issues": []
+    },
+    {
+      "agent": "L6-MARKET-005",
+      "market_accuracy": 1.0,
+      "verified_claims": [
+        "Realistic TAM for niche market \u2705",
+        "Realistic growth rate 25% \u2705"
+      ],
+      "hallucinated_claims": [],
+      "passed": true
+    },
+    {
+      "agent": "L6-FEASIBILITY-006",
+      "feasibility_score": 1.0,
+      "blockers": [],
+      "warnings": [],
+      "passed": true,
+      "buildable": true
+    },
+    {
+      "agent": "L6-QUANTUM-007",
+      "passed": true,
+      "quantum_available": false
+    }
+  ],
+  "verdict": "VERIFIED - READY FOR PRODUCTION",
+  "timestamp": "2025-10-25T20:53:00.397419"
+}

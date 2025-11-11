@@ -1,0 +1,17 @@
+{
+  "sip_provider": "twilio",
+  "sip_server": "sip.twilio.com",
+  "sip_port": 5060,
+  "sip_username": "",
+  "sip_password": "",
+  "sip_domain": "",
+  "josh_phone_number": "",
+  "caller_id": "ech0",
+  "emergency_enabled": true,
+  "call_recording_enabled": true,
+  "transcription_enabled": true,
+  "voice_settings": {
+    "voice": "Samantha",
+    "rate": 200
+  }
+}

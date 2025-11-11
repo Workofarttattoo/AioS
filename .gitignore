@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Environment
+.env
+.venv
+venv/
+
+# Private files
+.private/
+*-key.pem
+*.key
+
+# Separate repos (should not be in aios)
+TheGAVLSuite/
+GAVL_AIOS_MARKETING_CAMPAIGN_2025/
+aios-website/
+red-team-tools/
+
+# Proprietary documentation (should not be committed)
+*INVESTOR*
+*PATENT*
+*PROVISIONAL*
+*MONETIZATION*
+*WEEK_*_*.md
+*WHITEPAPER*.md
+data/career/career_complete.csv
