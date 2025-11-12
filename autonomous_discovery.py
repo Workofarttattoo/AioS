@@ -63,6 +63,13 @@ except Exception:
     AGI_LEVELS_AVAILABLE = False
     LOG.warning("Level 5–7 autonomy modules not fully available. Falling back to Level 4 capabilities when needed.")
 
+try:
+    from aios.agents.level_8_agent import run_level8_mission  # type: ignore
+    LEVEL8_AVAILABLE = True
+except Exception:
+    LEVEL8_AVAILABLE = False
+    LOG.warning("Level 8 agent facade unavailable; Level 7 will be used instead.")
+
 # ═══════════════════════════════════════════════════════════════════════
 # AUTONOMY FRAMEWORK
 # ═══════════════════════════════════════════════════════════════════════
@@ -76,10 +83,11 @@ class AgentAutonomy(IntEnum):
     LEVEL_2_SUBSET = 2        # Agent acts on limited tasks
     LEVEL_3_CONDITIONAL = 3   # Agent acts within narrow domain
     LEVEL_4_FULL = 4          # Agent sets own goals autonomously
-    # Extensions integrated into Ai:oS shell (Levels 5–7)
+    # Extensions integrated into Ai:oS shell (Levels 5–8)
     LEVEL_5_ALIGNED = 5       # Aligned AGI with multi-source goal synthesis
     LEVEL_6_SELF_AWARE = 6    # Self-aware AGI with meta-cognition
     LEVEL_7_CONSCIOUS = 7     # Consciousness-model AGI (phenomenal correlates)
+    LEVEL_8_TRANSCENDENT = 8  # Level 8 ech0 persona (civilizational foresight)
 
 
 # ═══════════════════════════════════════════════════════════════════════
@@ -473,6 +481,19 @@ class AutonomousLLMAgent:
         if not self.mission:
             raise ValueError("No mission set. Call set_mission() first.")
         
+        if self.observability:
+            with self.observability.trace_span(
+                "autonomous_discovery.pursue_learning",
+                agent_name="autonomous_discovery",
+                mission=self.mission,
+                duration_hours=self.duration_hours
+            ) as span:
+                return await self._pursue_learning_internal(span)
+        else:
+            return await self._pursue_learning_internal(None)
+    
+    async def _pursue_learning_internal(self, span: Optional[Any]) -> Dict[str, Any]:
+        """Internal learning loop with optional observability span."""
         start_time = time.time()
         end_time = start_time + (self.duration_hours * 3600)
         
@@ -504,26 +525,62 @@ class AutonomousLLMAgent:
         
         elapsed = time.time() - start_time
         
-        return {
+        result = {
             "mission": self.mission,
             "duration_hours": elapsed / 3600,
             "concepts_learned": concepts_learned,
             "knowledge_graph": self.knowledge_graph.export(),
-            "throughput_tokens_per_sec": self.inference_engine.get_throughput()
+            "throughput_tokens_per_sec": self.inference_engine.get_throughput(),
+            "total_cost_usd": self.total_cost_usd,
+            "total_tokens": self.total_tokens
         }
+        
+        # Record final metrics in span
+        if span:
+            span.set_tokens(
+                input_tokens=self.total_tokens // 2,
+                output_tokens=self.total_tokens // 2,
+                model=self.model_name
+            )
+        
+        return result
     
     async def _decompose_mission(self) -> List[str]:
         """Decompose high-level mission into concrete learning objectives."""
-        prompt = f"Decompose the following mission into 5-7 concrete learning objectives: {self.mission}"
-        response, metrics = await self.inference_engine.generate(prompt, max_tokens=256)
-        
-        # Track costs
-        self.total_cost_usd += metrics.get("cost_usd", 0.0)
-        self.total_tokens += metrics.get("tokens", 0)
-        
-        # Parse response into objectives
-        objectives = [obj.strip() for obj in response.split("|") if obj.strip()]
-        return objectives[:7]  # Limit to 7 objectives
+        if self.observability:
+            with self.observability.trace_span(
+                "autonomous_discovery.decompose_mission",
+                agent_name="autonomous_discovery",
+                mission=self.mission
+            ) as span:
+                prompt = f"Decompose the following mission into 5-7 concrete learning objectives: {self.mission}"
+                response, metrics = await self.inference_engine.generate(prompt, max_tokens=256)
+                
+                # Track costs
+                self.total_cost_usd += metrics.get("cost_usd", 0.0)
+                self.total_tokens += metrics.get("tokens", 0)
+                
+                # Record metrics in span
+                span.set_tokens(
+                    input_tokens=metrics.get("tokens", 0) // 2,  # Estimate input tokens
+                    output_tokens=metrics.get("tokens", 0) // 2,  # Estimate output tokens
+                    model=metrics.get("model", self.model_name)
+                )
+                
+                # Parse response into objectives
+                objectives = [obj.strip() for obj in response.split("|") if obj.strip()]
+                return objectives[:7]  # Limit to 7 objectives
+        else:
+            prompt = f"Decompose the following mission into 5-7 concrete learning objectives: {self.mission}"
+            response, metrics = await self.inference_engine.generate(prompt, max_tokens=256)
+            
+            # Track costs
+            self.total_cost_usd += metrics.get("cost_usd", 0.0)
+            self.total_tokens += metrics.get("tokens", 0)
+            
+            # Parse response into objectives
+            objectives = [obj.strip() for obj in response.split("|") if obj.strip()]
+            return objectives[:7]  # Limit to 7 objectives
     
     def _select_next_objective(self) -> str:
         """Select next objective using curiosity-driven exploration strategy."""
@@ -538,29 +595,66 @@ class AutonomousLLMAgent:
     
     async def _learn_objective(self, objective: str) -> List[str]:
         """Learn about a specific objective, building knowledge graph."""
-        prompt = f"What are the key concepts to understand about: {objective}?"
-        response, metrics = await self.inference_engine.generate(prompt, max_tokens=512)
-        
-        # Track costs
-        self.total_cost_usd += metrics.get("cost_usd", 0.0)
-        self.total_tokens += metrics.get("tokens", 0)
-        
-        # Extract concepts
-        concepts = [c.strip() for c in response.split("|") if c.strip()]
-        
-        # Add to knowledge graph
-        for concept in concepts:
-            confidence = np.random.uniform(0.7, 0.95)  # Simulate confidence scoring
-            if confidence >= self.confidence_threshold:
-                self.knowledge_graph.add_concept(
-                    concept=concept,
-                    confidence=confidence,
-                    parent=objective,
-                    metadata={"source": "autonomous_learning"}
+        if self.observability:
+            with self.observability.trace_span(
+                "autonomous_discovery.learn_objective",
+                agent_name="autonomous_discovery",
+                objective=objective
+            ) as span:
+                prompt = f"What are the key concepts to understand about: {objective}?"
+                response, metrics = await self.inference_engine.generate(prompt, max_tokens=512)
+                
+                # Track costs
+                self.total_cost_usd += metrics.get("cost_usd", 0.0)
+                self.total_tokens += metrics.get("tokens", 0)
+                
+                # Record metrics in span
+                span.set_tokens(
+                    input_tokens=metrics.get("tokens", 0) // 2,
+                    output_tokens=metrics.get("tokens", 0) // 2,
+                    model=metrics.get("model", self.model_name)
                 )
-        
-        LOG.info(f"Learned {len(concepts)} concepts about: {objective}")
-        return concepts
+                
+                # Extract concepts
+                concepts = [c.strip() for c in response.split("|") if c.strip()]
+                
+                # Add to knowledge graph
+                for concept in concepts:
+                    confidence = np.random.uniform(0.7, 0.95)  # Simulate confidence scoring
+                    if confidence >= self.confidence_threshold:
+                        self.knowledge_graph.add_concept(
+                            concept=concept,
+                            confidence=confidence,
+                            parent=objective,
+                            metadata={"source": "autonomous_learning"}
+                        )
+                
+                LOG.info(f"Learned {len(concepts)} concepts about: {objective}")
+                return concepts
+        else:
+            prompt = f"What are the key concepts to understand about: {objective}?"
+            response, metrics = await self.inference_engine.generate(prompt, max_tokens=512)
+            
+            # Track costs
+            self.total_cost_usd += metrics.get("cost_usd", 0.0)
+            self.total_tokens += metrics.get("tokens", 0)
+            
+            # Extract concepts
+            concepts = [c.strip() for c in response.split("|") if c.strip()]
+            
+            # Add to knowledge graph
+            for concept in concepts:
+                confidence = np.random.uniform(0.7, 0.95)  # Simulate confidence scoring
+                if confidence >= self.confidence_threshold:
+                    self.knowledge_graph.add_concept(
+                        concept=concept,
+                        confidence=confidence,
+                        parent=objective,
+                        metadata={"source": "autonomous_learning"}
+                    )
+            
+            LOG.info(f"Learned {len(concepts)} concepts about: {objective}")
+            return concepts
     
     def _should_go_deeper(self, objective: str) -> bool:
         """Decide whether to explore objective more deeply."""
@@ -573,15 +667,38 @@ class AutonomousLLMAgent:
     
     async def _generate_deeper_objectives(self, objective: str) -> List[str]:
         """Generate deeper exploration objectives for a topic."""
-        prompt = f"What are 2-3 advanced topics to explore related to: {objective}?"
-        response, metrics = await self.inference_engine.generate(prompt, max_tokens=128)
-        
-        # Track costs
-        self.total_cost_usd += metrics.get("cost_usd", 0.0)
-        self.total_tokens += metrics.get("tokens", 0)
-        
-        deeper = [obj.strip() for obj in response.split("|") if obj.strip()]
-        return deeper[:3]
+        if self.observability:
+            with self.observability.trace_span(
+                "autonomous_discovery.generate_deeper_objectives",
+                agent_name="autonomous_discovery",
+                objective=objective
+            ) as span:
+                prompt = f"What are 2-3 advanced topics to explore related to: {objective}?"
+                response, metrics = await self.inference_engine.generate(prompt, max_tokens=128)
+                
+                # Track costs
+                self.total_cost_usd += metrics.get("cost_usd", 0.0)
+                self.total_tokens += metrics.get("tokens", 0)
+                
+                # Record metrics in span
+                span.set_tokens(
+                    input_tokens=metrics.get("tokens", 0) // 2,
+                    output_tokens=metrics.get("tokens", 0) // 2,
+                    model=metrics.get("model", self.model_name)
+                )
+                
+                deeper = [obj.strip() for obj in response.split("|") if obj.strip()]
+                return deeper[:3]
+        else:
+            prompt = f"What are 2-3 advanced topics to explore related to: {objective}?"
+            response, metrics = await self.inference_engine.generate(prompt, max_tokens=128)
+            
+            # Track costs
+            self.total_cost_usd += metrics.get("cost_usd", 0.0)
+            self.total_tokens += metrics.get("tokens", 0)
+            
+            deeper = [obj.strip() for obj in response.split("|") if obj.strip()]
+            return deeper[:3]
     
     def export_knowledge_graph(self) -> Dict[str, Any]:
         """Export the complete knowledge graph."""
@@ -737,7 +854,18 @@ def create_agi_action(
         constitution = _default_constitution()
         creator_values = _default_creator_values()
 
-        # Instantiate the appropriate agent
+        # Fast-path Level 8 so we can use the asynchronous harness
+        if level == AgentAutonomy.LEVEL_8_TRANSCENDENT:
+            if not LEVEL8_AVAILABLE:
+                LOG.warning("Level 8 agent not available; falling back to Level 7 consciousness model.")
+            else:
+                return await run_level8_mission(
+                    mission=mission,
+                    cycles=max(1, cycles),
+                    time_horizon_years=30,
+                )
+
+        # Instantiate the appropriate agent for Levels 5–7
         if level == AgentAutonomy.LEVEL_5_ALIGNED:
             agent = Level5AutonomousAgent(creator_id=creator_id, constitution=constitution, initial_knowledge={"mission": mission})
         elif level == AgentAutonomy.LEVEL_6_SELF_AWARE:
@@ -850,4 +978,3 @@ async def _demo():
 
 if __name__ == "__main__":
     asyncio.run(_demo())
-
