@@ -28,3 +28,9 @@ venv/
 .private/
 *-key.pem
 *.key
+
+# Autonomous agent knowledge databases
+*.db
+*_knowledge.db
+autonomous_knowledge.db
+demo_autonomous_knowledge.db
