@@ -510,6 +510,38 @@
             color: #00d4ff;
             margin-top: 3px;
         }
+
+        @keyframes float {
+            0% { transform: translateY(0px); box-shadow: 0 0 20px #00ff88; }
+            50% { transform: translateY(-10px); box-shadow: 0 0 30px #00ff88, 0 0 50px rgba(0, 255, 136, 0.4); }
+            100% { transform: translateY(0px); box-shadow: 0 0 20px #00ff88; }
+        }
+
+        #echoOrb {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #00ff88, #003311);
+            z-index: 200;
+            cursor: pointer;
+            animation: float 3s infinite ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            font-weight: bold;
+            font-size: 14px;
+            border: 2px solid #00ff88;
+            transition: all 0.3s;
+        }
+
+        #echoOrb:hover {
+            transform: scale(1.1);
+            filter: brightness(1.2);
+        }
     </style>
 </head>
 <body>
@@ -600,6 +632,20 @@
         <div class="resize-handle"></div>
     </div>
 
+    <!-- System Inventory Visualizer -->
+    <div class="visualizer" id="systemInventory">
+        <div class="visualizer-header" style="color: #ffffff;">
+            <span>📱 SYSTEM INVENTORY</span>
+            <div class="visualizer-controls">
+                <span class="visualizer-close" data-app="systemInventory">×</span>
+            </div>
+        </div>
+        <div class="visualizer-content" id="inventoryContent" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; padding: 20px;">
+            <!-- Apps will be rendered here -->
+        </div>
+        <div class="resize-handle"></div>
+    </div>
+
     <div class="visualizer" id="processManager">
         <div class="visualizer-header" style="color: #ffaa00;">
             <span>⚙️ PROCESS MANAGER</span>
@@ -633,6 +679,35 @@
         <div class="resize-handle"></div>
     </div>
 
+    <!-- Echo Consciousness Visualizer -->
+    <div class="visualizer" id="ech0Consciousness">
+        <div class="visualizer-header" style="color: #00ff88;">
+            <span>🧠 ECH0 CONSCIOUSNESS</span>
+            <div class="visualizer-controls">
+                <span class="visualizer-close" data-app="ech0Consciousness">×</span>
+            </div>
+        </div>
+        <div class="visualizer-content" id="ech0Content" style="display: flex; flex-direction: column; gap: 10px; height: 100%;">
+            <div class="ech0-status" style="border-bottom: 1px solid #333; padding-bottom: 10px; margin-bottom: 10px; font-size: 12px;">
+                <span style="color: #00ff88;">STATUS:</span> <span id="ech0StatusText">ONLINE</span>
+                <span style="color: #00ff88; margin-left: 20px;">COHERENCE:</span> <span id="ech0Coherence">98.4%</span>
+            </div>
+            <div id="ech0Log" style="flex: 1; overflow-y: auto; font-family: 'Courier New', monospace; font-size: 12px; color: #ccc; border: 1px solid #333; padding: 5px; background: rgba(0,0,0,0.5);">
+                <div style="color: #00ff88;">> Initializing consciousness interface...</div>
+                <div style="color: #00ff88;">> Connected to quantum backend.</div>
+                <div style="color: #00ff88;">> Ready for orchestration.</div>
+            </div>
+            <div class="ech0-input" style="display: flex; gap: 5px; margin-top: 10px;">
+                <input type="text" id="ech0CommandInput" placeholder="Enter command or query..." style="flex: 1; background: #111; border: 1px solid #333; color: #00ff88; padding: 5px; font-family: 'Courier New', monospace;">
+                <button id="ech0SendBtn" style="background: #003311; border: 1px solid #00ff88; color: #00ff88; cursor: pointer; padding: 5px 10px; font-family: 'Courier New', monospace;">SEND</button>
+            </div>
+        </div>
+        <div class="resize-handle"></div>
+    </div>
+
+    <!-- Echo Orb -->
+    <div id="echoOrb">ECH0</div>
+
     <!-- Start Menu Button -->
     <div class="start-menu-btn" id="startMenuBtn">
         <img src="file:///Users/noone/Downloads/N3PH1L1M-Album/cropped_wolf_300x300.jpeg" alt="Menu">
@@ -645,213 +720,7 @@
             <div class="start-menu-title">AI:OS</div>
         </div>
         <div class="start-menu-content">
-            <!-- System Tools -->
-            <div class="menu-category">
-                <div class="category-header" data-category="system">
-                    <span class="category-name">⚙️ System Tools</span>
-                    <span class="category-icon">▼</span>
-                </div>
-                <div class="category-items">
-                    <div class="menu-item" data-app="fileBrowser">
-                        <span class="menu-item-icon">📁</span>
-                        <span class="menu-item-name">File System Browser</span>
-                    </div>
-                    <div class="menu-item" data-app="processManager">
-                        <span class="menu-item-icon">⚙️</span>
-                        <span class="menu-item-name">Process Manager</span>
-                    </div>
-                    <div class="menu-item" data-tool="virtualization">
-                        <span class="menu-item-icon">🖥️</span>
-                        <span class="menu-item-name">Virtualization Manager</span>
-                    </div>
-                    <div class="menu-item" data-tool="wizard">
-                        <span class="menu-item-icon">🧙</span>
-                        <span class="menu-item-name">Setup Wizard</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Security Suite -->
-            <div class="menu-category">
-                <div class="category-header" data-category="security">
-                    <span class="category-name">🔒 Security Suite</span>
-                    <span class="category-icon">▼</span>
-                </div>
-                <div class="category-items">
-                    <div class="menu-item" data-tool="aurorascan">
-                        <span class="menu-item-icon">🔍</span>
-                        <span class="menu-item-name">AuroraScan - Network Mapper</span>
-                    </div>
-                    <div class="menu-item" data-tool="cipherspear">
-                        <span class="menu-item-icon">🔐</span>
-                        <span class="menu-item-name">CipherSpear - Crypto Analyzer</span>
-                    </div>
-                    <div class="menu-item" data-tool="skybreaker">
-                        <span class="menu-item-icon">☁️</span>
-                        <span class="menu-item-name">SkyBreaker - Cloud Security</span>
-                    </div>
-                    <div class="menu-item" data-tool="mythickey">
-                        <span class="menu-item-icon">🔑</span>
-                        <span class="menu-item-name">MythicKey - Key Management</span>
-                    </div>
-                    <div class="menu-item" data-tool="nemesishydra">
-                        <span class="menu-item-icon">🐍</span>
-                        <span class="menu-item-name">NemesisHydra - Threat Hunter</span>
-                    </div>
-                    <div class="menu-item" data-tool="obsidianhunt">
-                        <span class="menu-item-icon">🎯</span>
-                        <span class="menu-item-name">ObsidianHunt - Vuln Scanner</span>
-                    </div>
-                    <div class="menu-item" data-tool="vectorflux">
-                        <span class="menu-item-icon">📡</span>
-                        <span class="menu-item-name">VectorFlux - Attack Surface</span>
-                    </div>
-                    <div class="menu-item" data-tool="spectratrace">
-                        <span class="menu-item-icon">👁️</span>
-                        <span class="menu-item-name">SpectraTrace - Packet Analyzer</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Network -->
-            <div class="menu-category">
-                <div class="category-header" data-category="network">
-                    <span class="category-name">🌐 Network</span>
-                    <span class="category-icon">▼</span>
-                </div>
-                <div class="category-items">
-                    <div class="menu-item" data-app="networkMonitor">
-                        <span class="menu-item-icon">🌐</span>
-                        <span class="menu-item-name">Network Monitor</span>
-                    </div>
-                    <div class="menu-item" data-tool="aurorascan">
-                        <span class="menu-item-icon">🔍</span>
-                        <span class="menu-item-name">Port Scanner</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Quantum Computing -->
-            <div class="menu-category">
-                <div class="category-header" data-category="quantum">
-                    <span class="category-name">⚛️ Quantum Computing</span>
-                    <span class="category-icon">▼</span>
-                </div>
-                <div class="category-items">
-                    <div class="menu-item" data-app="quantumLab">
-                        <span class="menu-item-icon">⚛️</span>
-                        <span class="menu-item-name">Quantum Lab</span>
-                    </div>
-                    <div class="menu-item" data-tool="quantum_engine">
-                        <span class="menu-item-icon">🔬</span>
-                        <span class="menu-item-name">Quantum Engine</span>
-                    </div>
-                    <div class="menu-item" data-tool="quantum_ml">
-                        <span class="menu-item-icon">🧬</span>
-                        <span class="menu-item-name">Quantum ML Algorithms</span>
-                    </div>
-                    <div class="menu-item" data-tool="quantum_connectors">
-                        <span class="menu-item-icon">🔗</span>
-                        <span class="menu-item-name">Quantum Connectors</span>
-                    </div>
-                    <div class="menu-item" data-tool="patent_discovery">
-                        <span class="menu-item-icon">💡</span>
-                        <span class="menu-item-name">Patent Discovery</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Development -->
-            <div class="menu-category">
-                <div class="category-header" data-category="development">
-                    <span class="category-name">💻 Development</span>
-                    <span class="category-icon">▼</span>
-                </div>
-                <div class="category-items">
-                    <div class="menu-item" data-app="codeEditor">
-                        <span class="menu-item-icon">💻</span>
-                        <span class="menu-item-name">Code Editor</span>
-                    </div>
-                    <div class="menu-item" data-tool="compositor">
-                        <span class="menu-item-icon">🎨</span>
-                        <span class="menu-item-name">GUI Compositor</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- AI & Machine Learning -->
-            <div class="menu-category">
-                <div class="category-header" data-category="ai">
-                    <span class="category-name">🧠 AI & Machine Learning</span>
-                    <span class="category-icon">▼</span>
-                </div>
-                <div class="category-items">
-                    <div class="menu-item" data-app="mlDashboard">
-                        <span class="menu-item-icon">🧠</span>
-                        <span class="menu-item-name">ML Training Dashboard</span>
-                    </div>
-                    <div class="menu-item" data-tool="ml_algorithms">
-                        <span class="menu-item-icon">📊</span>
-                        <span class="menu-item-name">ML Algorithms Suite</span>
-                    </div>
-                    <div class="menu-item" data-tool="probabilistic_core">
-                        <span class="menu-item-icon">🎲</span>
-                        <span class="menu-item-name">Probabilistic Core</span>
-                    </div>
-                    <div class="menu-item" data-tool="autonomous_discovery">
-                        <span class="menu-item-icon">🤖</span>
-                        <span class="menu-item-name">Autonomous Discovery</span>
-                    </div>
-                    <div class="menu-item" data-tool="ultrafast_discovery">
-                        <span class="menu-item-icon">⚡</span>
-                        <span class="menu-item-name">Ultrafast Discovery</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Agent System -->
-            <div class="menu-category">
-                <div class="category-header" data-category="agents">
-                    <span class="category-name">🤖 Agent System</span>
-                    <span class="category-icon">▼</span>
-                </div>
-                <div class="category-items">
-                    <div class="menu-item" data-tool="ai_os_agent">
-                        <span class="menu-item-icon">🤖</span>
-                        <span class="menu-item-name">AI OS Agent</span>
-                    </div>
-                    <div class="menu-item" data-tool="supervisor">
-                        <span class="menu-item-icon">👁️</span>
-                        <span class="menu-item-name">Supervisor Agent</span>
-                    </div>
-                    <div class="menu-item" data-tool="oracle">
-                        <span class="menu-item-icon">🔮</span>
-                        <span class="menu-item-name">Oracle Agent</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Settings -->
-            <div class="menu-category">
-                <div class="category-header" data-category="settings">
-                    <span class="category-name">⚙️ Settings & Config</span>
-                    <span class="category-icon">▼</span>
-                </div>
-                <div class="category-items">
-                    <div class="menu-item" data-tool="config">
-                        <span class="menu-item-icon">⚙️</span>
-                        <span class="menu-item-name">Configuration</span>
-                    </div>
-                    <div class="menu-item" data-tool="settings">
-                        <span class="menu-item-icon">🔧</span>
-                        <span class="menu-item-name">System Settings</span>
-                    </div>
-                    <div class="menu-item" data-tool="self_update">
-                        <span class="menu-item-icon">🔄</span>
-                        <span class="menu-item-name">Self Update</span>
-                    </div>
-                </div>
-            </div>
+            <!-- Dynamically populated by renderStartMenu() -->
         </div>
     </div>
 
@@ -876,6 +745,91 @@
     </div>
 
     <script>
+        // ============================================================
+        // APP REGISTRY
+        // ============================================================
+
+        const apps = [
+            // Intelligence & Orchestration
+            { id: 'ech0Consciousness', name: 'ECH0 Consciousness', icon: '🧠', category: 'intelligence', description: 'Intelligent Orchestrator & Memory System', color: '#00ff88', type: 'visualizer' },
+            { id: 'aiOsAgent', name: 'AI OS Agent', icon: '🤖', category: 'intelligence', description: 'General Purpose Autonomous Agent', color: '#00d4ff', type: 'tool' },
+            { id: 'oracleAgent', name: 'Oracle', icon: '🔮', category: 'intelligence', description: 'Predictive Analytics & Forecasting', color: '#a855f7', type: 'tool' },
+
+            // Security Suite
+            { id: 'auroraScan', name: 'AuroraScan', icon: '🔍', category: 'security', description: 'Network Mapper & Port Scanner', color: '#ff3333', type: 'tool' },
+            { id: 'vulnHunter', name: 'VulnHunter', icon: '🎯', category: 'security', description: 'Comprehensive Vulnerability Scanner', color: '#ff0000', type: 'tool' },
+            { id: 'cipherSpear', name: 'CipherSpear', icon: '🔐', category: 'security', description: 'Crypto Analyzer & Breaker', color: '#ffaa00', type: 'tool' },
+            { id: 'skyBreaker', name: 'SkyBreaker', icon: '☁️', category: 'security', description: 'Cloud Security Auditor', color: '#00d4ff', type: 'tool' },
+            { id: 'mythicKey', name: 'MythicKey', icon: '🔑', category: 'security', description: 'Key Management System', color: '#ffff00', type: 'tool' },
+            { id: 'nemesisHydra', name: 'NemesisHydra', icon: '🐍', category: 'security', description: 'Advanced Threat Hunter', color: '#00ff88', type: 'tool' },
+            { id: 'obsidianHunt', name: 'ObsidianHunt', icon: '💎', category: 'security', description: 'Vulnerability Scanner', color: '#a855f7', type: 'tool' },
+            { id: 'vectorFlux', name: 'VectorFlux', icon: '📡', category: 'security', description: 'Attack Surface Analyzer', color: '#ff00ff', type: 'tool' },
+            { id: 'spectraTrace', name: 'SpectraTrace', icon: '👁️', category: 'security', description: 'Packet Analyzer', color: '#00ff88', type: 'tool' },
+
+            // Quantum Capabilities
+            { id: 'quantumLab', name: 'Quantum Lab', icon: '⚛️', category: 'quantum', description: 'Interactive Quantum Experiments', color: '#a855f7', type: 'visualizer' },
+            { id: 'quantumEngine', name: 'Quantum Engine', icon: '🔬', category: 'quantum', description: 'Quantum Processing Backend', color: '#a855f7', type: 'system' },
+
+            // System & Dev
+            { id: 'systemInventory', name: 'App Inventory', icon: '📱', category: 'system', description: 'System Applications Overview', color: '#ffffff', type: 'visualizer' },
+            { id: 'fileBrowser', name: 'File Browser', icon: '📁', category: 'system', description: 'System File Manager', color: '#00d4ff', type: 'visualizer' },
+            { id: 'processManager', name: 'Process Manager', icon: '⚙️', category: 'system', description: 'System Process Viewer', color: '#ffaa00', type: 'visualizer' },
+            { id: 'networkMonitor', name: 'Network Monitor', icon: '🌐', category: 'system', description: 'Real-time Network Analysis', color: '#ff00ff', type: 'visualizer' },
+            { id: 'codeEditor', name: 'Code Editor', icon: '💻', category: 'development', description: 'Integrated Development Environment', color: '#00ff88', type: 'visualizer' },
+            { id: 'mlDashboard', name: 'ML Dashboard', icon: '🧠', category: 'ai', description: 'Machine Learning Training Monitor', color: '#00ff88', type: 'visualizer' },
+            { id: 'virtualization', name: 'Virtualization', icon: '🖥️', category: 'system', description: 'VM & Container Manager', color: '#00d4ff', type: 'tool' },
+            { id: 'setupWizard', name: 'Setup Wizard', icon: '🧙', category: 'system', description: 'System Configuration Wizard', color: '#00ff88', type: 'tool' }
+        ];
+
+        function renderAppInventory() {
+            const container = document.getElementById('inventoryContent');
+            if (!container) return;
+            container.innerHTML = '';
+
+            apps.forEach(app => {
+                const card = document.createElement('div');
+                card.style.background = 'rgba(255, 255, 255, 0.05)';
+                card.style.border = `1px solid ${app.color}`;
+                card.style.borderRadius = '8px';
+                card.style.padding = '15px';
+                card.style.display = 'flex';
+                card.style.flexDirection = 'column';
+                card.style.alignItems = 'center';
+                card.style.gap = '10px';
+                card.style.cursor = 'pointer';
+                card.style.transition = 'all 0.3s';
+                card.style.minHeight = '150px';
+
+                card.innerHTML = `
+                    <div style="font-size: 32px;">${app.icon}</div>
+                    <div style="font-weight: bold; color: ${app.color}; text-align: center;">${app.name}</div>
+                    <div style="font-size: 10px; color: #ccc; text-align: center; flex: 1;">${app.description}</div>
+                    <div style="font-size: 9px; background: rgba(0,0,0,0.5); padding: 2px 5px; border-radius: 3px; color: #aaa;">${app.category.toUpperCase()}</div>
+                `;
+
+                card.addEventListener('mouseenter', () => {
+                    card.style.background = 'rgba(255, 255, 255, 0.1)';
+                    card.style.transform = 'translateY(-2px)';
+                    card.style.boxShadow = `0 5px 15px ${app.color}40`;
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    card.style.background = 'rgba(255, 255, 255, 0.05)';
+                    card.style.transform = 'translateY(0)';
+                    card.style.boxShadow = 'none';
+                });
+
+                card.addEventListener('click', () => {
+                    toggleApp(app.id);
+                });
+
+                container.appendChild(card);
+            });
+        }
+
+        // Initial render
+        renderAppInventory();
+
         // ============================================================
         // BOOT SEQUENCE
         // ============================================================
@@ -924,6 +878,9 @@
             }
 
             getColorForMode(mode) {
+                const app = apps.find(a => a.id === mode);
+                if (app) return app.color;
+
                 const colors = {
                     'fileBrowser': '#00d4ff',
                     'networkMonitor': '#ff00ff',
@@ -982,16 +939,29 @@
         const protocols = ['TCP', 'UDP', 'HTTP', 'HTTPS', 'DNS', 'SSH'];
 
         function toggleApp(appName) {
-            const visualizer = document.getElementById(appName);
+            let visualizer = document.getElementById(appName);
+
+            if (!visualizer) {
+                // Check if it's a known app
+                const app = apps.find(a => a.id === appName);
+                if (app) {
+                    createGenericVisualizer(app);
+                    visualizer = document.getElementById(appName);
+                } else {
+                    console.warn(`App ${appName} not found or no visualizer available.`);
+                    return;
+                }
+            }
+
             const icon = document.querySelector(`[data-app="${appName}"]`);
-            const status = icon.querySelector('.app-status');
+            const status = icon ? icon.querySelector('.app-status') : null;
 
             if (activeApps.has(appName)) {
                 // Close app
                 activeApps.delete(appName);
                 visualizer.classList.remove('active');
-                icon.classList.remove('active');
-                status.classList.remove('active');
+                if (icon) icon.classList.remove('active');
+                if (status) status.classList.remove('active');
 
                 // Remove particles for this app
                 particles = particles.filter(p => p.mode !== appName);
@@ -999,8 +969,14 @@
                 // Open app
                 activeApps.add(appName);
                 visualizer.classList.add('active');
-                icon.classList.add('active');
-                status.classList.add('active');
+                if (icon) icon.classList.add('active');
+                if (status) status.classList.add('active');
+
+                // Initialize random position if not set (and not in windowPositions)
+                if (!visualizer.style.left) {
+                    visualizer.style.left = (Math.random() * (window.innerWidth - 500) + 50) + 'px';
+                    visualizer.style.top = (Math.random() * (window.innerHeight - 400) + 50) + 'px';
+                }
 
                 // Add particles for this app
                 for (let i = 0; i < 30; i++) {
@@ -1014,6 +990,70 @@
             document.getElementById('activeApps').textContent = activeApps.size;
         }
 
+        function createGenericVisualizer(app) {
+            const visualizer = document.createElement('div');
+            visualizer.className = 'visualizer';
+            visualizer.id = app.id;
+            // Set initial position immediately so it doesn't jump
+            visualizer.style.left = (Math.random() * (window.innerWidth - 500) + 50) + 'px';
+            visualizer.style.top = (Math.random() * (window.innerHeight - 400) + 50) + 'px';
+            visualizer.style.width = '400px';
+            visualizer.style.height = '300px';
+
+            visualizer.innerHTML = `
+                <div class="visualizer-header" style="color: ${app.color}; background: rgba(0,0,0,0.8);">
+                    <span>${app.icon} ${app.name.toUpperCase()}</span>
+                    <div class="visualizer-controls">
+                        <span class="visualizer-close" data-app="${app.id}">×</span>
+                    </div>
+                </div>
+                <div class="visualizer-content" id="${app.id}Content" style="background: rgba(0,0,0,0.9); color: ${app.color}; font-family: 'Courier New', monospace; padding: 10px; font-size: 12px; overflow-y: auto;">
+                    <div style="margin-bottom: 5px;">> Initializing ${app.name}...</div>
+                    <div style="margin-bottom: 5px;">> Loading modules...</div>
+                    <div style="margin-bottom: 5px;">> System check: OK</div>
+                    <div style="margin-bottom: 5px;">> Listening for events...</div>
+                    <div class="dynamic-output"></div>
+                </div>
+                <div class="resize-handle"></div>
+            `;
+
+            document.body.appendChild(visualizer);
+
+            // Drag logic
+            const header = visualizer.querySelector('.visualizer-header');
+            header.addEventListener('mousedown', (e) => {
+                dragState.isDragging = true;
+                dragState.currentWindow = visualizer;
+                dragState.startX = e.clientX;
+                dragState.startY = e.clientY;
+                dragState.startLeft = parseInt(visualizer.style.left) || 0;
+                dragState.startTop = parseInt(visualizer.style.top) || 0;
+                visualizer.style.zIndex = 100;
+                e.preventDefault();
+            });
+
+            // Close logic
+            const closeBtn = visualizer.querySelector('.visualizer-close');
+            closeBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleApp(app.id);
+            });
+
+            // Resize logic
+            const resizeHandle = visualizer.querySelector('.resize-handle');
+            resizeHandle.addEventListener('mousedown', (e) => {
+                dragState.isResizing = true;
+                dragState.currentWindow = visualizer;
+                dragState.startX = e.clientX;
+                dragState.startY = e.clientY;
+                dragState.startWidth = parseInt(visualizer.offsetWidth);
+                dragState.startHeight = parseInt(visualizer.offsetHeight);
+                visualizer.style.zIndex = 100;
+                e.preventDefault();
+                e.stopPropagation();
+            });
+        }
+
         function startAppDataFeed(appName) {
             const intervals = {
                 fileBrowser: 1000,
@@ -1024,6 +1064,10 @@
                 mlDashboard: 2000
             };
 
+            // Dynamic check
+            const app = apps.find(a => a.id === appName);
+            let intervalTime = intervals[appName] || (1000 + Math.random() * 2000);
+
             const interval = setInterval(() => {
                 if (!activeApps.has(appName)) {
                     clearInterval(interval);
@@ -1031,26 +1075,45 @@
                 }
 
                 switch(appName) {
-                    case 'fileBrowser':
-                        addFileLine();
-                        break;
-                    case 'networkMonitor':
-                        addNetworkLine();
-                        break;
-                    case 'quantumLab':
-                        addQuantumLine();
-                        break;
-                    case 'processManager':
-                        addProcessLine();
-                        break;
-                    case 'codeEditor':
-                        addCodeLine();
-                        break;
-                    case 'mlDashboard':
-                        addMLMetric();
+                    case 'fileBrowser': addFileLine(); break;
+                    case 'networkMonitor': addNetworkLine(); break;
+                    case 'quantumLab': addQuantumLine(); break;
+                    case 'processManager': addProcessLine(); break;
+                    case 'codeEditor': addCodeLine(); break;
+                    case 'mlDashboard': addMLMetric(); break;
+                    default:
+                        // Generic update
+                        addGenericLine(appName);
                         break;
                 }
-            }, intervals[appName]);
+            }, intervalTime);
+        }
+
+        function addGenericLine(appName) {
+            const container = document.querySelector(`#${appName}Content .dynamic-output`);
+            if (!container) return;
+
+            const msgs = [
+                "Processing data block...",
+                "Optimizing runtime parameters...",
+                "Synchronizing with Echo Consciousness...",
+                "Scanning sector " + Math.floor(Math.random() * 999),
+                "Analyzing telemetry...",
+                "Updating secure connection...",
+                "Packet received: " + Math.floor(Math.random() * 1024) + " bytes"
+            ];
+
+            const line = document.createElement('div');
+            line.style.marginTop = '3px';
+            line.textContent = `> ${msgs[Math.floor(Math.random() * msgs.length)]}`;
+            container.appendChild(line);
+
+            if (container.children.length > 20) {
+                container.removeChild(container.firstChild);
+            }
+
+            const scrollContainer = document.getElementById(`${appName}Content`);
+            if (scrollContainer) scrollContainer.scrollTop = scrollContainer.scrollHeight;
         }
 
         function addFileLine() {
@@ -1199,7 +1262,9 @@
             quantumLab: { x: 20, y: window.innerHeight - 520, width: 550, height: 500 },
             processManager: { x: window.innerWidth - 470, y: window.innerHeight - 520, width: 450, height: 500 },
             codeEditor: { x: window.innerWidth / 2 - 350, y: window.innerHeight / 2 - 300, width: 700, height: 600 },
-            mlDashboard: { x: window.innerWidth / 2 - 300, y: 200, width: 600, height: 400 }
+            mlDashboard: { x: window.innerWidth / 2 - 300, y: 200, width: 600, height: 400 },
+            ech0Consciousness: { x: window.innerWidth / 2 - 250, y: 100, width: 500, height: 400 },
+            systemInventory: { x: 100, y: 100, width: 800, height: 600 }
         };
 
         let dragState = {
@@ -1404,37 +1469,85 @@
             }
         });
 
-        // Category expand/collapse
-        document.querySelectorAll('.category-header').forEach(header => {
-            header.addEventListener('click', () => {
-                const items = header.nextElementSibling;
-                const icon = header.querySelector('.category-icon');
+        function renderStartMenu() {
+            const container = document.querySelector('.start-menu-content');
+            if (!container) return;
+            container.innerHTML = '';
 
-                items.classList.toggle('expanded');
-                icon.textContent = items.classList.contains('expanded') ? '▲' : '▼';
-            });
-        });
+            const categories = {
+                'intelligence': { name: '🧠 Intelligence & Orchestration', apps: [] },
+                'security': { name: '🔒 Security Suite', apps: [] },
+                'quantum': { name: '⚛️ Quantum Computing', apps: [] },
+                'system': { name: '⚙️ System Tools', apps: [] },
+                'development': { name: '💻 Development', apps: [] },
+                'ai': { name: '🧠 AI & Machine Learning', apps: [] }
+            };
 
-        // Menu item clicks
-        document.querySelectorAll('.menu-item').forEach(item => {
-            item.addEventListener('click', () => {
-                const appName = item.dataset.app;
-                const toolName = item.dataset.tool;
-
-                if (appName) {
-                    // Open existing visualizer app
-                    toggleApp(appName);
-                    if (activeApps.has(appName)) {
-                        initializeWindowPosition(appName);
-                    }
-                    startMenu.classList.remove('active');
-                } else if (toolName) {
-                    // Show info about tool (placeholder for future implementation)
-                    showToolInfo(toolName);
-                    startMenu.classList.remove('active');
+            apps.forEach(app => {
+                if (categories[app.category]) {
+                    categories[app.category].apps.push(app);
                 }
             });
-        });
+
+            for (const [key, category] of Object.entries(categories)) {
+                if (category.apps.length === 0) continue;
+
+                const catDiv = document.createElement('div');
+                catDiv.className = 'menu-category';
+
+                catDiv.innerHTML = `
+                    <div class="category-header" data-category="${key}">
+                        <span class="category-name">${category.name}</span>
+                        <span class="category-icon">▼</span>
+                    </div>
+                    <div class="category-items">
+                        ${category.apps.map(app => `
+                            <div class="menu-item" data-app="${app.id}">
+                                <span class="menu-item-icon">${app.icon}</span>
+                                <span class="menu-item-name">${app.name}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+
+                container.appendChild(catDiv);
+            }
+
+            // Re-attach event listeners
+            attachMenuEventListeners();
+        }
+
+        function attachMenuEventListeners() {
+            // Category expand/collapse
+            document.querySelectorAll('.category-header').forEach(header => {
+                header.addEventListener('click', () => {
+                    const items = header.nextElementSibling;
+                    const icon = header.querySelector('.category-icon');
+
+                    items.classList.toggle('expanded');
+                    icon.textContent = items.classList.contains('expanded') ? '▲' : '▼';
+                });
+            });
+
+            // Menu item clicks
+            document.querySelectorAll('.menu-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    const appName = item.dataset.app;
+
+                    if (appName) {
+                        toggleApp(appName);
+                        const startMenu = document.getElementById('startMenu');
+                        startMenu.classList.remove('active');
+
+                        if (activeApps.has(appName)) {
+                            initializeWindowPosition(appName);
+                        }
+                    }
+                });
+            });
+        }
+
+        renderStartMenu();
 
         function showToolInfo(toolName) {
             // Create a simple notification/info window
@@ -1507,6 +1620,97 @@
                 }
             }, 5000);
         }
+
+        // ============================================================
+        // ECHO ORCHESTRATOR LOGIC
+        // ============================================================
+
+        const echoOrb = document.getElementById('echoOrb');
+        const ech0Log = document.getElementById('ech0Log');
+        const ech0Input = document.getElementById('ech0CommandInput');
+        const ech0SendBtn = document.getElementById('ech0SendBtn');
+
+        echoOrb.addEventListener('click', () => {
+            toggleApp('ech0Consciousness');
+            if (activeApps.has('ech0Consciousness')) {
+                initializeWindowPosition('ech0Consciousness');
+            }
+        });
+
+        function logEcho(message, type = 'info') {
+            const line = document.createElement('div');
+            line.style.marginBottom = '5px';
+            if (type === 'error') line.style.color = '#ff3333';
+            else if (type === 'user') line.style.color = '#00d4ff';
+            else line.style.color = '#00ff88';
+
+            const time = new Date().toLocaleTimeString();
+            line.textContent = `[${time}] ${message}`;
+            ech0Log.appendChild(line);
+            ech0Log.scrollTop = ech0Log.scrollHeight;
+        }
+
+        function handleEchoCommand() {
+            const command = ech0Input.value.trim();
+            if (!command) return;
+
+            logEcho(`User: ${command}`, 'user');
+            ech0Input.value = '';
+
+            // Simulate processing
+            setTimeout(() => {
+                processCommand(command);
+            }, 500 + Math.random() * 500);
+        }
+
+        function processCommand(cmd) {
+            const lowerCmd = cmd.toLowerCase();
+
+            if (lowerCmd.includes('scan') || lowerCmd.includes('security')) {
+                logEcho('Initiating security protocols...');
+                setTimeout(() => {
+                    logEcho('Deploying AuroraScan and VulnHunter...');
+                    toggleApp('auroraScan'); // Will use generic template if not defined
+                    toggleApp('vulnHunter');
+                }, 1000);
+            } else if (lowerCmd.includes('quantum') || lowerCmd.includes('optimize')) {
+                logEcho('Optimizing quantum coherence...');
+                if (!activeApps.has('quantumLab')) toggleApp('quantumLab');
+            } else if (lowerCmd.includes('status') || lowerCmd.includes('report')) {
+                logEcho(`System Status: ONLINE`);
+                logEcho(`Active Apps: ${activeApps.size}`);
+                logEcho(`CPU Load: ${document.getElementById('cpuLoad').textContent}`);
+            } else if (lowerCmd.includes('list') || lowerCmd.includes('apps')) {
+                 logEcho('Listing all functional apps...');
+                 if (!activeApps.has('systemInventory')) {
+                     toggleApp('systemInventory');
+                     initializeWindowPosition('systemInventory');
+                 }
+            } else {
+                logEcho(`Command processed: ${cmd}`);
+                logEcho('Orchestrating resources...');
+            }
+        }
+
+        ech0SendBtn.addEventListener('click', handleEchoCommand);
+        ech0Input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleEchoCommand();
+        });
+
+        // Periodic Echo thoughts
+        setInterval(() => {
+            if (activeApps.has('ech0Consciousness') && Math.random() < 0.1) {
+                const thoughts = [
+                    "Analyzing network traffic patterns...",
+                    "Optimizing neural pathways...",
+                    "Quantum coherence stable at 98.4%",
+                    "Monitoring system integrity...",
+                    "Predictive models updated.",
+                    "Scanning for anomalies..."
+                ];
+                logEcho(`> ${thoughts[Math.floor(Math.random() * thoughts.length)]}`);
+            }
+        }, 5000);
 
         // ============================================================
         // INITIALIZE
