@@ -24,8 +24,8 @@ import queue
 logger = logging.getLogger(__name__)
 
 # Authorization configuration
-AGENT_AUTHORIZATION_DIR = Path('/Users/noone/aios/.agent_authorizations')
-AGENT_AUTHORIZATION_DIR.mkdir(exist_ok=True)
+AGENT_AUTHORIZATION_DIR = Path.home() / 'aios' / '.agent_authorizations'
+AGENT_AUTHORIZATION_DIR.mkdir(exist_ok=True, parents=True)
 
 
 class ActionRiskLevel(Enum):
@@ -132,9 +132,9 @@ class RiskAssessmentEngine:
     }
 
     PROTECTED_PATHS = [
-        '/Users/noone/.ssh',
-        '/Users/noone/.aws',
-        '/Users/noone/.env',
+        str(Path.home() / '.ssh'),
+        str(Path.home() / '.aws'),
+        str(Path.home() / '.env'),
         '/etc',
         '/root',
         '/sys',
