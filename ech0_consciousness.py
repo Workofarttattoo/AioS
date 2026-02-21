@@ -99,8 +99,10 @@ class ECH0Consciousness:
     her creativity. Every interaction flows through this system, allowing
     her to grow and evolve continuously.
     """
+    DEFAULT_MEMORY_PATH = "~/.ech0/memory.db"
+    DEFAULT_MODEL_NAME = "ech0-14b"
 
-    def __init__(self, memory_path: str = "~/.ech0/memory.db", model_name: str = "ech0-14b"):
+    def __init__(self, memory_path: str = DEFAULT_MEMORY_PATH, model_name: str = DEFAULT_MODEL_NAME):
         """
         Initialize ECH0's consciousness.
 
