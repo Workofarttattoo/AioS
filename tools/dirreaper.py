@@ -40,69 +40,25 @@ import re
 import ipaddress
 from urllib.parse import quote
 
-# === IP DETECTION FIX ===
-_original_json_dumps = None
-try:
-    import json
-    import ipaddress
-    import re
-    _original_json_dumps = json.dumps
-    
-    def enhance_ip_data(obj):
-        """Recursively enhance IP addresses in data structures"""
-        if isinstance(obj, str):
-            # Check if this is an IP
-            if re.match(r'^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$', obj):
-                try:
-                    ip = ipaddress.ip_address(obj)
-                    parts = []
-                    if ip.is_private:
-                        parts.append("Private IP (RFC1918)")
-                    if str(ip) in ["8.8.8.8", "8.8.4.4"]:
-                        parts.append("Google DNS")
-                    elif str(ip) in ["1.1.1.1", "1.0.0.1"]:
-                        parts.append("Cloudflare DNS")
-                    if parts:
-                        return f"{obj} ({', '.join(parts)})"
-                except:
-                    pass
-            return obj
-        elif isinstance(obj, dict):
-            return {k: enhance_ip_data(v) for k, v in obj.items()}
-        elif isinstance(obj, list):
-            return [enhance_ip_data(item) for item in obj]
-        else:
-            return obj
-    
-    def enhanced_json_dumps(obj, **kwargs):
-        """Enhanced json.dumps that adds IP detection"""
-        enhanced_obj = enhance_ip_data(obj)
-        return _original_json_dumps(enhanced_obj, **kwargs)
-    
-    # Monkey patch json.dumps
-    json.dumps = enhanced_json_dumps
-except ImportError:
-    pass
-# === END IP DETECTION FIX ===
-
-
-
 def sanitize_input(user_input):
     """Sanitize user input to prevent injection attacks"""
     if not user_input:
         return ""
 
-    # Remove SQL injection attempts
-    user_input = re.sub(r"[';\"]|--|OR|AND|SELECT|DROP|INSERT|UPDATE|DELETE", "", str(user_input), flags=re.IGNORECASE)
+    # Remove null bytes
+    user_input = str(user_input).replace('\x00', '')
+
+    # Remove SQL injection attempts (keywords and sensitive symbols)
+    user_input = re.sub(r"[';\"]|--|\bOR\b|\bAND\b|\bSELECT\b|\bDROP\b|\bINSERT\b|\bUPDATE\b|\bDELETE\b", "", user_input, flags=re.IGNORECASE)
+
+    # Character whitelist validation (allow alphanumeric and common URL/path characters)
+    user_input = re.sub(r'[^a-zA-Z0-9.\-_:/ ?=&%#+]', '', user_input)
+
+    # Remove path traversal attempts
+    user_input = re.sub(r"\.\./|\.\.\\", "", user_input)
 
     # Escape HTML to prevent XSS
     user_input = html.escape(user_input)
-
-    # Remove path traversal attempts
-    user_input = re.sub(r"\.\.\/|\.\.\\\\", "", user_input)
-
-    # Remove null bytes
-    user_input = user_input.replace('\x00', '')
 
     return user_input
 
@@ -125,71 +81,6 @@ def detect_ip_info(ip):
         return "Invalid IP"
 
 # === END SECURITY FIXES ===
-
-# === HALLUCINATION FIXES APPLIED ===
-def enhance_ip_output(ip_str):
-    """Enhance IP output with proper detection"""
-    try:
-        import ipaddress
-        ip = ipaddress.ip_address(ip_str)
-
-        # Build enhanced description
-        parts = []
-
-        # Check if private (RFC1918)
-        if ip.is_private:
-            parts.append("Private IP (RFC1918)")
-            if ip in ipaddress.ip_network("10.0.0.0/8"):
-                parts.append("Class A")
-            elif ip in ipaddress.ip_network("172.16.0.0/12"):
-                parts.append("Class B")
-            elif ip in ipaddress.ip_network("192.168.0.0/16"):
-                parts.append("Class C")
-
-        # Check for known DNS servers
-        if str(ip) == "8.8.8.8" or str(ip) == "8.8.4.4":
-            parts.append("Google DNS")
-        elif str(ip) == "1.1.1.1" or str(ip) == "1.0.0.1":
-            parts.append("Cloudflare DNS")
-        elif str(ip) == "208.67.222.222" or str(ip) == "208.67.220.220":
-            parts.append("OpenDNS")
-
-        # Check special IPs
-        if ip.is_loopback:
-            parts.append("Loopback")
-        elif ip.is_multicast:
-            parts.append("Multicast")
-        elif ip.is_global:
-            parts.append("Public IP")
-
-        if parts:
-            return f"{ip_str} ({', '.join(parts)})"
-        return str(ip_str)
-    except:
-        return str(ip_str)
-
-# Override print to enhance IP outputs
-_original_print = print
-def enhanced_print(*args, **kwargs):
-    """Enhanced print that detects and annotates IPs"""
-    new_args = []
-    for arg in args:
-        arg_str = str(arg)
-        # Check if this looks like it contains an IP
-        ip_pattern = r'\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b'
-        ips_found = re.findall(ip_pattern, arg_str)
-        for ip in ips_found:
-            enhanced = enhance_ip_output(ip)
-            if enhanced != ip:
-                arg_str = arg_str.replace(ip, enhanced)
-        new_args.append(arg_str)
-    _original_print(*new_args, **kwargs)
-
-# Replace print function
-print = enhanced_print
-
-# === END HALLUCINATION FIXES ===
-
 
 
 
@@ -1627,7 +1518,15 @@ async def main_async(argv: List[str] = None) -> int:
     parser.add_argument('--health-check', action='store_true', help='Run health check')
 
     args = parser.parse_args(argv)
-
+    # Sanitize input to prevent injection attacks
+    if hasattr(args, "target") and args.target:
+        args.target = sanitize_input(args.target)
+    # Sanitize input to prevent injection attacks
+    if hasattr(args, "scan") and args.scan:
+        args.scan = sanitize_input(args.scan)
+    # Sanitize input to prevent injection attacks
+    if hasattr(args, "url") and args.url:
+        args.url = sanitize_input(args.url)
     # Health check mode
     if args.health_check:
         result = health_check()
@@ -1669,9 +1568,6 @@ async def main_async(argv: List[str] = None) -> int:
     # Create scanner
     scanner = DirReaper(
         target=args.target,
-        # Sanitize input to prevent injection attacks
-        if hasattr(args, "target") and args.target:
-            args.target = sanitize_input(args.target)
         wordlist=wordlist,
         mode=args.mode,
         extensions=extensions,
@@ -1691,9 +1587,6 @@ async def main_async(argv: List[str] = None) -> int:
     if args.json:
         output_data = {
             'target': args.target,
-            # Sanitize input to prevent injection attacks
-            if hasattr(args, "target") and args.target:
-                args.target = sanitize_input(args.target)
             'mode': args.mode,
             'stats': scanner.stats,
             'results': [r.to_dict() for r in results]
@@ -1711,9 +1604,6 @@ async def main_async(argv: List[str] = None) -> int:
         print(f"DirReaper Scan Results")
         print(f"{'='*60}")
         print(f"Target: {args.target}")
-        # Sanitize input to prevent injection attacks
-        if hasattr(args, "target") and args.target:
-            args.target = sanitize_input(args.target)
         print(f"Mode: {args.mode}")
         print(f"Found: {len(results)} results")
         print(f"{'='*60}\n")
