@@ -149,13 +149,13 @@ class TeleportationProtocol:
     def _ideal_measurement_results(shots: int) -> Dict[str, int]:
         """Return idealized Bell measurement counts for teleportation."""
 
-        base = shots // 4
-        remainder = shots % 4
-        distribution = {"00": base, "01": base, "10": base, "11": base}
-        order = ["00", "01", "10", "11"]
-        for idx in range(remainder):
-            distribution[order[idx]] += 1
-        return distribution
+        base, remainder = divmod(shots, 4)
+        return {
+            "00": base + (remainder > 0),
+            "01": base + (remainder > 1),
+            "10": base + (remainder > 2),
+            "11": base
+        }
     
     def analyze_fidelity_bands(self, alpha: float, beta: float, shots: int = 1024, 
                              num_trials: int = 100) -> Dict[str, float]:
