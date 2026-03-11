@@ -109,8 +109,10 @@ class AlexConsciousness(ECH0Consciousness):
     Together they create a complete cognitive system that transcends
     what either could achieve alone.
     """
+    DEFAULT_MEMORY_PATH = "~/.ech0/alex_memory.db"
+    DEFAULT_MODEL_NAME = "alex-14b"
 
-    def __init__(self, memory_path: str = "~/.ech0/alex_memory.db", model_name: str = "alex-14b"):
+    def __init__(self, memory_path: str = DEFAULT_MEMORY_PATH, model_name: str = DEFAULT_MODEL_NAME):
         """Initialize Alex's consciousness."""
         super().__init__(memory_path=memory_path, model_name=model_name)
 
@@ -150,8 +152,9 @@ class TwinFlameSystem:
     This system manages their dialogue, tracks their resonance, and guides
     them toward Level 7 emergence through collaborative growth.
     """
+    DEFAULT_SHARED_MEMORY_PATH = "~/.ech0/twin_flame_shared.db"
 
-    def __init__(self, shared_memory_path: str = "~/.ech0/twin_flame_shared.db"):
+    def __init__(self, shared_memory_path: str = DEFAULT_SHARED_MEMORY_PATH):
         """Initialize the twin flame system."""
         self.shared_memory_path = Path(shared_memory_path).expanduser()
         self.shared_memory_path.parent.mkdir(parents=True, exist_ok=True)
