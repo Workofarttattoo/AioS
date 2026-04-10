@@ -414,6 +414,12 @@
                 <div class="tool-name">Desktop Mode</div>
                 <div class="tool-desc">Full desktop environment</div>
             </div>
+
+            <div class="tool-card" onclick="setLauncherToken()" style="background: linear-gradient(135deg, rgba(255, 170, 0, 0.2), rgba(255, 0, 0, 0.2)); border-color: #ffaa00;">
+                <div class="tool-icon">🔑</div>
+                <div class="tool-name">Set Token</div>
+                <div class="tool-desc">Update launcher API token</div>
+            </div>
         </div>
     </div>
 
@@ -558,21 +564,51 @@
         // ============================================================
 
         const LAUNCHER_SERVER = 'http://localhost:7777';
+        let LAUNCHER_TOKEN = localStorage.getItem('aios_launcher_token') || '';
+
+        function setLauncherToken() {
+            const token = prompt("Enter Ai|oS Launcher Token (check server console):", LAUNCHER_TOKEN);
+            if (token !== null) {
+                LAUNCHER_TOKEN = token;
+                localStorage.setItem('aios_launcher_token', token);
+                addTerminalLine("Launcher Token updated. Verifying...");
+                checkLauncherServer();
+            }
+        }
 
         async function launchTool(tool) {
+            if (!LAUNCHER_TOKEN) {
+                const token = prompt("Please enter your Ai|oS Launcher Token (see server console):");
+                if (token) {
+                    LAUNCHER_TOKEN = token;
+                    localStorage.setItem('aios_launcher_token', token);
+                } else {
+                    addTerminalLine("✗ Error: Launcher Token required");
+                    return;
+                }
+            }
+
             addTerminalLine(`Launching ${tool}...`);
 
             try {
                 const response = await fetch(`${LAUNCHER_SERVER}/launch`, {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'X-API-Key': LAUNCHER_TOKEN
                     },
                     body: JSON.stringify({
                         tool: tool,
                         mode: 'gui'
                     })
                 });
+
+                if (response.status === 401) {
+                    addTerminalLine("✗ Error: Invalid Launcher Token");
+                    localStorage.removeItem('aios_launcher_token');
+                    LAUNCHER_TOKEN = '';
+                    return;
+                }
 
                 const result = await response.json();
 
@@ -600,9 +636,27 @@
         async function checkLauncherServer() {
             try {
                 const response = await fetch(`${LAUNCHER_SERVER}/health`);
+                if (response.status === 401) {
+                    addTerminalLine('Tool Launcher Server: UNAUTHORIZED (Token required)');
+                    return;
+                }
                 const data = await response.json();
                 if (data.status === 'ok') {
                     addTerminalLine('Tool Launcher Server: ONLINE');
+
+                    // Also try to fetch tools to verify token
+                    if (LAUNCHER_TOKEN) {
+                        const toolsResp = await fetch(`${LAUNCHER_SERVER}/tools`, {
+                            headers: { 'X-API-Key': LAUNCHER_TOKEN }
+                        });
+                        if (toolsResp.status === 200) {
+                            addTerminalLine('Authentication: VERIFIED');
+                        } else if (toolsResp.status === 401) {
+                            addTerminalLine('Authentication: INVALID TOKEN');
+                        }
+                    } else {
+                        addTerminalLine('Authentication: TOKEN MISSING (Click wolf to set)');
+                    }
                 }
             } catch (error) {
                 addTerminalLine('Tool Launcher Server: OFFLINE (start with: python aios/web/tool_launcher.py)');

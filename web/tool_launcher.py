@@ -10,6 +10,7 @@ import subprocess
 import threading
 import sys
 import os
+import uuid
 from pathlib import Path
 from urllib.parse import parse_qs, urlparse
 
@@ -18,6 +19,13 @@ AIOS_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(AIOS_ROOT))
 
 PORT = 7777
+
+# Authentication token
+AUTH_TOKEN = os.getenv('AIOS_LAUNCHER_TOKEN')
+if not AUTH_TOKEN:
+    AUTH_TOKEN = str(uuid.uuid4())
+    print(f"[SECURITY] Generated random launcher token: {AUTH_TOKEN}")
+    print(f"[SECURITY] Use this token in the X-API-Key header")
 
 # Tools that provide a GUI mode within the main module
 INLINE_GUI_TOOLS = {
@@ -32,6 +40,15 @@ class ToolLauncherHandler(BaseHTTPRequestHandler):
     # Active tool processes
     active_processes = {}
 
+    def is_authorized(self):
+        """Check if the request is authorized via API key"""
+        api_key = self.headers.get('X-API-Key')
+        if api_key == AUTH_TOKEN:
+            return True
+
+        self.log_message("Unauthorized access attempt from %s", self.client_address[0])
+        return False
+
     def do_GET(self):
         """Handle GET requests"""
         parsed = urlparse(self.path)
@@ -39,12 +56,19 @@ class ToolLauncherHandler(BaseHTTPRequestHandler):
         if parsed.path == '/health':
             self.send_json({'status': 'ok', 'message': 'Tool Launcher Server running'})
         elif parsed.path == '/tools':
+            if not self.is_authorized():
+                self.send_error(401, 'Unauthorized')
+                return
             self.send_json({'tools': self.get_available_tools()})
         else:
             self.send_error(404, 'Not Found')
 
     def do_POST(self):
         """Handle POST requests to launch tools"""
+        if not self.is_authorized():
+            self.send_error(401, 'Unauthorized')
+            return
+
         parsed = urlparse(self.path)
 
         if parsed.path == '/launch':
@@ -71,11 +95,27 @@ class ToolLauncherHandler(BaseHTTPRequestHandler):
         else:
             self.send_error(404, 'Not Found')
 
+    def do_OPTIONS(self):
+        """Handle OPTIONS preflight requests"""
+        self.send_response(200)
+        origin = self.headers.get('Origin')
+        if origin:
+            self.send_header('Access-Control-Allow-Origin', origin)
+        else:
+            self.send_header('Access-Control-Allow-Origin', '*')
+        self.send_header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
+        self.send_header('Access-Control-Allow-Headers', 'Content-Type, X-API-Key')
+        self.end_headers()
+
     def send_json(self, data):
         """Send JSON response"""
         self.send_response(200)
         self.send_header('Content-Type', 'application/json')
-        self.send_header('Access-Control-Allow-Origin', '*')
+        origin = self.headers.get('Origin')
+        if origin:
+            self.send_header('Access-Control-Allow-Origin', origin)
+        else:
+            self.send_header('Access-Control-Allow-Origin', '*')
         self.end_headers()
         self.wfile.write(json.dumps(data).encode('utf-8'))
 
