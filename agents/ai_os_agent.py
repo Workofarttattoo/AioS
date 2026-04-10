@@ -17,7 +17,7 @@ from pathlib import Path
 
 # Import AI OS components
 try:
-    from ..ai_os_integration import (
+    from ai_os_integration import (
         AIOperatingSystem,
         initialize_ai_os,
         get_ai_os,
@@ -29,7 +29,10 @@ try:
 except ImportError:
     AI_OS_AVAILABLE = False
 
-from ..model import ActionResult
+try:
+    from model import ActionResult
+except ImportError:
+    from ..model import ActionResult
 
 
 class AIOperatingSystemAgent:

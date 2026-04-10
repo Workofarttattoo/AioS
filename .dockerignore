@@ -1,0 +1,70 @@
+# ===========================================================================
+# AI:OS Docker ignore
+# ===========================================================================
+
+# Version control
+.git
+.gitattributes
+.gitignore
+.github
+
+# IDE / OS
+.vscode
+.idea
+*.swp
+*.swo
+.DS_Store
+
+# Python artifacts
+__pycache__
+*.py[cod]
+*.egg-info
+dist/
+*.so
+
+# Virtual environments
+.venv
+venv
+
+# Environment files with secrets
+.env
+.env.local
+.env.production
+
+# Build artifacts
+build/
+iso-builder/
+*.iso
+
+# Documentation (not needed in image)
+docs/
+docs-archive/
+*.md
+!README.md
+LICENSE
+
+# Tests (not needed in production image)
+tests/
+*.bak
+
+# Marketing / non-code assets
+GAVL_AIOS_MARKETING_CAMPAIGN_2025/
+prompt_masterworks/
+assets/
+examples-archive/
+
+# Temporary / generated
+*.tmp
+*.html.tmp
+*.db
+*.log
+
+# Red-team tools (security sensitive, require separate deployment)
+red-team-tools/
+
+# Claude / AI config
+.claude/
+CLAUDE.md
+
+# Binaries
+.bin/

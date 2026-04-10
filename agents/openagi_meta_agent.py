@@ -13,9 +13,20 @@ import time
 from typing import Optional, Dict, Any, List
 import logging
 
-from ..runtime import ExecutionContext, ActionResult
-from ..openagi_kernel_bridge import OpenAGIKernelBridge, ToolExecutionMode
-from ..workflow_memory_manager import WorkflowMemoryManager
+try:
+    from runtime import ExecutionContext, ActionResult
+except ImportError:
+    from ..runtime import ExecutionContext, ActionResult
+
+try:
+    from openagi_kernel_bridge import OpenAGIKernelBridge, ToolExecutionMode
+except ImportError:
+    from ..openagi_kernel_bridge import OpenAGIKernelBridge, ToolExecutionMode
+
+try:
+    from workflow_memory_manager import WorkflowMemoryManager
+except ImportError:
+    from ..workflow_memory_manager import WorkflowMemoryManager
 
 
 logger = logging.getLogger(__name__)
