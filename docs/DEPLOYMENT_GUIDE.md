@@ -8,7 +8,7 @@ The `js` directory permissions have been corrected from `700` to `755`, allowing
 
 ### 1. Files to Deploy
 
-Upload ALL files from `/Users/noone/aios/red-team-tools/web-deploy/` to your web server:
+Upload ALL files from `./red-team-tools/web-deploy/` to your web server:
 
 ```
 Required Files:
@@ -182,10 +182,10 @@ The site is mobile-responsive, but test on actual devices:
 ### Via FTP/SFTP
 ```bash
 # Using rsync (recommended)
-rsync -avz --exclude='.env' --exclude='*.md' /Users/noone/aios/red-team-tools/web-deploy/ user@thegavl.com:/var/www/html/
+rsync -avz --exclude='.env' --exclude='*.md' ./red-team-tools/web-deploy/ user@thegavl.com:/var/www/html/
 
 # Using scp
-scp -r /Users/noone/aios/red-team-tools/web-deploy/* user@thegavl.com:/var/www/html/
+scp -r ./red-team-tools/web-deploy/* user@thegavl.com:/var/www/html/
 ```
 
 ### Via Git (if server has git)

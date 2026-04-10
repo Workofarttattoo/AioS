@@ -65,7 +65,7 @@ DirReaper is a **high-performance directory and file enumeration tool** for Ai|o
 ## File Structure
 
 ```
-/Users/noone/aios/tools/
+./tools/
 ├── dirreaper.py              # Main implementation (1000+ lines)
 ├── DIRREAPER_README.md       # Comprehensive documentation
 └── DIRREAPER_SUMMARY.md      # This file

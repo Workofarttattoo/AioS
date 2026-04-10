@@ -358,18 +358,18 @@ class SecurityTestingHive:
         ]
 
         self.tools_to_test = [
-            ("AuroraScan", "/Users/noone/aios/tools/aurorascan.py"),
-            ("CipherSpear", "/Users/noone/aios/tools/cipherspear.py"),
-            ("SkyBreaker", "/Users/noone/aios/tools/skybreaker.py"),
-            ("MythicKey", "/Users/noone/aios/tools/mythickey.py"),
-            ("SpectraTrace", "/Users/noone/aios/tools/spectratrace.py"),
-            ("NemesisHydra", "/Users/noone/aios/tools/nemesishydra.py"),
-            ("ObsidianHunt", "/Users/noone/aios/tools/obsidianhunt.py"),
-            ("VectorFlux", "/Users/noone/aios/tools/vectorflux.py"),
-            ("BelchStudio", "/Users/noone/aios/tools/belchstudio.py"),
-            ("ProxyPhantom", "/Users/noone/aios/tools/proxyphantom.py"),
-            ("DirReaper", "/Users/noone/aios/tools/dirreaper.py"),
-            ("VulnHunter", "/Users/noone/aios/tools/vulnhunter.py")
+            ("AuroraScan", "./tools/aurorascan.py"),
+            ("CipherSpear", "./tools/cipherspear.py"),
+            ("SkyBreaker", "./tools/skybreaker.py"),
+            ("MythicKey", "./tools/mythickey.py"),
+            ("SpectraTrace", "./tools/spectratrace.py"),
+            ("NemesisHydra", "./tools/nemesishydra.py"),
+            ("ObsidianHunt", "./tools/obsidianhunt.py"),
+            ("VectorFlux", "./tools/vectorflux.py"),
+            ("BelchStudio", "./tools/belchstudio.py"),
+            ("ProxyPhantom", "./tools/proxyphantom.py"),
+            ("DirReaper", "./tools/dirreaper.py"),
+            ("VulnHunter", "./tools/vulnhunter.py")
         ]
 
         self.test_results = []
@@ -489,17 +489,17 @@ class SecurityTestingHive:
         }
 
         # Save JSON report
-        with open("/Users/noone/aios/tools/security_testing_report.json", "w") as f:
+        with open("./tools/security_testing_report.json", "w") as f:
             json.dump(report, f, indent=2)
 
         # Generate HTML report
         html_report = self.generate_html_report(report)
-        with open("/Users/noone/aios/tools/security_testing_report.html", "w") as f:
+        with open("./tools/security_testing_report.html", "w") as f:
             f.write(html_report)
 
         print(f"\n📄 Reports generated:")
-        print(f"   JSON: /Users/noone/aios/tools/security_testing_report.json")
-        print(f"   HTML: /Users/noone/aios/tools/security_testing_report.html")
+        print(f"   JSON: ./tools/security_testing_report.json")
+        print(f"   HTML: ./tools/security_testing_report.html")
 
         # Show critical issues
         if report["summary"]["critical_bugs"] > 0:

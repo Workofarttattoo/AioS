@@ -29,7 +29,7 @@ This report presents a comprehensive audit of all nine meta-agents in the Ai|oS 
 
 ### Current State
 
-**Location**: `/Users/noone/aios/agents/system.py` (lines 150-390)
+**Location**: `./agents/system.py` (lines 150-390)
 **Autonomy Level**: Level 2 (Action on subset)
 **Actions Available**:
 - `process_management` - Collects process snapshots via ps/PowerShell

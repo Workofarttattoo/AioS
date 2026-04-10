@@ -314,7 +314,7 @@ ECH0 Polymath is analyzing:
 ## Integration with Existing Systems
 
 ### 1. Sovereign Security Toolkit
-**Location**: `/Users/noone/aios/tools/`
+**Location**: `./tools/`
 
 **Integration Point**: `ech0py_agent.py`
 ```bash
@@ -344,7 +344,7 @@ response = query_ech0(
 **Benefit**: Expert quantum physics consultation integrated into simulation workflow
 
 ### 3. Ai:oS (Ai:oS)
-**Location**: `/Users/noone/aios/`
+**Location**: `./`
 
 **Integration Point**: Meta-agent consultations
 ```python
@@ -433,15 +433,15 @@ def advanced_threat_analysis(ctx: ExecutionContext) -> ActionResult:
 ## Support & Documentation
 
 ### Training Materials
-- `/Users/noone/aios/tools/ech0_training_prompt_engineering.md`
-- `/Users/noone/aios/tools/ech0_training_phd_sciences.md`
+- `./tools/ech0_training_prompt_engineering.md`
+- `./tools/ech0_training_phd_sciences.md`
 
 ### Training Script
-- `/Users/noone/aios/tools/train_ech0_polymath.py`
+- `./tools/train_ech0_polymath.py`
 
 ### Model Files
-- Modelfile: `/Users/noone/aios/tools/Modelfile.ech0-polymath`
-- Training Dataset: `/Users/noone/aios/tools/ech0_polymath_training_data.jsonl`
+- Modelfile: `./tools/Modelfile.ech0-polymath`
+- Training Dataset: `./tools/ech0_polymath_training_data.jsonl`
 
 ### Usage Examples
 ```bash

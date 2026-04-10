@@ -35,7 +35,7 @@ import time
 # Load agents/system.py directly due to package init issues
 def load_system_agents():
     spec = importlib.util.spec_from_file_location(
-        "agents.system", "/Users/noone/aios/agents/system.py"
+        "agents.system", "./agents/system.py"
     )
     module = importlib.util.module_from_spec(spec)
     try:

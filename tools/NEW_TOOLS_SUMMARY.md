@@ -19,9 +19,9 @@ Both tools follow Ai|oS patterns with health checks, JSON output, HTML/JS GUIs, 
 A comprehensive web application security testing platform featuring intercepting proxy, vulnerability scanner, web spider/crawler, intruder (automated attacks), repeater, and sequencer for token analysis.
 
 ### File Locations
-- **Backend**: `/Users/noone/aios/tools/sovereign_suite.py`
-- **GUI HTML**: `/Users/noone/aios/tools/sovereign_suite_gui.html`
-- **GUI Launcher**: `/Users/noone/aios/tools/sovereign_suite_gui.py`
+- **Backend**: `./tools/sovereign_suite.py`
+- **GUI HTML**: `./tools/sovereign_suite_gui.html`
+- **GUI Launcher**: `./tools/sovereign_suite_gui.py`
 
 ### Features
 - ✅ HTTP/HTTPS intercepting proxy
@@ -108,9 +108,9 @@ ctx.publish_metadata("security.sovereign_suite", result)
 Advanced text and code editor that automatically morphs into **Scr1b3-PRO** when editing code files. Features syntax highlighting, quantum-enhanced code analysis, plugin architecture, and support for 11+ programming languages.
 
 ### File Locations
-- **Backend**: `/Users/noone/aios/tools/scribe.py`
-- **GUI HTML**: `/Users/noone/aios/tools/scribe_gui.html`
-- **GUI Launcher**: `/Users/noone/aios/tools/scribe_gui.py`
+- **Backend**: `./tools/scribe.py`
+- **GUI HTML**: `./tools/scribe_gui.html`
+- **GUI Launcher**: `./tools/scribe_gui.py`
 
 ### Features
 - ✅ **Basic Mode**: Clean, simple text editing
@@ -264,7 +264,7 @@ Built-in plugins:
 
 ## TOOL_REGISTRY Updates
 
-Both tools have been registered in `/Users/noone/aios/tools/__init__.py`:
+Both tools have been registered in `./tools/__init__.py`:
 
 ```python
 TOOL_REGISTRY: Dict[str, str] = {

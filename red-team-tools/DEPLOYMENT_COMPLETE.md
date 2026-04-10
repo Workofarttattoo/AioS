@@ -11,8 +11,8 @@ Copyright (c) 2025 Joshua Hendricks Cole (DBA: Corporation of Light). All Rights
 
 | Document | Location | Size | Status |
 |----------|----------|------|--------|
-| **Terms of Service** | `/Users/noone/aios/red-team-tools/TERMS_OF_SERVICE.md` | 28KB | ✅ Complete |
-| **Acceptable Use Policy** | `/Users/noone/aios/red-team-tools/ACCEPTABLE_USE_POLICY.md` | 18KB | ✅ Complete |
+| **Terms of Service** | `./red-team-tools/TERMS_OF_SERVICE.md` | 28KB | ✅ Complete |
+| **Acceptable Use Policy** | `./red-team-tools/ACCEPTABLE_USE_POLICY.md` | 18KB | ✅ Complete |
 
 **These documents provide**:
 - ✅ Full legal liability protection
@@ -59,7 +59,7 @@ Copyright (c) 2025 Joshua Hendricks Cole (DBA: Corporation of Light). All Rights
 
 ```bash
 # Deploy to Bluehost via FTP/SFTP
-cd /Users/noone/aios/red-team-tools
+cd ./red-team-tools
 # Upload to: red-team-tools.thegavl.com directory in Bluehost cPanel
 ```
 

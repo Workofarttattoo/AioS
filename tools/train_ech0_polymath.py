@@ -17,7 +17,7 @@ class ECH0Trainer:
     """Train ECH0 14B to PhD-level expertise across multiple domains."""
 
     def __init__(self):
-        self.training_dir = Path("/Users/noone/aios/tools")
+        self.training_dir = Path("./tools")
         self.prompt_eng_file = self.training_dir / "ech0_training_prompt_engineering.md"
         self.phd_sciences_file = self.training_dir / "ech0_training_phd_sciences.md"
         self.model_name = "ech0-uncensored-14b"

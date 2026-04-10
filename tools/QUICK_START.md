@@ -81,12 +81,12 @@ print(f"Mode: {result['mode']}")
 ## File Locations
 
 **SovereignSuite**:
-- Backend: `/Users/noone/aios/tools/sovereign_suite.py`
-- GUI: `/Users/noone/aios/tools/sovereign_suite_gui.html`
+- Backend: `./tools/sovereign_suite.py`
+- GUI: `./tools/sovereign_suite_gui.html`
 
 **Scr1b3**:
-- Backend: `/Users/noone/aios/tools/scribe.py`
-- GUI: `/Users/noone/aios/tools/scribe_gui.html`
+- Backend: `./tools/scribe.py`
+- GUI: `./tools/scribe_gui.html`
 
 ---
 

@@ -12,7 +12,7 @@ Week 2 implementation is **100% complete**. The WorkflowMemoryManager is now ful
 
 ### 1. ✅ OpenAGI Memory Integration Layer (`openagi_memory_integration.py`)
 
-**Location**: `/Users/noone/aios/openagi_memory_integration.py`
+**Location**: `./openagi_memory_integration.py`
 
 **Class**: `OpenAGIMemoryIntegration`
 
@@ -85,7 +85,7 @@ Week 2 implementation is **100% complete**. The WorkflowMemoryManager is now ful
 
 ### 4. ✅ Comprehensive Integration Tests (`test_openagi_memory_integration.py`)
 
-**Location**: `/Users/noone/aios/tests/test_openagi_memory_integration.py`
+**Location**: `./tests/test_openagi_memory_integration.py`
 
 **Test Coverage**:
 
@@ -363,19 +363,19 @@ async def orchestration_policy_action(ctx: ExecutionContext) -> ActionResult:
 ## File Manifest
 
 ### New Files (Week 2)
-- `/Users/noone/aios/openagi_memory_integration.py` (350 lines, production-ready)
-- `/Users/noone/aios/tests/test_openagi_memory_integration.py` (400 lines, 18 tests)
-- `/Users/noone/aios/WEEK_2_MEMORY_INTEGRATION_COMPLETE.md` (this file)
+- `./openagi_memory_integration.py` (350 lines, production-ready)
+- `./tests/test_openagi_memory_integration.py` (400 lines, 18 tests)
+- `./WEEK_2_MEMORY_INTEGRATION_COMPLETE.md` (this file)
 
 ### Modified Files
-- `/Users/noone/aios/config.py` (added openagi meta-agent and actions)
+- `./config.py` (added openagi meta-agent and actions)
 
 ### Existing Files (Week 1)
-- `/Users/noone/aios/openagi_kernel_bridge.py`
-- `/Users/noone/aios/workflow_memory_manager.py`
-- `/Users/noone/aios/agents/openagi_meta_agent.py`
-- `/Users/noone/aios/tests/test_openagi_integration.py`
-- `/Users/noone/aios/tests/benchmark_openagi.py`
+- `./openagi_kernel_bridge.py`
+- `./workflow_memory_manager.py`
+- `./agents/openagi_meta_agent.py`
+- `./tests/test_openagi_integration.py`
+- `./tests/benchmark_openagi.py`
 
 ---
 

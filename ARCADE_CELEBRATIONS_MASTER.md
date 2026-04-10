@@ -407,10 +407,10 @@ python -m tools.dirreaper --gui
 ### Test All Visualizers:
 ```bash
 # Open showcase
-open /Users/noone/aios/tools/visualizer_showcase.html
+open ./tools/visualizer_showcase.html
 
 # Open quick burst demo
-open /Users/noone/aios/tools/quick_burst_demo.html
+open ./tools/quick_burst_demo.html
 ```
 
 ---

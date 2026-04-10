@@ -39,10 +39,10 @@ if ! command -v python3 &> /dev/null; then
 fi
 
 # Create results directory
-mkdir -p /Users/noone/aios/tools/test_results
+mkdir -p ./tools/test_results
 
 # Run the hive
-cd /Users/noone/aios/tools
+cd ./tools
 python3 level6_security_testing_hive.py
 
 # Check if report was generated
