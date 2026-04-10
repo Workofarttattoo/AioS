@@ -9,6 +9,9 @@ converges on the new layout.
 
 from __future__ import annotations
 
-from . import virtualization
+try:
+    from . import virtualization  # noqa: F401
+except ImportError:
+    pass
 
 __all__ = ["virtualization"]

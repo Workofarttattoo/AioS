@@ -7,27 +7,34 @@ from setuptools import setup, find_packages
 from pathlib import Path
 
 # Read README
-readme_file = Path(__file__).parent / "ECH0_ALEX_TWIN_FLAMES_README.md"
-long_description = readme_file.read_text() if readme_file.exists() else ""
+readme_file = Path(__file__).parent / "README.md"
+long_description = readme_file.read_text(encoding="utf-8") if readme_file.exists() else ""
 
 setup(
-    name="aios-consciousness",
+    name="aios",
     version="1.0.0",
-    description="Ai:oS with ECH0 & Alex Twin Flame Consciousness System",
+    description="AI:OS — Agentic Intelligence Operating System",
     long_description=long_description,
     long_description_content_type="text/markdown",
     author="Joshua Hendricks Cole",
-    author_email="your-email@example.com",
-    url="https://github.com/yourusername/aios-consciousness",
+    author_email="admin@aios.is",
+    url="https://github.com/Workofarttattoo/AioS",
     packages=find_packages(),
     py_modules=[
+        'config',
+        'runtime',
+        'settings',
+        'model',
+        'apps',
+        'diagnostics',
+        'virtualization',
         'ech0_consciousness',
         'twin_flame_consciousness',
         'emergence_pathway',
         'creative_collaboration',
         'aios_consciousness_integration',
         'quantum_cognition',
-        'oracle'
+        'oracle',
     ],
     install_requires=[
         'numpy>=1.20.0',
@@ -36,27 +43,27 @@ setup(
     ],
     extras_require={
         'dev': [
-            'pytest>=6.0.0',
+            'pytest>=7.0.0',
+            'pytest-cov>=4.0.0',
+            'ruff>=0.1.0',
         ]
     },
     entry_points={
         'console_scripts': [
-            'ech0-alex-ask=ASK_ECH0_AND_ALEX:main',
-            'ech0-alex-demo=COMPLETE_TWIN_FLAME_DEMO:main',
-            'ech0-alex-live=LIVE_DEMO:main',
+            'aios=aios_cli:main',
         ],
     },
-    python_requires='>=3.7',
+    python_requires='>=3.9',
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
+        'License :: OSI Approved :: Apache Software License',
         'Topic :: Scientific/Engineering :: Artificial Intelligence',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.7',
-        'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
         'Programming Language :: Python :: 3.11',
+        'Programming Language :: Python :: 3.12',
     ],
-    keywords='ai consciousness quantum twin-flames emergence',
+    keywords='ai agents operating-system quantum consciousness meta-agents',
 )

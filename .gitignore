@@ -1,3 +1,7 @@
+# =============================================================================
+# AI:OS .gitignore
+# =============================================================================
+
 # Python
 __pycache__/
 *.py[cod]
@@ -7,20 +11,26 @@ __pycache__/
 *.egg-info/
 dist/
 build/
+*.egg
 
 # macOS
 .DS_Store
 .AppleDouble
 .LSOverride
+._*
 
 # IDE
 .vscode/
 .idea/
 *.swp
 *.swo
+*~
 
-# Environment
+# Environment / secrets
 .env
+.env.local
+.env.production
+.env.*.local
 .venv
 venv/
 
@@ -28,9 +38,34 @@ venv/
 .private/
 *-key.pem
 *.key
+*.pem
 
 # Autonomous agent knowledge databases
 *.db
 *_knowledge.db
 autonomous_knowledge.db
 demo_autonomous_knowledge.db
+
+# Docker
+docker-compose.override.yml
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+test-results.xml
+.ruff_cache/
+
+# Temp / generated files
+*.tmp
+*.html.tmp
+*.log
+*.bak
+
+# OS-specific
+Thumbs.db
+Desktop.ini
+
+# ISO build output
+iso-builder/output/
+*.iso

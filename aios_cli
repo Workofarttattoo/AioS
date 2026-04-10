@@ -20,8 +20,10 @@ import threading
 from pathlib import Path
 from typing import Dict, List, Optional
 
-# Ensure the package root is importable when running as a script.
+# Ensure the repository root and its parent are importable.
 ROOT = Path(__file__).resolve().parent
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 PARENT = ROOT.parent
 if str(PARENT) not in sys.path:
     sys.path.insert(0, str(PARENT))

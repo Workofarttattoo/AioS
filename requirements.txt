@@ -1,3 +1,11 @@
+# =============================================================================
+# AI:OS — Production Dependencies
+# =============================================================================
+
+# Core
 numpy>=1.20.0
 flask>=2.0.0
 flask-cors>=3.0.0
+
+# System introspection (used by kernel/scalability agents)
+psutil>=5.9.0

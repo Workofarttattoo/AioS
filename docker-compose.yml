@@ -1,0 +1,90 @@
+# =============================================================================
+# AI:OS — Docker Compose (development & production)
+# =============================================================================
+#
+# Usage:
+#   docker compose up -d          # Start all services
+#   docker compose logs -f aios   # Follow logs
+#   docker compose down            # Stop everything
+#
+# For production, override with docker-compose.prod.yml or set env vars.
+# =============================================================================
+
+services:
+  # ---------------------------------------------------------------------------
+  # AI:OS Core Runtime
+  # ---------------------------------------------------------------------------
+  aios:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: aios:latest
+    container_name: aios-runtime
+    restart: unless-stopped
+    ports:
+      - "${AIOS_LAUNCHER_PORT:-7777}:7777"
+    env_file:
+      - .env
+    environment:
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+      - LOG_FORMAT=${LOG_FORMAT:-json}
+      - ALLOW_NETWORK_CALLS=${ALLOW_NETWORK_CALLS:-false}
+      - AIOS_LAUNCHER_TOKEN=${AIOS_LAUNCHER_TOKEN:-}
+    volumes:
+      - aios-data:/app/data
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:7777/health')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+          cpus: "2.0"
+        reservations:
+          memory: 512M
+          cpus: "0.5"
+    logging:
+      driver: json-file
+      options:
+        max-size: "50m"
+        max-file: "5"
+
+  # ---------------------------------------------------------------------------
+  # Tool Launcher Web UI (optional — serves the HTML dashboard)
+  # ---------------------------------------------------------------------------
+  tool-launcher:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: aios:latest
+    container_name: aios-tool-launcher
+    restart: unless-stopped
+    command: ["python", "web/tool_launcher.py"]
+    ports:
+      - "${TOOL_LAUNCHER_PORT:-7778}:7777"
+    env_file:
+      - .env
+    environment:
+      - AIOS_LAUNCHER_TOKEN=${AIOS_LAUNCHER_TOKEN:-}
+    depends_on:
+      aios:
+        condition: service_healthy
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: "1.0"
+    logging:
+      driver: json-file
+      options:
+        max-size: "20m"
+        max-file: "3"
+    profiles:
+      - full
+
+volumes:
+  aios-data:
+    driver: local
