@@ -180,128 +180,26 @@ class ApprovalStore:
         self.decisions_file = self.storage_path / "decisions.jsonl"
         self.audit_file = self.storage_path / "audit_trail.jsonl"
 
-    def save_request(self, request: ApprovalRequest) -> None:
-        """Save approval request to storage."""
+        # In-memory cache for O(1) retrieval
+        self._requests_cache: Dict[str, ApprovalRequest] = {}
+        self._decisions_cache: Dict[str, ApprovalDecision] = {}
+        self._cache_initialized = False
+
+    def _ensure_cache_initialized(self) -> None:
+        """One-time initialization of in-memory cache from disk."""
+        if self._cache_initialized:
+            return
+
         try:
-            with open(self.requests_file, 'a') as f:
-                f.write(json.dumps(request.to_dict()) + '\n')
+            # Load requests
+            if self.requests_file.exists():
+                with open(self.requests_file, 'r') as f:
+                    for line in f:
+                        if not line.strip():
+                            continue
+                        data = json.loads(line)
+                        request_id = data.get('request_id')
 
-            # Log to audit trail
-            self._log_audit(
-                event="request_created",
-                request_id=request.request_id,
-                data={"action_path": request.action_path, "sensitivity": request.requirement.sensitivity_level.value}
-            )
-        except Exception as e:
-            LOG.error(f"Error saving approval request: {e}")
-
-    def save_decision(self, decision: ApprovalDecision) -> None:
-        """Save approval decision to storage."""
-        try:
-            with open(self.decisions_file, 'a') as f:
-                f.write(json.dumps(decision.to_dict()) + '\n')
-
-            # Log to audit trail
-            status = "approved" if decision.approved else "denied"
-            self._log_audit(
-                event=f"decision_{status}",
-                request_id=decision.request_id,
-                data={"approver": decision.approver_id, "reason": decision.reason}
-            )
-        except Exception as e:
-            LOG.error(f"Error saving approval decision: {e}")
-
-    def get_request(self, request_id: str) -> Optional[ApprovalRequest]:
-        """Retrieve approval request by ID (returns most recent entry)."""
-        try:
-            if not self.requests_file.exists():
-                return None
-
-            latest_request = None
-
-            with open(self.requests_file, 'r') as f:
-                for line in f:
-                    if not line.strip():
-                        continue
-                    data = json.loads(line)
-                    if data.get('request_id') == request_id:
-                        # Reconstruct ApprovalRequirement from stored data
-                        req_data = data.get('requirement', {})
-                        requirement = ApprovalRequirement(
-                            sensitivity_level=ActionSensitivity(req_data.get('sensitivity_level', 'medium')),
-                            requires_reason=req_data.get('requires_reason', True),
-                            requires_two_factor=req_data.get('requires_two_factor', False),
-                            expires_in_seconds=req_data.get('expires_in_seconds', 3600),
-                            affected_systems=req_data.get('affected_systems', [])
-                        )
-
-                        # Reconstruct ApprovalRequest
-                        req = ApprovalRequest(
-                            request_id=data['request_id'],
-                            action_path=data['action_path'],
-                            action_name=data['action_name'],
-                            description=data['description'],
-                            requirement=requirement,
-                            context=data.get('context', {}),
-                            requester_id=data['requester_id'],
-                            requested_at=data['requested_at'],
-                            status=ApprovalStatus(data['status']),
-                            created_at=data['created_at']
-                        )
-                        req.expires_at = data['expires_at']
-                        latest_request = req  # Keep the latest one
-
-            return latest_request
-        except Exception as e:
-            LOG.error(f"Error retrieving approval request: {e}")
-            return None
-
-    def get_decision(self, request_id: str) -> Optional[ApprovalDecision]:
-        """Retrieve approval decision for a request (returns most recent)."""
-        try:
-            if not self.decisions_file.exists():
-                return None
-
-            latest_decision = None
-
-            with open(self.decisions_file, 'r') as f:
-                for line in f:
-                    if not line.strip():
-                        continue
-                    data = json.loads(line)
-                    if data.get('request_id') == request_id:
-                        latest_decision = ApprovalDecision(
-                            request_id=data['request_id'],
-                            approver_id=data['approver_id'],
-                            approved=data['approved'],
-                            reason=data['reason'],
-                            two_factor_verified=data.get('two_factor_verified', False),
-                            decided_at=data['decided_at'],
-                            execution_allowed_until=data['execution_allowed_until']
-                        )
-            return latest_decision
-        except Exception as e:
-            LOG.error(f"Error retrieving approval decision: {e}")
-            return None
-
-    def get_pending_requests(self) -> List[ApprovalRequest]:
-        """Get all pending approval requests (deduplicated by ID)."""
-        requests_by_id = {}
-        try:
-            if not self.requests_file.exists():
-                return []
-
-            with open(self.requests_file, 'r') as f:
-                for line in f:
-                    if not line.strip():
-                        continue
-                    data = json.loads(line)
-
-                    # Keep the latest entry for each request_id (always overwrite)
-                    request_id = data.get('request_id')
-
-                    if data.get('status') == ApprovalStatus.PENDING.value:
-                        # Reconstruct requirement
                         req_data = data.get('requirement', {})
                         requirement = ApprovalRequirement(
                             sensitivity_level=ActionSensitivity(req_data.get('sensitivity_level', 'medium')),
@@ -320,18 +218,88 @@ class ApprovalStore:
                             context=data.get('context', {}),
                             requester_id=data['requester_id'],
                             requested_at=data['requested_at'],
-                            status=ApprovalStatus.PENDING,
+                            status=ApprovalStatus(data['status']),
                             created_at=data['created_at']
                         )
                         req.expires_at = data['expires_at']
-                        requests_by_id[request_id] = req
-                    else:
-                        # If we see a newer status (non-pending), remove from pending
-                        requests_by_id.pop(request_id, None)
+                        self._requests_cache[request_id] = req
 
+            # Load decisions
+            if self.decisions_file.exists():
+                with open(self.decisions_file, 'r') as f:
+                    for line in f:
+                        if not line.strip():
+                            continue
+                        data = json.loads(line)
+                        request_id = data.get('request_id')
+                        self._decisions_cache[request_id] = ApprovalDecision(
+                            request_id=request_id,
+                            approver_id=data['approver_id'],
+                            approved=data['approved'],
+                            reason=data['reason'],
+                            two_factor_verified=data.get('two_factor_verified', False),
+                            decided_at=data['decided_at'],
+                            execution_allowed_until=data['execution_allowed_until']
+                        )
+
+            self._cache_initialized = True
         except Exception as e:
-            LOG.error(f"Error getting pending requests: {e}")
-        return list(requests_by_id.values())
+            LOG.error(f"Error initializing approval cache: {e}")
+
+    def save_request(self, request: ApprovalRequest) -> None:
+        """Save approval request to storage."""
+        try:
+            with open(self.requests_file, 'a') as f:
+                f.write(json.dumps(request.to_dict()) + '\n')
+
+            # Update cache
+            self._requests_cache[request.request_id] = request
+
+            # Log to audit trail
+            self._log_audit(
+                event="request_created",
+                request_id=request.request_id,
+                data={"action_path": request.action_path, "sensitivity": request.requirement.sensitivity_level.value}
+            )
+        except Exception as e:
+            LOG.error(f"Error saving approval request: {e}")
+
+    def save_decision(self, decision: ApprovalDecision) -> None:
+        """Save approval decision to storage."""
+        try:
+            with open(self.decisions_file, 'a') as f:
+                f.write(json.dumps(decision.to_dict()) + '\n')
+
+            # Update cache
+            self._decisions_cache[decision.request_id] = decision
+
+            # Log to audit trail
+            status = "approved" if decision.approved else "denied"
+            self._log_audit(
+                event=f"decision_{status}",
+                request_id=decision.request_id,
+                data={"approver": decision.approver_id, "reason": decision.reason}
+            )
+        except Exception as e:
+            LOG.error(f"Error saving approval decision: {e}")
+
+    def get_request(self, request_id: str) -> Optional[ApprovalRequest]:
+        """Retrieve approval request by ID (returns most recent entry)."""
+        self._ensure_cache_initialized()
+        return self._requests_cache.get(request_id)
+
+    def get_decision(self, request_id: str) -> Optional[ApprovalDecision]:
+        """Retrieve approval decision for a request (returns most recent)."""
+        self._ensure_cache_initialized()
+        return self._decisions_cache.get(request_id)
+
+    def get_pending_requests(self) -> List[ApprovalRequest]:
+        """Get all pending approval requests (deduplicated by ID)."""
+        self._ensure_cache_initialized()
+        return [
+            req for req in self._requests_cache.values()
+            if req.status == ApprovalStatus.PENDING
+        ]
 
     def get_audit_trail(self, request_id: Optional[str] = None) -> List[Dict[str, Any]]:
         """Get audit trail entries."""
@@ -634,36 +602,26 @@ class ApprovalWorkflowManager:
 
     def get_approval_statistics(self) -> Dict[str, Any]:
         """Get statistics about approval requests."""
-        request_by_id = {}  # Use dict to deduplicate by request_id
-        decisions_approved = 0
-        decisions_denied = 0
+        self.storage._ensure_cache_initialized()
 
-        try:
-            if self.storage.requests_file.exists():
-                with open(self.storage.requests_file, 'r') as f:
-                    for line in f:
-                        if line.strip():
-                            data = json.loads(line)
-                            # Keep the latest entry for each request_id
-                            request_by_id[data.get('request_id')] = data
+        requests = list(self.storage._requests_cache.values())
+        decisions = list(self.storage._decisions_cache.values())
 
-            if self.storage.decisions_file.exists():
-                with open(self.storage.decisions_file, 'r') as f:
-                    for line in f:
-                        if line.strip():
-                            decision = json.loads(line)
-                            if decision.get('approved'):
-                                decisions_approved += 1
-                            else:
-                                decisions_denied += 1
-        except Exception as e:
-            LOG.error(f"Error getting statistics: {e}")
+        decisions_approved = sum(1 for d in decisions if d.approved)
+        decisions_denied = sum(1 for d in decisions if not d.approved)
 
-        # Count unique requests and pending
-        requests = list(request_by_id.values())
         total_requests = len(requests)
-        critical_requests = sum(1 for r in requests if r.get('requirement', {}).get('sensitivity_level') == 'critical')
-        pending_requests = sum(1 for r in requests if r.get('status') == 'pending')
+        critical_requests = sum(
+            1 for r in requests
+            if r.requirement.sensitivity_level == ActionSensitivity.CRITICAL
+        )
+        pending_requests = sum(
+            1 for r in requests
+            if r.status == ApprovalStatus.PENDING
+        )
+
+        total_decisions = decisions_approved + decisions_denied
+        approval_rate = decisions_approved / total_decisions if total_decisions > 0 else 0.0
 
         return {
             "total_requests": total_requests,
@@ -671,5 +629,5 @@ class ApprovalWorkflowManager:
             "pending_requests": pending_requests,
             "approved_decisions": decisions_approved,
             "denied_decisions": decisions_denied,
-            "approval_rate": decisions_approved / (decisions_approved + decisions_denied) if (decisions_approved + decisions_denied) > 0 else 0.0
+            "approval_rate": approval_rate
         }
