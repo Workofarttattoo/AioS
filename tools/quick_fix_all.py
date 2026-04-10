@@ -3,7 +3,7 @@
 import os
 import glob
 
-tools_path = "/Users/noone/aios/tools"
+tools_path = "./tools"
 tools = glob.glob(os.path.join(tools_path, "*.py"))
 
 # Skip the fix scripts themselves

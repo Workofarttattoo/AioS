@@ -2,7 +2,7 @@
 # Ai|oS Desktop Launcher Script
 # Opens the Ai|oS launcher in fullscreen mode
 
-LAUNCHER_PATH="/Users/noone/aios/web/aios_launcher.html"
+LAUNCHER_PATH="./web/aios_launcher.html"
 
 echo "🐺 Starting Ai|oS Desktop Launcher..."
 

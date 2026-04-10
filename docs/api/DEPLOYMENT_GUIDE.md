@@ -7,7 +7,7 @@
 ### 1. Install Dependencies
 
 ```bash
-cd /Users/noone/aios/docs/api
+cd ./docs/api
 pip install -r requirements.txt
 ```
 

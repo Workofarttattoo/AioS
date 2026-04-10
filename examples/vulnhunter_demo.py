@@ -270,7 +270,7 @@ def main():
         print("  - Run Scan:      python -m tools.vulnhunter --scan TARGET")
         print("  - Health Check:  python -m tools.vulnhunter --health")
         print("\nFor full documentation, see:")
-        print("  /Users/noone/aios/tools/VULNHUNTER_README.md")
+        print("  ./tools/VULNHUNTER_README.md")
         print("\n" + "="*70 + "\n")
 
     except Exception as e:

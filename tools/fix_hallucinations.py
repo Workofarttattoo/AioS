@@ -11,7 +11,7 @@ class HallucinationFixer:
     """Fix output accuracy issues in security tools"""
 
     def __init__(self):
-        self.tools_path = "/Users/noone/aios/tools"
+        self.tools_path = "./tools"
         self.fixes_applied = []
         self.tools_to_fix = [
             "dirreaper.py",

@@ -451,7 +451,7 @@ console.log(`Found ${scanResults.open_ports.length} open ports`);
 ### Local Development
 
 ```bash
-cd /Users/noone/aios/docs/api
+cd ./docs/api
 pip install -r requirements.txt
 python security_tools_api.py
 ```

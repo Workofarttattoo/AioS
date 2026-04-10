@@ -24,7 +24,7 @@ fi
 
 # Configuration
 WORK_DIR="/tmp/pi_image_build"
-TOOLKIT_DIR="/Users/noone/aios/tools"
+TOOLKIT_DIR="./tools"
 OUTPUT_DIR="${HOME}/Desktop"
 IMAGE_NAME="SovereignSecurityToolkit_Pi_$(date +%Y%m%d).img"
 
