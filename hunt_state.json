@@ -1,0 +1,15 @@
+{
+  "scanned_targets": [
+    {
+      "target": "scanme.nmap.org",
+      "timestamp": "2026-06-02T09:20:17.327769",
+      "summary": "No significant vulnerabilities found in this scan."
+    },
+    {
+      "target": "example.com",
+      "timestamp": "2026-06-02T09:22:09.247307",
+      "summary": "Discovered a potential vulnerability."
+    }
+  ],
+  "findings_count": 4
+}
