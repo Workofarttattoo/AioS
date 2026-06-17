@@ -73,7 +73,7 @@ If you want to use `red-team-tools.aios.is`:
 3. **Wait for DNS propagation** (up to 24 hours)
 
 ### 2. Add Supabase Authentication
-Follow the guide in `/Users/noone/aios/docs/SUPABASE_INTEGRATION.md` to add:
+Follow the guide in `./docs/SUPABASE_INTEGRATION.md` to add:
 - User authentication
 - Database integration
 - Protected routes
@@ -86,7 +86,7 @@ Follow the guide in `/Users/noone/aios/docs/SUPABASE_INTEGRATION.md` to add:
 ### 4. Update Content
 To update the site:
 ```bash
-cd /Users/noone/aios/red-team-tools
+cd ./red-team-tools
 # Make your changes
 git add .
 git commit -m "Update: description of changes"

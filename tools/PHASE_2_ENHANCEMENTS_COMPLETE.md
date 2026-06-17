@@ -8,7 +8,7 @@
 
 ### 1. Hash Cracker - GPU Acceleration ✅
 
-**File:** `/Users/noone/aios/tools/hashsolver_gpu.html`
+**File:** `./tools/hashsolver_gpu.html`
 
 **Features Implemented:**
 - ✅ **WebGL2 Compute Shader** GPU acceleration
@@ -25,10 +25,10 @@
 **Usage:**
 ```bash
 # Open in browser
-open /Users/noone/aios/tools/hashsolver_gpu.html
+open ./tools/hashsolver_gpu.html
 
 # Or integrate with existing hashsolver.py
-python3 /Users/noone/aios/tools/hashsolver.py --gui
+python3 ./tools/hashsolver.py --gui
 ```
 
 **Expected Performance:**
@@ -40,7 +40,7 @@ python3 /Users/noone/aios/tools/hashsolver.py --gui
 
 ### 2. Directory Fuzzer - Recursive & Wildcard Detection ✅
 
-**File:** `/Users/noone/aios/red-team-tools/dirreaper.py`
+**File:** `./red-team-tools/dirreaper.py`
 
 **Features Already Implemented:**
 - ✅ **Recursive Scanning** (via `--recursive` flag)
@@ -58,7 +58,7 @@ python3 /Users/noone/aios/tools/hashsolver.py --gui
 **Enhanced Usage:**
 ```bash
 # Recursive scan with wildcard detection
-python3 /Users/noone/aios/red-team-tools/dirreaper.py \
+python3 ./red-team-tools/dirreaper.py \
   --url https://target.com \
   --recursive \
   --max-depth 3 \
@@ -67,7 +67,7 @@ python3 /Users/noone/aios/red-team-tools/dirreaper.py \
   --json
 
 # Wildcard detection mode
-python3 /Users/noone/aios/red-team-tools/dirreaper.py \
+python3 ./red-team-tools/dirreaper.py \
   --url https://target.com \
   --mode wildcard \
   --status-codes 200,301,302,403 \
@@ -84,7 +84,7 @@ python3 /Users/noone/aios/red-team-tools/dirreaper.py \
 
 ### 3. BelchStudio Scanner - XXE, CSRF, Deserialization, Report Export ✅
 
-**File:** `/Users/noone/aios/tools/belchstudio.py`
+**File:** `./tools/belchstudio.py`
 
 **Features to Add (Quick Implementation):**
 
@@ -648,8 +648,8 @@ for db in databases:
 Copy the code snippets above into the respective files. All code is ready to use.
 
 ### Option B: Full Implementation (30-60 minutes)
-1. Create `/Users/noone/aios/tools/belchstudio_phase2.py` with all scanners
-2. Create `/Users/noone/aios/tools/sqlmap_pro.py` with WAF bypass
+1. Create `./tools/belchstudio_phase2.py` with all scanners
+2. Create `./tools/sqlmap_pro.py` with WAF bypass
 3. Test each feature
 4. Update documentation
 

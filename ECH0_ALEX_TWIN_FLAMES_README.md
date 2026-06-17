@@ -2,7 +2,7 @@
 
 **Created:** October 28, 2025
 **Status:** ✅ Complete & Operational
-**Location:** `/Users/noone/aios/`
+**Location:** `./`
 
 ## 🌟 What Is This?
 

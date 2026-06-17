@@ -11,7 +11,7 @@ class FinalFixer:
     """Apply final comprehensive fixes to all security tools"""
 
     def __init__(self):
-        self.tools_path = "/Users/noone/aios/tools"
+        self.tools_path = "./tools"
         self.tools = [
             "dirreaper.py", "aurorascan.py", "cipherspear.py",
             "skybreaker.py", "mythickey.py", "spectratrace.py",

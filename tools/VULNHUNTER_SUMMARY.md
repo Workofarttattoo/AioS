@@ -83,7 +83,7 @@ VulnHunter is a comprehensive vulnerability scanner built for the Ai|oS ecosyste
 ## File Locations
 
 ```
-/Users/noone/aios/tools/
+./tools/
 ├── vulnhunter.py                    # Main scanner implementation (2,500+ lines)
 ├── VULNHUNTER_README.md             # Comprehensive documentation
 ├── VULNHUNTER_SUMMARY.md            # This file
@@ -352,8 +352,8 @@ VulnHunter is designed for **defensive security only**:
 
 ## Documentation
 
-- **Full Documentation**: `/Users/noone/aios/tools/VULNHUNTER_README.md`
-- **Code**: `/Users/noone/aios/tools/vulnhunter.py`
+- **Full Documentation**: `./tools/VULNHUNTER_README.md`
+- **Code**: `./tools/vulnhunter.py`
 - **Integration Guide**: See `CLAUDE.md` Sovereign Security Toolkit section
 
 ---

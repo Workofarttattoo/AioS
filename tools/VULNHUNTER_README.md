@@ -656,7 +656,7 @@ VulnHunter is proprietary software distributed as part of the Ai|oS Sovereign Se
 
 For questions, issues, or feature requests:
 
-- **Documentation**: See `/Users/noone/aios/tools/VULNHUNTER_README.md`
+- **Documentation**: See `./tools/VULNHUNTER_README.md`
 - **Health Check**: `python -m tools.vulnhunter --health`
 - **Ai|oS Integration**: See `CLAUDE.md` for integration patterns
 

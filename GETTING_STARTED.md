@@ -490,7 +490,7 @@ Ai:oS Runtime Architecture
 ### "Command not found: aios"
 The CLI is located at `aios/aios` (an executable). Add to your shell:
 ```bash
-alias aios="python /Users/noone/aios/aios"
+alias aios="python ./aios"
 ```
 
 ### "No module named 'aios'"

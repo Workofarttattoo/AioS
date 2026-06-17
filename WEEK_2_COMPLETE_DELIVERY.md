@@ -23,9 +23,9 @@
 ### Component 1: Memory Integration
 
 **Files**:
-- `/Users/noone/aios/openagi_memory_integration.py` (350 lines)
-- `/Users/noone/aios/config.py` (updated)
-- `/Users/noone/aios/tests/test_openagi_memory_integration.py` (18 tests)
+- `./openagi_memory_integration.py` (350 lines)
+- `./config.py` (updated)
+- `./tests/test_openagi_memory_integration.py` (18 tests)
 
 **Capabilities**:
 - Persist workflows across system boots
@@ -39,7 +39,7 @@
 ### Component 2: Autonomous Tool Discovery
 
 **Files**:
-- `/Users/noone/aios/openagi_autonomous_discovery.py` (450 lines)
+- `./openagi_autonomous_discovery.py` (450 lines)
 - `/Users/noone/test_tool_discovery_standalone.py` (standalone tests)
 
 **Capabilities**:
@@ -54,7 +54,7 @@
 ### Component 3: End-to-End Workflow Tests
 
 **Files**:
-- `/Users/noone/aios/tests/test_openagi_e2e_workflows.py` (350 lines)
+- `./tests/test_openagi_e2e_workflows.py` (350 lines)
 - `/Users/noone/test_e2e_workflows_standalone.py` (standalone tests)
 
 **Test Coverage**:

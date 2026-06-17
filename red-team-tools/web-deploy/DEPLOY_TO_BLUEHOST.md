@@ -33,7 +33,7 @@ Copyright (c) 2025 Joshua Hendricks Cole (DBA: Corporation of Light). All Rights
 4. Click **"+ Folder"** → Name it `red-team-tools`
 5. Double-click to open `red-team-tools` folder
 6. Click **"Upload"** button (top toolbar)
-7. Upload these files from `/Users/noone/aios/red-team-tools/web-deploy/`:
+7. Upload these files from `./red-team-tools/web-deploy/`:
    - `index.html`
    - `register.html`
    - `login.html` (we'll create this next)
@@ -98,7 +98,7 @@ https://red-team-tools.thegavl.com
 
 ## 📄 Files to Upload
 
-From `/Users/noone/aios/red-team-tools/web-deploy/`:
+From `./red-team-tools/web-deploy/`:
 
 1. **index.html** - Landing page ✅ Created
 2. **register.html** - Registration page ✅ Created

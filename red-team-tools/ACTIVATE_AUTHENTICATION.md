@@ -72,7 +72,7 @@ Example confirm signup template:
 
 1. Open `login.html` in a browser:
    ```bash
-   cd /Users/noone/aios/red-team-tools
+   cd ./red-team-tools
    open login.html
    ```
 

@@ -134,7 +134,7 @@ Successfully extracted and integrated **13 consciousness modules** from `ech0_mo
 ### New Files Created
 
 #### 1. **dropin_agents.py** (~800 lines)
-Location: `/Users/noone/aios/prompt_masterworks/dropin_agents.py`
+Location: `./prompt_masterworks/dropin_agents.py`
 
 - Defines all 13 consciousness module prompts
 - Factory function: `create_dropin_agent_prompts()`
@@ -159,7 +159,7 @@ def create_dropin_agent_prompts() -> Dict[str, PromptMasterwork]:
 ```
 
 #### 2. **DROP_IN_AGENTS_GUIDE.md** (~450 lines)
-Location: `/Users/noone/aios/prompt_masterworks/DROP_IN_AGENTS_GUIDE.md`
+Location: `./prompt_masterworks/DROP_IN_AGENTS_GUIDE.md`
 
 Comprehensive user guide including:
 - Overview and statistics
@@ -173,7 +173,7 @@ Comprehensive user guide including:
 - Support information
 
 #### 3. **DROP_IN_AGENTS_UI_PREVIEW.html** (~1000 lines)
-Location: `/Users/noone/aios/prompt_masterworks/DROP_IN_AGENTS_UI_PREVIEW.html`
+Location: `./prompt_masterworks/DROP_IN_AGENTS_UI_PREVIEW.html`
 
 Visual demonstration showing:
 - Interactive mock-up of Prompt Lab with drop-in agents
@@ -336,12 +336,12 @@ Quantum Capable: 12
 
 | Resource | Location |
 |----------|----------|
-| **Implementation** | `/Users/noone/aios/prompt_masterworks/dropin_agents.py` |
-| **User Guide** | `/Users/noone/aios/prompt_masterworks/DROP_IN_AGENTS_GUIDE.md` |
-| **UI Preview** | `/Users/noone/aios/prompt_masterworks/DROP_IN_AGENTS_UI_PREVIEW.html` |
+| **Implementation** | `./prompt_masterworks/dropin_agents.py` |
+| **User Guide** | `./prompt_masterworks/DROP_IN_AGENTS_GUIDE.md` |
+| **UI Preview** | `./prompt_masterworks/DROP_IN_AGENTS_UI_PREVIEW.html` |
 | **Web Lab** | http://localhost:9000 |
 | **API** | http://localhost:9000/api/categories |
-| **Registry** | `/Users/noone/aios/prompt_masterworks/registry.py` |
+| **Registry** | `./prompt_masterworks/registry.py` |
 | **Git Commit** | `4e34c24` |
 
 ---

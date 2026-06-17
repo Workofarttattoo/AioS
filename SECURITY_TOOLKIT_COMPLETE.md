@@ -329,13 +329,13 @@ python -m tools.dirreaper --gui     # Gobuster equivalent
 ### View Demonstrations:
 ```bash
 # Icon showcase
-open /Users/noone/aios/tools/tool_icons.html
+open ./tools/tool_icons.html
 
 # Celebration quick-burst demo
-open /Users/noone/aios/tools/quick_burst_demo.html
+open ./tools/quick_burst_demo.html
 
 # Full visualizer showcase
-open /Users/noone/aios/tools/visualizer_showcase.html
+open ./tools/visualizer_showcase.html
 ```
 
 ### Health Check All Tools:

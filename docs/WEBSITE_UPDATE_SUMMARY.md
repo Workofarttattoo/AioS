@@ -86,7 +86,7 @@
 ## 📋 File Structure
 
 ```
-/Users/noone/aios/docs/
+./docs/
 ├── index.html                      ✅ NEW - Ai:oS landing page
 ├── algorithms.html                 ✅ UPDATED - ML & Quantum algorithms
 ├── quantum-visualizer.html         ✅ NEW - Interactive visualizer

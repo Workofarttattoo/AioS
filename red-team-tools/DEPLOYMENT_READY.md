@@ -32,7 +32,7 @@ All files have been created and are ready to deploy:
 
 ## 📦 Files to Upload to Bluehost
 
-Upload these files from `/Users/noone/aios/red-team-tools/web-deploy/` to Bluehost:
+Upload these files from `./red-team-tools/web-deploy/` to Bluehost:
 
 ```
 /public_html/red-team-tools/
@@ -282,7 +282,7 @@ The Terms of Service and AUP are currently in Markdown. You need to convert them
 
 **Option 1: Use Pandoc (recommended)**
 ```bash
-cd /Users/noone/aios/red-team-tools/web-deploy
+cd ./red-team-tools/web-deploy
 pandoc ../TERMS_OF_SERVICE.md -o terms-of-service.html -s --metadata title="Terms of Service"
 pandoc ../ACCEPTABLE_USE_POLICY.md -o acceptable-use-policy.html -s --metadata title="Acceptable Use Policy"
 ```
@@ -344,7 +344,7 @@ Set these up in Bluehost cPanel → Email Accounts
 
 All deployment files are in:
 ```
-/Users/noone/aios/red-team-tools/
+./red-team-tools/
 ├── web-deploy/
 │   ├── index.html              ✅ Ready
 │   ├── register.html           ✅ Ready
@@ -365,7 +365,7 @@ All deployment files are in:
 **You're ready to deploy!** Here's what to do now:
 
 1. **Open the deployment dashboard** (should be open in your browser)
-   - If not open: `open /Users/noone/aios/red-team-tools/DEPLOYMENT_DASHBOARD.html`
+   - If not open: `open ./red-team-tools/DEPLOYMENT_DASHBOARD.html`
 
 2. **Follow the 4 steps** in the dashboard:
    - Step 1: Configure DNS in Namecheap

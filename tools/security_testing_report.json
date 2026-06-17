@@ -4059,7 +4059,7 @@
           "input": "",
           "expected": "error",
           "actual": "",
-          "passed": "  File \"/Users/noone/aios/tools/cipherspear.py\", line 24\n    import html\n    ^^^^^^\nSyntaxError: invalid syntax\n",
+          "passed": "  File \"./tools/cipherspear.py\", line 24\n    import html\n    ^^^^^^\nSyntaxError: invalid syntax\n",
           "bug": false
         },
         {
@@ -4107,7 +4107,7 @@
           "input": "999.999.999.999",
           "expected": "error",
           "actual": "",
-          "passed": "  File \"/Users/noone/aios/tools/cipherspear.py\", line 24\n    import html\n    ^^^^^^\nSyntaxError: invalid syntax\n",
+          "passed": "  File \"./tools/cipherspear.py\", line 24\n    import html\n    ^^^^^^\nSyntaxError: invalid syntax\n",
           "bug": false
         },
         {
@@ -4115,7 +4115,7 @@
           "input": "None",
           "expected": "error",
           "actual": "",
-          "passed": "  File \"/Users/noone/aios/tools/cipherspear.py\", line 24\n    import html\n    ^^^^^^\nSyntaxError: invalid syntax\n",
+          "passed": "  File \"./tools/cipherspear.py\", line 24\n    import html\n    ^^^^^^\nSyntaxError: invalid syntax\n",
           "bug": false
         },
         {
@@ -4149,7 +4149,7 @@
           "input": "",
           "expected": "error",
           "actual": "",
-          "passed": "  File \"/Users/noone/aios/tools/mythickey.py\", line 21\n    import html\n    ^^^^^^\nSyntaxError: invalid syntax\n",
+          "passed": "  File \"./tools/mythickey.py\", line 21\n    import html\n    ^^^^^^\nSyntaxError: invalid syntax\n",
           "bug": false
         },
         {
@@ -4197,7 +4197,7 @@
           "input": "999.999.999.999",
           "expected": "error",
           "actual": "",
-          "passed": "  File \"/Users/noone/aios/tools/mythickey.py\", line 21\n    import html\n    ^^^^^^\nSyntaxError: invalid syntax\n",
+          "passed": "  File \"./tools/mythickey.py\", line 21\n    import html\n    ^^^^^^\nSyntaxError: invalid syntax\n",
           "bug": false
         },
         {
@@ -4205,7 +4205,7 @@
           "input": "None",
           "expected": "error",
           "actual": "",
-          "passed": "  File \"/Users/noone/aios/tools/mythickey.py\", line 21\n    import html\n    ^^^^^^\nSyntaxError: invalid syntax\n",
+          "passed": "  File \"./tools/mythickey.py\", line 21\n    import html\n    ^^^^^^\nSyntaxError: invalid syntax\n",
           "bug": false
         },
         {
@@ -4239,7 +4239,7 @@
           "input": "",
           "expected": "error",
           "actual": "",
-          "passed": "  File \"/Users/noone/aios/tools/nemesishydra.py\", line 24\n    import html\n    ^^^^^^\nSyntaxError: invalid syntax\n",
+          "passed": "  File \"./tools/nemesishydra.py\", line 24\n    import html\n    ^^^^^^\nSyntaxError: invalid syntax\n",
           "bug": false
         },
         {
@@ -4287,7 +4287,7 @@
           "input": "999.999.999.999",
           "expected": "error",
           "actual": "",
-          "passed": "  File \"/Users/noone/aios/tools/nemesishydra.py\", line 24\n    import html\n    ^^^^^^\nSyntaxError: invalid syntax\n",
+          "passed": "  File \"./tools/nemesishydra.py\", line 24\n    import html\n    ^^^^^^\nSyntaxError: invalid syntax\n",
           "bug": false
         },
         {
@@ -4295,7 +4295,7 @@
           "input": "None",
           "expected": "error",
           "actual": "",
-          "passed": "  File \"/Users/noone/aios/tools/nemesishydra.py\", line 24\n    import html\n    ^^^^^^\nSyntaxError: invalid syntax\n",
+          "passed": "  File \"./tools/nemesishydra.py\", line 24\n    import html\n    ^^^^^^\nSyntaxError: invalid syntax\n",
           "bug": false
         },
         {
@@ -4329,7 +4329,7 @@
           "input": "",
           "expected": "error",
           "actual": "",
-          "passed": "  File \"/Users/noone/aios/tools/obsidianhunt.py\", line 25\n    import html\n    ^^^^^^\nSyntaxError: invalid syntax\n",
+          "passed": "  File \"./tools/obsidianhunt.py\", line 25\n    import html\n    ^^^^^^\nSyntaxError: invalid syntax\n",
           "bug": false
         },
         {
@@ -4377,7 +4377,7 @@
           "input": "999.999.999.999",
           "expected": "error",
           "actual": "",
-          "passed": "  File \"/Users/noone/aios/tools/obsidianhunt.py\", line 25\n    import html\n    ^^^^^^\nSyntaxError: invalid syntax\n",
+          "passed": "  File \"./tools/obsidianhunt.py\", line 25\n    import html\n    ^^^^^^\nSyntaxError: invalid syntax\n",
           "bug": false
         },
         {
@@ -4385,7 +4385,7 @@
           "input": "None",
           "expected": "error",
           "actual": "",
-          "passed": "  File \"/Users/noone/aios/tools/obsidianhunt.py\", line 25\n    import html\n    ^^^^^^\nSyntaxError: invalid syntax\n",
+          "passed": "  File \"./tools/obsidianhunt.py\", line 25\n    import html\n    ^^^^^^\nSyntaxError: invalid syntax\n",
           "bug": false
         },
         {
@@ -4419,7 +4419,7 @@
           "input": "",
           "expected": "error",
           "actual": "",
-          "passed": "  File \"/Users/noone/aios/tools/dirreaper.py\", line 1673\n    if hasattr(args, \"target\") and args.target:\n    ^^\nSyntaxError: invalid syntax\n",
+          "passed": "  File \"./tools/dirreaper.py\", line 1673\n    if hasattr(args, \"target\") and args.target:\n    ^^\nSyntaxError: invalid syntax\n",
           "bug": false
         },
         {
@@ -4467,7 +4467,7 @@
           "input": "999.999.999.999",
           "expected": "error",
           "actual": "",
-          "passed": "  File \"/Users/noone/aios/tools/dirreaper.py\", line 1673\n    if hasattr(args, \"target\") and args.target:\n    ^^\nSyntaxError: invalid syntax\n",
+          "passed": "  File \"./tools/dirreaper.py\", line 1673\n    if hasattr(args, \"target\") and args.target:\n    ^^\nSyntaxError: invalid syntax\n",
           "bug": false
         },
         {
@@ -4475,7 +4475,7 @@
           "input": "None",
           "expected": "error",
           "actual": "",
-          "passed": "  File \"/Users/noone/aios/tools/dirreaper.py\", line 1673\n    if hasattr(args, \"target\") and args.target:\n    ^^\nSyntaxError: invalid syntax\n",
+          "passed": "  File \"./tools/dirreaper.py\", line 1673\n    if hasattr(args, \"target\") and args.target:\n    ^^\nSyntaxError: invalid syntax\n",
           "bug": false
         },
         {
@@ -4599,7 +4599,7 @@
           "input": "",
           "expected": "error",
           "actual": "",
-          "passed": "Traceback (most recent call last):\n  File \"/Users/noone/aios/tools/aurorascan.py\", line 25, in <module>\n    from ._toolkit import launch_gui, summarise_samples, synthesise_latency_samples\nImportError: attempted relative import with no known parent package\n",
+          "passed": "Traceback (most recent call last):\n  File \"./tools/aurorascan.py\", line 25, in <module>\n    from ._toolkit import launch_gui, summarise_samples, synthesise_latency_samples\nImportError: attempted relative import with no known parent package\n",
           "bug": false
         },
         {
@@ -4647,7 +4647,7 @@
           "input": "999.999.999.999",
           "expected": "error",
           "actual": "",
-          "passed": "Traceback (most recent call last):\n  File \"/Users/noone/aios/tools/aurorascan.py\", line 25, in <module>\n    from ._toolkit import launch_gui, summarise_samples, synthesise_latency_samples\nImportError: attempted relative import with no known parent package\n",
+          "passed": "Traceback (most recent call last):\n  File \"./tools/aurorascan.py\", line 25, in <module>\n    from ._toolkit import launch_gui, summarise_samples, synthesise_latency_samples\nImportError: attempted relative import with no known parent package\n",
           "bug": false
         },
         {
@@ -4655,7 +4655,7 @@
           "input": "None",
           "expected": "error",
           "actual": "",
-          "passed": "Traceback (most recent call last):\n  File \"/Users/noone/aios/tools/aurorascan.py\", line 25, in <module>\n    from ._toolkit import launch_gui, summarise_samples, synthesise_latency_samples\nImportError: attempted relative import with no known parent package\n",
+          "passed": "Traceback (most recent call last):\n  File \"./tools/aurorascan.py\", line 25, in <module>\n    from ._toolkit import launch_gui, summarise_samples, synthesise_latency_samples\nImportError: attempted relative import with no known parent package\n",
           "bug": false
         },
         {
@@ -4869,7 +4869,7 @@
           "input": "",
           "expected": "error",
           "actual": "",
-          "passed": "/Users/noone/aios/tools/vulnhunter.py:1816: SyntaxWarning: invalid escape sequence '\\.'\n  const ipRegex = /([0-9]{1,3}\\.){3}[0-9]{1,3}/;\nusage: vulnhunter.py [-h] [--scan SCAN]\n                     [--profile {quick,full,web,network,compliance}]\n                     [--credentials CREDENTIALS] [--report {json,html,csv}]\n                     [--output OUTPUT] [--gui] [--health] [--json] [-v]\nvulnhunter.py: error: unrecognized arguments: \n",
+          "passed": "./tools/vulnhunter.py:1816: SyntaxWarning: invalid escape sequence '\\.'\n  const ipRegex = /([0-9]{1,3}\\.){3}[0-9]{1,3}/;\nusage: vulnhunter.py [-h] [--scan SCAN]\n                     [--profile {quick,full,web,network,compliance}]\n                     [--credentials CREDENTIALS] [--report {json,html,csv}]\n                     [--output OUTPUT] [--gui] [--health] [--json] [-v]\nvulnhunter.py: error: unrecognized arguments: \n",
           "bug": false
         },
         {
@@ -4917,7 +4917,7 @@
           "input": "999.999.999.999",
           "expected": "error",
           "actual": "",
-          "passed": "/Users/noone/aios/tools/vulnhunter.py:1816: SyntaxWarning: invalid escape sequence '\\.'\n  const ipRegex = /([0-9]{1,3}\\.){3}[0-9]{1,3}/;\nusage: vulnhunter.py [-h] [--scan SCAN]\n                     [--profile {quick,full,web,network,compliance}]\n                     [--credentials CREDENTIALS] [--report {json,html,csv}]\n                     [--output OUTPUT] [--gui] [--health] [--json] [-v]\nvulnhunter.py: error: unrecognized arguments: 999.999.999.999\n",
+          "passed": "./tools/vulnhunter.py:1816: SyntaxWarning: invalid escape sequence '\\.'\n  const ipRegex = /([0-9]{1,3}\\.){3}[0-9]{1,3}/;\nusage: vulnhunter.py [-h] [--scan SCAN]\n                     [--profile {quick,full,web,network,compliance}]\n                     [--credentials CREDENTIALS] [--report {json,html,csv}]\n                     [--output OUTPUT] [--gui] [--health] [--json] [-v]\nvulnhunter.py: error: unrecognized arguments: 999.999.999.999\n",
           "bug": false
         },
         {
@@ -4925,7 +4925,7 @@
           "input": "None",
           "expected": "error",
           "actual": "",
-          "passed": "/Users/noone/aios/tools/vulnhunter.py:1816: SyntaxWarning: invalid escape sequence '\\.'\n  const ipRegex = /([0-9]{1,3}\\.){3}[0-9]{1,3}/;\nusage: vulnhunter.py [-h] [--scan SCAN]\n                     [--profile {quick,full,web,network,compliance}]\n                     [--credentials CREDENTIALS] [--report {json,html,csv}]\n                     [--output OUTPUT] [--gui] [--health] [--json] [-v]\nvulnhunter.py: error: unrecognized arguments: None\n",
+          "passed": "./tools/vulnhunter.py:1816: SyntaxWarning: invalid escape sequence '\\.'\n  const ipRegex = /([0-9]{1,3}\\.){3}[0-9]{1,3}/;\nusage: vulnhunter.py [-h] [--scan SCAN]\n                     [--profile {quick,full,web,network,compliance}]\n                     [--credentials CREDENTIALS] [--report {json,html,csv}]\n                     [--output OUTPUT] [--gui] [--health] [--json] [-v]\nvulnhunter.py: error: unrecognized arguments: None\n",
           "bug": false
         },
         {

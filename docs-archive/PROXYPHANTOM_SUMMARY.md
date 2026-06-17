@@ -51,9 +51,9 @@
 - Shannon entropy calculation for randomness analysis
 
 **Files Created**:
-1. `/Users/noone/aios/tools/proxyphantom.py` (2,700+ lines)
-2. `/Users/noone/aios/tools/PROXYPHANTOM_README.md` (comprehensive documentation)
-3. `/Users/noone/aios/tools/PROXYPHANTOM_QUICKSTART.md` (5-minute guide)
+1. `./tools/proxyphantom.py` (2,700+ lines)
+2. `./tools/PROXYPHANTOM_README.md` (comprehensive documentation)
+3. `./tools/PROXYPHANTOM_QUICKSTART.md` (5-minute guide)
 
 **Integration**:
 - Registered in `TOOL_REGISTRY` as "ProxyPhantom"
@@ -292,15 +292,15 @@ Found 5 issues:
 ## Files Delivered
 
 ### Source Code
-- `/Users/noone/aios/tools/proxyphantom.py` (2,700+ lines)
+- `./tools/proxyphantom.py` (2,700+ lines)
 
 ### Documentation
-- `/Users/noone/aios/tools/PROXYPHANTOM_README.md` (7,000+ words)
-- `/Users/noone/aios/tools/PROXYPHANTOM_QUICKSTART.md` (1,000+ words)
-- `/Users/noone/aios/tools/PROXYPHANTOM_SUMMARY.md` (this file)
+- `./tools/PROXYPHANTOM_README.md` (7,000+ words)
+- `./tools/PROXYPHANTOM_QUICKSTART.md` (1,000+ words)
+- `./tools/PROXYPHANTOM_SUMMARY.md` (this file)
 
 ### Integration
-- Updated `/Users/noone/aios/tools/__init__.py` (added to registry)
+- Updated `./tools/__init__.py` (added to registry)
 
 ---
 

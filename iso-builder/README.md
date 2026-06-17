@@ -48,7 +48,7 @@ sudo apt-get install \
 ### Method 1: Shell Script (Recommended)
 
 ```bash
-cd /Users/noone/aios/iso-builder
+cd ./iso-builder
 ./build-iso.sh
 ```
 
@@ -63,12 +63,12 @@ The script will:
 
 **Build time:** 20-40 minutes (depending on internet speed)
 
-**Output:** `/Users/noone/aios/aios-live.iso` (~1.5-2.5GB)
+**Output:** `./aios-live.iso` (~1.5-2.5GB)
 
 ### Method 2: Docker Build
 
 ```bash
-cd /Users/noone/aios/iso-builder
+cd ./iso-builder
 docker build -f Dockerfile.iso -o type=local,dest=. .
 ```
 

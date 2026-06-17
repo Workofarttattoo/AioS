@@ -5,7 +5,7 @@
 ### On macOS (Easiest)
 
 ```bash
-cd /Users/noone/aios/iso-builder
+cd ./iso-builder
 ./build-iso-macos.sh
 ```
 
@@ -20,7 +20,7 @@ cd /Users/noone/aios/iso-builder
 ### On Linux
 
 ```bash
-cd /Users/noone/aios/iso-builder
+cd ./iso-builder
 ./build-iso.sh
 ```
 
@@ -30,12 +30,12 @@ sudo apt-get install debootstrap squashfs-tools xorriso isolinux \
     syslinux-efi grub-pc-bin grub-efi-amd64-bin mtools dosfstools
 ```
 
-**Output:** `/Users/noone/aios/aios-live.iso`
+**Output:** `./aios-live.iso`
 
 ### Using Docker (Any Platform)
 
 ```bash
-cd /Users/noone/aios/iso-builder
+cd ./iso-builder
 docker-compose up
 ```
 

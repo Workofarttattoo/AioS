@@ -207,7 +207,7 @@ async def main():
     print("  1. Run full scan: python -m tools.dirreaper https://example.com")
     print("  2. Launch GUI: python -m tools.dirreaper --gui")
     print("  3. Check health: python -m tools.dirreaper --health-check")
-    print("  4. Read docs: cat /Users/noone/aios/tools/DIRREAPER_README.md")
+    print("  4. Read docs: cat ./tools/DIRREAPER_README.md")
     print("\n💀 DirReaper - Cutting through directories with style! ⚡\n")
 
 

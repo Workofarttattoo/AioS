@@ -10,11 +10,11 @@
     "performance_vs_nuts": "80x better"
   },
   "modules": {
-    "quantum_vqe_forecaster": "/Users/noone/aios/quantum_vqe_forecaster.py",
-    "oracle_vqe_integration": "/Users/noone/aios/oracle_vqe_integration.py",
-    "oracle": "/Users/noone/aios/oracle.py",
-    "ml_algorithms": "/Users/noone/aios/ml_algorithms.py",
-    "quantum_ml_algorithms": "/Users/noone/aios/quantum_ml_algorithms.py"
+    "quantum_vqe_forecaster": "./quantum_vqe_forecaster.py",
+    "oracle_vqe_integration": "./oracle_vqe_integration.py",
+    "oracle": "./oracle.py",
+    "ml_algorithms": "./ml_algorithms.py",
+    "quantum_ml_algorithms": "./quantum_ml_algorithms.py"
   },
   "deployment_steps": [
     {

@@ -11,7 +11,7 @@ echo "============================================"
 # Configuration
 PACKAGE_NAME="sovereign_security_toolkit_$(date +%Y%m%d)"
 PACKAGE_DIR="/tmp/${PACKAGE_NAME}"
-TOOLS_DIR="/Users/noone/aios/tools"
+TOOLS_DIR="./tools"
 
 echo ""
 echo "[*] Creating package directory: ${PACKAGE_DIR}"

@@ -11,8 +11,8 @@
 ## Overview
 
 The Sovereign Security Toolkit contains 40+ security assessment and penetration testing tools distributed across two locations:
-- `/Users/noone/aios/tools/` - **PRIMARY** (most tools, GUI versions)
-- `/Users/noone/aios/red-team-tools/` - **LEGACY** (deprecated, will be consolidated)
+- `./tools/` - **PRIMARY** (most tools, GUI versions)
+- `./red-team-tools/` - **LEGACY** (deprecated, will be consolidated)
 
 **Crystal Intent: Single Location & Clear Inventory**
 
@@ -263,7 +263,7 @@ python aios/tools/test_all_tools.py --health
 **Phase 2 (2 weeks):** Archive `red-team-tools/` to separate branch
 **Phase 3 (1 month):** Remove duplication, keep single source of truth in `tools/`
 
-**Preferred single location:** `/Users/noone/aios/tools/` (has GUI versions and full integration)
+**Preferred single location:** `./tools/` (has GUI versions and full integration)
 
 ---
 

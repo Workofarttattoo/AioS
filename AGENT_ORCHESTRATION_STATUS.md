@@ -15,14 +15,14 @@ Ai:oS implements a declarative manifest-based agent orchestration system with 9 
 
 | File | Status | Purpose |
 |------|--------|---------|
-| `/Users/noone/aios/config.py` | ✓ Verified | Manifest definitions (ActionConfig, MetaAgentConfig, Manifest classes) |
-| `/Users/noone/aios/agents/system.py` | 🔐 Encrypted | Meta-agent implementations (git-crypt protected) |
-| `/Users/noone/aios/agents/ai_os_agent.py` | ✓ Verified | AI OS meta-agent with autonomous learning |
-| `/Users/noone/aios/agents/__init__.py` | 🔐 Encrypted | Agent registry and initialization |
-| `/Users/noone/aios/runtime.py` | 🔐 Encrypted | Execution engine (git-crypt protected) |
-| `/Users/noone/aios/ml_algorithms.py` | ✓ Verified | ML & probabilistic algorithms suite |
-| `/Users/noone/aios/quantum_ml_algorithms.py` | ✓ Verified | Quantum-enhanced ML algorithms |
-| `/Users/noone/aios/autonomous_discovery.py` | ✓ Verified | Level 4 autonomous agent system |
+| `./config.py` | ✓ Verified | Manifest definitions (ActionConfig, MetaAgentConfig, Manifest classes) |
+| `./agents/system.py` | 🔐 Encrypted | Meta-agent implementations (git-crypt protected) |
+| `./agents/ai_os_agent.py` | ✓ Verified | AI OS meta-agent with autonomous learning |
+| `./agents/__init__.py` | 🔐 Encrypted | Agent registry and initialization |
+| `./runtime.py` | 🔐 Encrypted | Execution engine (git-crypt protected) |
+| `./ml_algorithms.py` | ✓ Verified | ML & probabilistic algorithms suite |
+| `./quantum_ml_algorithms.py` | ✓ Verified | Quantum-enhanced ML algorithms |
+| `./autonomous_discovery.py` | ✓ Verified | Level 4 autonomous agent system |
 
 ---
 
@@ -30,7 +30,7 @@ Ai:oS implements a declarative manifest-based agent orchestration system with 9 
 
 ### 1. KernelAgent - Process Management
 
-**Location:** `/Users/noone/aios/agents/kernel_agent.py` (✓ NEW - Unencrypted Implementation)
+**Location:** `./agents/kernel_agent.py` (✓ NEW - Unencrypted Implementation)
 **Status:** ✓ Verified (100% working implementation, standalone module)
 
 **Implemented Capabilities:**
@@ -47,15 +47,15 @@ Ai:oS implements a declarative manifest-based agent orchestration system with 9 
 - Boot readiness validation
 
 **Files:**
-- Implementation: `/Users/noone/aios/agents/kernel_agent.py`
-- Manifest: `/Users/noone/aios/config.py`
+- Implementation: `./agents/kernel_agent.py`
+- Manifest: `./config.py`
 - Test: Can test directly with `python -c "from aios.agents.kernel_agent import KernelAgent; ka = KernelAgent(); print(ka.get_system_status())"`
 
 ---
 
 ### 2. SecurityAgent - Firewall & Threat Management
 
-**Location:** `/Users/noone/aios/agents/security_agent.py` (✓ NEW - Unencrypted Implementation)
+**Location:** `./agents/security_agent.py` (✓ NEW - Unencrypted Implementation)
 **Status:** ✓ Verified (100% working implementation with cross-platform support)
 
 **Implemented Capabilities:**
@@ -72,15 +72,15 @@ Ai:oS implements a declarative manifest-based agent orchestration system with 9 
 - Linux: ufw firewall, LUKS encryption
 
 **Files:**
-- Implementation: `/Users/noone/aios/agents/security_agent.py`
-- Tools: `/Users/noone/aios/tools/` (8 security tools integrated)
+- Implementation: `./agents/security_agent.py`
+- Tools: `./tools/` (8 security tools integrated)
 - Test: `python -c "from aios.agents.security_agent import SecurityAgent; sa = SecurityAgent(); print(sa.get_firewall_status())"`
 
 ---
 
 ### 3. NetworkingAgent - Network Configuration
 
-**Location:** `/Users/noone/aios/agents/networking_agent.py` (✓ NEW - Unencrypted Implementation)
+**Location:** `./agents/networking_agent.py` (✓ NEW - Unencrypted Implementation)
 **Status:** ✓ Verified (100% working implementation, standalone module)
 
 **Implemented Capabilities:**
@@ -100,14 +100,14 @@ Ai:oS implements a declarative manifest-based agent orchestration system with 9 
 - Graceful fallback for missing commands
 
 **Files:**
-- Implementation: `/Users/noone/aios/agents/networking_agent.py`
+- Implementation: `./agents/networking_agent.py`
 - Test: Can test directly with `python -c "from aios.agents.networking_agent import NetworkingAgent; na = NetworkingAgent(); print(na.list_interfaces())"`
 
 ---
 
 ### 4. StorageAgent - Volume Management
 
-**Location:** `/Users/noone/aios/agents/system.py:StorageAgent`
+**Location:** `./agents/system.py:StorageAgent`
 **Status:** ⚡ Aspirational (designed, partial implementation)
 
 **Designed Capabilities:**
@@ -121,7 +121,7 @@ Ai:oS implements a declarative manifest-based agent orchestration system with 9 
 
 ### 5. ApplicationAgent - Process Orchestration
 
-**Location:** `/Users/noone/aios/agents/application_agent.py` (✓ NEW - Unencrypted Implementation)
+**Location:** `./agents/application_agent.py` (✓ NEW - Unencrypted Implementation)
 **Status:** ✓ Verified (100% working implementation, standalone module)
 
 **Implemented Capabilities:**
@@ -142,15 +142,15 @@ Ai:oS implements a declarative manifest-based agent orchestration system with 9 
 - Hypervisor support (QEMU or libvirt-managed)
 
 **Files:**
-- Implementation: `/Users/noone/aios/agents/application_agent.py`
-- Manifest: `/Users/noone/aios/config.py`
+- Implementation: `./agents/application_agent.py`
+- Manifest: `./config.py`
 - Test: Can test directly with `python -c "from aios.agents.application_agent import ApplicationAgent; aa = ApplicationAgent(); print(aa.list_applications())"`
 
 ---
 
 ### 6. ScalabilityAgent - Load & Resource Scaling
 
-**Location:** `/Users/noone/aios/agents/scalability_agent.py` (✓ NEW - Unencrypted Implementation)
+**Location:** `./agents/scalability_agent.py` (✓ NEW - Unencrypted Implementation)
 **Status:** ✓ Verified (100% working implementation, standalone module)
 
 **Implemented Capabilities:**
@@ -173,8 +173,8 @@ Ai:oS implements a declarative manifest-based agent orchestration system with 9 
 - Provider selection: CPU-driven, volatility-driven, sustained-load-driven
 
 **Files:**
-- Implementation: `/Users/noone/aios/agents/scalability_agent.py`
-- Manifest: `/Users/noone/aios/config.py`
+- Implementation: `./agents/scalability_agent.py`
+- Manifest: `./config.py`
 - Test: Can test directly with `python -c "from aios.agents.scalability_agent import ScalabilityAgent; sa = ScalabilityAgent(); print(sa.get_current_load())"`
 
 **Provider Integration:**
@@ -187,7 +187,7 @@ Ai:oS implements a declarative manifest-based agent orchestration system with 9 
 
 ### 7. OrchestrationAgent - Policy & Coordination
 
-**Location:** `/Users/noone/aios/agents/orchestration_agent.py` (✓ NEW - Unencrypted Implementation)
+**Location:** `./agents/orchestration_agent.py` (✓ NEW - Unencrypted Implementation)
 **Status:** ✓ Verified (100% working implementation, standalone module)
 
 **Implemented Capabilities:**
@@ -212,14 +212,14 @@ Ai:oS implements a declarative manifest-based agent orchestration system with 9 
 - Persistent policy history and orchestration logs
 
 **Files:**
-- Implementation: `/Users/noone/aios/agents/orchestration_agent.py`
+- Implementation: `./agents/orchestration_agent.py`
 - Test: Can test directly with `python -c "from aios.agents.orchestration_agent import OrchestrationAgent; oa = OrchestrationAgent(); print(oa.get_orchestration_summary())"`
 
 ---
 
 ### 8. UserAgent - Authentication & Management
 
-**Location:** `/Users/noone/aios/agents/user_agent.py` (✓ NEW - Unencrypted Implementation)
+**Location:** `./agents/user_agent.py` (✓ NEW - Unencrypted Implementation)
 **Status:** ✓ Verified (100% working implementation, standalone module)
 
 **Implemented Capabilities:**
@@ -242,14 +242,14 @@ Ai:oS implements a declarative manifest-based agent orchestration system with 9 
 - Sudo access verification via sudo -l
 
 **Files:**
-- Implementation: `/Users/noone/aios/agents/user_agent.py`
+- Implementation: `./agents/user_agent.py`
 - Test: Can test directly with `python -c "from aios.agents.user_agent import UserAgent; ua = UserAgent(); print(ua.list_users())"`
 
 ---
 
 ### 9. GuiAgent - Display Management
 
-**Location:** `/Users/noone/aios/agents/gui_agent.py` (✓ NEW - Unencrypted Implementation)
+**Location:** `./agents/gui_agent.py` (✓ NEW - Unencrypted Implementation)
 **Status:** ✓ Verified (100% working implementation, standalone module)
 
 **Implemented Capabilities:**
@@ -275,8 +275,8 @@ Ai:oS implements a declarative manifest-based agent orchestration system with 9 
 - Performance metrics derived from telemetry stream
 
 **Files:**
-- Implementation: `/Users/noone/aios/agents/gui_agent.py`
-- GUI bus prototype: `/Users/noone/aios/scripts/compositor/`
+- Implementation: `./agents/gui_agent.py`
+- GUI bus prototype: `./scripts/compositor/`
 - Test: Can test directly with `python -c "from aios.agents.gui_agent import GuiAgent; ga = GuiAgent(); print(ga.list_displays())"`
 
 ---
@@ -285,7 +285,7 @@ Ai:oS implements a declarative manifest-based agent orchestration system with 9 
 
 ### Classical ML Algorithms
 
-**File:** `/Users/noone/aios/ml_algorithms.py`
+**File:** `./ml_algorithms.py`
 **Status:** ✓ Verified (10/10 algorithms implemented)
 
 | Algorithm | Verified | Dependencies | Use Case |
@@ -303,14 +303,14 @@ Ai:oS implements a declarative manifest-based agent orchestration system with 9 
 
 **Check Availability:**
 ```bash
-python /Users/noone/aios/ml_algorithms.py
+python ./ml_algorithms.py
 ```
 
 ---
 
 ### Quantum ML Algorithms
 
-**File:** `/Users/noone/aios/quantum_ml_algorithms.py`
+**File:** `./quantum_ml_algorithms.py`
 **Status:** ✓ Verified (quantum simulation 1-20 qubits exact)
 
 | Capability | Status | Implementation |
@@ -328,7 +328,7 @@ python /Users/noone/aios/ml_algorithms.py
 
 ### Autonomous Discovery System
 
-**File:** `/Users/noone/aios/autonomous_discovery.py`
+**File:** `./autonomous_discovery.py`
 **Status:** ✓ Verified (Level 4 autonomy framework)
 
 | Component | Status | Capability |
@@ -350,7 +350,7 @@ python -c "from aios.autonomous_discovery import check_autonomous_discovery_depe
 
 ### Manifest Loading
 
-**File:** `/Users/noone/aios/config.py::load_manifest()`
+**File:** `./config.py::load_manifest()`
 **Status:** ✓ Verified
 
 Supports:
@@ -362,7 +362,7 @@ Supports:
 
 ### Runtime Execution
 
-**File:** `/Users/noone/aios/runtime.py`
+**File:** `./runtime.py`
 **Status:** 🔐 Encrypted (unable to verify current implementation)
 
 **Designed Features:**
@@ -377,7 +377,7 @@ Supports:
 
 ### Test Suite
 
-**Location:** `/Users/noone/aios/tests/`
+**Location:** `./tests/`
 **Status:** ✓ Verified (security suite tests pass)
 
 Available Tests:
@@ -393,7 +393,7 @@ PYTHONPATH=. python -m unittest discover -s aios/tests
 
 ### Examples & Demonstrations
 
-**Location:** `/Users/noone/aios/examples/`
+**Location:** `./examples/`
 **Status:** ✓ Verified (all example manifests available)
 
 | Example | Status | Purpose |
@@ -490,13 +490,13 @@ python -c "from aios.agents.user_agent import UserAgent; ua = UserAgent(); print
 python -c "from aios.agents.gui_agent import GuiAgent; ga = GuiAgent(); print(ga.list_displays())"
 
 # Check ML algorithms (10/10 classical + quantum)
-python /Users/noone/aios/ml_algorithms.py
+python ./ml_algorithms.py
 
 # Check quantum ML (1-20 qubits verified)
-python /Users/noone/aios/quantum_ml_algorithms.py
+python ./quantum_ml_algorithms.py
 
 # Check autonomous discovery
-python /Users/noone/aios/autonomous_discovery.py
+python ./autonomous_discovery.py
 
 # Load manifest with all agents
 python -c "from aios.config import load_manifest; m = load_manifest(); print(f'Manifest agents: {list(m.meta_agents.keys())}')"
