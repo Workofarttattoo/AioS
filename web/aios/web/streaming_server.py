@@ -15,6 +15,17 @@ from pathlib import Path
 from typing import List
 import logging
 
+import sys
+from pathlib import Path
+AIOS_ROOT = Path(__file__).resolve().parents[3]
+sys.path.insert(0, str(AIOS_ROOT))
+
+try:
+    from web.echo_prime_bridge import router as echo_prime_router
+except ImportError:
+    echo_prime_router = None
+
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
@@ -79,6 +90,10 @@ async def get_agents():
         ]
     }
 
+
+
+if echo_prime_router:
+    app.include_router(echo_prime_router)
 
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
